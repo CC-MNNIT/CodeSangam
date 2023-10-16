@@ -1,15 +1,13 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	_ "github.com/CC-MNNIT/CodeSangam/server/docs"
 	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
-	"github.com/gin-gonic/gin"
-	swaggerfiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func init() {
@@ -20,16 +18,15 @@ func init() {
 // @title CodeSangam API
 // @description This is the API for CodeSangam
 func main() {
-	router := gin.Default()
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	router := echo.New()
+	router.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	MergeRouters(router, routers.Index)
 
-	log.Print("Starting backend server at port ", os.Getenv("PORT"))
-	router.Run()
+	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
 }
 
-func MergeRouters(rootRouter *gin.Engine, routers ...func(*gin.Engine)) {
+func MergeRouters(rootRouter *echo.Echo, routers ...func(*echo.Echo)) {
 	for _, router := range routers {
 		router(rootRouter)
 	}

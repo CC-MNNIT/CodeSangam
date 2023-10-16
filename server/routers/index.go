@@ -2,9 +2,9 @@ package routers
 
 import (
 	"github.com/CC-MNNIT/CodeSangam/server/controller"
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
-func Index(router *gin.Engine) {
+func Index(router *echo.Echo) {
 	router.GET("/go", controller.HelloGO)
 }

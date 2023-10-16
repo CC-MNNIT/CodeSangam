@@ -1,6 +1,14 @@
 package controller
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+)
+
+type Pong struct {
+	Message string `json:"message"`
+}
 
 // @Summary GO ping
 // @Schemes
@@ -10,8 +18,7 @@ import "github.com/gin-gonic/gin"
 // @Produce json
 // @Success 200 {string} Let's GO
 // @Router /go [get]
-func HelloGO(g *gin.Context) {
-	g.JSON(200, gin.H{
-		"message": "Let's GO",
-	})
+// @Model Pong
+func HelloGO(c echo.Context) error {
+	return c.JSON(http.StatusOK, &Pong{Message: "Let's GO"})
 }
