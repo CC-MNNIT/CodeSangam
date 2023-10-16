@@ -1,5 +1,5 @@
 import React from 'react';
-import background from "../Assets/background.gif";
+import background from "../Assets/bg.gif";
 
 const LandingPage = () => {
     return (
