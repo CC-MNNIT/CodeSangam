@@ -10,6 +10,8 @@ type Pong struct {
 	Message string `json:"message"`
 }
 
+// HelloGO
+//
 // @Summary GO ping
 // @Schemes
 // @Description Do ping
@@ -18,7 +20,6 @@ type Pong struct {
 // @Produce json
 // @Success 200 {string} Let's GO
 // @Router /go [get]
-// @Model Pong
 func HelloGO(c echo.Context) error {
 	return c.JSON(http.StatusOK, &Pong{Message: "Let's GO"})
 }
