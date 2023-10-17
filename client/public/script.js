@@ -7,16 +7,16 @@ window.onload = function () {
     starfield = new jsStarfield;
     starfield.init("main_canvas");
 
-    var gui = new dat.GUI();
-    gui.add(starfield, 'amount', 0, 200000).onFinishChange(function (value) {
-        starfield.set_amount(value);
-    });
-    gui.add(starfield, 'speed', 0, 1500);
-    gui.add(starfield, 'follow_mouse', 0, 2500).onFinishChange(function (value) {
-        if (value === false)
-            starfield.reset_origin();
-    })
-    gui.add(starfield, 'method', ['rects', 'buffer']);
+    // var gui = new dat.GUI();
+    // gui.add(starfield, 'amount', 0, 200000).onFinishChange(function (value) {
+    //     starfield.set_amount(value);
+    // });
+    // gui.add(starfield, 'speed', 0, 1500);
+    // gui.add(starfield, 'follow_mouse', 0, 2500).onFinishChange(function (value) {
+    //     if (value === false)
+    //         starfield.reset_origin();
+    // })
+    // gui.add(starfield, 'method', ['rects', 'buffer']);
 
     loop();
 };
@@ -52,11 +52,11 @@ function jsStarfield() {
 
     this.max_depth = 1000;
     this.max_size = 3;
-    this.speed = 750;
-    this.amount = 1000;
+    this.speed = 50;
+    this.amount = 4300;
 
     this.follow_mouse = false;
-    this.method = "rects";
+    this.method = "buffer";
 
     this.last_frame = 0;
     this.fps_time = 0;
