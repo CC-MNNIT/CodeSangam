@@ -68,7 +68,7 @@ function jsStarfield() {
     this.init = function (canvas) {
         this.canvas = document.getElementById(canvas);
         this.ctx = this.canvas.getContext('2d');
-        this.resize(window.innerWidth, 3*window.innerHeight);
+        this.resize(window.innerWidth, window.innerHeight);
         this.ctx.font = "18px Arial";
 
         this.reset_origin();

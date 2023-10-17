@@ -14,7 +14,7 @@ const LandingPage = () => {
 
     return (
         <div>
-            <canvas id="main_canvas">
+            <canvas className='fixed' id="main_canvas">
             </canvas>
             <div style={{ opacity: topDivOpacity }} className="logo fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">CodeSangam</div>
             {/* <div className='text-white text-center h-screen w-screen overflow-hidden'> */}
