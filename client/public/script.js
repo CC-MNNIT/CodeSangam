@@ -53,7 +53,7 @@ function jsStarfield() {
     this.max_depth = 1000;
     this.max_size = 3;
     this.speed = 50;
-    this.amount = 4300;
+    this.amount = 10000;
 
     this.follow_mouse = false;
     this.method = "buffer";
@@ -68,7 +68,7 @@ function jsStarfield() {
     this.init = function (canvas) {
         this.canvas = document.getElementById(canvas);
         this.ctx = this.canvas.getContext('2d');
-        this.resize(window.innerWidth, window.innerHeight);
+        this.resize(window.innerWidth, 3*window.innerHeight);
         this.ctx.font = "18px Arial";
 
         this.reset_origin();

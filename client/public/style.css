@@ -7,7 +7,7 @@ body {
 
 canvas {
     display: block;
-    width: 500px;
-    height: 500px;
+    width: calc(100vw);
+    height: 1000000px;
     background: #000;
 }
