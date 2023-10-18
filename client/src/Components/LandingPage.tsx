@@ -6,6 +6,7 @@ const LandingPage = () => {
 
     const [topDivOpacity, setTopDivOpacity] = useState(1);
     const [angle, setAngle] = useState(0);
+    const [scale, setScale] = useState(0);
     const leftrotateMoon = () => {
         setAngle(angle - 72);
     }
@@ -31,6 +32,18 @@ const LandingPage = () => {
         }
     }, []);
 
+    useEffect(() => {
+
+        const { innerWidth: width, innerHeight: height } = window;
+        console.log("xx-" + width);
+        console.log("yy-" + height);
+
+        const newScale = 200 * width / height;
+        console.log("scale-"+newScale);
+        setScale(newScale);
+
+    }, []);
+
 
     return (
         <div className='relative h-32 w-32'>
@@ -43,7 +56,7 @@ const LandingPage = () => {
 
 
 
-            <div style={{ overflow: "hidden", height: "calc(265vh)", width: "100vw" }}>
+            <div style={{ overflow: "hidden", height: "calc(500vh)", width: "100vw" }}>
 
 
 
@@ -54,17 +67,10 @@ const LandingPage = () => {
 
 
 
-                    <div style={{ width: "100vw", height: "calc(100vh)", transition: "transform 2s", transform: `rotate(${angle}deg)`, display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "", opacity: "1", scale: "250%", position: "absolute", bottom: "0px" }}>
+                    <div style={{ width: "calc(100vw)", height: "calc(100vh)", transition: "transform 2s", transform: `rotate(${angle}deg)`, display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "", opacity: "1", scale: `${scale}%`, position: "absolute", bottom: "0px" }}>
                         <img style={{ position: "absolute", height: "100%" }} src={moon} alt="moon" />
                         <div id="container" style={{ position: "absolute", display: "flex", justifyContent: "center", alignItems: "center", height: "100%", zIndex: 20 }}>
-                            <div className="item" style={{width: "200px", height: "200px"}}>
-
-
-                                
-
-
-
-                            </div>
+                            <div className="item">1</div>
                             <div className="item">2</div>
                             <div className="item">3</div>
                             <div className="item">4</div>

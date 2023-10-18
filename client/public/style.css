@@ -13,7 +13,7 @@ canvas {
 }
 
   #container {
-    width: calc(100vh);
+    width: calc(100vw);
     height: calc(100vh);
     margin: 10px auto;
     border: 1px solid #000;
