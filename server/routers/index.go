@@ -5,6 +5,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Index(router *echo.Echo) {
-	router.GET("/go", controller.HelloGO)
+func Index(router *echo.Echo, baseUrl *string) {
+	g := router.Group(*baseUrl)
+	g.GET("/go", controller.HelloGO)
 }
