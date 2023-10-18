@@ -11,12 +11,12 @@ const LandingPage = () => {
         setTopDivOpacity(1 - currentScroll / 500);
 
     });
-
     return (
         <div>
             <canvas className='fixed' id="main_canvas">
             </canvas>
-            <div style={{ opacity: topDivOpacity }} className="logo fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">CodeSangam</div>
+            {/* <div className="logo fixed z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">CodeSangam</div> */}
+            <div style={{ opacity: topDivOpacity }} className="fixed logo"><b>CODE<span>SAN</span>GAM</b></div>
             {/* <div className='text-white text-center h-screen w-screen overflow-hidden'> */}
             {/* <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'><NeonText text="CodeSangam" /></div> */}
             {/* <div className="logo absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-15vh text-white font-extralight font-comfortaa ">CodeSangam</div> */}
