@@ -56,7 +56,7 @@ const LandingPage = () => {
 
 
 
-            <div style={{ overflow: "hidden", height: "calc(180vh)", width: "100vw" }}>
+            <div style={{ overflow: "hidden", height: "calc(190vh)", width: "100vw" }}>
 
 
 
