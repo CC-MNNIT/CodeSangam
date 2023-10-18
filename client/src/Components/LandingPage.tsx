@@ -6,7 +6,10 @@ const LandingPage = () => {
 
     const [topDivOpacity, setTopDivOpacity] = useState(1);
     const [angle, setAngle] = useState(0);
-    const rotateMoon = () => {
+    const leftrotateMoon = () => {
+        setAngle(angle - 72);
+    }
+    const rightrotateMoon = () => {
         setAngle(angle + 72);
     };
     window.addEventListener('scroll', () => {
@@ -15,8 +18,9 @@ const LandingPage = () => {
 
     });
     return (
-        <div>
-            <button onClick={() => { rotateMoon(); }} style={{ zIndex: "50000", position: "fixed", color: "white" }}>Rotate(current angle - {angle})</button>
+        <div className='relative h-32 w-32'>
+            <button className="absolute left-0 top-0 h-16 w-16" onClick={() => { leftrotateMoon(); }} style={{ zIndex: "50000", position: "fixed", color: "white" }}>Rotate(current angle - {angle})</button>
+            <button className='absolute top-0 right-0 h-16 w-16' onClick={() => { rightrotateMoon(); }} style={{ zIndex: "50000", position: "fixed", color: "white" }}>Rotate(current angle - {angle})</button>
             <canvas className='fixed' id="main_canvas">
             </canvas>
             <div style={{ opacity: topDivOpacity }} className="fixed logo"><b>C<img className="rotate spinner" src='https://i.imgur.com/2Z3Svuj.png' alt="moon"></img>DE<span>SAN</span>GAM</b></div>
