@@ -4,9 +4,9 @@
 .logo {
     text-align: center;
     width: 65%;
-    height: 40%;
+    height: fit-content;
     margin: auto;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
