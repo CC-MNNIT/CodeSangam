@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moon from "../Assets/moon.svg";
 import "./Styles.css"
 
@@ -17,6 +17,21 @@ const LandingPage = () => {
         setTopDivOpacity(1 - currentScroll / 500);
 
     });
+
+    useEffect(() => {
+        const script = document.createElement('script');
+
+        script.src = "./scriptt.js";
+        script.async = true;
+        console.log(script.src);
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
+
+
     return (
         <div className='relative h-32 w-32'>
             <button className="absolute left-0 top-0 h-16 w-16" onClick={() => { leftrotateMoon(); }} style={{ zIndex: "50000", position: "fixed", color: "white" }}>Rotate(current angle - {angle})</button>
@@ -24,13 +39,52 @@ const LandingPage = () => {
             <canvas className='fixed' id="main_canvas">
             </canvas>
             <div style={{ opacity: topDivOpacity }} className="fixed logo"><b>C<img className="rotate spinner" src='https://i.imgur.com/2Z3Svuj.png' alt="moon"></img>DE<span>SAN</span>GAM</b></div>
-            <div style={{ overflow: "hidden", position: "relative", zIndex: 100, backgroundColor: "", opacity: 1, height: "calc(200vh+250px)", width: "calc(100vw)" }}>
-                <div style={{ overflow: "", display: "flex", justifyContent: "center", alignItems: "center", position: "relative", zIndex: 100, backgroundColor: "red", opacity: 0, height: "calc(200vh)", width: "calc(100vw)" }}>
+
+
+
+
+            <div style={{ overflow: "hidden", height: "calc(265vh)", width: "100vw" }}>
+
+
+
+
+
+
+                <div style={{ overflow: "hidden", position: "relative", height: "400vh", width: "100vw", backgroundColor: "", opacity: "1" }}>
+
+
+
+                    <div style={{ width: "100vw", height: "calc(100vh)", transition: "transform 2s", transform: `rotate(${angle}deg)`, display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "", opacity: "1", scale: "250%", position: "absolute", bottom: "0px" }}>
+                        <img style={{ position: "absolute", height: "100%" }} src={moon} alt="moon" />
+                        <div id="container" style={{ position: "absolute", display: "flex", justifyContent: "center", alignItems: "center", height: "100%", zIndex: 20 }}>
+                            <div className="item" style={{width: "200px", height: "200px"}}>
+
+
+                                
+
+
+
+                            </div>
+                            <div className="item">2</div>
+                            <div className="item">3</div>
+                            <div className="item">4</div>
+                            <div className="item">5</div>
+                        </div>
+                    </div>
+
+
+
                 </div>
-                <div style={{ overflow: "", display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", position: "relative", zIndex: 100, backgroundColor: "", opacity: 1, height: "calc(250px)", width: "calc(100vw)" }}>
-                    <img style={{ position: "relative", top: "300px", transition: "transform 2s", transform: `rotate(${angle}deg)`, scale: "146%" }} src={moon} alt="moon" />
-                </div>
+
+
+
+
+
             </div>
+
+
+
+
         </div >
     )
 }
