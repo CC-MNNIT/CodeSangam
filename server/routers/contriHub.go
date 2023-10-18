@@ -6,7 +6,7 @@ import (
 )
 
 func ContriHub(router *echo.Echo, baseUrl *string) {
-	g := router.Group(*baseUrl).Group("/api/v1/contrihub")
+	g := router.Group(*baseUrl).Group("/contrihub")
 
 	g.GET("/rankings", controller.GetContriHubRankings)
 }

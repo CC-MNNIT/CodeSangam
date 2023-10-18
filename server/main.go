@@ -18,7 +18,7 @@ func init() {
 // @title CodeSangam API
 // @description This is the API for CodeSangam
 func main() {
-	baseUrl := os.Getenv("BASE_URL")
+	baseUrl := os.Getenv("BASE_URL") + "/api/v1"
 	router := echo.New()
 
 	docs.SwaggerInfo.BasePath = baseUrl

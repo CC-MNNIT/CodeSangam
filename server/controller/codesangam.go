@@ -16,7 +16,7 @@ import (
 // @Produce json
 // @Param user body models.UserDto true "User"
 // @Success 200 {object} models.User
-// @Router /api/v1/cs/user [post]
+// @Router /cs/user [post]
 func SaveUser(c echo.Context) error {
 	var dto models.UserDto
 

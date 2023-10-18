@@ -6,7 +6,7 @@ import (
 )
 
 func CodeSangam(router *echo.Echo, baseUrl *string) {
-	g := router.Group(*baseUrl).Group("/api/v1/cs")
+	g := router.Group(*baseUrl).Group("/cs")
 
 	g.POST("/user", controller.SaveUser)
 }
