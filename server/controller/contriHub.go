@@ -1,10 +1,11 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 // GetContriHubRankings
