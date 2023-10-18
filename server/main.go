@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	_ "github.com/CC-MNNIT/CodeSangam/server/docs"
+	"github.com/CC-MNNIT/CodeSangam/server/docs"
 	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
 	"github.com/labstack/echo/v4"
@@ -18,16 +18,20 @@ func init() {
 // @title CodeSangam API
 // @description This is the API for CodeSangam
 func main() {
+	baseUrl := os.Getenv("BASE_URL")
 	router := echo.New()
-	router.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	MergeRouters(router, routers.Index, routers.ContriHub)
+	docs.SwaggerInfo.BasePath = baseUrl
+
+	router.GET(baseUrl+"/swagger/*", echoSwagger.WrapHandler)
+
+	MergeRouters(router, &baseUrl, routers.Index, routers.ContriHub)
 
 	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
 }
 
-func MergeRouters(rootRouter *echo.Echo, routers ...func(*echo.Echo)) {
+func MergeRouters(rootRouter *echo.Echo, baseUrl *string, routers ...func(*echo.Echo, *string)) {
 	for _, router := range routers {
-		router(rootRouter)
+		router(rootRouter, baseUrl)
 	}
 }
