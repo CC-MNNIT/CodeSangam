@@ -21,10 +21,14 @@ import (
 func GetContriHubRankings(c echo.Context) error {
 	var users []models.ContriHUBUser
 
-	err := initialize.
-		ContriHubDB.
-		Raw("SELECT * FROM user_profile_userprofile us INNER JOIN auth_user au ON us.user_id = au.id WHERE us.total_points > 0 ORDER BY total_points DESC;").
-		Find(&users).Error
+	err := initialize.ContriHubDB.Raw(
+		`SELECT * FROM user_profile_userprofile us 
+		INNER JOIN auth_user au 
+		ON us.user_id = au.id 
+		WHERE us.total_points > 0 
+		ORDER BY total_points DESC;`,
+	).Find(&users).Error
+
 	if err != nil {
 		return err
 	}
