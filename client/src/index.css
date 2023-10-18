@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url(//fonts.googleapis.com/css?family=Comfortaa:70);
+
+::-webkit-scrollbar {
+    height: 2px;
+    width: 2px;
+    background-color: rgb(0, 0, 0);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #909090;
+    border-radius: 8px;
+  }
