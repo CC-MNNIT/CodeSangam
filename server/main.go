@@ -25,7 +25,7 @@ func main() {
 
 	router.GET(baseUrl+"/swagger/*", echoSwagger.WrapHandler)
 
-	MergeRouters(router, &baseUrl, routers.Index, routers.ContriHub)
+	MergeRouters(router, &baseUrl, routers.Index, routers.ContriHub, routers.CodeSangam)
 
 	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
 }
