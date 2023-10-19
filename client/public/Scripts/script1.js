@@ -19,6 +19,109 @@ window.onload = function () {
     // gui.add(starfield, 'method', ['rects', 'buffer']);
 
     loop();
+
+
+    var parallaxBox = document.getElementById('space-card-box-1');
+    var c1left = document.getElementById('l1-1').offsetLeft,
+        c1top = document.getElementById('l1-1').offsetTop,
+        c2left = document.getElementById('l2-1').offsetLeft,
+        c2top = document.getElementById('l2-1').offsetTop,
+        c3left = document.getElementById('l3-1').offsetLeft,
+        c3top = document.getElementById('l3-1').offsetTop,
+        c4left = document.getElementById('l4-1').offsetLeft,
+        c4top = document.getElementById('l4-1').offsetTop;
+
+    parallaxBox.onmousemove = function (event) {
+        event = event || window.event;
+        var x = event.clientX - parallaxBox.offsetLeft,
+            y = event.clientY - parallaxBox.offsetTop;
+
+        mouseParallax('l1-1', c1left, c1top, x, y, 5);
+        mouseParallax('l2-1', c2left, c2top, x, y, 15);
+        mouseParallax('l3-1', c3left, c3top, x, y, 20);
+        mouseParallax('l4-1', c4left, c4top, x, y, 25);
+    }
+    var parallaxBox = document.getElementById('space-card-box-2');
+    var c1left = document.getElementById('l1-2').offsetLeft,
+        c1top = document.getElementById('l1-2').offsetTop,
+        c2left = document.getElementById('l2-2').offsetLeft,
+        c2top = document.getElementById('l2-2').offsetTop,
+        c3left = document.getElementById('l3-2').offsetLeft,
+        c3top = document.getElementById('l3-2').offsetTop,
+        c4left = document.getElementById('l4-2').offsetLeft,
+        c4top = document.getElementById('l4-2').offsetTop;
+
+    parallaxBox.onmousemove = function (event) {
+        event = event || window.event;
+        var x = event.clientX - parallaxBox.offsetLeft,
+            y = event.clientY - parallaxBox.offsetTop;
+
+        mouseParallax('l1-2', c1left, c1top, x, y, 5);
+        mouseParallax('l2-2', c2left, c2top, x, y, 15);
+        mouseParallax('l3-2', c3left, c3top, x, y, 20);
+        mouseParallax('l4-2', c4left, c4top, x, y, 25);
+    }
+    var parallaxBox = document.getElementById('space-card-box-3');
+    var c1left = document.getElementById('l1-3').offsetLeft,
+        c1top = document.getElementById('l1-3').offsetTop,
+        c2left = document.getElementById('l2-3').offsetLeft,
+        c2top = document.getElementById('l2-3').offsetTop,
+        c3left = document.getElementById('l3-3').offsetLeft,
+        c3top = document.getElementById('l3-3').offsetTop,
+        c4left = document.getElementById('l4-3').offsetLeft,
+        c4top = document.getElementById('l4-3').offsetTop;
+
+    parallaxBox.onmousemove = function (event) {
+        event = event || window.event;
+        var x = event.clientX - parallaxBox.offsetLeft,
+            y = event.clientY - parallaxBox.offsetTop;
+
+        mouseParallax('l1-3', c1left, c1top, x, y, 5);
+        mouseParallax('l2-3', c2left, c2top, x, y, 15);
+        mouseParallax('l3-3', c3left, c3top, x, y, 20);
+        mouseParallax('l4-3', c4left, c4top, x, y, 25);
+    }
+    var parallaxBox = document.getElementById('space-card-box-4');
+    var c1left = document.getElementById('l1-4').offsetLeft,
+        c1top = document.getElementById('l1-4').offsetTop,
+        c2left = document.getElementById('l2-4').offsetLeft,
+        c2top = document.getElementById('l2-4').offsetTop,
+        c3left = document.getElementById('l3-4').offsetLeft,
+        c3top = document.getElementById('l3-4').offsetTop,
+        c4left = document.getElementById('l4-4').offsetLeft,
+        c4top = document.getElementById('l4-4').offsetTop;
+
+    parallaxBox.onmousemove = function (event) {
+        event = event || window.event;
+        var x = event.clientX - parallaxBox.offsetLeft,
+            y = event.clientY - parallaxBox.offsetTop;
+
+        mouseParallax('l1-4', c1left, c1top, x, y, 5);
+        mouseParallax('l2-4', c2left, c2top, x, y, 15);
+        mouseParallax('l3-4', c3left, c3top, x, y, 20);
+        mouseParallax('l4-4', c4left, c4top, x, y, 25);
+    }
+    var parallaxBox = document.getElementById('space-card-box-5');
+    var c1left = document.getElementById('l1-5').offsetLeft,
+        c1top = document.getElementById('l1-5').offsetTop,
+        c2left = document.getElementById('l2-5').offsetLeft,
+        c2top = document.getElementById('l2-5').offsetTop,
+        c3left = document.getElementById('l3-5').offsetLeft,
+        c3top = document.getElementById('l3-5').offsetTop,
+        c4left = document.getElementById('l4-5').offsetLeft,
+        c4top = document.getElementById('l4-5').offsetTop;
+
+    parallaxBox.onmousemove = function (event) {
+        event = event || window.event;
+        var x = event.clientX - parallaxBox.offsetLeft,
+            y = event.clientY - parallaxBox.offsetTop;
+
+        mouseParallax('l1-5', c1left, c1top, x, y, 5);
+        mouseParallax('l2-5', c2left, c2top, x, y, 15);
+        mouseParallax('l3-5', c3left, c3top, x, y, 20);
+        mouseParallax('l4-5', c4left, c4top, x, y, 25);
+    }
+
 };
 
 window.addEventListener('resize', function () {
@@ -216,4 +319,19 @@ function jsStarfield() {
         this.origin.x = this.canvas.width / 2;
         this.origin.y = this.canvas.height / 2;
     };
+}
+
+
+
+
+
+
+function mouseParallax(id, left, top, mouseX, mouseY, speed) {
+    var obj = document.getElementById(id);
+    var parentObj = obj.parentNode,
+        containerWidth = parseInt(parentObj.offsetWidth),
+        containerHeight = 470;
+    console.log(containerWidth);
+    obj.style.left = left - (((mouseX - (parseInt(obj.offsetWidth) / 2 + left)) / containerWidth) * speed) + 'px';
+    obj.style.top = top - (((mouseY - (parseInt(obj.offsetHeight) / 2 + top)) / containerHeight) * speed) + 'px';
 }

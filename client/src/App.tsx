@@ -4,7 +4,7 @@ import LandingPage from './Components/LandingPage';
 
 function App() {
   return (
-    <div className="" style={{height: "calc(200vh)"}}>
+    <div className="" style={{}}>
       <LandingPage />
     </div>
   );
