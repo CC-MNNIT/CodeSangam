@@ -1,13 +1,42 @@
 html,
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
 }
 
 canvas {
-    display: block;
-    width: calc(100vw);
-    height: 1000000px;
-    background: #000;
+  display: block;
+  width: calc(100vw);
+  height: 1000000px;
+  background: #000;
 }
+
+#container {
+  width: calc(100vw);
+  height: calc(100vh);
+  margin: 10px auto;
+  position: relative;
+  border-radius: 50%;
+  animation: spin 10s linear infinite;
+  rotate: 55deg;
+  transition: transform 2s;
+}
+
+.item {
+  width: 100px;
+  height: 80px;
+  border-color: red;
+  border-radius: 2px;
+  border-width: 1px;
+  line-height: 30px;
+  text-align: center;
+  position: absolute;
+  background: rgb(137, 125, 125);
+}
+
+/* @keyframes spin {
+    100% {
+      transform: rotate(1turn);
+    }
+  } */

@@ -50,13 +50,13 @@ function rand_range(min, max) { return min + Math.random() * (max - min); }
 function jsStarfield() {
     this.stars = [];
 
-    this.max_depth = 1000;
-    this.max_size = 3;
+    this.max_depth = 500;
+    this.max_size = 4;
     this.speed = 50;
-    this.amount = 10000;
+    this.amount = 500;
 
     this.follow_mouse = false;
-    this.method = "buffer";
+    this.method = "rects";
 
     this.last_frame = 0;
     this.fps_time = 0;
@@ -71,15 +71,15 @@ function jsStarfield() {
         this.resize(window.innerWidth, window.innerHeight);
         this.ctx.font = "18px Arial";
 
-        this.reset_origin();
+        // this.reset_origin();
 
-        this.canvas.addEventListener('mousemove', function (event) {
-            if (starfield.follow_mouse == true)
-                starfield.set_origin(event.x, event.y);
-        });
+        // this.canvas.addEventListener('mousemove', function (event) {
+        //     if (starfield.follow_mouse == true)
+        //         starfield.set_origin(event.x, event.y);
+        // });
 
         // clear the array
-        this.stars.length = 0;
+        // this.stars.length = 0;
         this.init_stars();
     };
 
@@ -204,7 +204,7 @@ function jsStarfield() {
             this.fps_count = 0;
         }
 
-        this.ctx.fillText("FPS: " + this.fps, 10, 25);
+        // this.ctx.fillText("FPS: " + this.fps, 10, 25);
     };
 
     this.set_origin = function (x, y) {
