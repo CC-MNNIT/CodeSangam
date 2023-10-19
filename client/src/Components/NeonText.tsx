@@ -15,7 +15,8 @@ const NeonText: React.FC<NeonTextProps> = ({ text }) => {
 
         if (neonText) {
             gsap.to(neonText, {
-                textShadow: "0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff",
+                textShadow:
+                    "0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff",
                 color: "#ff00ff",
                 repeat: -1,
                 yoyo: true,

@@ -3,9 +3,11 @@ package main
 import (
 	"os"
 
-	_ "github.com/CC-MNNIT/CodeSangam/server/docs"
+	"github.com/CC-MNNIT/CodeSangam/server/docs"
 	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
@@ -13,21 +15,29 @@ import (
 func init() {
 	initialize.LoadEnv()
 	initialize.ConnectDB()
+	initialize.SetupOAuthClient()
 }
 
 // @title CodeSangam API
 // @description This is the API for CodeSangam
 func main() {
+	baseUrl := os.Getenv("BASE_URL") + "/api"
 	router := echo.New()
-	router.GET("/swagger/*", echoSwagger.WrapHandler)
+	router.Use(session.Middleware(sessions.NewCookieStore([]byte(os.Getenv("SESSION_SECRET")))))
+	router.Static(os.Getenv("BASE_URL")+"/static", "web/static")
+	initialize.InitTemplateRenderer(router)
 
-	MergeRouters(router, routers.Index)
+	docs.SwaggerInfo.BasePath = baseUrl
+
+	router.GET(baseUrl+"/v1/swagger/*", echoSwagger.WrapHandler)
+
+	MergeRouters(router, &baseUrl, routers.AuthRouter, routers.Index, routers.ContriHub, routers.CodeSangam)
 
 	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
 }
 
-func MergeRouters(rootRouter *echo.Echo, routers ...func(*echo.Echo)) {
+func MergeRouters(rootRouter *echo.Echo, baseUrl *string, routers ...func(*echo.Echo, *string)) {
 	for _, router := range routers {
-		router(rootRouter)
+		router(rootRouter, baseUrl)
 	}
 }

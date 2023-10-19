@@ -8,17 +8,35 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var Db *gorm.DB
+var ContriHubDB *gorm.DB
 
 func ConnectDB() {
+	// DB_URL=username:pass@tcp(ip:port)/dbname?charset=utf8mb4&parseTime=True&loc=Local
+	csDB()
+	contriDB()
+}
+
+func csDB() {
 	var err error
 
-	// DB_URL=username:pass@tcp(127.0.0.1:port)/dbname?charset=utf8mb4&parseTime=True&loc=Local
 	dsn := os.Getenv("DB_URL")
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	Db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Fatal("Error connecting to database")
+		log.Println("Error connecting to root database")
+		panic(err)
+	}
+}
+
+func contriDB() {
+	var err error
+
+	dsn := os.Getenv("CONTRI_DB_URL")
+	ContriHubDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		log.Println("Error connecting to ContriHUB database")
 		panic(err)
 	}
 }
