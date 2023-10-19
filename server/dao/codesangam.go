@@ -11,6 +11,10 @@ const (
 )
 
 func SaveUser(dto *models.UserDto) (*models.User, error) {
+	if pUser := exists(&dto.Email); pUser != nil {
+		return pUser, nil
+	}
+
 	var user models.User
 
 	result := initialize.Db.Table(userTable).Create(&models.User{
@@ -24,4 +28,13 @@ func SaveUser(dto *models.UserDto) (*models.User, error) {
 		return nil, err
 	}
 	return &user, nil
+}
+
+func exists(email *string) *models.User {
+	var user models.User
+	result := initialize.Db.Table(userTable).Where("email = ?", *email).First(&user)
+	if result.Error != nil {
+		return nil
+	}
+	return &user
 }
