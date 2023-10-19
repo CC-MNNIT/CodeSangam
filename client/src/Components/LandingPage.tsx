@@ -3,6 +3,7 @@ import moon from "../Assets/moon.svg";
 import "./Styles.css";
 import "./ButtonStyle.css";
 import "./CardsStyle.css";
+import Cards from './Cards';
 
 const LandingPage = () => {
 
@@ -10,7 +11,7 @@ const LandingPage = () => {
     const [divHeight, setDivHeight] = useState(1000);
     const [angle, setAngle] = useState(0);
     const [moonRadius, setMoonRadius] = useState(0);
-    const [factor, setFactor] = useState(2);
+    const [factor, setFactor] = useState(2.5);
     const leftrotateMoon = () => {
         setAngle(angle - 72);
     }
@@ -55,8 +56,7 @@ const LandingPage = () => {
         const blurLength = 500;
         const moonSegLength = newMoonRadius - factor * height / 2;
         setDivHeight(height + blurLength + moonSegLength);
-    }, []);
-
+    }, [innerHeight, innerWidth]);
 
     return (
         <div className='relative' style={{ overflow: "hidden", width: "100vw", height: divHeight }}>
@@ -75,186 +75,24 @@ const LandingPage = () => {
                     <img style={{ maxWidth: "none", width: 2 * moonRadius, height: 2 * moonRadius }} src={moon} alt="moon" />
                     <div id="container" style={{ position: "absolute" }}>
                         <div className="item" style={{ rotate: "89deg" }}>
-                            <div className="wrapper">
-                                <div id="space-card-box" className="space-card">
-                                    <div className="space-card-left">
-                                        <div className="space-card-left-title">Event 3</div>
-                                        <div className="space-card-left-subtext">
-                                            Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                        <div className="space-card-left-planets">
-                                            <div className="space-card-left-planet-1"></div>
-                                            <div className="space-card-left-planet-2"></div>
-                                            <div className="space-card-left-planet-3"></div>
-                                        </div>
-                                        <div className="space-card-left-button">
-                                            <button>Explore</button>
-                                            <button onClick={() => { leftrotateMoon(); }}>➔</button>
-                                        </div>
-                                    </div>
-                                    <div className="space-card-right">
-                                        <div className="space-card-right-sun"></div>
-                                        <div id="l2" className="space-card-right-planet-1"></div>
-                                        <div id="l3" className="space-card-right-planet-2"></div>
-                                        <div id="l4" className="space-card-right-planet-3"></div>
-                                        <div id="l1" className="space-card-right-stars-container">
-                                            <div className="space-card-right-stars"></div>
-                                            <div className="space-card-right-shootingstar-1"></div>
-                                            <div className="space-card-right-shootingstar-2"></div>
-                                            <div className="space-card-right-shootingstar-3"></div>
-                                            <div className="space-card-right-shootingstar-4"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={3} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
                         </div>
                         <div className="item" style={{ rotate: "161deg" }}>
-                            <div className="wrapper">
-                                <div id="space-card-box" className="space-card">
-                                    <div className="space-card-left">
-                                        <div className="space-card-left-title">Event 4</div>
-                                        <div className="space-card-left-subtext">
-                                            Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                        <div className="space-card-left-planets">
-                                            <div className="space-card-left-planet-1"></div>
-                                            <div className="space-card-left-planet-2"></div>
-                                            <div className="space-card-left-planet-3"></div>
-                                        </div>
-                                        <div className="space-card-left-button">
-                                            <button>Explore</button>
-                                            <button onClick={() => { leftrotateMoon(); }}>➔</button>
-                                        </div>
-                                    </div>
-                                    <div className="space-card-right">
-                                        <div className="space-card-right-sun"></div>
-                                        <div id="l2" className="space-card-right-planet-1"></div>
-                                        <div id="l3" className="space-card-right-planet-2"></div>
-                                        <div id="l4" className="space-card-right-planet-3"></div>
-                                        <div id="l1" className="space-card-right-stars-container">
-                                            <div className="space-card-right-stars"></div>
-                                            <div className="space-card-right-shootingstar-1"></div>
-                                            <div className="space-card-right-shootingstar-2"></div>
-                                            <div className="space-card-right-shootingstar-3"></div>
-                                            <div className="space-card-right-shootingstar-4"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={4} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
                         </div>
                         <div className="item" style={{ rotate: "-127deg" }}>
-                            <div className="wrapper">
-                                <div id="space-card-box" className="space-card">
-                                    <div className="space-card-left">
-                                        <div className="space-card-left-title">Event 5</div>
-                                        <div className="space-card-left-subtext">
-                                            Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                        <div className="space-card-left-planets">
-                                            <div className="space-card-left-planet-1"></div>
-                                            <div className="space-card-left-planet-2"></div>
-                                            <div className="space-card-left-planet-3"></div>
-                                        </div>
-                                        <div className="space-card-left-button">
-                                            <button>Explore</button>
-                                            <button onClick={() => { leftrotateMoon(); }}>➔</button>
-                                        </div>
-                                    </div>
-                                    <div className="space-card-right">
-                                        <div className="space-card-right-sun"></div>
-                                        <div id="l2" className="space-card-right-planet-1"></div>
-                                        <div id="l3" className="space-card-right-planet-2"></div>
-                                        <div id="l4" className="space-card-right-planet-3"></div>
-                                        <div id="l1" className="space-card-right-stars-container">
-                                            <div className="space-card-right-stars"></div>
-                                            <div className="space-card-right-shootingstar-1"></div>
-                                            <div className="space-card-right-shootingstar-2"></div>
-                                            <div className="space-card-right-shootingstar-3"></div>
-                                            <div className="space-card-right-shootingstar-4"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={5} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
+
                         </div>
                         <div className="item" style={{ rotate: "-55deg" }}>
-                            <div className="wrapper">
-                                <div id="space-card-box" className="space-card">
-                                    <div className="space-card-left">
-                                        <div className="space-card-left-title">Event 1</div>
-                                        <div className="space-card-left-subtext">
-                                            Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                        <div className="space-card-left-planets">
-                                            <div className="space-card-left-planet-1"></div>
-                                            <div className="space-card-left-planet-2"></div>
-                                            <div className="space-card-left-planet-3"></div>
-                                        </div>
-                                        <div className="space-card-left-button">
-                                            <button>Explore</button>
-                                            <button onClick={() => { leftrotateMoon(); }}>➔</button>
-                                        </div>
-                                    </div>
-                                    <div className="space-card-right">
-                                        <div className="space-card-right-sun"></div>
-                                        <div id="l2" className="space-card-right-planet-1"></div>
-                                        <div id="l3" className="space-card-right-planet-2"></div>
-                                        <div id="l4" className="space-card-right-planet-3"></div>
-                                        <div id="l1" className="space-card-right-stars-container">
-                                            <div className="space-card-right-stars"></div>
-                                            <div className="space-card-right-shootingstar-1"></div>
-                                            <div className="space-card-right-shootingstar-2"></div>
-                                            <div className="space-card-right-shootingstar-3"></div>
-                                            <div className="space-card-right-shootingstar-4"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={1} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
                         </div>
                         <div className="item" style={{ rotate: "17deg" }}>
-                            <div className="wrapper">
-                                <div id="space-card-box" className="space-card">
-                                    <div className="space-card-left">
-                                        <div className="space-card-left-title">Event 2</div>
-                                        <div className="space-card-left-subtext">
-                                            Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </div>
-                                        <div className="space-card-left-planets">
-                                            <div className="space-card-left-planet-1"></div>
-                                            <div className="space-card-left-planet-2"></div>
-                                            <div className="space-card-left-planet-3"></div>
-                                        </div>
-                                        <div className="space-card-left-button">
-                                            <button>Explore</button>
-                                            <button onClick={() => { leftrotateMoon(); }}>➔</button>
-                                        </div>
-                                    </div>
-                                    <div className="space-card-right">
-                                        <div className="space-card-right-sun"></div>
-                                        <div id="l2" className="space-card-right-planet-1"></div>
-                                        <div id="l3" className="space-card-right-planet-2"></div>
-                                        <div id="l4" className="space-card-right-planet-3"></div>
-                                        <div id="l1" className="space-card-right-stars-container">
-                                            <div className="space-card-right-stars"></div>
-                                            <div className="space-card-right-shootingstar-1"></div>
-                                            <div className="space-card-right-shootingstar-2"></div>
-                                            <div className="space-card-right-shootingstar-3"></div>
-                                            <div className="space-card-right-shootingstar-4"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={2} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
                         </div>
                     </div>
-
-
                 </div>
-
-
-
-
             </div>
-
-
         </div>
     )
 }
