@@ -1,0 +1,236 @@
+body {
+  background: #f5dce9;
+  font-family: 'Black Han Sans', sans-serif;
+}
+
+.wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.space-card {
+  height: 470px;
+  width: 750px;
+  background-clip: border-box;
+  background: linear-gradient(183deg, #00000000 30px, #522a589a 250px, #f17dbc 500px);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.space-card-left {
+  z-index: 5;
+  width: 275px;
+  height: 470px;
+  border-radius: 25px 0 0 25px;
+  position: absolute;
+  background-color: #fff;
+}
+
+.space-card-left::before {
+  content: '';
+  width: 15px;
+  left: 270px;
+  position: absolute;
+  border-top: 470px solid #fff;
+  border-right: 80px solid transparent;
+}
+
+.space-card-left::after {
+  content: '';
+  width: 15px;
+  top: 0;
+  left: 270px;
+  position: absolute;
+  border-bottom: 470px solid #fff;
+  border-right: 80px solid transparent;
+}
+
+.space-card-left .space-card-left-title {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  font-weight: 300;
+  font-size: 50px;
+}
+
+.space-card-left .space-card-left-subtext {
+  position: absolute;
+  text-align: justify;
+  top: 80px;
+  left: 30px;
+  right: 10px;
+  color: #c25e9d;
+}
+
+.space-card-left .space-card-left-button {
+  z-index: 6;
+  position: absolute;
+  height: 30px;
+  line-height: 25px;
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  padding: 2px 35px 2px 35px;
+  color: white;
+  background: linear-gradient(to right, #a64367, #622d61);
+  border-radius: 25px;
+  left: 40px;
+  top: 400px;
+}
+
+.space-card-left .space-card-left-button button {
+  margin-left: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.space-card-left .space-card-left-button::before {
+  position: absolute;
+  content: "";
+  border-radius: 25px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #622d61, #a64367);
+  z-index: -1;
+  transition: opacity 0.2s linear;
+  opacity: 0;
+}
+
+.space-card-left .space-card-left-button:hover::before {
+  opacity: 1;
+}
+
+.space-card-right .space-card-right-sun {
+  z-index: 4;
+  position: absolute;
+  background-color: #f2efcc;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 20px;
+  left: 320px;
+  box-shadow: 0 0 0 15px rgba(242, 239, 204, 0.15), 0 0 0 30px rgba(242, 239, 204, 0.15), 0 0 0 45px rgba(242, 239, 204, 0.10), 0 0 0 60px rgba(242, 239, 204, 0.05);
+}
+
+.space-card-right .space-card-right-planet-1 {
+  width: 50px;
+  z-index: 4;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(130deg, #4a6b44, #254b5f 30px, transparent 45px);
+  position: absolute;
+  top: 120px;
+  left: 600px;
+}
+
+.space-card-right .space-card-right-planet-2 {
+  z-index: 4;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(130deg, #cdc34c, #cd3d49 50px, transparent 90px);
+  position: absolute;
+  top: 200px;
+  left: 650px;
+}
+
+.space-card-right .space-card-right-planet-3 {
+  z-index: 4;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #c860a2, #4b2b5a, #1a0916 120px);
+  position: absolute;
+  top: 280px;
+  left: 480px;
+}
+
+.space-card-right .space-card-right-planet-3::after {
+  content: '';
+  background-color: transparent;
+  position: absolute;
+  top: 50px;
+  left: -27px;
+  border-radius: 70%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #6a3e7e;
+  border-top: transparent;
+  transform: rotate(-15deg);
+  height: 30px;
+  width: 180px;
+}
+
+.space-card-right .space-card-right-stars-container .space-card-right-stars {
+  z-index: 2;
+  width: 2px;
+  height: 2px;
+  background-color: transparent;
+  position: absolute;
+}
+
+.space-card-right-stars-container {
+  position: absolute;
+}
+
+.space-card-right .space-card-right-stars-container .space-card-right-shootingstar-1 {
+  background: linear-gradient(to right, white, transparent);
+  position: absolute;
+  z-index: 2;
+  transform: rotate(-40deg);
+  width: 90px;
+  height: 3px;
+  top: 50px;
+  left: 620px;
+  border-radius: 50%
+}
+
+.space-card-right .space-card-right-stars-container .space-card-right-shootingstar-2 {
+  background: linear-gradient(to right, white, transparent);
+  position: absolute;
+  z-index: 2;
+  transform: rotate(-40deg);
+  width: 80px;
+  height: 1px;
+  top: 370px;
+  left: 621px;
+}
+
+.space-card-right .space-card-right-stars-container .space-card-right-shootingstar-3 {
+  background: linear-gradient(to right, white, transparent);
+  position: absolute;
+  z-index: 2;
+  transform: rotate(-40deg);
+  width: 70px;
+  height: 1px;
+  top: 190px;
+  left: 420px;
+}
+
+.space-card-right .space-card-right-stars-container .space-card-right-shootingstar-4 {
+  background: linear-gradient(to right, white, transparent);
+  position: absolute;
+  z-index: 2;
+  transform: rotate(-40deg);
+  width: 20px;
+  height: 1px;
+  top: 190px;
+  left: 680px;
+}
+
+.inspired {
+  padding-top: 5px;
+  margin-left: 20px;
+}

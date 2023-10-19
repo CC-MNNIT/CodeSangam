@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import moon from "../Assets/moon.svg";
-import "./Styles.css"
+import "./Styles.css";
+import "./ButtonStyle.css";
+import "./CardsStyle.css";
+import Cards from './Cards';
 
 const LandingPage = () => {
 
     const [topDivOpacity, setTopDivOpacity] = useState(1);
+    const [divHeight, setDivHeight] = useState(1000);
     const [angle, setAngle] = useState(0);
-    const [scale, setScale] = useState(0);
+    const [moonRadius, setMoonRadius] = useState(0);
+    const [factor, setFactor] = useState(2.5);
     const leftrotateMoon = () => {
         setAngle(angle - 72);
     }
@@ -20,53 +25,75 @@ const LandingPage = () => {
     });
 
     useEffect(() => {
-        const script = document.createElement('script');
+        const script1 = document.createElement('script');
+        const script2 = document.createElement('script');
+        const cardsscript = document.createElement('script');
 
-        script.src = "./scriptt.js";
-        script.async = true;
-        console.log(script.src);
-        document.body.appendChild(script);
+        script1.src = "./Scripts/script1.js";
+        script2.src = "./Scripts/script2.js";
+        cardsscript.src = "./Scripts/cardsscript.js";
+        script1.async = true;
+        script2.async = true;
+        cardsscript.async = true;
+        document.body.appendChild(script1);
+        document.body.appendChild(script2);
+        //document.body.appendChild(cardsscript);
 
         return () => {
-            document.body.removeChild(script);
+            document.body.removeChild(script1);
+            document.body.removeChild(script2);
         }
     }, []);
 
     useEffect(() => {
 
         const { innerWidth: width, innerHeight: height } = window;
-        console.log("xx-" + width);
-        console.log("yy-" + height);
-
-        const newScale = 200 * width / height;
-        console.log("scale-" + newScale);
-        setScale(newScale);
-
-    }, []);
-
+        const newMoonRadius = Math.sqrt((width * width) + (factor * height * factor * height)) / 2;
+        console.log(width);
+        console.log(height);
+        console.log(newMoonRadius);
+        setMoonRadius(newMoonRadius);
+        const blurLength = 500;
+        const moonSegLength = newMoonRadius - factor * height / 2;
+        setDivHeight(height + blurLength + moonSegLength);
+    }, [innerHeight, innerWidth]);
 
     return (
-        <div className='relative h-32 w-32'>
-            <button className="absolute left-0 top-0 h-16 w-16" onClick={() => { leftrotateMoon(); }} style={{ zIndex: "50000", position: "fixed", color: "white" }}>Rotate(current angle - {angle})</button>
-            <button className='absolute top-0 right-0 h-16 w-16' onClick={() => { rightrotateMoon(); }} style={{ zIndex: "50000", position: "fixed", color: "white" }}>Rotate(current angle - {angle})</button>
+        <div className='relative' style={{ overflow: "hidden", width: "100vw", height: divHeight }}>
+
             <canvas className='fixed' id="main_canvas">
             </canvas>
             <div style={{ opacity: topDivOpacity }} className="fixed logo"><b>C<img className="rotate spinner" src='https://i.imgur.com/2Z3Svuj.png' alt="moon"></img>DE<span>SAN</span>GAM</b></div>
-            <div style={{ overflow: "hidden", height: "calc(170vh)", width: "100vw" }}>
-                <div style={{ overflow: "hidden", position: "relative", height: "400vh", width: "100vw", backgroundColor: "", opacity: "1" }}>
-                    <div style={{ width: "calc(100vw)", height: "calc(100vh)", transition: "transform 2s", transform: `rotate(${angle}deg)`, display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "", opacity: "1", scale: `${scale}%`, position: "absolute", bottom: "0px" }}>
-                        <img style={{ position: "absolute", height: "100%" }} src={moon} alt="moon" />
-                        <div id="container" style={{ position: "absolute", display: "flex", justifyContent: "center", alignItems: "center", height: "100%", zIndex: 20 }}>
-                            <div className="item rotate-[90deg]"></div>
-                            <div className="item rotate-[162deg]">2</div>
-                            <div className="item rotate-[-127deg]">3</div>
-                            <div className="item rotate-[-54deg]">4</div>
-                            <div className="item rotate-[18deg]">5</div>
+            <div style={{ width: "100vw", height: divHeight }}></div>
+
+            <div style={{ width: "calc(100vw)", height: `calc(${factor} * 100vh)`, display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+
+                <div style={{ width: 2 * moonRadius, height: 2 * moonRadius, display: "flex", justifyContent: "center", alignItems: "center", transition: "transform 2s", transform: `rotate(${angle}deg)` }}>
+
+
+                    <img style={{ maxWidth: "none", width: 2 * moonRadius, height: 2 * moonRadius }} src={moon} alt="moon" />
+                    <div id="container" style={{ position: "absolute" }}>
+                        <div className="item" style={{ rotate: "89deg" }}>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={3} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
+                        </div>
+                        <div className="item" style={{ rotate: "161deg" }}>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={4} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
+                        </div>
+                        <div className="item" style={{ rotate: "-127deg" }}>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={5} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
+
+                        </div>
+                        <div className="item" style={{ rotate: "-55deg" }}>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={1} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
+                        </div>
+                        <div className="item" style={{ rotate: "17deg" }}>
+                            <Cards leftrotateMoon={leftrotateMoon} eventn={2} eventdescription=' Lorem ipsum dolor sit amet, cill dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' />
                         </div>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

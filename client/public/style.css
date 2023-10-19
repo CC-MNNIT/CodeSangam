@@ -13,8 +13,6 @@ canvas {
 }
 
 #container {
-  width: calc(100vw);
-  height: calc(100vh);
   margin: 10px auto;
   position: relative;
   border-radius: 50%;
@@ -24,15 +22,18 @@ canvas {
 }
 
 .item {
-  width: 100px;
-  height: 80px;
-  border-color: red;
-  border-radius: 2px;
-  border-width: 1px;
+  width: 500px;
+  height: 300px;
+  border-color: rgb(238, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  border-width: 0px;
   line-height: 30px;
   text-align: center;
   position: absolute;
-  background: rgb(137, 125, 125);
+  background: rgba(137, 125, 125, 0);
 }
 
 /* @keyframes spin {
