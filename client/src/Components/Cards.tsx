@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    Typography,
+    Button,
+} from "@material-tailwind/react";
+
 
 
 interface props {
     leftrotateMoon: () => any;
-    eventn: number,
-    eventdescription: string
+    eventn: string,
+    eventdescription: string,
+    teamsize?: string
 }
 
-function Cards({ leftrotateMoon, eventn, eventdescription }: props) {
+function Cards({ leftrotateMoon, eventn, eventdescription, teamsize }: props) {
     var eventid = "space-card-box-" + eventn;
     var spaceid1 = "l1-" + eventn;
     var spaceid2 = "l2-" + eventn;
@@ -15,37 +23,42 @@ function Cards({ leftrotateMoon, eventn, eventdescription }: props) {
     var spaceid4 = "l4-" + eventn;
     return (
         <div className="wrapper">
-            <div id={eventid} className="space-card">
-                <div className="space-card-left">
-                    <div className="space-card-left-title">Event {eventn}</div>
-                    <div className="space-card-left-subtext">
+            <Card className="w-full max-w-[48rem] flex-row bg-white ">
+                <CardHeader
+                    shadow={false}
+                    floated={false}
+                    className="m-0 w-2/5 shrink-0  rounded-xl"
+                >
+                    <img
+                        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+                        alt="card-image"
+                        className="h-full w-full object-cover rounded-xl m-0"
+                    />
+                </CardHeader>
+                <CardBody className="w-[60%] h-[30%]">
+                    <Typography variant="h6" color="gray" className="mb-4  dark:border-gray-600 uppercase">
+                        {eventn}
+                    </Typography>
+                    <Typography color="gray" className="mb-8 font-normal">
                         {eventdescription}
+                    </Typography>
+                    <Typography color="gray" className="mb-8 font-normal">
+                        {teamsize}
+                    </Typography>
+                    <div className="flex">
+                        <Button variant="text" color="gray" className="flex-1 items-center">
+                            Previous
+                        </Button>
+                        <Button variant="text" color="gray" className="flex-1 items-center">
+                            Problem Statement
+                        </Button>
+                        <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="flex-1 items-center">
+                            Next
+                        </Button>
                     </div>
-                    <div className="space-card-left-planets">
-                        <div className="space-card-left-planet-1"></div>
-                        <div className="space-card-left-planet-2"></div>
-                        <div className="space-card-left-planet-3"></div>
-                    </div>
-                    <div className="space-card-left-button">
-                        <button>Explore</button>
-                        <button onClick={() => { leftrotateMoon(); }}>➔</button>
-                    </div>
-                </div>
-                <div className="space-card-right">
-                    <div className="space-card-right-sun"></div>
-                    <div id={spaceid2} className="space-card-right-planet-1"></div>
-                    <div id={spaceid3} className="space-card-right-planet-2"></div>
-                    <div id={spaceid4} className="space-card-right-planet-3"></div>
-                    <div id={spaceid1} className="space-card-right-stars-container">
-                        <div className="space-card-right-stars"></div>
-                        <div className="space-card-right-shootingstar-1"></div>
-                        <div className="space-card-right-shootingstar-2"></div>
-                        <div className="space-card-right-shootingstar-3"></div>
-                        <div className="space-card-right-shootingstar-4"></div>
-                    </div>
-                </div>
-            </div>
-        </div >
+                </CardBody>
+            </Card>
+        </div>
     );
 }
 
