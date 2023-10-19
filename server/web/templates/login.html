@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="/public/global.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <section class="bg-gray-50 dark:bg-gray-950 h-screen w-screen">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
+            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-950 dark:text-white">
+                <img class="w-16 h-16 mb-2" src="{{ .BaseUrl }}/static/img/moon.png"
+                    alt="logo">
+                CODESANGAM
+            </a>
+            <div
+                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-900 dark:border-gray-800">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1
+                        class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Login to your account
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" action="{{ .BaseUrl }}/api/auth/login">
+                        <div>
+                            <button
+                                class="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
+                                <img class="w-6 h-6" src="{{ .BaseUrl }}/static/svg/google.svg"
+                                    loading="lazy" alt="google logo">
+                                <span>Login with Google</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

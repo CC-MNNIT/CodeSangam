@@ -8,6 +8,7 @@ import (
 
 func AuthRouter(rootRouter *echo.Echo, baseUrl *string) {
 	g := rootRouter.Group(*baseUrl).Group("/auth")
+	g.GET("", controller.LoginPage, middleware.AuthLoginMiddleware())
 	g.GET("/profile", controller.GoogleProfile, middleware.AuthMiddleware())
 	g.GET("/login", controller.GoogleLogin)
 	g.GET("/logout", controller.GoogleLogout)

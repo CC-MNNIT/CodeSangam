@@ -24,6 +24,8 @@ func main() {
 	baseUrl := os.Getenv("BASE_URL") + "/api"
 	router := echo.New()
 	router.Use(session.Middleware(sessions.NewCookieStore([]byte(os.Getenv("SESSION_SECRET")))))
+	router.Static(os.Getenv("BASE_URL")+"/static", "web/static")
+	initialize.InitTemplateRenderer(router)
 
 	docs.SwaggerInfo.BasePath = baseUrl
 

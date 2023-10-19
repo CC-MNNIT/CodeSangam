@@ -36,6 +36,12 @@ func GoogleProfile(c echo.Context) error {
 	return c.JSON(http.StatusOK, &user)
 }
 
+func LoginPage(c echo.Context) error {
+	return c.Render(http.StatusOK, "login.html", map[string]interface{}{
+		"BaseUrl": os.Getenv("BASE_URL"),
+	})
+}
+
 func GoogleLogout(c echo.Context) error {
 	sess, err := session.Get("session", c)
 	if err != nil {
@@ -57,7 +63,7 @@ func GoogleLogout(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Unable to logout")
 	}
 
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/v1/swagger/")
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/")
 }
 
 func GoogleLogin(c echo.Context) error {
@@ -147,15 +153,6 @@ func GoogleCallback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, "Unable to save/get user info")
 	}
 
-	// Get redirect url
-	var redirectUrl string
-	red := sess.Values["red"]
-	if red == nil || red.(string) == "" {
-		redirectUrl = os.Getenv("BASE_URL") + "/api/v1/swagger/"
-	} else {
-		redirectUrl = red.(string)
-	}
-
 	jDbUser, err := json.Marshal(dbUser)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to marshal user info")
@@ -180,7 +177,7 @@ func GoogleCallback(c echo.Context) error {
 	}
 
 	// Response
-	return c.Redirect(http.StatusTemporaryRedirect, redirectUrl)
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/auth/profile")
 }
 
 func generateRandomState() (string, error) {

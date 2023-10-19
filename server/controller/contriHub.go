@@ -16,7 +16,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {object} []models.ContriHUBUser
-// @Router /contrihub/rankings [get]
+// @Router /v1/contrihub/rankings [get]
 func GetContriHubRankings(c echo.Context) error {
 	users, err := dao.GetContriHubRankings()
 
