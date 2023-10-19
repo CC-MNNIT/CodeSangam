@@ -8,10 +8,6 @@ interface props {
 }
 
 function Cards({ leftrotateMoon, eventn, eventdescription }: props) {
-    // const [angle, setAngle] = useState(deg);
-    // const leftrotateMoon = () => {
-    //     setAngle(angle - 72);
-    // }
     var eventid = "space-card-box-" + eventn;
     var spaceid1 = "l1-" + eventn;
     var spaceid2 = "l2-" + eventn;
