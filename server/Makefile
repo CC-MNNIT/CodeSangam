@@ -28,8 +28,12 @@ build: swagger
 	@$(GO) build $(GOFLAGS) -o $(BUILD_DIR)/$(BINARY_NAME) $(SRC_DIR)
 
 # Run the binary
-run: build
+run-build: build
 	@$(BUILD_DIR)/$(BINARY_NAME)
+
+# Run the binary
+run: swagger
+	@$(GO) run $(GOFLAGS) $(SRC_DIR)/main.go
 
 # Build the test binary
 test-build:
