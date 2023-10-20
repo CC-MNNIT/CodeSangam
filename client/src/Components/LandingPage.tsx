@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import moon from "../Assets/moon.svg";
 import Cards from "./Cards";
-import Starfield from "./Starfield";
 import Stations from "./Stations";
-import moonWithRover from "../Assets/moon_with_rover.png";
+import moon from "../Assets/moon.svg";
 
 const LandingPage = () => {
     const [topDivOpacity, setTopDivOpacity] = useState(1);
@@ -40,13 +38,12 @@ const LandingPage = () => {
             className="relative"
             style={{ overflow: "hidden", width: "100vw", height: divHeight }}
         >
-            <Starfield />
             <div style={{ opacity: topDivOpacity }} className="fixed logo">
                 <b>
                     C
                     <img
                         className="rotate spinner"
-                        src={moonWithRover}
+                        src={moon}
                         alt="moon with rover"
                     ></img>
                     DE<span>SAN</span>GAM
