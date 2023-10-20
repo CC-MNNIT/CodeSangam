@@ -83,6 +83,7 @@ body {
 .space-card {
   height: 470px;
   width: 750px;
+  -webkit-background-clip: border-box;
   background-clip: border-box;
   background: linear-gradient(183deg, #00000000 30px, #522a589a 250px, #f17dbc 500px);
   border-radius: 25px;
