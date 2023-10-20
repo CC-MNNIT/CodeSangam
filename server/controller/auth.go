@@ -17,6 +17,18 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+
+// GoogleProfile
+//
+// @Summary Get user profile
+// @Schemes
+// @Description Get user profile
+// @Tags Auth
+// @Security OAuth2
+// @Accept json
+// @Produce json
+// @Failure 401 {string} Unauthorized
+// @Router /auth/profile [get]
 func GoogleProfile(c echo.Context) error {
 	sess, err := utils.GetSession(c)
 	if err != nil {
@@ -35,12 +47,36 @@ func GoogleProfile(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
+
+// LoginPage
+//
+// @Summary Login page
+// @Schemes
+// @Description Login page
+// @Tags Auth
+// @Accept json
+// @Produce html
+// @Success 200 {object} map[string]string
+// @Router /auth [get]
 func LoginPage(c echo.Context) error {
 	return c.Render(http.StatusOK, "login.html", map[string]interface{}{
 		"BaseUrl": os.Getenv("BASE_URL"),
 	})
 }
 
+
+// GoogleLogout
+//
+// @Summary Logout
+// @Schemes
+// @Description Logout
+// @Tags Auth
+// @Security OAuth2
+// @Accept json
+// @Produce html
+// @Success 302 {object} map[string]string
+// @Failure 401 {string} Unauthorized
+// @Router /auth/logout [get]
 func GoogleLogout(c echo.Context) error {
 	err := utils.InvalidateSession(c)
 	if err != nil {
@@ -49,6 +85,18 @@ func GoogleLogout(c echo.Context) error {
 	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/")
 }
 
+
+// GoogleLogin
+//
+// @Summary Login
+// @Schemes
+// @Description Login
+// @Tags Auth
+// @Accept json
+// @Produce html
+// @Success 302 {object} map[string]string
+// @Failure 401 {string} Unauthorized
+// @Router /auth/login [get]
 func GoogleLogin(c echo.Context) error {
 	randState, err := generateRandomState()
 	if err != nil {
@@ -66,6 +114,18 @@ func GoogleLogin(c echo.Context) error {
 	return c.Redirect(http.StatusTemporaryRedirect, url)
 }
 
+
+// GoogleCallback
+//
+// @Summary Callback
+// @Schemes
+// @Description Callback
+// @Tags Auth
+// @Accept json
+// @Produce html
+// @Success 302 {object} map[string]string
+// @Failure 401 {string} Unauthorized
+// @Router /auth/callback [get]
 func GoogleCallback(c echo.Context) error {
 	// Get session
 	sess, err := utils.GetSession(c)

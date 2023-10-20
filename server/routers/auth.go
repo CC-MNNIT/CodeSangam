@@ -6,8 +6,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func AuthRouter(rootRouter *echo.Echo, baseUrl *string) {
-	g := rootRouter.Group(*baseUrl).Group("/auth")
+func AuthRouter(baseRouter *echo.Group) {
+	g := baseRouter.Group("/auth")
 	g.GET("", controller.LoginPage, middleware.AuthLoginMiddleware())
 	g.GET("/profile", controller.GoogleProfile, middleware.AuthMiddleware())
 	g.GET("/login", controller.GoogleLogin)

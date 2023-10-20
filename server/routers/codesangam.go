@@ -5,8 +5,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func CodeSangam(router *echo.Echo, baseUrl *string) {
-	g := router.Group(*baseUrl).Group("/v1/cs")
+func CodeSangam(baseRouter *echo.Group) {
+	g := baseRouter.Group("/cs")
 
 	g.POST("/user", controller.SaveUser)
 	g.GET("/user", controller.GetUserInfo)

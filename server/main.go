@@ -24,6 +24,14 @@ func init() {
 
 // @title CodeSangam API
 // @description This is the API for CodeSangam
+// @version 1
+//
+// @securityDefinitions.oauth2	OAuth2
+// @authorizationUrl /api/auth/login
+// @tokenUrl /api/auth/callback
+// @scope openid
+
+
 func main() {
 	baseUrl := os.Getenv("BASE_URL") + "/api"
 	router := echo.New()
@@ -33,15 +41,19 @@ func main() {
 
 	docs.SwaggerInfo.BasePath = baseUrl
 
-	router.GET(baseUrl+"/v1/swagger/*", echoSwagger.WrapHandler)
+	router.GET(baseUrl+"/swagger/*", echoSwagger.WrapHandler)
 
-	MergeRouters(router, &baseUrl, routers.AuthRouter, routers.Index, routers.ContriHub, routers.CodeSangam)
+	baserouter := router.Group(baseUrl)
+	routers.AuthRouter(baserouter)
+	baserouter = baserouter.Group("/v1")
+	
+	MergeRouters(baserouter, routers.Index, routers.ContriHub, routers.CodeSangam)
 
 	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
 }
 
-func MergeRouters(rootRouter *echo.Echo, baseUrl *string, routers ...func(*echo.Echo, *string)) {
+func MergeRouters(baserouter *echo.Group, routers ...func(*echo.Group)) {
 	for _, router := range routers {
-		router(rootRouter, baseUrl)
+		router(baserouter)
 	}
 }
