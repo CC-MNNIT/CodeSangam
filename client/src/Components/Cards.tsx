@@ -10,12 +10,13 @@ import {
 
 interface props {
     leftrotateMoon: () => any;
+    rightrotateMoon: () => any;
     eventn: string,
     eventdescription: string,
     teamsize?: string
 }
 
-function Cards({ leftrotateMoon, eventn, eventdescription, teamsize }: props) {
+function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize }: props) {
     var eventid = "space-card-box-" + eventn;
     var spaceid1 = "l1-" + eventn;
     var spaceid2 = "l2-" + eventn;
@@ -46,13 +47,13 @@ function Cards({ leftrotateMoon, eventn, eventdescription, teamsize }: props) {
                         {teamsize}
                     </Typography>
                     <div className="flex">
-                        <Button variant="text" color="gray" className="flex-1 items-center">
+                        <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="flex-1 items-center">
                             Previous
                         </Button>
                         <Button variant="text" color="gray" className="flex-1 items-center">
                             Problem Statement
                         </Button>
-                        <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="flex-1 items-center">
+                        <Button onClick={() => { rightrotateMoon(); }} variant="text" color="gray" className="flex-1 items-center">
                             Next
                         </Button>
                     </div>

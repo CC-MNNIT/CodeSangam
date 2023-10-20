@@ -80,7 +80,7 @@ const LandingPage = () => {
                         src={moon}
                         alt="moon"
                     />
-                    <Stations leftrotateMoon={leftrotateMoon} />
+                    <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} />
                 </div>
             </div>
         </div>
