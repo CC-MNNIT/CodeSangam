@@ -38,16 +38,16 @@ const LandingPage = () => {
             className="relative"
             style={{ overflow: "hidden", width: "100vw", height: divHeight }}
         >
-            <div style={{ opacity: topDivOpacity }} className="fixed logo">
-                <b>
+            <div style={{ opacity: topDivOpacity }} className="max-w-screen-xl logo">
+                <div className="b flex items-center">
                     C
                     <img
                         className="rotate spinner"
                         src={moon}
                         alt="moon with rover"
                     ></img>
-                    DE<span>SAN</span>GAM
-                </b>
+                    DE<span className="blink">SAN</span>GAM
+                </div>
             </div>
             <div style={{ width: "100vw", height: divHeight }}></div>
 

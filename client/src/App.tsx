@@ -13,9 +13,25 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<div className=""><Starfield /><LandingPage /><NavBar /></div>} />
-                <Route path="/contrihubleaderboard" element={<div><Starfield /><ContrihubLeaderboard /><Events /></div>} />
-                <Route path="/eventleaderboard" element={<div><Starfield /><EventLeaderboard /><Events /></div>} />
+                <Route path="/" element={
+                    <div className="">
+                        <Starfield />
+                        <LandingPage />
+                        <NavBar />
+                    </div>} />
+                <Route path="/contrihubleaderboard" element={
+                    <div>
+                        <Starfield />
+                        <ContrihubLeaderboard />
+                        <Events />
+                    </div>} />
+                <Route path="/eventleaderboard" element={
+                    <div>
+                        <Starfield />
+                        <EventLeaderboard />
+                        <Events />
+                    </div>
+                } />
             </Routes>
         </BrowserRouter >
     )

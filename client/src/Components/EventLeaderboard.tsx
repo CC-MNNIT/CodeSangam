@@ -25,8 +25,8 @@ export default function ContrihubLeaderboard() {
     }
   ];
   return (
-    <div style={{marginTop: "80px", position: "fixed", backgroundColor: "rgba(0,0,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
-      <div style={{width: "100vw"}}>
+    <div style={{ marginTop: "80px", position: "fixed", backgroundColor: "rgba(0,0,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
+      <div style={{ width: "100vw" }}>
         <table>
           <tr>
             <th>Team Name</th>

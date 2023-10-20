@@ -313,8 +313,8 @@ body {
 
 
 .logo {
-  text-align: center;
-  width: 65%;
+  /* text-align: center; */
+  width: fit-content;
   height: fit-content;
   margin: auto;
   position: fixed;
@@ -337,7 +337,7 @@ body {
   text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ED6, 0 0 0.5em #329ED6, 0 0 0.1em #329ED6, 0 0 0 #000;
 }
 
-.logo b span {
+.blink {
   animation: blink linear infinite 3s;
 }
 
@@ -394,10 +394,10 @@ body {
 }
 
 .spinner {
-  margin-top: -25px;
+  margin-top: -2%;
   padding: 0%;
   border: 0%;
-  max-width: 10%;
+  max-width: 12%;
   display: inline-block;
 }
 
@@ -422,7 +422,8 @@ table {
   background-color: #00000000;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #646464;
   color: white;
   text-align: center;
