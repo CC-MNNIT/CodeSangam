@@ -4,7 +4,9 @@ import "./App.css";
 import LandingPage from "./Components/LandingPage";
 import Starfield from "./Components/Starfield";
 import NavBar from "./Components/NavBar";
+import Events from "./Components/Events";
 import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
+import EventLeaderboard from "./Components/EventLeaderboard";
 
 
 function App() {
@@ -12,7 +14,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<div className=""><Starfield /><LandingPage /><NavBar /></div>} />
-                <Route path="/contrihubleaderboard" element={<div><Starfield /><ContrihubLeaderboard /></div>} />
+                <Route path="/contrihubleaderboard" element={<div><Starfield /><ContrihubLeaderboard /><Events /></div>} />
+                <Route path="/eventleaderboard" element={<div><Starfield /><EventLeaderboard /><Events /></div>} />
             </Routes>
         </BrowserRouter >
     )
