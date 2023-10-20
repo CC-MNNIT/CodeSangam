@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<div className=""><Starfield /><LandingPage /><NavBar /></div>} />
-                <Route path="/leaderboard" element={<Leaderboard />} />
+                <Route path="/leaderboard" element={<div><Starfield /><Leaderboard /></div>} />
             </Routes>
         </BrowserRouter >
     )
