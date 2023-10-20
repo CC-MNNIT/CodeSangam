@@ -10,7 +10,7 @@ type ContriHUBUser struct {
 }
 
 type User struct {
-	UserId uint   `gorm:"primary_key;autoIncrement:true;column:uid" json:"uid"`
+	UserId int    `gorm:"primary_key;autoIncrement:true;column:uid" json:"uid"`
 	RegNo  string `gorm:"uniqueIndex;column:registration_no" json:"reg_no"`
 	Name   string `gorm:"column:name" json:"name"`
 	Email  string `gorm:"uniqueIndex;column:email" json:"email"`
@@ -18,15 +18,15 @@ type User struct {
 }
 
 type Team struct {
-	TeamId     uint   `gorm:"primary_key;autoIncrement:true;column:id" json:"id"`
+	TeamId     int    `gorm:"primary_key;autoIncrement:true;column:id" json:"id"`
 	Name       string `gorm:"column:name" json:"name"`
-	LeaderId   uint   `gorm:"column:leader_id" json:"leader_id"`
-	MemberId_1 uint   `gorm:"column:m_id1" json:"member_id1"`
-	MemberId_2 uint   `gorm:"column:m_id2" json:"member_id2"`
-	MemberId_3 uint   `gorm:"column:m_id3" json:"member_id3"`
+	LeaderId   int    `gorm:"column:leader_id" json:"leader_id"`
+	MemberId_1 int    `gorm:"column:m_id1" json:"member_id1"`
+	MemberId_2 int    `gorm:"column:m_id2" json:"member_id2"`
+	MemberId_3 int    `gorm:"column:m_id3" json:"member_id3"`
 }
 
 type EventRegistration struct {
-	TeamId uint `gorm:"column:team_id" json:"team_id"`
+	TeamId int  `gorm:"column:team_id" json:"team_id"`
 	Score  uint `gorm:"column:score" json:"score"`
 }
