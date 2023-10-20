@@ -4,7 +4,7 @@ import "./App.css";
 import LandingPage from "./Components/LandingPage";
 import Starfield from "./Components/Starfield";
 import NavBar from "./Components/NavBar";
-import Leaderboard from "./Components/Leaderboard";
+import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<div className=""><Starfield /><LandingPage /><NavBar /></div>} />
-                <Route path="/leaderboard" element={<div><Starfield /><Leaderboard /></div>} />
+                <Route path="/contrihubleaderboard" element={<div><Starfield /><ContrihubLeaderboard /></div>} />
             </Routes>
         </BrowserRouter >
     )

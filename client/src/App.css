@@ -408,3 +408,23 @@ body {
     /* Adjust font size for smaller screens */
   }
 }
+
+
+
+/* ---------------------------------------------------------------------------------------- */
+/* -------------------------------------TABLE------------------------------------------------ */
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #00000000;
+}
+
+td, th {
+  border: 1px solid #ffffff;
+  color: white;
+  text-align: center;
+  padding: 8px;
+}
