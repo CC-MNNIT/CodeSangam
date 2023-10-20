@@ -28,12 +28,11 @@ func GoogleProfile(c echo.Context) error {
 		return utils.InternalError(c, "Unauthorized", nil)
 	}
 
-	var user models.User
-	err = json.Unmarshal([]byte(userBytes.(string)), &user)
+	user, err := dao.GetUserInfo(userBytes.(int))
 	if err != nil {
 		return utils.InternalError(c, "Unable to unmarshal user info", &err)
 	}
-	return c.JSON(http.StatusOK, &user)
+	return c.JSON(http.StatusOK, user)
 }
 
 func LoginPage(c echo.Context) error {
@@ -128,15 +127,10 @@ func GoogleCallback(c echo.Context) error {
 		return utils.InternalError(c, "Unable to save/get user info", &err)
 	}
 
-	jDbUser, err := json.Marshal(dbUser)
-	if err != nil {
-		return utils.InternalError(c, "Unable to marshal user info", &err)
-	}
-
 	// Save user info in session
 	err = utils.SetSessionWith(sess, c, utils.SessionMaxAge, &map[utils.Key]interface{}{
 		utils.StateSessionKey: nil,
-		utils.UserSessionKey:  string(jDbUser),
+		utils.UserSessionKey:  dbUser.UserId,
 		utils.TokenSessionKey: token.AccessToken,
 	})
 	if err != nil {

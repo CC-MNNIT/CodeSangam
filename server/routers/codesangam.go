@@ -9,4 +9,5 @@ func CodeSangam(router *echo.Echo, baseUrl *string) {
 	g := router.Group(*baseUrl).Group("/v1/cs")
 
 	g.POST("/user", controller.SaveUser)
+	g.GET("/user", controller.GetUserInfo)
 }

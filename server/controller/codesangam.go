@@ -32,3 +32,32 @@ func SaveUser(c echo.Context) error {
 
 	return c.JSON(200, &user)
 }
+
+// GetUserInfo
+//
+// @Summary Fetch user info from database
+// @Schemes
+// @Description Returns the user info
+// @Tags CodeSangam
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.DashboardUserDto
+// @Router /v1/cs/user [get]
+func GetUserInfo(c echo.Context) error {
+	sess, err := utils.GetSession(c)
+	if err != nil {
+		return utils.InternalError(c, "Unable to get session", &err)
+	}
+
+	userBytes := sess.Values[utils.UserSessionKey]
+	if userBytes == nil {
+		return utils.BadRequestError(c, "User not logged in", nil)
+	}
+
+	user, err := dao.GetUserInfo(userBytes.(int))
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch user info", &err)
+	}
+
+	return c.JSON(200, &user)
+}
