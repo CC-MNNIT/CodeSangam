@@ -13,23 +13,23 @@ import (
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
-	"github.com/gorilla/sessions"
-	"github.com/labstack/echo-contrib/session"
+	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/labstack/echo/v4"
 )
 
 func GoogleProfile(c echo.Context) error {
-	sess, err := session.Get("session", c)
+	sess, err := utils.GetSession(c)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to get session")
 	}
 
-	if sess.Values["u"] == nil {
+	userBytes := sess.Values[utils.UserSessionKey]
+	if userBytes == nil {
 		return c.String(http.StatusUnauthorized, "Unauthorized")
 	}
 
 	var user models.User
-	err = json.Unmarshal([]byte(sess.Values["u"].(string)), &user)
+	err = json.Unmarshal([]byte(userBytes.(string)), &user)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to unmarshal user info")
 	}
@@ -43,47 +43,22 @@ func LoginPage(c echo.Context) error {
 }
 
 func GoogleLogout(c echo.Context) error {
-	sess, err := session.Get("session", c)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to get session")
-	}
-
-	sess.Values["u"] = nil
-	sess.Values["at"] = nil
-	sess.Values["state"] = nil
-	sess.Options = &sessions.Options{
-		Path:     "/",
-		MaxAge:   -1,
-		HttpOnly: true,
-		Secure:   true,
-	}
-
-	err = sess.Save(c.Request(), c.Response())
+	err := utils.InvalidateSession(c)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to logout")
 	}
-
 	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/")
 }
 
 func GoogleLogin(c echo.Context) error {
 	randState, err := generateRandomState()
 	if err != nil {
-		return err
+		return c.String(http.StatusInternalServerError, "Unable to generate random state")
 	}
 
-	sess, err := session.Get("session", c)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to get session")
-	}
-	sess.Values["state"] = randState
-	sess.Options = &sessions.Options{
-		Path:     "/",
-		MaxAge:   60 * 15,
-		HttpOnly: true,
-		Secure:   true,
-	}
-	err = sess.Save(c.Request(), c.Response())
+	err = utils.SetSession(c, utils.SessionTempAge, &map[utils.Key]interface{}{
+		utils.StateSessionKey: randState,
+	})
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to save session")
 	}
@@ -94,13 +69,13 @@ func GoogleLogin(c echo.Context) error {
 
 func GoogleCallback(c echo.Context) error {
 	// Get session
-	sess, err := session.Get("session", c)
+	sess, err := utils.GetSession(c)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to get session")
 	}
 
 	// Check state is valid
-	if sess.Values["state"] != c.QueryParam("state") {
+	if sess.Values[utils.StateSessionKey] != c.QueryParam("state") {
 		return c.String(http.StatusUnauthorized, "Invalid session state")
 	}
 
@@ -159,19 +134,11 @@ func GoogleCallback(c echo.Context) error {
 	}
 
 	// Save user info in session
-	sess.Values["state"] = nil
-	sess.Values["red"] = nil
-	sess.Values["u"] = string(jDbUser)
-	sess.Values["at"] = token.AccessToken
-	sess.Options = &sessions.Options{
-		Path:     "/",
-		MaxAge:   86400 * 7,
-		HttpOnly: true,
-		Secure:   true,
-	}
-
-	// Save session
-	err = sess.Save(c.Request(), c.Response())
+	err = utils.SetSessionWith(sess, c, utils.SessionMaxAge, &map[utils.Key]interface{}{
+		utils.StateSessionKey: nil,
+		utils.UserSessionKey:  string(jDbUser),
+		utils.TokenSessionKey: token.AccessToken,
+	})
 	if err != nil {
 		return c.String(http.StatusInternalServerError, "Unable to save session")
 	}

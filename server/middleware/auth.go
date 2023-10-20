@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/labstack/echo-contrib/session"
+	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/labstack/echo/v4"
 )
 
@@ -18,12 +18,12 @@ const (
 func AuthMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			sess, err := session.Get("session", c)
+			sess, err := utils.GetSession(c)
 			if err != nil {
 				return c.String(http.StatusInternalServerError, "Unable to get session")
 			}
 
-			if sess.Values["u"] == nil {
+			if sess.Values[utils.UserSessionKey] == nil {
 				return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/auth")
 			}
 			return next(c)
@@ -37,12 +37,12 @@ func AuthMiddleware() echo.MiddlewareFunc {
 func AuthLoginMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-			sess, err := session.Get("session", c)
+			sess, err := utils.GetSession(c)
 			if err != nil {
 				return c.String(http.StatusInternalServerError, "Unable to get session")
 			}
 
-			if sess.Values["u"] == nil {
+			if sess.Values[utils.UserSessionKey] == nil {
 				return next(c)
 			}
 			return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/auth/profile")
