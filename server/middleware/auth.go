@@ -20,7 +20,7 @@ func AuthMiddleware() echo.MiddlewareFunc {
 		return func(c echo.Context) error {
 			sess, err := utils.GetSession(c)
 			if err != nil {
-				return c.String(http.StatusInternalServerError, "Unable to get session")
+				return utils.InternalError(c, "Unable to get session", &err)
 			}
 
 			if sess.Values[utils.UserSessionKey] == nil {
@@ -39,7 +39,7 @@ func AuthLoginMiddleware() echo.MiddlewareFunc {
 		return func(c echo.Context) error {
 			sess, err := utils.GetSession(c)
 			if err != nil {
-				return c.String(http.StatusInternalServerError, "Unable to get session")
+				return utils.InternalError(c, "Unable to get session", &err)
 			}
 
 			if sess.Values[utils.UserSessionKey] == nil {

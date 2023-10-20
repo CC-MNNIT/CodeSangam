@@ -20,18 +20,18 @@ import (
 func GoogleProfile(c echo.Context) error {
 	sess, err := utils.GetSession(c)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to get session")
+		return utils.InternalError(c, "Unable to get session", &err)
 	}
 
 	userBytes := sess.Values[utils.UserSessionKey]
 	if userBytes == nil {
-		return c.String(http.StatusUnauthorized, "Unauthorized")
+		return utils.InternalError(c, "Unauthorized", nil)
 	}
 
 	var user models.User
 	err = json.Unmarshal([]byte(userBytes.(string)), &user)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to unmarshal user info")
+		return utils.InternalError(c, "Unable to unmarshal user info", &err)
 	}
 	return c.JSON(http.StatusOK, &user)
 }
@@ -45,7 +45,7 @@ func LoginPage(c echo.Context) error {
 func GoogleLogout(c echo.Context) error {
 	err := utils.InvalidateSession(c)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to logout")
+		return utils.InternalError(c, "Unable to logout", &err)
 	}
 	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/")
 }
@@ -53,14 +53,14 @@ func GoogleLogout(c echo.Context) error {
 func GoogleLogin(c echo.Context) error {
 	randState, err := generateRandomState()
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to generate random state")
+		return utils.InternalError(c, "Unable to generate random state", &err)
 	}
 
 	err = utils.SetSession(c, utils.SessionTempAge, &map[utils.Key]interface{}{
 		utils.StateSessionKey: randState,
 	})
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to save session")
+		return utils.InternalError(c, "Unable to save session", &err)
 	}
 
 	url := initialize.GoogleOAuthConfig.AuthCodeURL(randState)
@@ -71,50 +71,50 @@ func GoogleCallback(c echo.Context) error {
 	// Get session
 	sess, err := utils.GetSession(c)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to get session")
+		return utils.InternalError(c, "Unable to get session", &err)
 	}
 
 	// Check state is valid
 	if sess.Values[utils.StateSessionKey] != c.QueryParam("state") {
-		return c.String(http.StatusUnauthorized, "Invalid session state")
+		return utils.UnauthorizedError(c, "Invalid session state", nil)
 	}
 
 	// Exchange code for token
 	code := c.QueryParam("code")
 	token, err := initialize.GoogleOAuthConfig.Exchange(c.Request().Context(), code)
 	if err != nil {
-		return c.String(http.StatusUnauthorized, "Unable to exchange code for token")
+		return utils.UnauthorizedError(c, "Unable to exchange code for token", &err)
 	}
 
 	// Check token is valid
 	if !token.Valid() {
-		return c.String(http.StatusUnauthorized, "Invalid token")
+		return utils.UnauthorizedError(c, "Invalid token", nil)
 	}
 
 	// Get user info bytes
 	client := initialize.GoogleOAuthConfig.Client(c.Request().Context(), token)
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
 	if err != nil {
-		return c.String(http.StatusUnauthorized, "Unable to get user info")
+		return utils.UnauthorizedError(c, "Unable to get user info", &err)
 	}
 
 	defer resp.Body.Close()
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return c.String(http.StatusUnauthorized, "Unable to read user info")
+		return utils.UnauthorizedError(c, "Unable to read user info", &err)
 	}
 
 	// User info to struct
 	var user models.OAuthUser
 	err = json.Unmarshal(data, &user)
 	if err != nil {
-		return c.String(http.StatusUnauthorized, "Unable to unmarshal user info")
+		return utils.UnauthorizedError(c, "Unable to unmarshal user info", &err)
 	}
 
 	r, err := regexp.Compile(`\.(.*?)@`)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to compile regex")
+		return utils.InternalError(c, "Unable to compile regex", &err)
 	}
 
 	// Save user info in database
@@ -125,12 +125,12 @@ func GoogleCallback(c echo.Context) error {
 		Avatar: user.Picture,
 	})
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to save/get user info")
+		return utils.InternalError(c, "Unable to save/get user info", &err)
 	}
 
 	jDbUser, err := json.Marshal(dbUser)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to marshal user info")
+		return utils.InternalError(c, "Unable to marshal user info", &err)
 	}
 
 	// Save user info in session
@@ -140,7 +140,7 @@ func GoogleCallback(c echo.Context) error {
 		utils.TokenSessionKey: token.AccessToken,
 	})
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to save session")
+		return utils.InternalError(c, "Unable to save session", &err)
 	}
 
 	// Response

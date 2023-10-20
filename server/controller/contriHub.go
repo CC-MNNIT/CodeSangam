@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
+	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/labstack/echo/v4"
 )
 
@@ -19,9 +20,8 @@ import (
 // @Router /v1/contrihub/rankings [get]
 func GetContriHubRankings(c echo.Context) error {
 	users, err := dao.GetContriHubRankings()
-
 	if err != nil {
-		return err
+		return utils.InternalError(c, "Unable to fetch ContriHUB rankings", &err)
 	}
 
 	return c.JSON(http.StatusOK, &users)
