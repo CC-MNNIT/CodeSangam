@@ -34,3 +34,9 @@ type DashboardTeam struct {
 	Leader  *UserDto   `json:"leader"`
 	Members []*UserDto `json:"members"`
 }
+
+type RegisterTeamDto struct {
+	Event           string   `json:"event"`
+	TeamName        string   `json:"team_name"`
+	MemberRegNoList []string `json:"member_reg_list"`
+}

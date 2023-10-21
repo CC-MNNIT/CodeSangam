@@ -18,11 +18,11 @@ type User struct {
 }
 
 type Team struct {
-	TeamId     int    `gorm:"primary_key;autoIncrement:true;column:id" json:"id"`
-	Name       string `gorm:"column:name" json:"name"`
-	LeaderId   int    `gorm:"column:leader_id" json:"leader_id"`
-	MemberId_1 int    `gorm:"column:m_id1" json:"member_id1"`
-	MemberId_2 int    `gorm:"column:m_id2" json:"member_id2"`
+	TeamId    int    `gorm:"primary_key;autoIncrement:true;column:id" json:"id"`
+	Name      string `gorm:"column:name" json:"name"`
+	LeaderId  int    `gorm:"column:leader_id" json:"leader_id"`
+	MemberId1 int    `gorm:"column:m_id1" json:"member_id1"`
+	MemberId2 int    `gorm:"column:m_id2" json:"member_id2"`
 }
 
 type EventRegistration struct {

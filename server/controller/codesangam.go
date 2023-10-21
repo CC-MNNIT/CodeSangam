@@ -44,20 +44,64 @@ func SaveUser(c echo.Context) error {
 // @Success 200 {object} models.DashboardUserDto
 // @Router /v1/cs/user [get]
 func GetUserInfo(c echo.Context) error {
-	sess, err := utils.GetSession(c)
+	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.InternalError(c, "Unable to get session", &err)
+		return err
 	}
 
-	userBytes := sess.Values[utils.UserSessionKey]
-	if userBytes == nil {
-		return utils.BadRequestError(c, "User not logged in", nil)
-	}
-
-	user, err := dao.GetUserInfo(userBytes.(int))
+	user, err := dao.GetUserInfo(*userId)
 	if err != nil {
 		return utils.InternalError(c, "Unable to fetch user info", &err)
 	}
 
 	return c.JSON(200, &user)
+}
+
+// RegisterTeam
+//
+// @Summary Register team to database for an event
+// @Schemes
+// @Description Registers the team to the database for an event
+// @Tags CodeSangam
+// @Accept json
+// @Produce json
+// @Param team body models.RegisterTeamDto true "Team"
+// @Success 200 {object} models.DashboardTeam
+// @Router /v1/cs/register [post]
+func RegisterTeam(c echo.Context) error {
+	userId, err := getSessionUserId(c)
+	if err != nil {
+		return err
+	}
+
+	var dto models.RegisterTeamDto
+	if err := c.Bind(&dto); err != nil {
+		return utils.BadRequestError(c, "Unable to parse teamDto", &err)
+	}
+
+	event, err := dao.ToEvent(dto.Event)
+	if err != nil {
+		return utils.BadRequestError(c, "Invalid event", &err)
+	}
+
+	team, err := dao.RegisterTeam(event, dto.TeamName, *userId, dto.MemberRegNoList)
+	if err != nil {
+		return utils.BadRequestError(c, "Unable to register team", &err)
+	}
+
+	return c.JSON(200, &team)
+}
+
+func getSessionUserId(c echo.Context) (*int, error) {
+	sess, err := utils.GetSession(c)
+	if err != nil {
+		return nil, utils.InternalError(c, "Unable to get session", &err)
+	}
+
+	userBytes := sess.Values[utils.UserSessionKey]
+	if userBytes == nil {
+		return nil, utils.BadRequestError(c, "User not logged in", nil)
+	}
+	userId := userBytes.(int)
+	return &userId, nil
 }
