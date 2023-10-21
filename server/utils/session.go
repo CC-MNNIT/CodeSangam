@@ -17,7 +17,7 @@ const (
 	TokenSessionKey Key = "at"
 	StateSessionKey Key = "state"
 	SessionTempAge  Age = 60 * 15   // 15 minutes
-	SessionMaxAge   Age = 86400 * 7 // 7 days
+	SessionMaxAge   Age = 86400 * 2 // 2 days
 	sessionName         = "session"
 )
 
