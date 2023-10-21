@@ -23,7 +23,6 @@ type Team struct {
 	LeaderId   int    `gorm:"column:leader_id" json:"leader_id"`
 	MemberId_1 int    `gorm:"column:m_id1" json:"member_id1"`
 	MemberId_2 int    `gorm:"column:m_id2" json:"member_id2"`
-	MemberId_3 int    `gorm:"column:m_id3" json:"member_id3"`
 }
 
 type EventRegistration struct {

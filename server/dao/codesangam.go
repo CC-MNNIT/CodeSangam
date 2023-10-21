@@ -100,7 +100,7 @@ func GetUserInfo(id int) (*models.DashboardUserDto, error) {
 func GetTeam(event string, userId int) (*models.Team, error) {
 	var team models.Team
 	err := config.Db.
-		Raw(`SELECT * FROM `+event+` d INNER JOIN `+teamTable+` t ON t.id = d.team_id WHERE leader_id = ? OR m_id1 = ? OR m_id2 = ? OR m_id3 = ?`, userId, userId, userId, userId).
+		Raw(`SELECT * FROM `+event+` d INNER JOIN `+teamTable+` t ON t.id = d.team_id WHERE leader_id = ? OR m_id1 = ? OR m_id2 = ?`, userId, userId, userId).
 		First(&team).Error
 
 	if err != nil {
@@ -153,16 +153,6 @@ func GetDashboardTeam(event string, userId int) (*models.DashboardTeam, error) {
 		size++
 		dashboardTeam.Members = append(dashboardTeam.Members, GetTeamMember(member))
 	}
-
-	if team.MemberId_3 != -1 {
-		member, err := GetUser(team.MemberId_3)
-		if err != nil {
-			return nil, err
-		}
-		size++
-		dashboardTeam.Members = append(dashboardTeam.Members, GetTeamMember(member))
-	}
-	dashboardTeam.Size = size
 
 	return &dashboardTeam, nil
 }
