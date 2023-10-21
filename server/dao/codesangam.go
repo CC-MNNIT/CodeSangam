@@ -66,60 +66,34 @@ func GetUserInfo(id int) (*models.DashboardUserDto, error) {
 		return nil, err
 	}
 
-	// Get Teams
-	droidTeam, err := GetTeam(droidTable, id)
-	if err != nil {
-		return nil, err
-	}
-	websterTeam, err := GetTeam(websterTable, id)
-	if err != nil {
-		return nil, err
-	}
-	softTeam, err := GetTeam(softTable, id)
-	if err != nil {
-		return nil, err
-	}
-	logicTeam, err := GetTeam(logicalTable, id)
-	if err != nil {
-		return nil, err
-	}
-
 	userInfo := models.DashboardUserDto{
 		User: user,
 	}
 
 	// Get DashboardTeam
-	if droidTeam != nil {
-		dDroidTeam, err := GetDashboardTeam(droidTeam)
-		if err != nil {
-			return nil, err
-		}
-		userInfo.DroidRushTeam = dDroidTeam
+	droidTeam, err := GetDashboardTeam(logicalTable, id)
+	if err != nil {
+		return nil, err
 	}
+	userInfo.DroidRushTeam = droidTeam
 
-	if websterTeam != nil {
-		dWebsterTeam, err := GetDashboardTeam(websterTeam)
-		if err != nil {
-			return nil, err
-		}
-		userInfo.WebsterTeam = dWebsterTeam
+	websterTeam, err := GetDashboardTeam(logicalTable, id)
+	if err != nil {
+		return nil, err
 	}
+	userInfo.WebsterTeam = websterTeam
 
-	if softTeam != nil {
-		dSoftTeam, err := GetDashboardTeam(softTeam)
-		if err != nil {
-			return nil, err
-		}
-		userInfo.SoftablitzTeam = dSoftTeam
+	softTeam, err := GetDashboardTeam(logicalTable, id)
+	if err != nil {
+		return nil, err
 	}
+	userInfo.SoftablitzTeam = softTeam
 
-	if logicTeam != nil {
-		dLogicTeam, err := GetDashboardTeam(logicTeam)
-		if err != nil {
-			return nil, err
-		}
-		userInfo.LogicalRhythmTeam = dLogicTeam
+	logicTeam, err := GetDashboardTeam(logicalTable, id)
+	if err != nil {
+		return nil, err
 	}
+	userInfo.LogicalRhythmTeam = logicTeam
 	return &userInfo, nil
 }
 
@@ -138,7 +112,15 @@ func GetTeam(event string, userId int) (*models.Team, error) {
 	return &team, nil
 }
 
-func GetDashboardTeam(team *models.Team) (*models.DashboardTeam, error) {
+func GetDashboardTeam(event string, userId int) (*models.DashboardTeam, error) {
+	team, err := GetTeam(event, userId)
+	if err != nil {
+		return nil, err
+	}
+	if team == nil {
+		return nil, nil
+	}
+
 	dashboardTeam := models.DashboardTeam{
 		TeamId: team.TeamId,
 		Name:   team.Name,
