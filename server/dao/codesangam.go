@@ -71,19 +71,19 @@ func GetUserInfo(id int) (*models.DashboardUserDto, error) {
 	}
 
 	// Get DashboardTeam
-	droidTeam, err := GetDashboardTeam(logicalTable, id)
+	droidTeam, err := GetDashboardTeam(droidTable, id)
 	if err != nil {
 		return nil, err
 	}
 	userInfo.DroidRushTeam = droidTeam
 
-	websterTeam, err := GetDashboardTeam(logicalTable, id)
+	websterTeam, err := GetDashboardTeam(websterTable, id)
 	if err != nil {
 		return nil, err
 	}
 	userInfo.WebsterTeam = websterTeam
 
-	softTeam, err := GetDashboardTeam(logicalTable, id)
+	softTeam, err := GetDashboardTeam(softTable, id)
 	if err != nil {
 		return nil, err
 	}
