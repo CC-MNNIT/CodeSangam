@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/gob"
 	"net/http"
 
 	"github.com/gorilla/sessions"
@@ -19,6 +20,11 @@ const (
 	SessionMaxAge   Age = 86400 * 7 // 7 days
 	sessionName         = "session"
 )
+
+func init() {
+	gob.Register(Key(""))
+	gob.Register(Age(0))
+}
 
 func GetSession(c echo.Context) (*sessions.Session, error) {
 	return session.Get(sessionName, c)

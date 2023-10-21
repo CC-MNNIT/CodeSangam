@@ -1,13 +1,11 @@
 package main
 
 import (
-	"encoding/gob"
 	"os"
 
 	"github.com/CC-MNNIT/CodeSangam/server/docs"
 	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
-	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
@@ -18,8 +16,6 @@ func init() {
 	initialize.LoadEnv()
 	initialize.ConnectDB()
 	initialize.SetupOAuthClient()
-
-	gob.Register(utils.Key(""))
 }
 
 // @title CodeSangam API
@@ -30,8 +26,6 @@ func init() {
 // @authorizationUrl /api/auth/login
 // @tokenUrl /api/auth/callback
 // @scope openid
-
-
 func main() {
 	baseUrl := os.Getenv("BASE_URL") + "/api"
 	router := echo.New()
@@ -46,7 +40,7 @@ func main() {
 	baserouter := router.Group(baseUrl)
 	routers.AuthRouter(baserouter)
 	baserouter = baserouter.Group("/v1")
-	
+
 	MergeRouters(baserouter, routers.Index, routers.ContriHub, routers.CodeSangam)
 
 	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
