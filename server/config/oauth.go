@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"os"
+	"log"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -9,15 +9,16 @@ import (
 
 var GoogleOAuthConfig *oauth2.Config
 
-func SetupOAuthClient() {
+func setupOAuthClient() {
 	GoogleOAuthConfig = &oauth2.Config{
-		ClientID:     os.Getenv("CLIENT_ID"),
-		ClientSecret: os.Getenv("CLIENT_SECRET"),
-		RedirectURL:  os.Getenv("REDIRECT_URL"),
+		ClientID:     EnvVars.clientId,
+		ClientSecret: EnvVars.clientSecret,
+		RedirectURL:  EnvVars.redirectUrl,
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile",
 		},
 		Endpoint: google.Endpoint,
 	}
+	log.Println("Loaded OAuth client")
 }

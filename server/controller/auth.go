@@ -6,12 +6,11 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"os"
 	"regexp"
 	"strings"
 
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
-	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/labstack/echo/v4"
@@ -58,7 +57,7 @@ func GoogleProfile(c echo.Context) error {
 // @Router /auth [get]
 func LoginPage(c echo.Context) error {
 	return c.Render(http.StatusOK, "login.html", map[string]interface{}{
-		"BaseUrl": os.Getenv("BASE_URL"),
+		"BaseUrl": config.EnvVars.BaseUrl,
 	})
 }
 
@@ -79,7 +78,7 @@ func GoogleLogout(c echo.Context) error {
 	if err != nil {
 		return utils.InternalError(c, "Unable to logout", &err)
 	}
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/")
+	return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/")
 }
 
 // GoogleLogin
@@ -106,7 +105,7 @@ func GoogleLogin(c echo.Context) error {
 		return utils.InternalError(c, "Unable to save session", &err)
 	}
 
-	url := initialize.GoogleOAuthConfig.AuthCodeURL(randState)
+	url := config.GoogleOAuthConfig.AuthCodeURL(randState)
 	return c.Redirect(http.StatusTemporaryRedirect, url)
 }
 
@@ -135,7 +134,7 @@ func GoogleCallback(c echo.Context) error {
 
 	// Exchange code for token
 	code := c.QueryParam("code")
-	token, err := initialize.GoogleOAuthConfig.Exchange(c.Request().Context(), code)
+	token, err := config.GoogleOAuthConfig.Exchange(c.Request().Context(), code)
 	if err != nil {
 		return utils.UnauthorizedError(c, "Unable to exchange code for token", &err)
 	}
@@ -146,7 +145,7 @@ func GoogleCallback(c echo.Context) error {
 	}
 
 	// Get user info bytes
-	client := initialize.GoogleOAuthConfig.Client(c.Request().Context(), token)
+	client := config.GoogleOAuthConfig.Client(c.Request().Context(), token)
 	resp, err := client.Get("https://www.googleapis.com/oauth2/v2/userinfo")
 	if err != nil {
 		return utils.UnauthorizedError(c, "Unable to get user info", &err)
@@ -193,7 +192,7 @@ func GoogleCallback(c echo.Context) error {
 	}
 
 	// Response
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/auth/profile")
+	return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/profile")
 }
 
 func generateRandomState() (string, error) {

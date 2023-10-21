@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"net/http"
-	"os"
 
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/labstack/echo/v4"
 )
@@ -24,7 +24,7 @@ func AuthMiddleware() echo.MiddlewareFunc {
 			}
 
 			if sess.Values[utils.UserSessionKey] == nil {
-				return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/auth")
+				return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth")
 			}
 			return next(c)
 		}
@@ -45,7 +45,7 @@ func AuthLoginMiddleware() echo.MiddlewareFunc {
 			if sess.Values[utils.UserSessionKey] == nil {
 				return next(c)
 			}
-			return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/api/auth/profile")
+			return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/profile")
 		}
 	}
 }

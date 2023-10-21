@@ -3,7 +3,7 @@ package dao
 import (
 	"errors"
 
-	"github.com/CC-MNNIT/CodeSangam/server/initialize"
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"gorm.io/gorm"
 )
@@ -25,7 +25,7 @@ func SaveUser(dto *models.UserDto) (*models.User, error) {
 
 	var user models.User
 
-	result := initialize.Db.Table(userTable).Create(&models.User{
+	result := config.Db.Table(userTable).Create(&models.User{
 		RegNo:  dto.RegNo,
 		Name:   dto.Name,
 		Email:  dto.Email,
@@ -40,7 +40,7 @@ func SaveUser(dto *models.UserDto) (*models.User, error) {
 
 func exists(email *string) *models.User {
 	var user models.User
-	result := initialize.Db.Table(userTable).Where("email = ?", *email).First(&user)
+	result := config.Db.Table(userTable).Where("email = ?", *email).First(&user)
 	if result.Error != nil {
 		return nil
 	}
@@ -53,7 +53,7 @@ func GetUser(id int) (*models.User, error) {
 	}
 
 	var user models.User
-	result := initialize.Db.Table(userTable).Where("uid = ?", id).First(&user)
+	result := config.Db.Table(userTable).Where("uid = ?", id).First(&user)
 	if err := result.Error; err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func GetUserInfo(id int) (*models.DashboardUserDto, error) {
 
 func GetTeam(event string, userId int) (*models.Team, error) {
 	var team models.Team
-	err := initialize.Db.
+	err := config.Db.
 		Raw(`SELECT * FROM `+event+` d INNER JOIN `+teamTable+` t ON t.id = d.team_id WHERE leader_id = ? OR m_id1 = ? OR m_id2 = ? OR m_id3 = ?`, userId, userId, userId, userId).
 		Find(&team).Error
 
