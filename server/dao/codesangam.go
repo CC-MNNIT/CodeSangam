@@ -127,16 +127,13 @@ func GetTeam(event string, userId int) (*models.Team, error) {
 	var team models.Team
 	err := config.Db.
 		Raw(`SELECT * FROM `+event+` d INNER JOIN `+teamTable+` t ON t.id = d.team_id WHERE leader_id = ? OR m_id1 = ? OR m_id2 = ? OR m_id3 = ?`, userId, userId, userId, userId).
-		Find(&team).Error
+		First(&team).Error
 
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, nil
 		}
 		return nil, err
-	}
-	if team.TeamId == 0 {
-		return nil, nil
 	}
 	return &team, nil
 }
