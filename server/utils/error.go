@@ -7,6 +7,11 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type errorPayload struct {
+	Message string `json:"message"`
+	Error   string `json:"error"`
+}
+
 func InternalError(c echo.Context, msg string, err *error) error {
 	return produceErr(c, http.StatusInternalServerError, msg, err)
 }
@@ -25,5 +30,8 @@ func produceErr(c echo.Context, code int, msg string, err *error) error {
 		errMsg = (*err).Error()
 	}
 	log.Println("ERR: " + msg + " -- " + errMsg)
-	return c.String(code, msg+" -- "+errMsg)
+	return c.JSON(code, &errorPayload{
+		Message: msg,
+		Error:   errMsg,
+	})
 }
