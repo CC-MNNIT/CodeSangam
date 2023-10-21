@@ -2,7 +2,7 @@ package utils
 
 import (
 	"encoding/gob"
-	"net/http"
+	"errors"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -41,7 +41,7 @@ func SetSessionWith(sess *sessions.Session, c echo.Context, maxAge Age, values *
 func SetSession(c echo.Context, maxAge Age, values *map[Key]interface{}) error {
 	sess, err := GetSession(c)
 	if err != nil {
-		return c.String(http.StatusInternalServerError, "Unable to get session")
+		return errors.New("unable to get session")
 	}
 	return SetSessionWith(sess, c, maxAge, values)
 }

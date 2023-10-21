@@ -17,7 +17,7 @@ func InternalError(c echo.Context, msg string, err *error) error {
 }
 
 func UnauthorizedError(c echo.Context, msg string, err *error) error {
-	return produceErr(c, http.StatusInternalServerError, msg, err)
+	return produceErr(c, http.StatusUnauthorized, msg, err)
 }
 
 func BadRequestError(c echo.Context, msg string, err *error) error {

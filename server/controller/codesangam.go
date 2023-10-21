@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"errors"
+
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
@@ -46,7 +48,7 @@ func SaveUser(c echo.Context) error {
 func GetUserInfo(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return err
+		return utils.UnauthorizedError(c, "User not logged in", &err)
 	}
 
 	user, err := dao.GetUserInfo(*userId)
@@ -71,7 +73,7 @@ func GetUserInfo(c echo.Context) error {
 func RegisterTeam(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return err
+		return utils.UnauthorizedError(c, "User not logged in", &err)
 	}
 
 	var dto models.RegisterTeamDto
@@ -95,12 +97,12 @@ func RegisterTeam(c echo.Context) error {
 func getSessionUserId(c echo.Context) (*int, error) {
 	sess, err := utils.GetSession(c)
 	if err != nil {
-		return nil, utils.InternalError(c, "Unable to get session", &err)
+		return nil, errors.New("unable to get session")
 	}
 
 	userBytes := sess.Values[utils.UserSessionKey]
 	if userBytes == nil {
-		return nil, utils.BadRequestError(c, "User not logged in", nil)
+		return nil, errors.New("user session null")
 	}
 	userId := userBytes.(int)
 	return &userId, nil
