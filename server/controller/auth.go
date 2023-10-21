@@ -17,7 +17,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-
 // GoogleProfile
 //
 // @Summary Get user profile
@@ -47,7 +46,6 @@ func GoogleProfile(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-
 // LoginPage
 //
 // @Summary Login page
@@ -63,7 +61,6 @@ func LoginPage(c echo.Context) error {
 		"BaseUrl": os.Getenv("BASE_URL"),
 	})
 }
-
 
 // GoogleLogout
 //
@@ -84,7 +81,6 @@ func GoogleLogout(c echo.Context) error {
 	}
 	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("BASE_URL")+"/")
 }
-
 
 // GoogleLogin
 //
@@ -113,7 +109,6 @@ func GoogleLogin(c echo.Context) error {
 	url := initialize.GoogleOAuthConfig.AuthCodeURL(randState)
 	return c.Redirect(http.StatusTemporaryRedirect, url)
 }
-
 
 // GoogleCallback
 //

@@ -7,5 +7,6 @@ import (
 
 func Index(baseRouter *echo.Group) {
 	g := baseRouter
+
 	g.GET("/go", controller.HelloGO)
 }
