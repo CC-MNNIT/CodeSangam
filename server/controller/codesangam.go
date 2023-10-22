@@ -107,3 +107,30 @@ func getSessionUserId(c echo.Context) (*int, error) {
 	userId := userBytes.(int)
 	return &userId, nil
 }
+
+// GetEventRanking
+//
+// @Summary Fetch event ranking from database
+// @Schemes
+// @Description Returns the event ranking
+// @Tags CodeSangam
+// @Accept json
+// @Produce json
+// @Param event query string true "event"
+// @Success 200 {object} []models.DashboardTeam
+// @Router /v1/cs/ranking [get]
+func GetEventRanking(c echo.Context) error {
+	qEvent := c.QueryParam("event")
+
+	event, err := dao.ToEvent(qEvent)
+	if err != nil {
+		return utils.BadRequestError(c, "Invalid event", &err)
+	}
+
+	rankings, err := dao.GetEventRanking(event)
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch event rankings", &err)
+	}
+
+	return c.JSON(200, &rankings)
+}
