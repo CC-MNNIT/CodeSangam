@@ -2,6 +2,7 @@ package dao
 
 import (
 	"errors"
+	"regexp"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
@@ -214,7 +215,7 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 		return nil, errors.New("invalid leader id")
 	}
 	if !userAllowed(event, leader) {
-		return nil, errors.New("user [" + leader.RegNo + "] already in other team")
+		return nil, errors.New("leader [" + leader.RegNo + "] already in other team")
 	}
 	users = append(users, leader)
 
@@ -222,7 +223,10 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 	for _, regNo := range regNoList {
 		user, err := GetUserByRegNo(&regNo)
 		if err != nil {
-			return nil, err
+			return nil, errors.New("invalid user id")
+		}
+		if !validateRegNo(&regNo) {
+			return nil, errors.New("[" + regNo + "] not allowed")
 		}
 		if !userAllowed(event, user) {
 			return nil, errors.New("user [" + user.RegNo + "] already in other team")
@@ -286,4 +290,25 @@ func userAllowed(event Event, user *models.User) bool {
 		return false
 	}
 	return true
+}
+
+func validateRegNo(regNo *string) bool {
+	r3rd, err := regexp.Compile("^2021[0-9]{4}$")
+	if err != nil {
+		return false
+	}
+
+	r2nd, err := regexp.Compile("^2022[0-9]{4}$")
+	if err != nil {
+		return false
+	}
+
+	rMca, err := regexp.Compile("^2022CA[0-9]{2}$")
+	if err != nil {
+		return false
+	}
+
+	return len(r2nd.FindString(*regNo)) == len(*regNo) ||
+		len(r3rd.FindString(*regNo)) == len(*regNo) ||
+		len(rMca.FindString(*regNo)) == len(*regNo)
 }
