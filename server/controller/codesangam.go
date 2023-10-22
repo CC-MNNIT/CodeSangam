@@ -63,7 +63,7 @@ func GetUserInfo(c echo.Context) error {
 //
 // @Summary Register team to database for an event
 // @Schemes
-// @Description Registers the team to the database for an event
+// @Description Registers the team to the database for an event. Members list should not include the leader.
 // @Tags CodeSangam
 // @Accept json
 // @Produce json
