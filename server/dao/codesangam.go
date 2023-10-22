@@ -311,3 +311,28 @@ func validateRegNo(regNo *string) bool {
 		len(r3rd.FindString(*regNo)) == len(*regNo) ||
 		len(rMca.FindString(*regNo)) == len(*regNo)
 }
+
+func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
+	var registeredTeams []models.EventRegistration
+	err := config.Db.Table(event.String()).Order("score desc").Find(&registeredTeams).Error
+	if err != nil {
+		return nil, err
+	}
+
+	var teams []*models.DashboardTeam
+	for _, rTeam := range registeredTeams {
+		var team models.Team
+		err := config.Db.Table(teamTable.String()).Where("id = ?", rTeam.TeamId).First(&team).Error
+		if err != nil {
+			return nil, err
+		}
+
+		dTeam, err := GetDashboardTeam(event, team.LeaderId)
+		if err != nil {
+			return nil, err
+		}
+		teams = append(teams, dTeam)
+	}
+
+	return teams, nil
+}
