@@ -13,7 +13,7 @@ import (
 // @description This is the API for CodeSangam
 // @version 1
 //
-// @securityDefinitions.oauth2	OAuth2
+// @securityDefinitions.oauth2
 // @authorizationUrl /api/auth/login
 // @tokenUrl /api/auth/callback
 // @scope openid
@@ -28,17 +28,17 @@ func main() {
 
 	router.GET(baseUrl+"/swagger/*", echoSwagger.WrapHandler)
 
-	baserouter := router.Group(baseUrl)
-	routers.AuthRouter(baserouter)
-	baserouter = baserouter.Group("/v1")
+	baseRouter := router.Group(baseUrl)
+	routers.AuthRouter(baseRouter)
+	baseRouter = baseRouter.Group("/v1")
 
-	MergeRouters(baserouter, routers.Index, routers.ContriHub, routers.CodeSangam)
+	MergeRouters(baseRouter, routers.Index, routers.ContriHub, routers.CodeSangam)
 
 	router.Logger.Fatal(router.Start(":" + config.EnvVars.Port))
 }
 
-func MergeRouters(baserouter *echo.Group, routers ...func(*echo.Group)) {
+func MergeRouters(baseRouter *echo.Group, routers ...func(*echo.Group)) {
 	for _, router := range routers {
-		router(baserouter)
+		router(baseRouter)
 	}
 }
