@@ -10,10 +10,10 @@ const LandingPage = () => {
     const [moonRadius, setMoonRadius] = useState(0);
     const [factor, setFactor] = useState(2.5);
     const leftrotateMoon = () => {
-        setAngle(angle - 72);
+        setAngle(angle + 72);
     };
     const rightrotateMoon = () => {
-        setAngle(angle + 72);
+        setAngle(angle - 72);
     };
     window.addEventListener("scroll", () => {
         const currentScroll = window.scrollY;

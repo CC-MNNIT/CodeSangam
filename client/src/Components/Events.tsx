@@ -2,7 +2,13 @@ import React from 'react'
 import moonwith from "../Assets/moon.svg";
 import { useNavigate } from "react-router-dom";
 
-export default function Events() {
+
+interface props {
+    currentEvent: string
+}
+
+export default function Events({ currentEvent }: props) {
+    console.log(currentEvent);
     const navigate = useNavigate();
     return (
         <div>
@@ -17,19 +23,19 @@ export default function Events() {
                                 <a onClick={() => navigate("/")} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">HOME</a>
                             </li>
                             <li>
-                                <a onClick={() => navigate("/eventleaderboard")} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">WEBSTER</a>
+                                <a onClick={() => navigate("/leaderboard/webster")} className={`${currentEvent === "webster" ? "selectedEvent" : "" } card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>WEBSTER</a>
                             </li>
                             <li>
-                                <a onClick={() => navigate("/eventleaderboard")} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">DROIDRUSH</a>
+                                <a onClick={() => navigate("/leaderboard/droidrush")} className={`${currentEvent === "droidrush" ? "selectedEvent" : "" } card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>DROIDRUSH</a>
                             </li>
                             <li>
-                                <a onClick={() => navigate("/eventleaderboard")} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">LOGICAL RHYTHM</a>
+                                <a onClick={() => navigate("/leaderboard/logicalrhythm")} className={`${currentEvent === "logicalrhythm" ? "selectedEvent" : "" } card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>LOGICAL RHYTHM</a>
                             </li>
                             <li>
-                                <a onClick={() => navigate("/eventleaderboard")} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">SOFTABLITZ</a>
+                                <a onClick={() => navigate("/leaderboard/softablitz")} className={`${currentEvent === "softablitz" ? "selectedEvent" : "" } card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>SOFTABLITZ</a>
                             </li>
                             <li>
-                                <a onClick={() => navigate("/contrihubleaderboard")} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">CONTRIHUB</a>
+                                <a onClick={() => navigate("/leaderboard/contrihub")} className={`${currentEvent === "contrihub" ? "selectedEvent" : "" } card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}>CONTRIHUB</a>
                             </li>
                         </ul>
                     </div>
