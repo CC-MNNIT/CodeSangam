@@ -31,3 +31,5 @@ docs/
 .env.local
 
 vendor
+
+deploy.sh
