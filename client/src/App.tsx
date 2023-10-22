@@ -9,58 +9,51 @@ import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 import EventLeaderboard from "./Components/EventLeaderboard";
 
 function App() {
-    const [seed, setSeed] = useState(1);
-    const onFocus = () => {
-        setSeed(Math.random);
-        console.log("Tab is in focus");
-    };
-    useEffect(() => {
-        window.addEventListener("focus", onFocus);
-        return () => {
-            window.removeEventListener("focus", onFocus);
-        };
-    }, []);
-
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={
                     <div className="">
-                        <Starfield seed={seed} />
+                        <Starfield/>
                         <LandingPage />
                         <NavBar />
                     </div>} />
                 <Route path="/leaderboard/contrihub" element={
                     <div>
-                        <Starfield seed={seed} />
+                        <Starfield/>
                         <ContrihubLeaderboard />
+                        <NavBar />
                         <Events currentEvent="contrihub" />
                     </div>} />
                 <Route path="/leaderboard/softablitz" element={
                     <div>
-                        <Starfield seed={seed} />
+                        <Starfield/>
                         <EventLeaderboard />
+                        <NavBar />
                         <Events currentEvent="softablitz" />
                     </div>
                 } />
                 <Route path="/leaderboard/webster" element={
                     <div>
-                        <Starfield seed={seed} />
+                        <Starfield/>
                         <EventLeaderboard />
+                        <NavBar />
                         <Events currentEvent="webster" />
                     </div>
                 } />
                 <Route path="/leaderboard/logicalrhythm" element={
                     <div>
-                        <Starfield seed={seed} />
+                        <Starfield/>
                         <EventLeaderboard />
+                        <NavBar />
                         <Events currentEvent="logicalrhythm" />
                     </div>
                 } />
                 <Route path="/leaderboard/droidrush" element={
                     <div>
-                        <Starfield seed={seed} />
+                        <Starfield/>
                         <EventLeaderboard />
+                        <NavBar />
                         <Events currentEvent="droidrush" />
                     </div>
                 } />

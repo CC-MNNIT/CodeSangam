@@ -32,7 +32,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                             <img src={second} alt="" />
                             </div>
                         </div>
-                        <p className="podium__city">Rank#2</p>
+                        <p className="podium__city">#2</p>
                         <p className="podium__city">{secondStudentName}</p>
                     </div>
                     <div className="podium__item">
@@ -47,7 +47,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                             <img src={first} alt="" />
                             </div>
                         </div>
-                        <p className="podium__city">Rank#1</p>
+                        <p className="podium__city">#1</p>
                         <p className="podium__city">{firstStudentName}</p>
                     </div>
                     <div className="podium__item">
@@ -62,7 +62,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                             <img src={third} alt="" />
                             </div>
                         </div>
-                        <p className="podium__city">Rank#3</p>
+                        <p className="podium__city">#3</p>
                         <p className="podium__city">{thirdStudentName}</p>
                     </div>
                 </div>
