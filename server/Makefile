@@ -1,5 +1,5 @@
 # Set the name of the binary to be built
-BINARY_NAME := myapp
+BINARY_NAME := codesangam-backend
 
 # Set the Go compiler to use
 GO := go
