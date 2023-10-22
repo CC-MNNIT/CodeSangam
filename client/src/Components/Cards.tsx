@@ -37,23 +37,23 @@ function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, team
                     />
                 </CardHeader>
                 <CardBody className="w-[60%] h-[30%]">
-                    <Typography variant="h6" color="gray" className="mb-4  dark:border-gray-600 uppercase">
+                    <Typography variant="h6" color="gray" className="mb-4 pt-3 dark:border-gray-600 uppercase">
                         {eventn}
                     </Typography>
-                    <Typography color="gray" className="mb-8 font-normal">
+                    <Typography color="gray" className="px-4 mb-8 font-normal">
                         {eventdescription}
                     </Typography>
                     <Typography color="gray" className="mb-8 font-normal">
                         {teamsize}
                     </Typography>
-                    <div className="flex">
-                        <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="flex-1 items-center">
+                    <div className="flex px-3 py-1">
+                        <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="bg-gray-200 mx-1  flex-1 h-[3rem] items-center">
                             Previous
                         </Button>
-                        <Button variant="text" color="gray" className="flex-1 items-center">
-                            Problem Statement
+                        <Button variant="text" color="gray" className="bg-gray-200 mx-1 flex-1 h-[3rem] items-center">
+                            Problem
                         </Button>
-                        <Button onClick={() => { rightrotateMoon(); }} variant="text" color="gray" className="flex-1 items-center">
+                        <Button onClick={() => { rightrotateMoon(); }} variant="text" color="gray" className="bg-gray-200 mx-1 flex-1 h-[3rem] items-center">
                             Next
                         </Button>
                     </div>
