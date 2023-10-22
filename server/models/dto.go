@@ -31,7 +31,6 @@ type DashboardTeam struct {
 	TeamId  int        `json:"team_id"`
 	Name    string     `json:"name"`
 	Size    int        `json:"size"`
-	Leader  *UserDto   `json:"leader"`
 	Members []*UserDto `json:"members"`
 }
 

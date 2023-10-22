@@ -166,7 +166,7 @@ func GetDashboardTeam(event Event, userId int) (*models.DashboardTeam, error) {
 			return nil, err
 		}
 		size++
-		dashboardTeam.Leader = GetUserDto(member)
+		dashboardTeam.Members = append(dashboardTeam.Members, GetUserDto(member))
 	}
 
 	if team.MemberId1 > 0 {
@@ -274,8 +274,7 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 		TeamId:  resultTeam.TeamId,
 		Name:    resultTeam.Name,
 		Size:    len(userDtoList),
-		Leader:  userDtoList[0],
-		Members: userDtoList[1:],
+		Members: userDtoList,
 	}
 
 	return &dashboardTeam, nil
