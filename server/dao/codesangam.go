@@ -303,7 +303,7 @@ func validateRegNo(regNo *string) bool {
 		return false
 	}
 
-	rMca, err := regexp.Compile("^2021CA[0-9]{2}$")
+	rMca, err := regexp.Compile("^2022CA[0-9]{2}$")
 	if err != nil {
 		return false
 	}
