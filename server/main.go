@@ -6,6 +6,7 @@ import (
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
@@ -21,6 +22,7 @@ func main() {
 	baseUrl := config.EnvVars.BaseUrl + "/api"
 	router := echo.New()
 	router.Use(session.Middleware(config.SessionCookieStore))
+	router.Use(middleware.CORS())
 	router.Static(config.EnvVars.BaseUrl+"/static", "web/static")
 	config.InitTemplateRenderer(router)
 
