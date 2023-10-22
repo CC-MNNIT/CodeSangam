@@ -11,7 +11,7 @@ import (
 // @Summary GO ping
 // @Schemes
 // @Description Do ping
-// @Tags Index
+// @Tags _
 // @Accept json
 // @Produce json
 // @Success 200 {object} map[string]string

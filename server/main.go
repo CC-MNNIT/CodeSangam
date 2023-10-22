@@ -1,43 +1,44 @@
 package main
 
 import (
-	"os"
-
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/docs"
-	"github.com/CC-MNNIT/CodeSangam/server/initialize"
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
-	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-func init() {
-	initialize.LoadEnv()
-	initialize.ConnectDB()
-	initialize.SetupOAuthClient()
-}
-
 // @title CodeSangam API
 // @description This is the API for CodeSangam
+// @version 1
+//
+// @securityDefinitions.oauth2
+// @authorizationUrl /api/auth/login
+// @tokenUrl /api/auth/callback
+// @scope openid
 func main() {
-	baseUrl := os.Getenv("BASE_URL") + "/api"
+	baseUrl := config.EnvVars.BaseUrl + "/api"
 	router := echo.New()
-	router.Use(session.Middleware(sessions.NewCookieStore([]byte(os.Getenv("SESSION_SECRET")))))
-	router.Static(os.Getenv("BASE_URL")+"/static", "web/static")
-	initialize.InitTemplateRenderer(router)
+	router.Use(session.Middleware(config.SessionCookieStore))
+	router.Static(config.EnvVars.BaseUrl+"/static", "web/static")
+	config.InitTemplateRenderer(router)
 
 	docs.SwaggerInfo.BasePath = baseUrl
 
-	router.GET(baseUrl+"/v1/swagger/*", echoSwagger.WrapHandler)
+	router.GET(baseUrl+"/swagger/*", echoSwagger.WrapHandler)
 
-	MergeRouters(router, &baseUrl, routers.AuthRouter, routers.Index, routers.ContriHub, routers.CodeSangam)
+	baseRouter := router.Group(baseUrl)
+	routers.AuthRouter(baseRouter)
+	baseRouter = baseRouter.Group("/v1")
 
-	router.Logger.Fatal(router.Start(":" + os.Getenv("PORT")))
+	MergeRouters(baseRouter, routers.Index, routers.ContriHub, routers.CodeSangam)
+
+	router.Logger.Fatal(router.Start(":" + config.EnvVars.Port))
 }
 
-func MergeRouters(rootRouter *echo.Echo, baseUrl *string, routers ...func(*echo.Echo, *string)) {
+func MergeRouters(baseRouter *echo.Group, routers ...func(*echo.Group)) {
 	for _, router := range routers {
-		router(rootRouter, baseUrl)
+		router(baseRouter)
 	}
 }

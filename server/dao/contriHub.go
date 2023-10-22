@@ -1,14 +1,14 @@
 package dao
 
 import (
-	"github.com/CC-MNNIT/CodeSangam/server/initialize"
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 )
 
 func GetContriHubRankings() (*[]models.ContriHUBUser, error) {
 	var users []models.ContriHUBUser
 
-	err := initialize.ContriHubDB.Raw(
+	err := config.ContriHubDB.Raw(
 		`SELECT * FROM user_profile_userprofile us 
 		INNER JOIN auth_user au 
 		ON us.user_id = au.id 

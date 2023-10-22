@@ -5,8 +5,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func ContriHub(router *echo.Echo, baseUrl *string) {
-	g := router.Group(*baseUrl).Group("/v1/contrihub")
+func ContriHub(baseRouter *echo.Group) {
+	g := baseRouter.Group("/contrihub")
 
 	g.GET("/rankings", controller.GetContriHubRankings)
 }
