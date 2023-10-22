@@ -425,3 +425,285 @@ body {
 .selectedEvent{
   border-bottom: 2px solid rgb(253, 253, 253);
 }
+
+
+/* ---------------------------------------------------------------------------------------- */
+/* -------------------------------------PODIUM------------------------------------------------ */
+
+
+.container {
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  width: 100vw;
+  justify-content: center;
+}
+
+.podium__item {
+  width: 250px;
+  transition: 0.5s;
+}
+
+.podium__item:hover{
+  scale: 120%;
+  filter: contrast(140%);
+}
+
+.podium__rank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #fff;
+}
+
+.podium__city {
+  text-align: center;
+  padding: 0 .5rem;
+}
+
+.podium__number {
+  width: 27px;
+  height: 75px;
+}
+
+.podium .first {
+  height: 300px;
+}
+
+.podium .second {
+  height: 280px;
+}
+
+.podium .third {
+  height: 250px;
+}
+
+
+/* clear background */
+h2 {
+  text-align: center;
+  color: rgb(148, 159, 177);
+  padding: 16px;
+  margin: 0;
+}
+
+/* crops animations that exceeds one line area */
+.line {
+  width: 100%;
+  height: 4rem;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+/* flipping class and key frames*/
+.flipX {
+  animation: 1s anim-flipX ease infinite;
+}
+@keyframes anim-flipX {
+  0% {
+    opacity: 0;
+    transform: rotateX(90def);
+  }
+  50% {
+    opacity: 1;
+    transform: rotateX(720deg);
+  }
+  100% {
+    /* animate nothing to pause animation at the end */
+    opacity: 1;
+    transform: rotateX(720deg);
+  }
+}
+
+.lineUp {
+  color: #fee;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ED6, 0 0 0.5em #329ED6, 0 0 0.1em #329ED6, 0 10px 3px #000;
+  animation: 5s anim-lineUp ease-out infinite;
+}
+@keyframes anim-lineUp {
+  0% {
+    opacity: 0;
+    transform: translateY(80%);
+  }
+  20% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+}
+/* flipY class and keyframes*/
+.flipY {
+  animation-name: spin, depth;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 6s;
+}
+
+
+
+
+
+/* ---------------------------------------------------------------------------------------- */
+/* -------------------------------------LOADER------------------------------------------------ */
+
+.image-cropper {
+  width: 190px;
+  height: 190px;
+  position: absolute;
+  overflow: hidden;
+  z-index: 500000;
+  border-radius: 50%;
+}
+
+.loader1 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradien(#ffd700,#ffd700 #ffd700);
+  animation: animate 5s linear infinite;
+}
+@keyframes animate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader1 span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient( #c7af25, #ffd700, #b39c1d);
+}
+
+.loader1 span:nth-child(1) {
+  filter: blur(10px);
+}
+
+.loader1 span:nth-child(2) {
+  filter: blur(20px);
+}
+
+.loader1 span:nth-child(3) {
+  filter: blur(25px);
+}
+
+.loader1 span:nth-child(4) {
+  filter: blur(50x);
+}
+
+.loader1:after {
+  content:'';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #240229;
+  border-radius: 50%;
+}
+
+.loader2 {
+  position: relative;
+  z-index: 100000;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(#C0C0C0, #C0C0C0, #696969);
+  animation: animate 5s linear infinite;
+}
+@keyframes animate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader2 span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#7c7474, #C0C0C0, #6e6969);
+}
+
+.loader2 span:nth-child(1) {
+  filter: blur(2px);
+}
+
+.loader2 span:nth-child(2) {
+  filter: blur(10px);
+}
+
+.loader2 span:nth-child(3) {
+  filter: blur(20px);
+}
+
+.loader2 span:nth-child(4) {
+  filter: blur(50px);
+}
+
+.loader2:after {
+  content:'';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #240229;
+  border-radius: 50%;
+}
+
+.loader3 {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(#a0764c, #CD7F32, #CD7F32);
+  animation: animate 5s linear infinite;
+}
+@keyframes animate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader3 span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#664c32, #CD7F32, #83460a);
+}
+
+.loader3 span:nth-child(1) {
+  filter: blur(2px);
+}
+
+.loader3 span:nth-child(2) {
+  filter: blur(10px);
+}
+
+.loader3 span:nth-child(3) {
+  filter: blur(20px);
+}
+
+.loader3 span:nth-child(4) {
+  filter: blur(50px);
+}
+
+.loader3:after {
+  content:'';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #240229;
+  border-radius: 50%;
+}
