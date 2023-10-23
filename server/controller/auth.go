@@ -16,7 +16,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// GoogleProfile
+// UserDashboard
 //
 // @Summary Get user profile
 // @Schemes
@@ -24,10 +24,10 @@ import (
 // @Tags Auth
 // @Security OAuth2
 // @Accept json
-// @Produce json
+// @Produce html
 // @Failure 401 {string} Unauthorized
-// @Router /auth/profile [get]
-func GoogleProfile(c echo.Context) error {
+// @Router /auth/dashboard [get]
+func UserDashboard(c echo.Context) error {
 	sess, err := utils.GetSession(c)
 	if err != nil {
 		return utils.InternalError(c, "Unable to get session", &err)
@@ -42,7 +42,10 @@ func GoogleProfile(c echo.Context) error {
 	if err != nil {
 		return utils.InternalError(c, "Unable to unmarshal user info", &err)
 	}
-	return c.JSON(http.StatusOK, user)
+	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
+		"UserInfo": user,
+		"BaseUrl":  config.EnvVars.BaseUrl,
+	})
 }
 
 // LoginPage
@@ -192,7 +195,7 @@ func GoogleCallback(c echo.Context) error {
 	}
 
 	// Response
-	return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/profile")
+	return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/dashboard")
 }
 
 func generateRandomState() (string, error) {
