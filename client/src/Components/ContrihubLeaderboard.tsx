@@ -138,24 +138,42 @@ export default function ContrihubLeaderboard() {
             <tbody>
               {rankingsData.map((rankingData) => {
                 return (
-                  <tr style={{height: "35px"}} className="bg-white border-b dark:bg-gray-900/[.7] dark:border-gray-700/[.7]">
+                  <tr style={{ height: "35px" }} className="bg-white border-b dark:bg-gray-900/[.7] dark:border-gray-700/[.7]">
                     <td style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="px-6 py-4 text-center font-medium text-blue-600">
-                      <div style={rankingData.rank == 1 ? {} : { display: "none" }} className="flex flex-col justify-center border-2  border-yellow-500 relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
-                        <h1 style={{transform: "translateY(2px)"}}>1</h1>
-                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{scale: "80%"}} src="https://leetcode.com/_next/static/images/gold-ef62b77913cc5e6d6a8f4757cf91b8e1.svg" alt="Crown" />
+                      <div style={rankingData.rank == 1 ? {} : { display: "none" }} className="flex flex-col justify-center relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
+                        <div style={{ position: "absolute", width: "35px", height: "35px" }} className="loaderlb1">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                        <h1 style={{ transform: "translateY(2px)" }} className='card'>1</h1>
+                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src="https://leetcode.com/_next/static/images/gold-ef62b77913cc5e6d6a8f4757cf91b8e1.svg" alt="Crown" />
                         </div>
                       </div>
-                      <div style={rankingData.rank == 2 ? {} : { display: "none" }} className="flex flex-col justify-center border-2  border-warm-gray-500 relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
-                      <h1 style={{transform: "translateY(2px)"}}>2</h1>
-                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{scale: "80%"}} src="https://leetcode.com/_next/static/images/silver-df5edfd6a8d6f227557588e6874f11e1.svg" alt="Crown" />
+                      <div style={rankingData.rank == 2 ? {} : { display: "none" }} className="flex flex-col justify-center relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
+                        <div style={{ position: "absolute", width: "35px", height: "35px" }} className="loaderlb2">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                        <h1 style={{ transform: "translateY(2px)" }} className='card'>2</h1>
+                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src="https://leetcode.com/_next/static/images/gold-ef62b77913cc5e6d6a8f4757cf91b8e1.svg" alt="Crown" />
                         </div>
                       </div>
-                      <div style={rankingData.rank == 3 ? {} : { display: "none" }} className="flex flex-col justify-center border-2  border-teal-500 relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
-                      <h1 style={{transform: "translateY(2px)"}}>3</h1>
-                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{scale: "80%"}} src="https://leetcode.com/_next/static/images/bronze-775865c553df0d51efef52a3dd8ae19e.svg" alt="Crown" />
+                      <div style={rankingData.rank == 3 ? {} : { display: "none" }} className="flex flex-col justify-center relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
+                        <div style={{ position: "absolute", width: "35px", height: "35px" }} className="loaderlb3">
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                        <h1 style={{ transform: "translateY(2px)" }} className='card'>3</h1>
+                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src="https://leetcode.com/_next/static/images/bronze-775865c553df0d51efef52a3dd8ae19e.svg" alt="Crown" />
                         </div>
                       </div>
-                      <div style={rankingData.rank == 1 || rankingData.rank == 2 || rankingData.rank == 3 ? { display: "none" } : {}} className='min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] flex flex-col justify-center'>
+                      <div style={rankingData.rank == 1 || rankingData.rank == 2 || rankingData.rank == 3 ? { display: "none" } : {}} className='card min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] flex flex-col justify-center'>
                         {rankingData.rank}
                       </div>
                     </td>
