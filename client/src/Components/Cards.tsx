@@ -47,15 +47,15 @@ function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, team
                         {teamsize}
                     </Typography>
                     <div className="flex px-3 py-1">
-                        <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="bg-gray-200 mx-1  flex-1 h-[3rem] items-center">
+                        {/* <Button onClick={() => { leftrotateMoon(); }} variant="text" color="gray" className="bg-gray-200 mx-1  flex-1 h-[3rem] items-center">
                             Previous
+                        </Button> */}
+                        <Button variant="text" color="gray" className="bg-gray-200 mx-2 my-1 flex-1 h-[3rem] items-center">
+                            Problem Statement
                         </Button>
-                        <Button variant="text" color="gray" className="bg-gray-200 mx-1 flex-1 h-[3rem] items-center">
-                            Problem
-                        </Button>
-                        <Button onClick={() => { rightrotateMoon(); }} variant="text" color="gray" className="bg-gray-200 mx-1 flex-1 h-[3rem] items-center">
+                        {/* <Button onClick={() => { rightrotateMoon(); }} variant="text" color="gray" className="bg-gray-200 mx-1 flex-1 h-[3rem] items-center">
                             Next
-                        </Button>
+                        </Button> */}
                     </div>
                 </CardBody>
             </Card>

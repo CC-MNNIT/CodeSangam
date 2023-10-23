@@ -114,7 +114,7 @@ export default function ContrihubLeaderboard() {
     <div>
       <Podium firstStudentName={rankingsData[0].username} secondStudentName={rankingsData[1].username} thirdStudentName={rankingsData[2].username} />
       <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "130px", position: "relative", backgroundColor: "rgba(0,0,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
-        <div style={{}} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
+        <div style={{}} className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead style={{ backdropFilter: "blur(30px)", zIndex: "1" }} className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50/[.7] dark:bg-gray-700/[.7] dark:text-gray-400">
               <tr>
