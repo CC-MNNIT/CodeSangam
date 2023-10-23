@@ -1,5 +1,6 @@
 
 let active = 'nav-dashboard'
+let eventActive = 'event1'
 
 function setElementActive(elementId) {
     let activeElement = document.getElementById(active)
@@ -35,6 +36,27 @@ function setElementActive(elementId) {
 
     hideMenu()
 }
+
+function setEventActive(elementId) {
+    // Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800"
+    let activeElement = document.getElementById(eventActive)
+    if (activeElement) {
+        activeElement.classList.remove('bg-gray-800')
+        activeElement.classList.remove('text-white')
+        activeElement.classList.add('text-gray-400')
+        activeElement.classList.add('hover:bg-gray-800')
+        activeElement.classList.add('hover:text-white')
+    }
+
+    let element = document.getElementById(elementId)
+    if (element) {
+        element.classList.add('bg-gray-800')
+        element.classList.add('text-white')
+    }
+    eventActive = elementId
+}
+
+setEventActive(eventActive)
 
 function toggleMenu() {
     let menu = document.getElementById('mobile-menu')
