@@ -224,7 +224,7 @@ import React, { useEffect } from "react";
 
 export default function Starfield() {
   return (
-    <div style={{width: "100vw", height: "100vh", backgroundColor: "black"}}>
+    <div style={{width: "100vw", height: "100vh", backgroundColor: "black"}} className="fixed">
       
     </div>
   )
