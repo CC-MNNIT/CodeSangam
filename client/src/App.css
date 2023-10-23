@@ -707,3 +707,19 @@ h2 {
   background: #240229;
   border-radius: 50%;
 }
+
+
+
+/* ----------------------------------------------------------------------------- */
+/* ------------------------------TEXT---------------------------------*/
+
+.event-normal {
+  font-family: "Comfortaa";
+  color: #fee;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ED6, 0 0 0.5em #329ED6, 0 0 0.1em #329ED6, 0 0 0 #000;
+}
+
+.event-selected {
+  font-family: "Comfortaa";
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ED6, 0 0 0.5em #329ED6, 0 0 0.1em #329ED6, 0 0 0 #000;
+}

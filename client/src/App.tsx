@@ -16,20 +16,20 @@ function App() {
                     <div className="">
                         <Starfield/>
                         <LandingPage />
-                        <NavBar />
+                        <NavBar isHome={true}/>
                     </div>} />
                 <Route path="/leaderboard/contrihub" element={
                     <div>
                         <Starfield/>
                         <ContrihubLeaderboard />
-                        <NavBar />
+                        <NavBar isHome={false}/>
                         <Events currentEvent="contrihub" />
                     </div>} />
                 <Route path="/leaderboard/softablitz" element={
                     <div>
                         <Starfield/>
                         <EventLeaderboard />
-                        <NavBar />
+                        <NavBar isHome={false}/>
                         <Events currentEvent="softablitz" />
                     </div>
                 } />
@@ -37,7 +37,7 @@ function App() {
                     <div>
                         <Starfield/>
                         <EventLeaderboard />
-                        <NavBar />
+                        <NavBar isHome={false}/>
                         <Events currentEvent="webster" />
                     </div>
                 } />
@@ -45,7 +45,7 @@ function App() {
                     <div>
                         <Starfield/>
                         <EventLeaderboard />
-                        <NavBar />
+                        <NavBar isHome={false}/>
                         <Events currentEvent="logicalrhythm" />
                     </div>
                 } />
@@ -53,7 +53,7 @@ function App() {
                     <div>
                         <Starfield/>
                         <EventLeaderboard />
-                        <NavBar />
+                        <NavBar isHome={false}/>
                         <Events currentEvent="droidrush" />
                     </div>
                 } />

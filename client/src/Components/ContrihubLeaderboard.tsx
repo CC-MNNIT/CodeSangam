@@ -116,8 +116,11 @@ export default function ContrihubLeaderboard() {
       <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "130px", position: "relative", backgroundColor: "rgba(0,0,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
         <div style={{}} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead style={{ backdropFilter: "blur(30px)" }} className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50/[.7] dark:bg-gray-700/[.7] dark:text-gray-400">
+            <thead style={{ backdropFilter: "blur(30px)", zIndex: "1" }} className="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50/[.7] dark:bg-gray-700/[.7] dark:text-gray-400">
               <tr>
+                <th scope="col" className="px-6 py-4 text-center">
+                  Rank
+                </th>
                 <th scope="col" className="px-6 py-4 text-center">
                   Username
                 </th>
@@ -130,15 +133,32 @@ export default function ContrihubLeaderboard() {
                 <th scope="col" className="px-6 py-4 text-center">
                   Total Points
                 </th>
-                <th scope="col" className="px-6 py-4 text-center">
-                  Rank
-                </th>
               </tr>
             </thead>
             <tbody>
               {rankingsData.map((rankingData) => {
                 return (
-                  <tr className="bg-white border-b dark:bg-gray-900/[.7] dark:border-gray-700/[.7]">
+                  <tr style={{height: "35px"}} className="bg-white border-b dark:bg-gray-900/[.7] dark:border-gray-700/[.7]">
+                    <td style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="px-6 py-4 text-center font-medium text-blue-600">
+                      <div style={rankingData.rank == 1 ? {} : { display: "none" }} className="flex flex-col justify-center border-2  border-yellow-500 relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
+                        <h1 style={{transform: "translateY(2px)"}}>1</h1>
+                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{scale: "80%"}} src="https://leetcode.com/_next/static/images/gold-ef62b77913cc5e6d6a8f4757cf91b8e1.svg" alt="Crown" />
+                        </div>
+                      </div>
+                      <div style={rankingData.rank == 2 ? {} : { display: "none" }} className="flex flex-col justify-center border-2  border-warm-gray-500 relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
+                      <h1 style={{transform: "translateY(2px)"}}>2</h1>
+                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{scale: "80%"}} src="https://leetcode.com/_next/static/images/silver-df5edfd6a8d6f227557588e6874f11e1.svg" alt="Crown" />
+                        </div>
+                      </div>
+                      <div style={rankingData.rank == 3 ? {} : { display: "none" }} className="flex flex-col justify-center border-2  border-teal-500 relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-level1 dark:shadow-dark-level1 q3MuO">
+                      <h1 style={{transform: "translateY(2px)"}}>3</h1>
+                        <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{scale: "80%"}} src="https://leetcode.com/_next/static/images/bronze-775865c553df0d51efef52a3dd8ae19e.svg" alt="Crown" />
+                        </div>
+                      </div>
+                      <div style={rankingData.rank == 1 || rankingData.rank == 2 || rankingData.rank == 3 ? { display: "none" } : {}} className='min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] flex flex-col justify-center'>
+                        {rankingData.rank}
+                      </div>
+                    </td>
                     <th scope="row" className="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       {rankingData.username}
                     </th>
@@ -150,9 +170,6 @@ export default function ContrihubLeaderboard() {
                     </td>
                     <td className="px-6 py-4 text-center">
                       {rankingData.deducted_points}
-                    </td>
-                    <td className="px-6 py-4 text-center font-medium text-blue-600">
-                      {rankingData.rank}
                     </td>
                   </tr>
                 );
