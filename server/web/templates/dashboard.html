@@ -234,14 +234,14 @@
                         <div class="flex flex-row py-8 mx-auto h-screen lg:py-0">
                             <div class="inset-y-0 z-50 flex w-72 flex-col">
                                 <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6">
-                                    <nav class="flex flex-1 flex-col">
+                                    <nav class="flex flex-1 flex-col min-w-[16vw]">
                                         <ul role="list" class="flex flex-1 flex-col gap-y-7">
                                             <li>
                                                 <ul role="list" class="-mx-2 space-y-1">
                                                     <li>
                                                         <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
                                                         <a
-                                                            class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                                                            class="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold cursor-pointer"
                                                             onclick="setEventActive('event1')"
                                                             id="event1"
                                                         >
@@ -341,7 +341,204 @@
                                 </div>
                             </div>
                             <div class="flex flex-col">
-                                <div>Event details</div>
+                                <div>
+                                    <div id="event1-details">
+                                        <div class="px-4 sm:px-0">
+                                            <h3 class="text-base font-semibold leading-7 text-white">Event 1 Title</h3>
+                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                                Event 1 tagline or theme
+                                            </p>
+                                        </div>
+                                        <div class="mt-6 border-t border-white/10">
+                                            <dl class="divide-y divide-white/10">
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                        Description
+                                                    </dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+                                                        voluptatibus eveniet at ex praesentium voluptatem voluptas
+                                                        nesciunt, repudiandae animi eius accusamus minima voluptate
+                                                        totam reiciendis odit. Ratione sed enim tempore?
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        2-4
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some tech stack
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some kind of list
+                                                    </dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div id="event2-details" class="hidden">
+                                        <div class="px-4 sm:px-0">
+                                            <h3 class="text-base font-semibold leading-7 text-white">Event 2 Title</h3>
+                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                                Event 2 tagline or theme
+                                            </p>
+                                        </div>
+                                        <div class="mt-6 border-t border-white/10">
+                                            <dl class="divide-y divide-white/10">
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                        Description
+                                                    </dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+                                                        voluptatibus eveniet at ex praesentium voluptatem voluptas
+                                                        nesciunt, repudiandae animi eius accusamus minima voluptate
+                                                        totam reiciendis odit. Ratione sed enim tempore?
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        1-3
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some tech stack
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some kind of list
+                                                    </dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div id="event3-details" class="hidden">
+                                        <div class="px-4 sm:px-0">
+                                            <h3 class="text-base font-semibold leading-7 text-white">Event 3 Title</h3>
+                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                                Event 3 tagline or theme
+                                            </p>
+                                        </div>
+                                        <div class="mt-6 border-t border-white/10">
+                                            <dl class="divide-y divide-white/10">
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                        Description
+                                                    </dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+                                                        voluptatibus eveniet at ex praesentium voluptatem voluptas
+                                                        nesciunt, repudiandae animi eius accusamus minima voluptate
+                                                        totam reiciendis odit. Ratione sed enim tempore?
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        3-4
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some tech stack
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some kind of list
+                                                    </dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div id="event4-details" class="hidden">
+                                        <div class="px-4 sm:px-0">
+                                            <h3 class="text-base font-semibold leading-7 text-white">Event 4 Title</h3>
+                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                                Event 4 tagline or theme
+                                            </p>
+                                        </div>
+                                        <div class="mt-6 border-t border-white/10">
+                                            <dl class="divide-y divide-white/10">
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                        Description
+                                                    </dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non
+                                                        voluptatibus eveniet at ex praesentium voluptatem voluptas
+                                                        nesciunt, repudiandae animi eius accusamus minima voluptate
+                                                        totam reiciendis odit. Ratione sed enim tempore?
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        1-2
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some tech stack
+                                                    </dd>
+                                                </div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                    >
+                                                        some kind of list
+                                                    </dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div>Registration form</div>
                             </div>
                         </div>

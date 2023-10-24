@@ -53,6 +53,17 @@ function setEventActive(elementId) {
         element.classList.add('bg-gray-800')
         element.classList.add('text-white')
     }
+
+    let activeElementDetails = document.getElementById(eventActive + '-details')
+    if (activeElementDetails) {
+        activeElementDetails.classList.add('hidden')
+    }
+
+    let elementDetails = document.getElementById(elementId + '-details')
+    if (elementDetails) {
+        elementDetails.classList.remove('hidden')
+    }
+
     eventActive = elementId
 }
 
