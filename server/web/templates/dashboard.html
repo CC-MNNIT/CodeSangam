@@ -253,7 +253,7 @@
                                                 id="webster"
                                             >
                                                 <svg
-                                                class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
+                                                    class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
                                                     version="1.1"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -449,6 +449,7 @@
                                             <a
                                                 href="#"
                                                 class="flex items-center p-2 transition duration-75 rounded-lg hover:bg-gray-700 text-white group"
+                                                onclick="setEventActive('teams')"
                                             >
                                                 <svg
                                                     class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
@@ -664,6 +665,96 @@
                                                 </div>
                                             </dl>
                                         </div>
+                                    </div>
+                                    <div id="teams-details" class="hidden">
+                                        <!-- Show list of teams with team name, event participated and members -->
+                                        <ul role="list" class="divide-y divide-gray-800 w-full">
+                                            <li class="flex justify-between gap-x-6 py-5">
+                                                <div class="flex min-w-0 gap-x-4">
+                                                    <div class="min-w-0 flex-auto">
+                                                        <p class="text-sm font-semibold leading-6 text-white">
+                                                            {{ if .User.DroidRushTeam.Name }}
+                                                            <!--  -->
+                                                            {{ .User.DroidRushTeam.Name }}
+                                                            <!--  -->
+                                                            {{ else }} No team registered yet {{ end }}
+                                                        </p>
+                                                        <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
+                                                            {{ range $index, $member := .User.DroidRushTeam.Members }}
+                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ end }}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                                    <p class="text-sm leading-6 text-white">DroidRush</p>
+                                                </div>
+                                            </li>
+                                            <li class="flex justify-between gap-x-6 py-5">
+                                                <div class="flex min-w-0 gap-x-4">
+                                                    <div class="min-w-0 flex-auto">
+                                                        <p class="text-sm font-semibold leading-6 text-white">
+                                                            {{ if .User.WebsterTeam.Name }}
+                                                            <!--  -->
+                                                            {{ .User.WebsterTeam.Name }}
+                                                            <!--  -->
+                                                            {{ else }} No team registered yet {{ end }}
+                                                        </p>
+                                                        <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
+                                                            {{ range $index, $member := .User.WebsterTeam.Members }}
+                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ end }}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                                    <p class="text-sm leading-6 text-white">Webster</p>
+                                                </div>
+                                            </li>
+                                            <li class="flex justify-between gap-x-6 py-5">
+                                                <div class="flex min-w-0 gap-x-4">
+                                                    <div class="min-w-0 flex-auto">
+                                                        <p class="text-sm font-semibold leading-6 text-white">
+                                                            {{ if .User.SoftablitzTeam.Name }}
+                                                            <!--  -->
+                                                            {{ .User.SoftablitzTeam.Name }}
+                                                            <!--  -->
+                                                            {{ else }} No team registered yet {{ end }}
+                                                        </p>
+                                                        <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
+                                                            {{ range $index, $member := .User.SoftablitzTeam.Members }}
+                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ end }}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                                    <p class="text-sm leading-6 text-white">Softablitz</p>
+                                                </div>
+                                            </li>
+                                            <li class="flex justify-between gap-x-6 py-5">
+                                                <div class="flex min-w-0 gap-x-4">
+                                                    <div class="min-w-0 flex-auto">
+                                                        <p class="text-sm font-semibold leading-6 text-white">
+                                                            {{ if .User.LogicalRhythmTeam.Name }}
+                                                            <!--  -->
+                                                            {{ .User.LogicalRhythmTeam.Name }}
+                                                            <!--  -->
+                                                            {{ else }} No team registered yet {{ end }}
+                                                        </p>
+                                                        <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
+                                                            {{ range $index, $member := .User.LogicalRhythmTeam.Members
+                                                            }}
+                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ end }}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                                                    <p class="text-sm leading-6 text-white">LogicalRhythm</p>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <div>Registration form</div>
