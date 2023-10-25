@@ -29,7 +29,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                                 <span></span>
                             </div>
                             <div className='image-cropper'>
-                            <img src={second} alt="" />
+                            <img src={`https://github.com/${secondStudentName}.png`} alt="" />
                             </div>
                         </div>
                         <p className="podium__city">#2</p>
@@ -44,7 +44,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                                 <span></span>
                             </div>
                             <div className='image-cropper'>
-                            <img src={first} alt="" />
+                            <img src={`https://github.com/${firstStudentName}.png`} alt="" />
                             </div>
                         </div>
                         <p className="podium__city">#1</p>
@@ -59,7 +59,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                                 <span></span>
                             </div>
                             <div className='image-cropper'>
-                            <img src={third} alt="" />
+                            <img src={`https://github.com/${thirdStudentName}.png`} alt="" />
                             </div>
                         </div>
                         <p className="podium__city">#3</p>

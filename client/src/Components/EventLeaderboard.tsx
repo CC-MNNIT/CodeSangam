@@ -46,7 +46,7 @@ export default function EventLeaderboard() {
   return (
     <div>
       <Podium firstStudentName={rankingsData[0].user_name} secondStudentName={rankingsData[1].user_name} thirdStudentName={rankingsData[2].user_name} />
-      <div style={{ paddingLeft: "20px", paddingRight: "20px", paddingTop: "135px", position: "relative", backgroundColor: "rgba(0,234,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
+      <div className='leaderboard-contaier' style={{ paddingLeft: "20px", paddingRight: "20px", position: "relative", backgroundColor: "rgba(0,234,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
         <div style={{}} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
           <table className="w-full text-sm text-left text-gray-400">
             <thead style={{ backdropFilter: "blur(30px)", zIndex: "1" }} className="sticky top-0 text-xs uppercase bg-gray-700/[.7] text-gray-400">
