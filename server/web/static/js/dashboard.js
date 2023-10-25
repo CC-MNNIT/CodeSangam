@@ -1,4 +1,4 @@
-let eventActive = 'event1'
+let eventActive = 'droidrush'
 
 function setEventActive(elementId) {
     // Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800"

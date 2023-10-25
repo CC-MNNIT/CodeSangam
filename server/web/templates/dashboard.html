@@ -23,7 +23,7 @@
                                     <div class="flex-shrink-0">
                                         <a
                                             href="{{ .BaseUrl }}"
-                                            class="flex items-center text-2xl glow font-semibold text-gray-950 dark:text-white"
+                                            class="flex items-center text-2xl glow font-semibold text-white"
                                         >
                                             C
                                             <img
@@ -216,41 +216,44 @@
                     <div class="rounded-lg bg-gray-900 px-5 py-6 shadow sm:px-6">
                         <div class="flex flex-row py-8 mx-auto h-screen lg:py-0">
                             <div class="inset-y-0 z-50 flex w-2/5 flex-col">
-                                <div class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
+                                <div class="h-full overflow-y-auto bg-gray-900">
                                     <ul class="space-y-2 font-medium">
                                         <li>
                                             <a
                                                 href="#"
-                                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                                onclick="setEventActive('event1')"
-                                                id="event1"
+                                                class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+                                                onclick="setEventActive('droidrush')"
+                                                id="droidrush"
                                             >
                                                 <svg
-                                                    class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                    aria-hidden="true"
+                                                    class="w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
                                                     xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 48 48"
+                                                    aria-hidden="true"
                                                     fill="currentColor"
-                                                    viewBox="0 0 22 21"
                                                 >
                                                     <path
-                                                        d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"
+                                                        d="M24,14.088C11.427,14.088,1.108,23.716,0,36h48C46.892,23.716,36.573,14.088,24,14.088z M33.179,27.079c0-1.104,0.895-1.999,1.999-1.999c1.104,0,1.999,0.895,1.999,1.999c0,1.104-0.895,1.999-1.999,1.999 C34.074,29.078,33.179,28.183,33.179,27.079z M12.822,29.078c-1.104,0-1.999-0.895-1.999-1.999c0-1.104,0.895-1.999,1.999-1.999 s1.999,0.895,1.999,1.999C14.821,28.183,13.926,29.078,12.822,29.078z"
                                                     />
                                                     <path
-                                                        d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"
+                                                        d="M34.038,19.313c-0.14,0-0.281-0.035-0.41-0.11c-0.393-0.227-0.527-0.729-0.301-1.122l5.197-9.008 c0.227-0.394,0.729-0.529,1.122-0.301c0.393,0.227,0.527,0.729,0.301,1.122l-5.197,9.008C34.598,19.166,34.322,19.313,34.038,19.313 z"
+                                                    />
+                                                    <path
+                                                        d="M13.962,19.313c-0.284,0-0.56-0.148-0.712-0.411L8.054,9.894C7.827,9.501,7.962,8.999,8.354,8.772 c0.392-0.228,0.895-0.093,1.122,0.301l5.197,9.008c0.227,0.394,0.092,0.896-0.301,1.122C14.243,19.278,14.102,19.313,13.962,19.313z"
                                                     />
                                                 </svg>
-                                                <span class="ml-3">Event 1</span>
+                                                <span class="ml-3">DroidRush</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 href="#"
-                                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                                onclick="setEventActive('event2')"
-                                                id="event2"
+                                                class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+                                                onclick="setEventActive('webster')"
+                                                id="webster"
                                             >
                                                 <svg
-                                                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
                                                     aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor"
@@ -260,47 +263,46 @@
                                                         d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"
                                                     />
                                                 </svg>
-                                                <span class="flex-1 ml-3 whitespace-nowrap">Event 2</span>
-                                                <span
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Webster</span>
+                                                <!-- <span
                                                     class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300"
                                                     >Pro</span
-                                                >
+                                                > -->
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 href="#"
-                                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                                onclick="setEventActive('event3')"
-                                                id="event3"
+                                                class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+                                                onclick="setEventActive('softablitz')"
+                                                id="softablitz"
                                             >
                                                 <svg
-                                                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                                                    aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg"
+                                                    class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
                                                     fill="currentColor"
-                                                    viewBox="0 0 20 20"
+                                                    viewBox="0 0 50 50"
                                                 >
                                                     <path
-                                                        d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"
-                                                    />
+                                                        d="M 28.1875 -0.00390625 C 30.9375 6.359375 18.320313 10.289063 17.152344 15.59375 C 16.074219 20.460938 24.640625 26.121094 24.644531 26.121094 C 23.34375 24.105469 22.402344 22.441406 21.097656 19.304688 C 18.890625 14 34.53125 9.203125 28.1875 -0.00390625 Z M 36.550781 8.8125 C 36.550781 8.8125 25.503906 9.511719 24.941406 16.582031 C 24.691406 19.730469 27.84375 21.410156 27.9375 23.703125 C 28.007813 25.570313 26.050781 27.128906 26.050781 27.128906 C 26.050781 27.128906 29.601563 26.460938 30.714844 23.605469 C 31.945313 20.4375 28.328125 18.273438 28.691406 15.738281 C 29.042969 13.3125 36.550781 8.8125 36.550781 8.8125 Z M 39.230469 25.144531 C 38.074219 25.09375 36.789063 25.476563 35.625 26.3125 C 37.90625 25.824219 39.835938 27.21875 39.835938 28.828125 C 39.835938 32.453125 34.597656 35.878906 34.597656 35.878906 C 34.597656 35.878906 42.707031 34.953125 42.707031 29 C 42.707031 26.539063 41.152344 25.234375 39.230469 25.144531 Z M 19.183594 25.152344 C 19.183594 25.152344 9.0625 25.015625 9.0625 27.878906 C 9.0625 30.871094 22.316406 31.082031 31.78125 29.238281 C 31.78125 29.238281 34.308594 27.507813 34.980469 26.863281 C 28.777344 28.128906 14.621094 28.296875 14.621094 27.203125 C 14.621094 26.191406 19.183594 25.152344 19.183594 25.152344 Z M 16.738281 30.722656 C 15.1875 30.722656 12.871094 31.921875 12.871094 33.078125 C 12.871094 35.402344 24.5625 37.195313 33.21875 33.796875 L 30.222656 31.960938 C 24.355469 33.839844 13.539063 33.238281 16.738281 30.722656 Z M 18.179688 35.921875 C 16.050781 35.921875 14.671875 37.234375 14.671875 38.203125 C 14.671875 41.1875 27.378906 41.488281 32.414063 38.453125 L 29.214844 36.417969 C 25.453125 38.007813 16.007813 38.222656 18.179688 35.921875 Z M 11.089844 38.625 C 7.621094 38.554688 5.367188 40.113281 5.367188 41.40625 C 5.363281 48.28125 40.890625 47.949219 40.890625 40.921875 C 40.890625 39.757813 39.515625 39.203125 39.019531 38.9375 C 41.921875 45.65625 9.96875 45.136719 9.96875 41.171875 C 9.96875 40.269531 12.3125 39.382813 14.492188 39.808594 L 12.644531 38.757813 C 12.101563 38.675781 11.582031 38.632813 11.089844 38.625 Z M 44.636719 43.25 C 39.234375 48.367188 25.546875 50.234375 11.78125 47.074219 C 25.542969 52.703125 44.566406 49.535156 44.636719 43.25 Z"
+                                                    ></path>
                                                 </svg>
-                                                <span class="flex-1 ml-3 whitespace-nowrap">Event 3</span>
-                                                <span
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Softablitz</span>
+                                                <!-- <span
                                                     class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300"
                                                     >3</span
-                                                >
+                                                > -->
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 href="#"
-                                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                                                onclick="setEventActive('event4')"
-                                                id="event4"
+                                                class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700 group"
+                                                onclick="setEventActive('logical')"
+                                                id="logical"
                                             >
                                                 <svg
-                                                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
                                                     aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor"
@@ -310,27 +312,27 @@
                                                         d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
                                                     />
                                                 </svg>
-                                                <span class="flex-1 ml-3 whitespace-nowrap">Event 4</span>
+                                                <span class="flex-1 ml-3 whitespace-nowrap">Logical Rhythm</span>
                                             </a>
                                         </li>
                                     </ul>
                                     <ul
-                                        class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
+                                        class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-700"
                                     >
                                         <li>
                                             <a
                                                 href="#"
-                                                class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+                                                class="flex items-center p-2 transition duration-75 rounded-lg hover:bg-gray-700 text-white group"
                                             >
                                                 <svg
-                                                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                                    class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
                                                     aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="currentColor"
-                                                    viewBox="0 0 17 20"
+                                                    viewBox="0 0 20 18"
                                                 >
                                                     <path
-                                                        d="M7.958 19.393a7.7 7.7 0 0 1-6.715-3.439c-2.868-4.832 0-9.376.944-10.654l.091-.122a3.286 3.286 0 0 0 .765-3.288A1 1 0 0 1 4.6.8c.133.1.313.212.525.347A10.451 10.451 0 0 1 10.6 9.3c.5-1.06.772-2.213.8-3.385a1 1 0 0 1 1.592-.758c1.636 1.205 4.638 6.081 2.019 10.441a8.177 8.177 0 0 1-7.053 3.795Z"
+                                                        d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
                                                     />
                                                 </svg>
                                                 <span class="ml-4">Your Teams</span>
@@ -341,9 +343,9 @@
                             </div>
                             <div class="flex flex-col ml-4">
                                 <div>
-                                    <div id="event1-details">
+                                    <div id="droidrush-details">
                                         <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">Event 1 Title</h3>
+                                            <h3 class="text-base font-semibold leading-7 text-white">DroidRush</h3>
                                             <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
                                                 Event 1 tagline or theme
                                             </p>
@@ -390,9 +392,9 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="event2-details" class="hidden">
+                                    <div id="webster-details" class="hidden">
                                         <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">Event 2 Title</h3>
+                                            <h3 class="text-base font-semibold leading-7 text-white">Webster</h3>
                                             <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
                                                 Event 2 tagline or theme
                                             </p>
@@ -439,9 +441,9 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="event3-details" class="hidden">
+                                    <div id="softablitz-details" class="hidden">
                                         <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">Event 3 Title</h3>
+                                            <h3 class="text-base font-semibold leading-7 text-white">Softablitz</h3>
                                             <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
                                                 Event 3 tagline or theme
                                             </p>
@@ -488,9 +490,9 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="event4-details" class="hidden">
+                                    <div id="logical-details" class="hidden">
                                         <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">Event 4 Title</h3>
+                                            <h3 class="text-base font-semibold leading-7 text-white">Logical Rhythm</h3>
                                             <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
                                                 Event 4 tagline or theme
                                             </p>
