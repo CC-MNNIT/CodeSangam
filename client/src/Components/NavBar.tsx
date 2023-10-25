@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import moonwith from "../Assets/moon.svg";
+import logo from "../Assets/codesangamglow.svg"
 import { useNavigate } from "react-router-dom";
 
 interface props {
@@ -16,9 +17,10 @@ export default function NavBar({ isHome }: props) {
     return (
         <div>
             <nav style={{ zIndex: "5000000" }} className="bg-transparent fixed w-full top-0 left-0">
-                <div className="flex flex-wrap items-center justify-between p-4 m-3">
-                    <div style={isHome == true ? { opacity: logoOpacity } : {}} onClick={() => window.scrollTo({ left: 0, top: 0, behavior: "smooth" })} className="flex cursor-pointer items-center">
-                        <div className='card self-center text-2xl font-semibold whitespace-nowrap dark:text-white flex'>C<img src={moonwith} className="h-7" alt="logo" />DESANGAM</div>
+                <div className="flex flex-wrap items-center justify-between pt-0 p-4 mt-0 m-3">
+                    <div style={isHome == true ? {} : {}} onClick={() => window.scrollTo({ left: 0, top: 0, behavior: "smooth" })} className="flex md:order-1">
+                        <img src={logo} className="h-[9rem] ml-3 pt-3 mr-3" alt="Flowbite Logo" />
+                        {/* <div className='card self-center text-2xl font-semibold whitespace-nowrap dark:text-white flex'>C<img src={moonwith} className="h-7" alt="logo" />DESANGAM</div> */}
                     </div>
                     <div className="flex md:order-2">
                         <button type="button" className="card borderxyz bg-transparent border-2 border-spacing-3 sm:pb-0 block cursor-pointer text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-1 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent sm:p-2 lg:inline">LOGIN</button>

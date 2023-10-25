@@ -4,13 +4,14 @@ import Stations from "./Stations";
 import moon from "../Assets/moon.svg";
 import right from "../Assets/right.png";
 import left from "../Assets/left.png";
+import { log } from "console";
 
 const LandingPage = () => {
     const [topDivOpacity, setTopDivOpacity] = useState(1);
     const [divHeight, setDivHeight] = useState(1000);
     const [angle, setAngle] = useState(0);
     const [moonRadius, setMoonRadius] = useState(0);
-    const [factor, setFactor] = useState(2.5);
+    const [factor, setFactor] = useState(3);
     const leftrotateMoon = () => {
         setAngle(angle + 72);
     };
@@ -24,6 +25,13 @@ const LandingPage = () => {
 
     useEffect(() => {
         const { innerWidth: width, innerHeight: height } = window;
+        // console.log(width);
+        // console.log(height);
+
+        // if (width < 640) {
+        //     setFactor(2.3)
+        // }
+
         const newMoonRadius =
             Math.sqrt(width * width + factor * height * factor * height) / 2;
         setMoonRadius(newMoonRadius);
@@ -85,7 +93,7 @@ const LandingPage = () => {
                         src={moon}
                         alt="moon"
                     />
-                    <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} />
+                    {/* <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} /> */}
                 </div>
             </div>
         </div>
