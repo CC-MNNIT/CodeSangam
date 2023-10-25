@@ -15,7 +15,7 @@ export default function NavBar({ isHome }: props) {
     });
     return (
         <div>
-            <nav className="bg-transparent fixed w-full z-20 top-0 left-0">
+            <nav style={{ zIndex: "5000000" }} className="bg-transparent fixed w-full top-0 left-0">
                 <div className="flex flex-wrap items-center justify-between p-4 m-3">
                     <div style={isHome == true ? { opacity: logoOpacity } : {}} onClick={() => window.scrollTo({ left: 0, top: 0, behavior: "smooth" })} className="flex cursor-pointer items-center">
                         <div className='card self-center text-2xl font-semibold whitespace-nowrap dark:text-white flex'>C<img src={moonwith} className="h-7" alt="logo" />DESANGAM</div>
@@ -37,11 +37,26 @@ export default function NavBar({ isHome }: props) {
                             <li>
                                 <div onClick={() => { navigate("/"); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">EVENTS</div>
                             </li>
-                            <li>
+                            <li className='nav-desktop'>
                                 <div onClick={() => { navigate("/leaderboard/contrihub"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">LEADERBOARDS</div>
                             </li>
                             <li>
                                 <div onClick={() => navigate("/")} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">TEAM</div>
+                            </li>
+                            <li className='nav-mobile'>
+                                <div onClick={() => { navigate("/leaderboard/webster"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">WEBSTER RANKINGS</div>
+                            </li>
+                            <li className='nav-mobile'>
+                                <div onClick={() => { navigate("/leaderboard/droidrush"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">DROIDRUSH RANKINGS</div>
+                            </li>
+                            <li className='nav-mobile'>
+                                <div onClick={() => { navigate("/leaderboard/contrihub"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">CONTRIHUB RANKINGS</div>
+                            </li>
+                            <li className='nav-mobile'>
+                                <div onClick={() => { navigate("/leaderboard/softablitz"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">SOFTABLITZ RANKINGS</div>
+                            </li>
+                            <li className='nav-mobile'>
+                                <div onClick={() => { navigate("/leaderboard/logicalrhythm"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">LOGICAL RHYTHM RANKINGS</div>
                             </li>
                         </ul>
                     </div>

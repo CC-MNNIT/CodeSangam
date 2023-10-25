@@ -17,7 +17,7 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
         setTopDivOpacity(1 - currentScroll / 250);
     });
     return (
-        <div style={{ width: "100vw", height: "100vh", opacity: topDivOpacity }}>
+        <div style={{ width: "100vw", height: "100vh", opacity: topDivOpacity, overflow: "hidden" }}>
             <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center", width: "100vw", height: "100vh" }}>
                 <div className="container podium">
                     <div className="podium__item">
