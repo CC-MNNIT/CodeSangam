@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="/public/global.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ .BaseUrl }}/static/css/global.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Login - CodeSangam</title>
 </head>
@@ -14,10 +15,9 @@
 <body>
     <section class="bg-gray-50 dark:bg-gray-950 h-screen w-screen">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
-            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-950 dark:text-white">
+            <a href="#" class="flex items-center mb-6 text-2xl glow font-semibold text-gray-950 dark:text-white">
                 C
-                <img class="w-6 h-6 mr-1 ml-1" src="{{ .BaseUrl }}/static/svg/moon.svg"
-                    alt="logo">
+                <img class="w-6 h-6 mb-1 mr-1 ml-1" src="{{ .BaseUrl }}/static/svg/moon.svg" alt="logo">
                 DESANGAM
             </a>
             <div
@@ -31,8 +31,8 @@
                         <div>
                             <button
                                 class="px-4 py-2 border flex w-full gap-2 items-center justify-center border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150">
-                                <img class="w-6 h-6" src="{{ .BaseUrl }}/static/svg/google.svg"
-                                    loading="lazy" alt="google logo">
+                                <img class="w-6 h-6" src="{{ .BaseUrl }}/static/svg/google.svg" loading="lazy"
+                                    alt="google logo">
                                 <span>Sign in with Google</span>
                             </button>
                         </div>

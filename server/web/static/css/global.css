@@ -1,0 +1,7 @@
+@import url(//fonts.googleapis.com/css?family=Comfortaa:70);
+
+.glow {
+    font-family: "Comfortaa";
+    color: #fee;
+    text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ED6, 0 0 0.5em #329ED6, 0 0 0.1em #329ED6, 0 0 0 #000;
+}

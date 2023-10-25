@@ -45,7 +45,7 @@ func AuthLoginMiddleware() echo.MiddlewareFunc {
 			if sess.Values[utils.UserSessionKey] == nil {
 				return next(c)
 			}
-			return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/profile")
+			return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/dashboard")
 		}
 	}
 }
