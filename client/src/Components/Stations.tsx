@@ -7,10 +7,13 @@ interface props {
 }
 
 export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
-    const [factor, setFactor] = useState(2.4);
+    const { innerWidth: width, innerHeight: height } = window;
+    var factor = 2.8;
+    if (width < 640) factor = 0.75;
+    // const [factor, setFactor] = useState(2.4);
 
     useEffect(() => {
-        const { innerWidth: width, innerHeight: height } = window;
+        // const { innerWidth: width, innerHeight: height } = window;
         // if (width < 640) {
         //     setFactor(2.9);
         // }
@@ -26,7 +29,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
 
     return (
         <div id="container" style={{ position: "absolute" }}>
-            <div className="item" style={{ rotate: "89deg" }}>
+            <div className="item scale-50 md:scale-75 lg:scale-100" style={{ rotate: "89deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}
@@ -35,7 +38,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
                     teamsize="Team Size: (1 - 3)"
                 />
             </div>
-            <div className="item" style={{ rotate: "161deg" }}>
+            <div className="item scale-50 md:scale-75 lg:scale-100" style={{ rotate: "161deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}
@@ -44,7 +47,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
                     teamsize="Team Size: (1 - 3)"
                 />
             </div>
-            <div className="item" style={{ rotate: "-127deg" }}>
+            <div className="item scale-50 md:scale-75 lg:scale-100" style={{ rotate: "-127deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}
@@ -53,7 +56,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
                     teamsize="Team Size: 1"
                 />
             </div>
-            <div className="item" style={{ rotate: "-55deg" }}>
+            <div className="item scale-50 md:scale-75 lg:scale-100" style={{ rotate: "-55deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}
@@ -62,7 +65,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
                     teamsize="Team Size: (1 - 3)"
                 />
             </div>
-            <div className="item" style={{ rotate: "17deg" }}>
+            <div className="item scale-50 md:scale-75 lg:scale-100" style={{ rotate: "17deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}

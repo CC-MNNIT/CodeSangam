@@ -314,9 +314,8 @@ body {
 
 .logo {
   /* text-align: center; */
-  width: fit-content;
+  /* width: fit-content; */
   height: fit-content;
-  margin: auto;
   position: fixed;
   top: 0;
   left: 0;
@@ -394,10 +393,10 @@ body {
 }
 
 .spinner {
-  margin-top: -2%;
+  margin-top: -1%;
   padding: 0%;
   border: 0%;
-  max-width: 12%;
+  max-width: 7%;
   display: inline-block;
 }
 
@@ -406,6 +405,11 @@ body {
   .logo {
     font-size: 10vh;
     /* Adjust font size for smaller screens */
+  }
+
+  .photo {
+    margin-top: -1%;
+    max-width: 20%;
   }
 }
 
@@ -434,6 +438,7 @@ body {
   @media screen and (max-width: 769px) {
     padding-top: 70px;
   }
+
   @media screen and (min-width: 768px) {
     padding-top: 145px;
   }
