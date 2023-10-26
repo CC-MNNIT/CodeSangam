@@ -13,8 +13,42 @@ export default function EventLeaderboard({ currentAPI }: props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(currentAPI);
-        setRankingsData(data);
+        // const { data } = await axios.get(currentAPI);
+        const sampledata = [
+          {
+            bonus_points: 1,
+            reg_no: "20211002",
+            total_points: 2,
+            user_id: 23,
+            user_name: "32bitdev",
+            year: 2021,
+          },
+          {
+            bonus_points: 2,
+            reg_no: "2022002",
+            total_points: 3,
+            user_id: 45,
+            user_name: "meisabhishekpatel",
+            year: 2022,
+          },
+          {
+            bonus_points: 3,
+            reg_no: "20231002",
+            total_points: 4,
+            user_id: 56,
+            user_name: "imsrt",
+            year: 2023,
+          },
+          {
+            bonus_points: 5,
+            reg_no: "20221004",
+            total_points: 6,
+            user_id: 16,
+            user_name: "chunnu",
+            year: 2022,
+          }
+        ];
+        setRankingsData(sampledata);
         setIsListRecieved(true);
       } catch (err) {
         console.log(err);
@@ -27,7 +61,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
       {(isListRecieved == false) ?
         (
           <div style={{ position: "relative", width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <h1 style={{marginTop: "80px", cursor: "default"}} className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2">RESULTS ARE NOT OUT YET</h1>
+            <h1 style={{ marginTop: "80px", cursor: "default" }} className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2">RESULTS ARE NOT OUT YET</h1>
           </div>
         )
         :
