@@ -11,7 +11,7 @@ const LandingPage = () => {
     var factor = 3;
     if (width < 640) factor = 0.5;
     const [topDivOpacity, setTopDivOpacity] = useState(1);
-    const [divHeight, setDivHeight] = useState(1000);
+    const [divHeight, setDivHeight] = useState(1000000);
     const [angle, setAngle] = useState(0);
     const [moonRadius, setMoonRadius] = useState(0);
     const leftrotateMoon = () => {

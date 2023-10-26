@@ -7,6 +7,7 @@ import NavBar from "./Components/NavBar";
 import Events from "./Components/Events";
 import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 import EventLeaderboard from "./Components/EventLeaderboard";
+import { websterRankingsDataAPI,droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
 
 function App() {
     return (
@@ -23,38 +24,38 @@ function App() {
                         <Starfield/>
                         <ContrihubLeaderboard />
                         <NavBar isHome={false}/>
-                        <Events currentEvent="contrihub" />
+                        <Events currentSelected="contrihub" />
                     </div>} />
                 <Route path="/leaderboard/softablitz" element={
                     <div>
                         <Starfield/>
-                        <EventLeaderboard />
+                        <EventLeaderboard currentAPI={softablitzRankingsDataAPI} />
                         <NavBar isHome={false}/>
-                        <Events currentEvent="softablitz" />
+                        <Events currentSelected="softablitz" />
                     </div>
                 } />
                 <Route path="/leaderboard/webster" element={
                     <div>
                         <Starfield/>
-                        <EventLeaderboard />
+                        <EventLeaderboard currentAPI={websterRankingsDataAPI} />
                         <NavBar isHome={false}/>
-                        <Events currentEvent="webster" />
+                        <Events currentSelected="webster" />
                     </div>
                 } />
                 <Route path="/leaderboard/logicalrhythm" element={
                     <div>
                         <Starfield/>
-                        <EventLeaderboard />
+                        <EventLeaderboard currentAPI={logicalrhythmRankingsDataAPI} />
                         <NavBar isHome={false}/>
-                        <Events currentEvent="logicalrhythm" />
+                        <Events currentSelected="logicalrhythm" />
                     </div>
                 } />
                 <Route path="/leaderboard/droidrush" element={
                     <div>
                         <Starfield/>
-                        <EventLeaderboard />
+                        <EventLeaderboard currentAPI={droidrushRankingsDataAPI} />
                         <NavBar isHome={false}/>
-                        <Events currentEvent="droidrush" />
+                        <Events currentSelected="droidrush" />
                     </div>
                 } />
             </Routes>
