@@ -214,6 +214,9 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 	if err != nil {
 		return nil, errors.New("invalid leader id")
 	}
+	if !validateRegNo(&leader.RegNo) {
+		return nil, errors.New("[" + leader.RegNo + "] not allowed")
+	}
 	if !userAllowed(event, leader) {
 		return nil, errors.New("leader [" + leader.RegNo + "] already in other team")
 	}
