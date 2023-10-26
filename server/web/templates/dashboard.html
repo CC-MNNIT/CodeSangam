@@ -215,8 +215,8 @@
                 <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
                     <div class="rounded-lg bg-gray-900 px-5 py-6 shadow sm:px-6">
                         <div class="flex flex-row py-8 mx-auto h-screen lg:py-0">
-                            <div class="inset-y-0 z-50 flex w-2/5 flex-col">
-                                <div class="h-full overflow-y-auto bg-gray-900">
+                            <div class="inset-y-0 z-50 flex flex-col">
+                                <div class="h-full overflow-y-auto w-48 bg-gray-900">
                                     <ul class="space-y-2 font-medium">
                                         <li>
                                             <a
@@ -569,7 +569,7 @@
                                                             <ul class="mt-1 text-xs leading-5 text-gray-400">
                                                                 {{ if $team }}
                                                                 <div
-                                                                    class="mt-4 antialiased font-sans text-sm font-light leading-normal grid gap-12 md:grid-cols-{{ len $team.Members }}"
+                                                                    class="mt-4 antialiased font-sans text-sm font-light leading-normal grid gap-12 md:grid-cols-4"
                                                                 >
                                                                     {{ range $memberIndex, $member := $team.Members }}
                                                                     <div class="space-y-6 text-center">
