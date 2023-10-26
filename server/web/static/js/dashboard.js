@@ -44,3 +44,71 @@ function toggleMenu() {
         menu.classList.remove('block')
     }
 }
+
+let requestStarted = false
+
+function submitRegistration(event, baseUrl) {
+
+    if (requestStarted) {
+        return
+    }
+
+    requestStarted = true
+
+    let teamName = document.getElementById('team_name').value
+
+    if (teamName.length == 0) {
+        alertReload("Please enter team name")
+        return
+    }
+
+    let member1RegNo = document.getElementById('mem_1_reg').value
+    let member2RegNo = document.getElementById('mem_2_reg').value
+    let member3RegNo = document.getElementById('mem_3_reg').value
+
+    let memberList = []
+    if (member1RegNo.length > 0) {
+        memberList.push(member1RegNo)
+    }
+    if (member2RegNo.length > 0) {
+        memberList.push(member2RegNo)
+    }
+    if (member3RegNo.length > 0) {
+        memberList.push(member3RegNo)
+    }
+
+    let json = {
+        'event': event,
+        'member_reg_list': memberList,
+        'team_name': teamName,
+    }
+
+    let url = '/api/v1/cs/register'
+    if (baseUrl) {
+        url = baseUrl + url
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(json)
+    }).then((res) => {
+        if (res.status == 200) {
+            alertReload("Registered successfully")
+            return
+        } else {
+            alertReload(res.body)
+            return
+        }
+    }).catch((err) => {
+        alertReload(err)
+    }).finally(() => {
+        requestStarted = false
+    })
+}
+
+function alertReload(msg) {
+    alert(msg)
+    window.scrollTo(0, 0)
+    window.location.reload(true)
+}

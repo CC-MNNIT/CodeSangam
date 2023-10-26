@@ -48,10 +48,17 @@ func UserDashboard(c echo.Context) error {
 	teams = append(teams, user.SoftablitzTeam)
 	teams = append(teams, user.LogicalRhythmTeam)
 
+	eventsInfo := models.GetEventsInfo([]bool{
+		user.DroidRushTeam != nil,
+		user.WebsterTeam != nil,
+		user.SoftablitzTeam != nil,
+		user.LogicalRhythmTeam != nil,
+	})
+
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
 		"UserInfo":   user.User,
 		"Teams":      teams,
-		"EventsInfo": models.EventsInfo,
+		"EventsInfo": eventsInfo,
 		"BaseUrl":    config.EnvVars.BaseUrl,
 	})
 }
