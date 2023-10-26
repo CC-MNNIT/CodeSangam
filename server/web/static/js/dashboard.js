@@ -55,16 +55,16 @@ function submitRegistration(event, baseUrl) {
 
     requestStarted = true
 
-    let teamName = document.getElementById('team_name').value
+    let teamName = document.getElementById(event + '_team_name').value
 
     if (teamName.length == 0) {
         alertReload("Please enter team name")
         return
     }
 
-    let member1RegNo = document.getElementById('mem_1_reg').value
-    let member2RegNo = document.getElementById('mem_2_reg').value
-    let member3RegNo = document.getElementById('mem_3_reg').value
+    let member1RegNo = document.getElementById(event + '_mem_1_reg').value
+    let member2RegNo = document.getElementById(event + '_mem_2_reg').value
+    let member3RegNo = document.getElementById(event + '_mem_3_reg').value
 
     let memberList = []
     if (member1RegNo.length > 0) {
@@ -97,11 +97,12 @@ function submitRegistration(event, baseUrl) {
             alertReload("Registered successfully")
             return
         } else {
-            alertReload(res.body)
-            return
+            res.json().then((data) => {
+                alert(data['message'] + " - " + data['error'])
+            })
         }
     }).catch((err) => {
-        alertReload(err)
+        alert(err)
     }).finally(() => {
         requestStarted = false
     })

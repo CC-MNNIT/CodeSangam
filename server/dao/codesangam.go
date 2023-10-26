@@ -223,7 +223,7 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 	for _, regNo := range regNoList {
 		user, err := GetUserByRegNo(&regNo)
 		if err != nil {
-			return nil, errors.New("invalid user id")
+			return nil, errors.New("invalid user id [" + regNo + "]")
 		}
 		if !validateRegNo(&regNo) {
 			return nil, errors.New("[" + regNo + "] not allowed")
