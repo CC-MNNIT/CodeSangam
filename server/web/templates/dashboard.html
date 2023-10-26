@@ -214,9 +214,10 @@
             <main class="-mt-32">
                 <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
                     <div class="rounded-lg bg-gray-900 px-5 py-6 shadow sm:px-6">
-                        <div class="flex flex-row py-8 mx-auto h-screen lg:py-0">
-                            <div class="inset-y-0 z-50 flex flex-col">
-                                <div class="h-full overflow-y-auto w-48 bg-gray-900">
+                        <div class="flex flex-col py-0 mx-auto h-auto md:flex-row">
+                            <div class="inset-y-0 z-50 flex sm:flex-row md:flex-col">
+                                <!-- SideBar -->
+                                <div class="h-full overflow-y-auto md:w-48 w-full bg-gray-900">
                                     <ul class="space-y-2 font-medium">
                                         <li>
                                             <a
@@ -469,266 +470,247 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="flex flex-col ml-4">
-                                <div>
-                                    {{ range $i , $event := .EventsInfo }}
-                                    <div id="{{ $event.Tag }}-details" class="hidden">
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">
-                                                {{ $event.Name }}
-                                            </h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
-                                                {{ $event.Tagline }}
-                                            </p>
-                                        </div>
-                                        <div class="mt-6 border-t border-white/10">
-                                            <dl class="divide-y divide-white/10">
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
-                                                        Description
-                                                    </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
-                                                        {{ $event.Description }}
-                                                    </dd>
-                                                </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
-                                                        {{ $event.TeamSize }}
-                                                    </dd>
-                                                </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
-                                                        {{ $event.Tech }}
-                                                    </dd>
-                                                </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
-                                                        {{ $event.Rules }}
-                                                    </dd>
-                                                </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
-                                                        Registration
-                                                    </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-                                                    >
-                                                        {{ if $event.Registered }}
-                                                        <!--  -->
-                                                        Registered
-                                                        <!--  -->
-                                                        {{ else }}
-                                                        <!--  -->
-                                                        <form class="mt-4" method="dialog" action="#" onsubmit="submitRegistration('{{ $event.Tag }}', '{{ $.BaseUrl }}')">
-                                                            <div class="relative z-0 w-full mb-6 group">
-                                                                <input
-                                                                    type="text"
-                                                                    name="{{ $event.Tag }}_team_name"
-                                                                    id="{{ $event.Tag }}_team_name"
-                                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                                    placeholder=" "
-                                                                    required
-                                                                />
-                                                                <label
-                                                                    for="{{ $event.Tag }}_team_name"
-                                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                                                >
-                                                                    Team Name
-                                                                </label>
-                                                            </div>
-                                                            <div class="relative z-0 w-full mb-6 group">
-                                                                <input
-                                                                    type="text"
-                                                                    name="{{ $event.Tag }}_lead_reg"
-                                                                    id="{{ $event.Tag }}_lead_reg"
-                                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                                    placeholder=" "
-                                                                    value="{{ $.UserInfo.RegNo }}"
-                                                                    disabled
-                                                                    required
-                                                                />
-                                                                <label
-                                                                    for="{{ $event.Tag }}_lead_reg"
-                                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                                                >
-                                                                    Leader RegNo (You)
-                                                                </label>
-                                                            </div>
-                                                            <div class="relative z-0 w-full mb-6 group">
-                                                                <label
-                                                                    class="mt-1 text-sm leading-6 text-white sm:col-span-3 sm:mt-0"
-                                                                >
-                                                                    Team members registration numbers
-                                                                </label>
-                                                            </div>
-                                                            <div class="grid md:grid-cols-3 md:gap-6">
-                                                                <div class="relative z-0 w-full mb-6 group">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="{{ $event.Tag }}_mem_1_reg"
-                                                                        id="{{ $event.Tag }}_mem_1_reg"
-                                                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                                        placeholder=" "
-                                                                    />
-                                                                    <label
-                                                                        for="{{ $event.Tag }}_mem_1_reg"
-                                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                                                    >
-                                                                        Member 1
-                                                                    </label>
-                                                                </div>
-                                                                <div class="relative z-0 w-full mb-6 group">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="{{ $event.Tag }}_mem_2_reg"
-                                                                        id="{{ $event.Tag }}_mem_2_reg"
-                                                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                                        placeholder=" "
-                                                                    />
-                                                                    <label
-                                                                        for="{{ $event.Tag }}_mem_2_reg"
-                                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                                                    >
-                                                                        Member 2
-                                                                    </label>
-                                                                </div>
-                                                                <div class="relative z-0 w-full mb-6 group">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="{{ $event.Tag }}_mem_3_reg"
-                                                                        id="{{ $event.Tag }}_mem_3_reg"
-                                                                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                                        placeholder=" "
-                                                                    />
-                                                                    <label
-                                                                        for="{{ $event.Tag }}_mem_3_reg"
-                                                                        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                                                    >
-                                                                        Member 3
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <button
-                                                                type="submit"
-                                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                            >
-                                                                Register
-                                                            </button>
-                                                        </form>
-                                                        <!--  -->
-                                                        {{ end }}
-                                                    </dd>
-                                                </div>
-                                            </dl>
-                                        </div>
+                            <div class="flex flex-col mt-4 md:mt-0 border-t-2 border-gray-700 md:border-t-0 md:ml-4">
+                                {{ range $i , $event := .EventsInfo }}
+                                <div id="{{ $event.Tag }}-details" class="hidden mt-4 md:mt-0">
+                                    <div class="px-4 sm:px-0">
+                                        <h3 class="text-base font-semibold leading-7 text-white">{{ $event.Name }}</h3>
+                                        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                            {{ $event.Tagline }}
+                                        </p>
                                     </div>
-                                    {{ end }}
-                                    <div id="teams-details" class="hidden">
-                                        <!-- Show list of teams with team name, event participated and members -->
-                                        <div id="team-details">
-                                            <div class="px-4 sm:px-0">
-                                                <h3 class="text-base font-semibold leading-7 text-white">
-                                                    Registered Teams
-                                                </h3>
-                                                <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
-                                                    Your registered team for the events
-                                                </p>
+                                    <div class="mt-6 border-t border-white/10">
+                                        <dl class="divide-y divide-white/10">
+                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-white">Description</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">
+                                                    {{ $event.Description }}
+                                                </dd>
                                             </div>
-                                            <div class="mt-6 border-t border-white/10">
-                                                <dl class="divide-y divide-white/10">
-                                                    {{ range $i, $team := .Teams }}
-
-                                                    <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                        <dt class="text-sm font-medium leading-6 text-white">
-                                                            {{ if eq $i 0 }}
-                                                            <!--  -->
-                                                            DroidRush
-                                                            <!--  -->
-                                                            {{ else if eq $i 1 }}
-                                                            <!--  -->
-                                                            Webster
-                                                            <!--  -->
-                                                            {{ else if eq $i 2 }}
-                                                            <!--  -->
-                                                            Softablitz
-                                                            <!--  -->
-                                                            {{ else }}
-                                                            <!--  -->
-                                                            Logical Rhythm
-                                                            <!--  -->
-                                                            {{ end }}
-                                                        </dt>
-                                                        <dd
-                                                            class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                        >
-                                                            <p class="text-sm leading-6 text-white">
-                                                                {{ if $team }}
-                                                                <!--  -->
-                                                                {{ $team.Name }}
-                                                                <!--  -->
-                                                                {{ else }} No team registered yet {{ end }}
-                                                            </p>
-                                                            <ul class="mt-1 text-xs leading-5 text-gray-400">
-                                                                {{ if $team }}
-                                                                <div
-                                                                    class="mt-4 antialiased font-sans text-sm font-light leading-normal grid gap-12 md:grid-cols-4"
+                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">
+                                                    {{ $event.TeamSize }}
+                                                </dd>
+                                            </div>
+                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">
+                                                    {{ $event.Tech }}
+                                                </dd>
+                                            </div>
+                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">
+                                                    {{ $event.Rules }}
+                                                </dd>
+                                            </div>
+                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-white">Registration</dt>
+                                                <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-3 sm:mt-0">
+                                                    {{ if $event.Registered }}
+                                                    <!--  -->
+                                                    Registered
+                                                    <!--  -->
+                                                    {{ else }}
+                                                    <!--  -->
+                                                    <form
+                                                        class="mt-4"
+                                                        method="dialog"
+                                                        action="#"
+                                                        onsubmit="submitRegistration('{{ $event.Tag }}', '{{ $.BaseUrl }}')"
+                                                    >
+                                                        <div class="relative z-0 w-full mb-6 group">
+                                                            <input
+                                                                type="text"
+                                                                name="{{ $event.Tag }}_team_name"
+                                                                id="{{ $event.Tag }}_team_name"
+                                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                placeholder=" "
+                                                                required
+                                                            />
+                                                            <label
+                                                                for="{{ $event.Tag }}_team_name"
+                                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                            >
+                                                                Team Name
+                                                            </label>
+                                                        </div>
+                                                        <div class="relative z-0 w-full mb-6 group">
+                                                            <input
+                                                                type="text"
+                                                                name="{{ $event.Tag }}_lead_reg"
+                                                                id="{{ $event.Tag }}_lead_reg"
+                                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                placeholder=" "
+                                                                value="{{ $.UserInfo.RegNo }}"
+                                                                disabled
+                                                                required
+                                                            />
+                                                            <label
+                                                                for="{{ $event.Tag }}_lead_reg"
+                                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                            >
+                                                                Leader RegNo (You)
+                                                            </label>
+                                                        </div>
+                                                        <div class="relative z-0 w-full mb-6 group">
+                                                            <label
+                                                                class="mt-1 text-sm leading-6 text-white sm:col-span-3 sm:mt-0"
+                                                            >
+                                                                Team members registration numbers
+                                                            </label>
+                                                        </div>
+                                                        <div class="grid md:grid-cols-3 md:gap-6">
+                                                            <div class="relative z-0 w-full mb-6 group">
+                                                                <input
+                                                                    type="text"
+                                                                    name="{{ $event.Tag }}_mem_1_reg"
+                                                                    id="{{ $event.Tag }}_mem_1_reg"
+                                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                    placeholder=" "
+                                                                />
+                                                                <label
+                                                                    for="{{ $event.Tag }}_mem_1_reg"
+                                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                                                 >
-                                                                    {{ range $memberIndex, $member := $team.Members }}
-                                                                    <div class="space-y-6 text-center">
-                                                                        <img
-                                                                            class="mx-auto h-24 w-24 rounded-full object-cover md:h-24 md:w-24 lg:h-24 lg:w-24"
-                                                                            src="{{ $member.Avatar }}"
-                                                                            alt="{{ $member.Name }}"
-                                                                            loading="lazy"
-                                                                        />
-                                                                        <div>
-                                                                            <h4 class="text-xl">{{ $member.Name }}</h4>
-                                                                            <span class="block text-sm">
-                                                                                {{ $member.RegNo }}
-                                                                            </span>
-                                                                            {{ if eq $memberIndex 0 }}
-                                                                            <span class="block text-sm">
-                                                                                (Leader)
-                                                                            </span>
-                                                                            {{ end }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{ end }}
-                                                                </div>
-                                                                {{ end }}
-                                                            </ul>
-                                                        </dd>
-                                                    </div>
+                                                                    Member 1
+                                                                </label>
+                                                            </div>
+                                                            <div class="relative z-0 w-full mb-6 group">
+                                                                <input
+                                                                    type="text"
+                                                                    name="{{ $event.Tag }}_mem_2_reg"
+                                                                    id="{{ $event.Tag }}_mem_2_reg"
+                                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                    placeholder=" "
+                                                                />
+                                                                <label
+                                                                    for="{{ $event.Tag }}_mem_2_reg"
+                                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                >
+                                                                    Member 2
+                                                                </label>
+                                                            </div>
+                                                            <div class="relative z-0 w-full mb-6 group">
+                                                                <input
+                                                                    type="text"
+                                                                    name="{{ $event.Tag }}_mem_3_reg"
+                                                                    id="{{ $event.Tag }}_mem_3_reg"
+                                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                    placeholder=" "
+                                                                />
+                                                                <label
+                                                                    for="{{ $event.Tag }}_mem_3_reg"
+                                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                >
+                                                                    Member 3
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <button
+                                                            type="submit"
+                                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                        >
+                                                            Register
+                                                        </button>
+                                                    </form>
                                                     <!--  -->
                                                     {{ end }}
-                                                </dl>
+                                                </dd>
                                             </div>
-                                        </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                                {{ end }}
+                                <div id="teams-details" class="hidden mt-4 md:mt-0">
+                                    <!-- Show list of teams with team name, event participated and members -->
+                                    <div class="px-4 sm:px-0">
+                                        <h3 class="text-base font-semibold leading-7 text-white">Registered Teams</h3>
+                                        <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                            Your registered team for the events
+                                        </p>
+                                    </div>
+                                    <div class="mt-6 border-t border-white/10">
+                                        <dl class="divide-y divide-white/10">
+                                            {{ range $i, $team := .Teams }}
+
+                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt class="text-sm font-medium leading-6 text-white">
+                                                    {{ if eq $i 0 }}
+                                                    <!--  -->
+                                                    DroidRush
+                                                    <!--  -->
+                                                    {{ else if eq $i 1 }}
+                                                    <!--  -->
+                                                    Webster
+                                                    <!--  -->
+                                                    {{ else if eq $i 2 }}
+                                                    <!--  -->
+                                                    Softablitz
+                                                    <!--  -->
+                                                    {{ else }}
+                                                    <!--  -->
+                                                    Logical Rhythm
+                                                    <!--  -->
+                                                    {{ end }}
+                                                </dt>
+                                                <dd
+                                                    class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
+                                                >
+                                                    <p class="text-sm leading-6 text-white">
+                                                        {{ if $team }}
+                                                        <!--  -->
+                                                        {{ $team.Name }}
+                                                        <!--  -->
+                                                        {{ else }} No team registered yet {{ end }}
+                                                    </p>
+                                                    <ul class="mt-1 text-xs leading-5 text-gray-400">
+                                                        {{ if $team }}
+                                                        <div
+                                                            class="mt-4 antialiased font-sans text-sm font-light leading-normal grid gap-12 md:grid-cols-2 lg:grid-cols-4"
+                                                        >
+                                                            {{ range $memberIndex, $member := $team.Members }}
+                                                            <div class="space-y-6 text-center">
+                                                                <img
+                                                                    class="mx-auto h-24 w-24 rounded-full object-cover md:h-24 md:w-24 lg:h-24 lg:w-24"
+                                                                    src="{{ $member.Avatar }}"
+                                                                    alt="{{ $member.Name }}"
+                                                                    loading="lazy"
+                                                                />
+                                                                <div>
+                                                                    <h4 class="text-xl">{{ $member.Name }}</h4>
+                                                                    <span class="block text-sm">
+                                                                        {{ $member.RegNo }}
+                                                                    </span>
+                                                                    {{ if eq $memberIndex 0 }}
+                                                                    <span class="block text-sm"> (Leader) </span>
+                                                                    {{ end }}
+                                                                </div>
+                                                            </div>
+                                                            {{ end }}
+                                                        </div>
+                                                        {{ end }}
+                                                    </ul>
+                                                </dd>
+                                            </div>
+                                            <!--  -->
+                                            {{ end }}
+                                        </dl>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <form class="mt-4 space-y-4 md:space-y-6" action="{{ .BaseUrl }}/api/auth/logout">
+                            <div>
+                                <button
+                                    class="px-4 py-2 border flex w-full gap-2 items-center justify-center border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+                                >
+                                    <span>Logout</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <form class="mt-4 space-y-4 md:space-y-6" action="{{ .BaseUrl }}/api/auth/logout">
-                        <div>
-                            <button
-                                class="px-4 py-2 border flex w-full gap-2 items-center justify-center border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
-                            >
-                                <span>Logout</span>
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </main>
         </div>
