@@ -1,41 +1,4 @@
-
-let active = 'nav-dashboard'
-let eventActive = 'event1'
-
-function setElementActive(elementId) {
-    let activeElement = document.getElementById(active)
-    if (activeElement) {
-        activeElement.classList.remove('bg-gray-900')
-        activeElement.classList.remove('text-white')
-        activeElement.classList.add('text-gray-300')
-        activeElement.classList.add('hover:bg-gray-700')
-        activeElement.classList.add('hover:text-white')
-    }
-
-    let activeElementMobile = document.getElementById(active + '-mb')
-    if (activeElementMobile) {
-        activeElementMobile.classList.remove('bg-gray-900')
-        activeElementMobile.classList.remove('text-white')
-        activeElementMobile.classList.add('text-gray-300')
-        activeElementMobile.classList.add('hover:bg-gray-700')
-        activeElementMobile.classList.add('hover:text-white')
-    }
-
-    let element = document.getElementById(elementId)
-    if (element) {
-        element.classList.add('bg-gray-900')
-        element.classList.add('text-white')
-    }
-
-    let elementMobile = document.getElementById(elementId + '-mb')
-    if (elementMobile) {
-        elementMobile.classList.add('bg-gray-900')
-        elementMobile.classList.add('text-white')
-    }
-    active = elementId
-
-    hideMenu()
-}
+let eventActive = 'droidrush'
 
 function setEventActive(elementId) {
     // Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800"
@@ -77,14 +40,75 @@ function toggleMenu() {
         menu.classList.remove('hidden')
         menu.classList.add('block')
     } else {
-        hideMenu()
+        menu.classList.add('hidden')
+        menu.classList.remove('block')
     }
 }
 
-function hideMenu() {
-    let menu = document.getElementById('mobile-menu')
-    if (!menu) return
+let requestStarted = false
 
-    menu.classList.add('hidden')
-    menu.classList.remove('block')
+function submitRegistration(event, baseUrl) {
+
+    if (requestStarted) {
+        return
+    }
+
+    requestStarted = true
+
+    let teamName = document.getElementById('team_name').value
+
+    if (teamName.length == 0) {
+        alertReload("Please enter team name")
+        return
+    }
+
+    let member1RegNo = document.getElementById('mem_1_reg').value
+    let member2RegNo = document.getElementById('mem_2_reg').value
+    let member3RegNo = document.getElementById('mem_3_reg').value
+
+    let memberList = []
+    if (member1RegNo.length > 0) {
+        memberList.push(member1RegNo)
+    }
+    if (member2RegNo.length > 0) {
+        memberList.push(member2RegNo)
+    }
+    if (member3RegNo.length > 0) {
+        memberList.push(member3RegNo)
+    }
+
+    let json = {
+        'event': event,
+        'member_reg_list': memberList,
+        'team_name': teamName,
+    }
+
+    let url = '/api/v1/cs/register'
+    if (baseUrl) {
+        url = baseUrl + url
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(json)
+    }).then((res) => {
+        if (res.status == 200) {
+            alertReload("Registered successfully")
+            return
+        } else {
+            alertReload(res.body)
+            return
+        }
+    }).catch((err) => {
+        alertReload(err)
+    }).finally(() => {
+        requestStarted = false
+    })
+}
+
+function alertReload(msg) {
+    alert(msg)
+    window.scrollTo(0, 0)
+    window.location.reload(true)
 }

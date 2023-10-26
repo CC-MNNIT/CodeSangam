@@ -1,5 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Comfortaa:70);
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .glow {
     font-family: "Comfortaa";
     color: #fee;
