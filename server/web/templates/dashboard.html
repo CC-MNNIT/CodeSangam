@@ -673,15 +673,17 @@
                                                 <div class="flex min-w-0 gap-x-4">
                                                     <div class="min-w-0 flex-auto">
                                                         <p class="text-sm font-semibold leading-6 text-white">
-                                                            {{ if .User.DroidRushTeam.Name }}
+                                                            {{ if .UserInfo.DroidRushTeam }}
                                                             <!--  -->
-                                                            {{ .User.DroidRushTeam.Name }}
+                                                            {{ .UserInfo.DroidRushTeam.Name }}
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
                                                         </p>
                                                         <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
-                                                            {{ range $index, $member := .User.DroidRushTeam.Members }}
-                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ if .UserInfo.DroidRushTeam }}
+                                                                {{ range $index, $member := .UserInfo.DroidRushTeam.Members }}
+                                                                <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                                {{ end }}
                                                             {{ end }}
                                                         </ul>
                                                     </div>
@@ -694,15 +696,17 @@
                                                 <div class="flex min-w-0 gap-x-4">
                                                     <div class="min-w-0 flex-auto">
                                                         <p class="text-sm font-semibold leading-6 text-white">
-                                                            {{ if .User.WebsterTeam.Name }}
+                                                            {{ if .UserInfo.WebsterTeam }}
                                                             <!--  -->
-                                                            {{ .User.WebsterTeam.Name }}
+                                                            {{ .UserInfo.WebsterTeam.Name }}
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
                                                         </p>
                                                         <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
-                                                            {{ range $index, $member := .User.WebsterTeam.Members }}
-                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ if .UserInfo.WebsterTeam }}
+                                                                {{ range $index, $member := .UserInfo.WebsterTeam.Members }}
+                                                                <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                                {{ end }}
                                                             {{ end }}
                                                         </ul>
                                                     </div>
@@ -715,15 +719,17 @@
                                                 <div class="flex min-w-0 gap-x-4">
                                                     <div class="min-w-0 flex-auto">
                                                         <p class="text-sm font-semibold leading-6 text-white">
-                                                            {{ if .User.SoftablitzTeam.Name }}
+                                                            {{ if .UserInfo.SoftablitzTeam }}
                                                             <!--  -->
-                                                            {{ .User.SoftablitzTeam.Name }}
+                                                            {{ .UserInfo.SoftablitzTeam.Name }}
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
                                                         </p>
                                                         <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
-                                                            {{ range $index, $member := .User.SoftablitzTeam.Members }}
-                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ if .UserInfo.SoftablitzTeam }}
+                                                                {{ range $index, $member := $.UserInfo.SoftablitzTeam.Members }}
+                                                                <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                                {{ end }}
                                                             {{ end }}
                                                         </ul>
                                                     </div>
@@ -736,16 +742,17 @@
                                                 <div class="flex min-w-0 gap-x-4">
                                                     <div class="min-w-0 flex-auto">
                                                         <p class="text-sm font-semibold leading-6 text-white">
-                                                            {{ if .User.LogicalRhythmTeam.Name }}
+                                                            {{ if .User.LogicalRhythmTeam }}
                                                             <!--  -->
                                                             {{ .User.LogicalRhythmTeam.Name }}
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
                                                         </p>
                                                         <ul class="mt-1 truncate text-xs leading-5 text-gray-400">
-                                                            {{ range $index, $member := .User.LogicalRhythmTeam.Members
-                                                            }}
-                                                            <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                            {{ if .User.LogicalRhythmTeam }}
+                                                                {{ range $index, $member := .UserInfo.LogicalRhythmTeam.Members }}
+                                                                <li>{{ $member.Name }} - {{ $member.RegNo }}</li>
+                                                                {{ end }}
                                                             {{ end }}
                                                         </ul>
                                                     </div>
