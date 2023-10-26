@@ -18,7 +18,7 @@ export default function NavBar({ isHome }: props) {
         <div>
             <nav style={{ zIndex: "40000000" }} className="bg-transparent fixed w-full top-0 left-0">
                 <div className="flex flex-wrap items-center justify-between pt-0 p-4 mt-0 m-3">
-                    <div style={{cursor: "pointer"}} onClick={() => { navigate("/"); window.scrollTo({ left: 0, top: 0, behavior: "smooth" }); }} className="flex md:order-1">
+                    <div style={{ cursor: "pointer" }} onClick={() => { navigate("/"); window.scrollTo({ left: 0, top: 0, behavior: "smooth" }); }} className="flex md:order-1">
                         <img src={logo} className="h-[9rem] ml-3 pt-3 mr-3" alt="Flowbite Logo" />
                         {/* <div className='card self-center text-2xl font-semibold whitespace-nowrap dark:text-white flex'>C<img src={moonwith} className="h-7" alt="logo" />DESANGAM</div> */}
                     </div>

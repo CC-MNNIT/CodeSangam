@@ -8,7 +8,7 @@ interface props {
 
 export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
     const { innerWidth: width, innerHeight: height } = window;
-    var factor = 2.8;
+    var factor = 3.6;
     if (width < 640) factor = 0.75;
     // const [factor, setFactor] = useState(2.4);
 
