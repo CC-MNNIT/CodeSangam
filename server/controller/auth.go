@@ -42,9 +42,17 @@ func UserDashboard(c echo.Context) error {
 	if err != nil {
 		return utils.InternalError(c, "Unable to unmarshal user info", &err)
 	}
+	teams := make([]*models.DashboardTeam, 0)
+	teams = append(teams, user.DroidRushTeam)
+	teams = append(teams, user.WebsterTeam)
+	teams = append(teams, user.SoftablitzTeam)
+	teams = append(teams, user.LogicalRhythmTeam)
+
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
-		"UserInfo": user,
-		"BaseUrl":  config.EnvVars.BaseUrl,
+		"UserInfo":   user.User,
+		"Teams":      teams,
+		"EventsInfo": models.EventsInfo,
+		"BaseUrl":    config.EnvVars.BaseUrl,
 	})
 }
 
