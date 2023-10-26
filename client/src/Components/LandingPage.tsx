@@ -8,7 +8,7 @@ import { log } from "console";
 
 const LandingPage = () => {
     const { innerWidth: width, innerHeight: height } = window;
-    var factor = 4;
+    var factor = 3;
     if (width < 640) factor = 0.5;
     const [topDivOpacity, setTopDivOpacity] = useState(1);
     const [divHeight, setDivHeight] = useState(1000000);
@@ -43,10 +43,7 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <div
-            className=""
-            style={{ overflow: "hidden", height: divHeight }}
-        >
+        <div className="" style={{ overflow: "hidden", height: 2*divHeight }}>
             <div style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
             </div>
@@ -68,26 +65,19 @@ const LandingPage = () => {
                 </div>
             </div>
             <div style={{ width: "100vw", height: divHeight }}></div>
+            <div style={{position: "relative",zIndex:"500000000000000000000",width: "100vw", height:"100vh", backgroundColor: "rgba(255,255,255,0.4)"}}>
 
-            <div
-                style={{
-                    width: "calc(100vw)",
-                    height: `calc(${factor} * 100vh)`,
+            </div>
+            {/* <div style={{ width: "calc(100vw)", height: `calc(${factor} * 100vh)`, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div style={{
+                    width: 2 * moonRadius,
+                    height: 2 * moonRadius,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    transition: "transform 2s",
+                    transform: `rotate(${angle}deg)`,
                 }}
-            >
-                <div
-                    style={{
-                        width: 2 * moonRadius,
-                        height: 2 * moonRadius,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        transition: "transform 2s",
-                        transform: `rotate(${angle}deg)`,
-                    }}
                 >
                     <img
                         style={{
@@ -100,7 +90,7 @@ const LandingPage = () => {
                     />
                     <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
