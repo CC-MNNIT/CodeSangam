@@ -60,7 +60,7 @@ func GetEventsInfo(registered []bool) []EventInfo {
 			Description: "Droidrush is an event centered around Android development, where participants can delve into the world of Android app development. This event offers hands-on experience in building Android applications, exploring the Android ecosystem, and understanding mobile app design principles.",
 			TeamSize:    "1-3",
 			Tech:        "AndroidX, Jetpack Compose, Firebase, Kotlin, MVVM, Retrofit, Room, etc.",
-			Rules:       "",
+			Rules:       "Make sure team name is creative and unique. Team name should not contain any offensive words, if found so, the team will be disqualified.",
 			Registered:  registered[0],
 		},
 		{
@@ -70,7 +70,7 @@ func GetEventsInfo(registered []bool) []EventInfo {
 			Description: "Webster is a web development-focused event, emphasizing the enhancement of participants' skills in creating web applications. It provides opportunities for individuals to learn about web technologies, frameworks, and best practices in the field.",
 			TeamSize:    "1-3",
 			Tech:        "HTML, CSS, JS, React, Next, Node, Express, MongoDB, etc.",
-			Rules:       "",
+			Rules:       "Make sure team name is creative and unique. Team name should not contain any offensive words, if found so, the team will be disqualified.",
 			Registered:  registered[1],
 		},
 		{
@@ -80,7 +80,7 @@ func GetEventsInfo(registered []bool) []EventInfo {
 			Description: "Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software.",
 			TeamSize:    "1-3",
 			Tech:        "JavaFX, Java, Swing, Desktop Compose, Kotlin, etc.",
-			Rules:       "",
+			Rules:       "Make sure team name is creative and unique. Team name should not contain any offensive words, if found so, the team will be disqualified.",
 			Registered:  registered[2],
 		},
 		{
@@ -90,7 +90,7 @@ func GetEventsInfo(registered []bool) []EventInfo {
 			Description: "Logical Rythm is a machine learning event that empowers participants with essential knowledge and skills in data analysis, algorithm development, and model training. This event equips attendees with a strong foundation in artificial intelligence and data science, preparing them for exciting opportunities in these fields.",
 			TeamSize:    "1-3",
 			Tech:        "",
-			Rules:       "",
+			Rules:       "Make sure team name is creative and unique. Team name should not contain any offensive words, if found so, the team will be disqualified.",
 			Registered:  registered[3],
 		},
 	}
