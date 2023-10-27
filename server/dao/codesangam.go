@@ -324,6 +324,11 @@ func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
 
 	var teams []*models.DashboardTeam
 	for _, rTeam := range registeredTeams {
+		// Skip teams with score 0
+		if rTeam.Score <= 0 {
+			continue
+		}
+
 		var team models.Team
 		err := config.Db.Table(teamTable.String()).Where("id = ?", rTeam.TeamId).First(&team).Error
 		if err != nil {
