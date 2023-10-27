@@ -71,7 +71,7 @@ const LandingPage = () => {
                         <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink">SAN</div><div>GAM</div>
                     </div>
                 </div>
-                <div style={{ width: "100vw", height: divHeight / 2 }}></div>
+                <div style={{ width: "100vw", height: divHeight * 4 / 5 }}></div>
                 {/* cards--- */}
                 <div className="scale-100 md:scale-0 lg:scale-0" style={{ zIndex: "500000000000000000000", width: "100vw", height: "100vh" }}>
                     <div className="bg-transparent one scale-100 flex justify-center items-center">
