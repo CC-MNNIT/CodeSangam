@@ -26,6 +26,6 @@ type Team struct {
 }
 
 type EventRegistration struct {
-	TeamId int  `gorm:"column:team_id" json:"team_id"`
-	Score  uint `gorm:"column:score" json:"score"`
+	TeamId int `gorm:"column:team_id" json:"team_id"`
+	Score  int `gorm:"column:score" json:"score"`
 }

@@ -32,6 +32,7 @@ type DashboardTeam struct {
 	Name    string     `json:"name"`
 	Size    int        `json:"size"`
 	Members []*UserDto `json:"members"`
+	Score   int        `json:"score"`
 }
 
 type RegisterTeamDto struct {
