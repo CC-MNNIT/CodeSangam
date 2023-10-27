@@ -24,7 +24,7 @@ const LandingPage = () => {
     };
     window.addEventListener("scroll", () => {
         const currentScroll = window.scrollY;
-        setTopDivOpacity(1 - currentScroll / 500);
+        setTopDivOpacity(1 - currentScroll / 250);
     });
 
     useEffect(() => {
