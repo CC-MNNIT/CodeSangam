@@ -126,7 +126,7 @@ const LandingPage = () => {
                 </div>
             </div>
             {/* big ------------------------------------ screen -------------------------------- part */}
-            <div style={{ overflow: "hidden", width: "100vw", height: "200vh" }}>
+            <div className="big-screen-landing-page" style={{ overflow: "hidden", width: "100vw", height: "200vh" }}>
                 <div style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
                 </div>
