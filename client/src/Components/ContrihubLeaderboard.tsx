@@ -11,8 +11,10 @@ export default function ContrihubLeaderboard() {
     async function fetchData() {
       try {
         const { data } = await axios.get(contrihubRankingsDataAPI);
-        setRankingsData(data);
-        setIsListRecieved(true);
+        if (data) {
+          setRankingsData(data);
+          setIsListRecieved(true);
+        }
       } catch (err) {
         console.log(err);
       }

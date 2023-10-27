@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import Podium from "./Podium";
+import EventsPodium from "./EventsPodium";
 
 interface props {
   currentAPI: string
@@ -13,9 +13,45 @@ export default function EventLeaderboard({ currentAPI }: props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get(currentAPI);
-        setRankingsData(data);
-        setIsListRecieved(true);
+        //const { data } = await axios.get(currentAPI);
+        const data = [
+          {
+            bonus_points: 1,
+            reg_no: "20211002",
+            total_points: 2,
+            user_id: 23,
+            user_name: "32bitdev",
+            year: 2021,
+          },
+          {
+            bonus_points: 2,
+            reg_no: "2022002",
+            total_points: 3,
+            user_id: 45,
+            user_name: "meisabhishekpatel",
+            year: 2022,
+          },
+          {
+            bonus_points: 3,
+            reg_no: "20231002",
+            total_points: 4,
+            user_id: 56,
+            user_name: "imsrt",
+            year: 2023,
+          },
+          {
+            bonus_points: 5,
+            reg_no: "20221004",
+            total_points: 6,
+            user_id: 16,
+            user_name: "chunnu",
+            year: 2022,
+          }
+        ];
+        if (data) {
+          setRankingsData(data);
+          setIsListRecieved(true);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -33,7 +69,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
         :
         (
           <div>
-            <Podium firstStudentName={rankingsData.length >= 1 ? rankingsData[0].user_name : ""} secondStudentName={rankingsData.length >= 2 ? rankingsData[1].user_name : ""} thirdStudentName={rankingsData.length >= 3 ? rankingsData[2].user_name : ""} />
+            <EventsPodium firstStudentName={rankingsData.length >= 1 ? rankingsData[0].user_name : ""} secondStudentName={rankingsData.length >= 2 ? rankingsData[1].user_name : ""} thirdStudentName={rankingsData.length >= 3 ? rankingsData[2].user_name : ""} />
             <div className='leaderboard-contaier' style={{ paddingLeft: "20px", paddingRight: "20px", position: "relative", backgroundColor: "rgba(0,234,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
               <div style={{ marginTop: "33px" }} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
                 <table className="w-full text-sm text-left text-gray-400">
