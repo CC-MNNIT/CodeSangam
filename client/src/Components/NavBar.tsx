@@ -23,7 +23,7 @@ export default function NavBar({ isHome }: props) {
                         {/* <div className='card self-center text-2xl font-semibold whitespace-nowrap dark:text-white flex'>C<img src={moonwith} className="h-7" alt="logo" />DESANGAM</div> */}
                     </div>
                     <div className="flex md:order-2">
-                        <button type="button" className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500">LOGIN</button>
+                        <button type="button" className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500">DASHBOARD</button>
                         <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
                             <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
