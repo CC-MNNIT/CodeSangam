@@ -661,7 +661,8 @@
                                                     <p class="text-sm leading-6 text-white">
                                                         {{ if $team }}
                                                         <!--  -->
-                                                        {{ $team.Name }}
+                                                        {{ $team.Name }} -
+                                                        <span class="font-semibold">ID: {{ $team.TeamId }}</span>
                                                         <!--  -->
                                                         {{ else }} No team registered yet {{ end }}
                                                     </p>
