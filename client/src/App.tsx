@@ -7,54 +7,55 @@ import NavBar from "./Components/NavBar";
 import Events from "./Components/Events";
 import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 import EventLeaderboard from "./Components/EventLeaderboard";
-import { websterRankingsDataAPI,droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
+import { websterRankingsDataAPI, droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
 
 function App() {
+    console.log(`${process.env.REACT_APP_BASE_URL}leaderboard/contrihub`);
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={
+                <Route path={process.env.REACT_APP_BASE_URL} element={
                     <div className="">
-                        <Starfield/>
+                        <Starfield />
                         <LandingPage />
-                        <NavBar isHome={true}/>
+                        <NavBar isHome={true} />
                     </div>} />
-                <Route path="/leaderboard/contrihub" element={
+                <Route path={`${process.env.REACT_APP_BASE_URL}/leaderboard/contrihub`} element={
                     <div>
-                        <Starfield/>
+                        <Starfield />
                         <ContrihubLeaderboard />
-                        <NavBar isHome={false}/>
+                        <NavBar isHome={false} />
                         <Events currentSelected="contrihub" />
                     </div>} />
-                <Route path="/leaderboard/softablitz" element={
+                <Route path={`${process.env.REACT_APP_BASE_URL}/leaderboard/softablitz`} element={
                     <div>
-                        <Starfield/>
+                        <Starfield />
                         <EventLeaderboard currentAPI={softablitzRankingsDataAPI} />
-                        <NavBar isHome={false}/>
+                        <NavBar isHome={false} />
                         <Events currentSelected="softablitz" />
                     </div>
                 } />
-                <Route path="/leaderboard/webster" element={
+                <Route path={`${process.env.REACT_APP_BASE_URL}/leaderboard/webster`} element={
                     <div>
-                        <Starfield/>
+                        <Starfield />
                         <EventLeaderboard currentAPI={websterRankingsDataAPI} />
-                        <NavBar isHome={false}/>
+                        <NavBar isHome={false} />
                         <Events currentSelected="webster" />
                     </div>
                 } />
-                <Route path="/leaderboard/logicalrhythm" element={
+                <Route path={`${process.env.REACT_APP_BASE_URL}/leaderboard/logicalrhythm`} element={
                     <div>
-                        <Starfield/>
+                        <Starfield />
                         <EventLeaderboard currentAPI={logicalrhythmRankingsDataAPI} />
-                        <NavBar isHome={false}/>
+                        <NavBar isHome={false} />
                         <Events currentSelected="logicalrhythm" />
                     </div>
                 } />
-                <Route path="/leaderboard/droidrush" element={
+                <Route path={`${process.env.REACT_APP_BASE_URL}/leaderboard/droidrush`} element={
                     <div>
-                        <Starfield/>
+                        <Starfield />
                         <EventLeaderboard currentAPI={droidrushRankingsDataAPI} />
-                        <NavBar isHome={false}/>
+                        <NavBar isHome={false} />
                         <Events currentSelected="droidrush" />
                     </div>
                 } />
