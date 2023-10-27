@@ -8,18 +8,14 @@ interface props {
 
 export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
     const { innerWidth: width, innerHeight: height } = window;
-    var factor = 2.8;
-    if (width < 640) factor = 0.75;
-    // const [factor, setFactor] = useState(2.4);
-
+    var factor = 1;
+    // if (width < 640) factor = 0.75;
+    // var factor=${factor},radius=Math.sqrt(screen.width*screen.width+factor*screen.height*factor*screen.height)/2
     useEffect(() => {
         // const { innerWidth: width, innerHeight: height } = window;
-        // if (width < 640) {
-        //     setFactor(2.9);
-        // }
         const script = document.createElement("script");
         script.async = true;
-        script.innerHTML = `var factor=${factor},radius=Math.sqrt(screen.width*screen.width+factor*screen.height*factor*screen.height)/2,fields=$(".item"),container=$("#container"),width=container.width(),height=container.height(),angle=0,step=2*Math.PI/fields.length;fields.each(function(){var t=Math.round(width/2+radius*Math.cos(angle)-$(this).width()/2),i=Math.round(height/2+radius*Math.sin(angle)-$(this).height()/2);$(this).css({left:t+"px",top:i+"px"}),angle+=step});`;
+        script.innerHTML = `console.log(window.innerHeight);radius=2*window.innerHeight,fields=$(".item"),container=$("#container"),width=container.width(),height=container.height(),angle=0,step=2*Math.PI/fields.length;fields.each(function(){var t=Math.round(width/2+radius*Math.cos(angle)-$(this).width()/2),i=Math.round(height/2+radius*Math.sin(angle)-$(this).height()/2);$(this).css({left:t+"px",top:i+"px"}),angle+=step});`;
         document.body.appendChild(script);
 
         return () => {
@@ -28,8 +24,25 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
     }, []);
 
     return (
+        // <div id="container" style={{ position: "absolute" }}>
+        //     <div className="item" style={{ rotate: "89deg" }}>
+        //         1
+        //     </div>
+        //     <div className="item" style={{ rotate: "161deg" }}>
+        //         2
+        //     </div>
+        //     <div className="item" style={{ rotate: "-127deg" }}>
+        //         3
+        //     </div>
+        //     <div className="item" style={{ rotate: "-55deg" }}>
+        //         4
+        //     </div>
+        //     <div className="item" style={{ rotate: "17deg" }}>
+        //         5
+        //     </div>
+        // </div>
         <div id="container" style={{ position: "absolute" }}>
-            <div className="item scale-50 md:scale-75 lg:scale-100" style={{ rotate: "89deg" }}>
+            <div className="item sm:scale-50 md:scale-75 lg:scale-100" style={{ rotate: "89deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}

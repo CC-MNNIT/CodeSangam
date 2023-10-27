@@ -11,6 +11,7 @@ const LandingPage = () => {
     const { innerWidth: width, innerHeight: height } = window;
     var factor = 3;
     if (width < 640) factor = 0.5;
+    const [wh, setWh] = useState(200);
     const [topDivOpacity, setTopDivOpacity] = useState(1);
     const [divHeight, setDivHeight] = useState(1000000);
     const [angle, setAngle] = useState(0);
@@ -35,13 +36,25 @@ const LandingPage = () => {
         //     setFactor(2)
         // }
 
+
         const newMoonRadius =
-            Math.sqrt(width * width + factor * height * factor * height) / 2;
+            Math.sqrt(width * width + height * height) / 2;
         setMoonRadius(newMoonRadius);
+        setWh(2 * (1 + 0.5 + 0.35) * height);
         const blurLength = 500;
         const moonSegLength = newMoonRadius - (factor * height) / 2;
         setDivHeight(height + blurLength + moonSegLength);
+        console.log(height + blurLength + moonSegLength);
     }, []);
+
+    //     const newMoonRadius =
+    //         Math.sqrt(width * width + factor * height * factor * height) / 2;
+    //     setMoonRadius(newMoonRadius);
+    //     const blurLength = 500;
+    //     const moonSegLength = newMoonRadius - (factor * height) / 2;
+    //     setDivHeight(height + blurLength + moonSegLength);
+    //     console.log(height + blurLength + moonSegLength);
+    // }, []);
 
     return (
         <div>
@@ -113,7 +126,36 @@ const LandingPage = () => {
                 </div>
             </div>
             {/* big ------------------------------------ screen -------------------------------- part */}
-            <div className="big-screen-landing-page" style={{ overflow: "hidden", height: divHeight }} >
+            <div style={{ overflow: "hidden", width: "100vw", height: "200vh" }}>
+                <div style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
+                </div>
+                <div style={{ zIndex: "50000000", position: "fixed", top: "50vh", left: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <img className="arrows cursor-pointer" onClick={() => { leftrotateMoon(); }} width="100" height="100" src={left} alt="backward--v1" />
+                </div>
+                <div style={{ opacity: topDivOpacity }} className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo">
+                    <div className="flex justify-center">
+                        <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink">SAN</div><div>GAM</div></div>
+                </div>
+                <div style={{ width: "100vw", height: "300vh" }}>
+                    <div style={{ width: "100vw", height: "100vh" }}>
+
+                    </div>
+                    <div style={{ width: "100vw", height: "100vh" }}>
+
+                    </div>
+                    <div style={{ width: "100vw", height: "100vh" }}>
+
+                    </div>
+                </div>
+                <div style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <div style={{ width: wh, height: wh, display: "flex", justifyContent: "center", alignItems: "center", transition: "transform 2s", transform: `rotate(${angle}deg)` }}>
+                        <img style={{ maxWidth: "none", width: wh, height: wh }} src={moon} alt="moon" />
+                        <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} />
+                    </div>
+                </div>
+            </div>
+            {/* <div className="big-screen-landing-page" style={{ overflow: "hidden", height:  divHeight }} >
                 <div style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
                 </div>
@@ -125,13 +167,13 @@ const LandingPage = () => {
                         <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink">SAN</div><div>GAM</div></div>
                 </div>
                 <div style={{ width: "100vw", height: divHeight }}></div>
-                <div style={{ width: "calc(100vw)", height: `calc(${factor} * 100vh)`, display: "flex", justifyContent: "center", alignItems: "center", }}>
+                <div style={{ width: "calc(100vw)", height: `calc(${factor} * 100vh)`, display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <div style={{ width: 2 * moonRadius, height: 2 * moonRadius, display: "flex", justifyContent: "center", alignItems: "center", transition: "transform 2s", transform: `rotate(${angle}deg)` }} >
                         <img style={{ maxWidth: "none", width: 2 * moonRadius, height: 2 * moonRadius, }} src={moon} alt="moon" />
                         <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
