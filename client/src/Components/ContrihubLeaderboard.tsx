@@ -3,6 +3,9 @@ import axios from "axios";
 import { contrihubRankingsDataAPI } from '../Utils/APIRoutes';
 import Podium from "./Podium";
 import { Ranking } from '../Models/ContrihubModel';
+import first from "../Assets/first.svg";
+import second from "../Assets/second.svg";
+import third from "../Assets/third.svg";
 
 
 export default function ContrihubLeaderboard() {
@@ -68,7 +71,7 @@ export default function ContrihubLeaderboard() {
                                 <span></span>
                               </div>
                               <h1 style={{ transform: "translateY(2px)" }} className='card'>1</h1>
-                              <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src="https://leetcode.com/_next/static/images/gold-ef62b77913cc5e6d6a8f4757cf91b8e1.svg" alt="Crown" />
+                              <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src={first} alt="Crown" />
                               </div>
                             </div>
                             <div style={i + 1 == 2 ? {} : { display: "none" }} className="flex flex-col justify-center relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-dark-level1 q3MuO">
@@ -79,7 +82,7 @@ export default function ContrihubLeaderboard() {
                                 <span></span>
                               </div>
                               <h1 style={{ transform: "translateY(2px)" }} className='card'>2</h1>
-                              <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src="https://leetcode.com/_next/static/images/gold-ef62b77913cc5e6d6a8f4757cf91b8e1.svg" alt="Crown" />
+                              <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src={second} alt="Crown" />
                               </div>
                             </div>
                             <div style={i + 1 == 3 ? {} : { display: "none" }} className="flex flex-col justify-center relative h-full min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] rounded-full shadow-dark-level1 q3MuO">
@@ -90,7 +93,7 @@ export default function ContrihubLeaderboard() {
                                 <span></span>
                               </div>
                               <h1 style={{ transform: "translateY(2px)" }} className='card'>3</h1>
-                              <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src="https://leetcode.com/_next/static/images/bronze-775865c553df0d51efef52a3dd8ae19e.svg" alt="Crown" />
+                              <div className="z-base-1 absolute -top-2 right-[calc(50%_-_10px)]"><img style={{ scale: "80%" }} src={third} alt="Crown" />
                               </div>
                             </div>
                             <div style={i + 1 == 1 || i + 1 == 2 || i + 1 == 3 ? { display: "none" } : {}} className='card min-w-[35px] max-w-[35px] min-h-[35px] max-h-[35px] flex flex-col justify-center'>
