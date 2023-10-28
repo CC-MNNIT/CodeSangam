@@ -654,31 +654,41 @@
                                                         <!--  -->
                                                         {{ else }} No team registered yet {{ end }}
                                                     </p>
-                                                    <ul class="mt-1 text-xs leading-5 text-gray-400">
+                                                    <ul
+                                                        role="list"
+                                                        class="mt-2 grid gap-x-16 gap-y-8 sm:grid-cols-2 sm:gap-y-8 w-full xl:col-span-2"
+                                                    >
                                                         {{ if $team }}
-                                                        <div
-                                                            class="mt-4 antialiased font-sans text-sm leading-normal grid gap-12 md:grid-cols-2 lg:grid-cols-4"
-                                                        >
-                                                            {{ range $memberIndex, $member := $team.Members }}
-                                                            <div class="space-y-6 text-center">
+                                                        <!--  -->
+                                                        {{ range $memberIndex, $member := $team.Members }}
+                                                        <li>
+                                                            <div class="flex items-center gap-x-8 antialiased font-sans">
                                                                 <img
-                                                                    class="mx-auto h-24 w-24 rounded-full object-cover md:h-24 md:w-24 lg:h-24 lg:w-24"
+                                                                    class="h-16 w-16 rounded-full"
                                                                     src="{{ $member.Avatar }}"
                                                                     alt="{{ $member.Name }}"
                                                                     loading="lazy"
                                                                 />
                                                                 <div>
-                                                                    <h4 class="text-base text-gray-200">{{ $member.Name }}</h4>
-                                                                    <span class="block text-sm">
+                                                                    <h3
+                                                                        class="text-base font-semibold leading-7 tracking-tight text-gray-200"
+                                                                    >
+                                                                        {{ $member.Name }}
+                                                                    </h3>
+                                                                    <p
+                                                                        class="text-sm font-normal leading-6 text-gray-400"
+                                                                    >
                                                                         {{ $member.RegNo }}
-                                                                    </span>
-                                                                    {{ if eq $memberIndex 0 }}
-                                                                    <span class="block text-sm"> (Leader) </span>
-                                                                    {{ end }}
+                                                                        <!--  -->
+                                                                        {{ if eq $memberIndex 0 }}
+                                                                        <span class="inline font-semibold leading-6 text-blue-600"> (Leader) </span>
+                                                                        {{ end }}
+                                                                    </p>
                                                                 </div>
                                                             </div>
-                                                            {{ end }}
-                                                        </div>
+                                                        </li>
+                                                        {{ end }}
+                                                        <!--  -->
                                                         {{ end }}
                                                     </ul>
                                                 </dd>
