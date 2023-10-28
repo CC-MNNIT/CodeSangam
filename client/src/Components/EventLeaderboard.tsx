@@ -11,7 +11,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
   const [rankingsData, setRankingsData] = useState(
     [
       {
-        "members": [
+        members: [
           {
             avatar: "string",
             email: "string",
@@ -157,7 +157,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
         :
         (
           <div>
-            <EventsPodium />
+            <EventsPodium teams={rankingsData} />
             <div className='leaderboard-contaier' style={{ paddingLeft: "20px", paddingRight: "20px", position: "relative", backgroundColor: "rgba(0,234,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
               <div style={{ marginTop: "33px" }} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
                 <table className="w-full text-sm text-left text-gray-400">

@@ -2,88 +2,20 @@ import React, { useState, useEffect } from 'react';
 import first from "../Assets/first.jpg";
 import second from "../Assets/second.jpg";
 import third from "../Assets/third.jpg";
+import { Team } from '../Models/EventModel';
 
 
-export default function EventsPodium() {
+interface Prop {
+    teams: Team[]
+}
+
+export default function EventsPodium({teams}: Prop) {
+
     const [topDivOpacity, setTopDivOpacity] = useState(1);
-    const firstTeam = {
-        members: [
-            {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-            },
-            {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-            },
-            {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-            }
-        ],
-        name: "Team 1",
-        score: 1,
-        size: 2,
-        team_id: 3
-    };
-    const secondTeam = {
-        members: [
-            {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-            },
-            {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-            },
-            {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-            }
-        ],
-        name: "Team 2",
-        score: 1,
-        size: 2,
-        team_id: 3
-    };
-    const thirdTeam = {
-        members: [
-            {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-            },
-            {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-            },
-            {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-            }
-        ],
-        name: "Team 3",
-        score: 1,
-        size: 2,
-        team_id: 3
-    };
+    const firstTeam = teams[0];
+    const secondTeam = teams[1];
+    const thirdTeam = teams[2];
+    
     window.addEventListener("scroll", () => {
         if (window.innerWidth > 850) {
             const currentScroll = window.scrollY;
