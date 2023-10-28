@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./Components/LandingPage";
+import Team from "./Components/Team";
 import Starfield from "./Components/Starfield";
 import NavBar from "./Components/NavBar";
 import Events from "./Components/Events";
@@ -59,6 +60,12 @@ function App() {
                         <Events currentSelected="droidrush" />
                     </div>
                 } />
+                <Route path={`${process.env.REACT_APP_BASE_URL}/team`} element={
+                    <div className="">
+                        <Starfield />
+                        <Team />
+                        <NavBar isHome={true} />
+                    </div>} />
             </Routes>
         </BrowserRouter >
     )

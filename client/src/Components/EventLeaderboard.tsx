@@ -8,7 +8,23 @@ interface props {
 
 export default function EventLeaderboard({ currentAPI }: props) {
   const [isListRecieved, setIsListRecieved] = useState(false);
-  const [rankingsData, setRankingsData] = useState([{ bonus_points: 0, reg_no: "", total_points: 0, user_id: 0, user_name: "", year: 0 }]);
+  const [rankingsData, setRankingsData] = useState(
+    [
+      {
+        "members": [
+          {
+            avatar: "string",
+            email: "string",
+            name: "string",
+            reg_no: "string"
+          }
+        ],
+        name: "string",
+        score: 0,
+        size: 0,
+        team_id: 0
+      }
+    ]);
 
   useEffect(() => {
     async function fetchData() {
@@ -16,36 +32,108 @@ export default function EventLeaderboard({ currentAPI }: props) {
         //const { data } = await axios.get(currentAPI);
         const data = [
           {
-            bonus_points: 1,
-            reg_no: "20211002",
-            total_points: 2,
-            user_id: 23,
-            user_name: "32bitdev",
-            year: 2021,
+            members: [
+              {
+                avatar: "string1",
+                email: "string1",
+                name: "string1",
+                reg_no: "string1"
+              },
+              {
+                avatar: "string2",
+                email: "string2",
+                name: "string2",
+                reg_no: "string2"
+              },
+              {
+                avatar: "string3",
+                email: "string3",
+                name: "string3",
+                reg_no: "string3"
+              }
+            ],
+            name: "Team 1",
+            score: 1,
+            size: 2,
+            team_id: 3
           },
           {
-            bonus_points: 2,
-            reg_no: "2022002",
-            total_points: 3,
-            user_id: 45,
-            user_name: "meisabhishekpatel",
-            year: 2022,
+            members: [
+              {
+                avatar: "string1",
+                email: "string1",
+                name: "string1",
+                reg_no: "string1"
+              },
+              {
+                avatar: "string2",
+                email: "string2",
+                name: "string2",
+                reg_no: "string2"
+              },
+              {
+                avatar: "string3",
+                email: "string3",
+                name: "string3",
+                reg_no: "string3"
+              }
+            ],
+            name: "Team 2",
+            score: 1,
+            size: 2,
+            team_id: 3
           },
           {
-            bonus_points: 3,
-            reg_no: "20231002",
-            total_points: 4,
-            user_id: 56,
-            user_name: "imsrt",
-            year: 2023,
+            members: [
+              {
+                avatar: "string1",
+                email: "string1",
+                name: "string1",
+                reg_no: "string1"
+              },
+              {
+                avatar: "string2",
+                email: "string2",
+                name: "string2",
+                reg_no: "string2"
+              },
+              {
+                avatar: "string3",
+                email: "string3",
+                name: "string3",
+                reg_no: "string3"
+              }
+            ],
+            name: "Team 3",
+            score: 1,
+            size: 2,
+            team_id: 3
           },
           {
-            bonus_points: 5,
-            reg_no: "20221004",
-            total_points: 6,
-            user_id: 16,
-            user_name: "chunnu",
-            year: 2022,
+            members: [
+              {
+                avatar: "string1",
+                email: "string1",
+                name: "string1",
+                reg_no: "string1"
+              },
+              {
+                avatar: "string2",
+                email: "string2",
+                name: "string2",
+                reg_no: "string2"
+              },
+              {
+                avatar: "string3",
+                email: "string3",
+                name: "string3",
+                reg_no: "string3"
+              }
+            ],
+            name: "Team 4",
+            score: 1,
+            size: 2,
+            team_id: 3
           }
         ];
         if (data) {
@@ -69,7 +157,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
         :
         (
           <div>
-            <EventsPodium firstStudentName={rankingsData.length >= 1 ? rankingsData[0].user_name : ""} secondStudentName={rankingsData.length >= 2 ? rankingsData[1].user_name : ""} thirdStudentName={rankingsData.length >= 3 ? rankingsData[2].user_name : ""} />
+            <EventsPodium />
             <div className='leaderboard-contaier' style={{ paddingLeft: "20px", paddingRight: "20px", position: "relative", backgroundColor: "rgba(0,234,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
               <div style={{ marginTop: "33px" }} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
                 <table className="w-full text-sm text-left text-gray-400">
@@ -79,13 +167,10 @@ export default function EventLeaderboard({ currentAPI }: props) {
                         Rank
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
-                        User_name
+                        Team Name
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
-                        Bonus Points
-                      </th>
-                      <th scope="col" className="px-6 py-4 text-center">
-                        Total Points
+                        Score
                       </th>
                     </tr>
                   </thead>
@@ -132,13 +217,10 @@ export default function EventLeaderboard({ currentAPI }: props) {
                             </div>
                           </td>
                           <th scope="row" className="text-center px-6 py-4 font-medium whitespace-nowrap text-white">
-                            {rankingData.user_name}
+                            {rankingData.name}
                           </th>
                           <td className="px-6 py-4 text-center">
-                            {rankingData.bonus_points}
-                          </td>
-                          <td className="px-6 py-4 text-center">
-                            {rankingData.total_points}
+                            {rankingData.score}
                           </td>
                         </tr>
                       );

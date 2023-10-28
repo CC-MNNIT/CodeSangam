@@ -200,6 +200,41 @@ canvas {
 
 
 /* ---------------------------------------------------------------------------------------- */
+/* -------------------------------------EVENTSPODIUM------------------------------------------------ */
+
+.events-podium {
+  display: flex;
+  flex-direction: row;
+}
+
+.events-podium-container {
+  width: calc(1/3 * 100vw);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 850px) {
+  .events-podium {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .events-podium-container {
+    width: 100vw;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .events-podium-line{
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------- */
 /* -------------------------------------PODIUM------------------------------------------------ */
 
 
@@ -207,12 +242,16 @@ canvas {
   display: flex;
   align-items: flex-end;
   color: white;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
 
   @media screen and (max-width: 300px) {
     scale: 70%;
   }
+}
+
+.container-events-podium {
+  scale: 70%;
 }
 
 .podium__item {
@@ -629,4 +668,173 @@ h2 {
   @media screen and (min-width: 768px) {
     display: none;
   }
+}
+
+
+
+/* --------------------------------------------------------------------------------------------*/
+/*-----------------------------------TEAM----------------------------------------------------- */
+
+
+
+
+
+.container-team {
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  width: 100%;
+  justify-content: center;
+
+  @media screen and (max-width: 300px) {
+    scale: 70%;
+  }
+}
+
+.container-events-podium {
+  scale: 70%;
+}
+
+.podium__item-team {
+  width: 250px;
+  transition: 0.5s;
+}
+
+.podium__item-team:hover {
+  @media screen and (min-width: 768px) {
+    scale: 120%;
+    filter: contrast(140%);
+  }
+}
+
+.podium__rank-team {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: #fff;
+}
+
+.podium__city-team {
+  text-align: center;
+  padding: 0 .5rem;
+}
+
+.podium-team .team-individual {
+  height: 300px;
+
+  @media screen and (max-width: 400px) {
+    scale: 90%;
+  }
+}
+
+
+.loader1-team-1 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradien(#e5f8ff, #e5f8ff #e5f8ff);
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader1-team-1 span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#c0c0c0, #e6e3d4, #e6e3d4);
+}
+
+.loader1-team-1 span:nth-child(1) {
+  filter: blur(10px);
+}
+
+.loader1-team-1 span:nth-child(2) {
+  filter: blur(20px);
+}
+
+.loader1-team-1 span:nth-child(3) {
+  filter: blur(25px);
+}
+
+.loader1-team-1 span:nth-child(4) {
+  filter: blur(50x);
+}
+
+.loader1-team-1:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #240229;
+  border-radius: 50%;
+}
+
+
+
+.loader1-team-2 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradien(#e2ddff, #e2ddff #e2ddff);
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader1-team-2 span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#c0c0c0, #e6e3d4, #e6e3d4);
+}
+
+.loader1-team-2 span:nth-child(1) {
+  filter: blur(10px);
+}
+
+.loader1-team-2 span:nth-child(2) {
+  filter: blur(20px);
+}
+
+.loader1-team-2 span:nth-child(3) {
+  filter: blur(25px);
+}
+
+.loader1-team-2 span:nth-child(4) {
+  filter: blur(50x);
+}
+
+.loader1-team-2:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #240229;
+  border-radius: 50%;
 }
