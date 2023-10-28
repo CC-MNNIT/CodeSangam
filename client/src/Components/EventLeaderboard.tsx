@@ -19,19 +19,19 @@ export default function EventLeaderboard({ currentAPI }: props) {
         //   {
         //     members: [
         //       {
-        //         avatar: "string1",
+        //         avatar: "https://github.com/string11.png",
         //         email: "string1",
         //         name: "string1",
         //         reg_no: "string1"
         //       },
         //       {
-        //         avatar: "string2",
+        //         avatar: "https://github.com/string12.png",
         //         email: "string2",
         //         name: "string2",
         //         reg_no: "string2"
         //       },
         //       {
-        //         avatar: "string3",
+        //         avatar: "https://github.com/string13.png",
         //         email: "string3",
         //         name: "string3",
         //         reg_no: "string3"
@@ -45,19 +45,19 @@ export default function EventLeaderboard({ currentAPI }: props) {
         //   {
         //     members: [
         //       {
-        //         avatar: "string1",
+        //         avatar: "https://github.com/string21.png",
         //         email: "string1",
         //         name: "string1",
         //         reg_no: "string1"
         //       },
         //       {
-        //         avatar: "string2",
+        //         avatar: "https://github.com/string22.png",
         //         email: "string2",
         //         name: "string2",
         //         reg_no: "string2"
         //       },
         //       {
-        //         avatar: "string3",
+        //         avatar: "https://github.com/string23.png",
         //         email: "string3",
         //         name: "string3",
         //         reg_no: "string3"
@@ -71,19 +71,19 @@ export default function EventLeaderboard({ currentAPI }: props) {
         //   {
         //     members: [
         //       {
-        //         avatar: "string1",
+        //         avatar: "https://github.com/string31.png",
         //         email: "string1",
         //         name: "string1",
         //         reg_no: "string1"
         //       },
         //       {
-        //         avatar: "string2",
+        //         avatar: "https://github.com/string32.png",
         //         email: "string2",
         //         name: "string2",
         //         reg_no: "string2"
         //       },
         //       {
-        //         avatar: "string3",
+        //         avatar: "https://github.com/string33.png",
         //         email: "string3",
         //         name: "string3",
         //         reg_no: "string3"
@@ -97,19 +97,19 @@ export default function EventLeaderboard({ currentAPI }: props) {
         //   {
         //     members: [
         //       {
-        //         avatar: "string1",
+        //         avatar: "https://github.com/string41.png",
         //         email: "string1",
         //         name: "string1",
         //         reg_no: "string1"
         //       },
         //       {
-        //         avatar: "string2",
+        //         avatar: "https://github.com/string42.png",
         //         email: "string2",
         //         name: "string2",
         //         reg_no: "string2"
         //       },
         //       {
-        //         avatar: "string3",
+        //         avatar: "https://github.com/string43.png",
         //         email: "string3",
         //         name: "string3",
         //         reg_no: "string3"

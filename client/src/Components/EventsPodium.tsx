@@ -40,7 +40,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${secondTeam.members[1].name}.png`} alt="" />
+                                                <img src={`${secondTeam.members[1].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#2</p> */}
@@ -62,7 +62,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${secondTeam.members[0].name}.png`} alt="" />
+                                                <img src={`${secondTeam.members[0].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#1</p> */}
@@ -84,7 +84,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${secondTeam.members[2].name}.png`} alt="" />
+                                                <img src={`${secondTeam.members[2].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#3</p> */}
@@ -112,7 +112,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${firstTeam.members[1].name}.png`} alt="" />
+                                                <img src={`${firstTeam.members[1].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#2</p> */}
@@ -134,7 +134,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${firstTeam.members[0].name}.png`} alt="" />
+                                                <img src={`${firstTeam.members[0].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#1</p> */}
@@ -156,7 +156,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${firstTeam.members[2].name}.png`} alt="" />
+                                                <img src={`${firstTeam.members[2].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#3</p> */}
@@ -184,7 +184,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${thirdTeam.members[1].name}.png`} alt="" />
+                                                <img src={`${thirdTeam.members[1].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#2</p> */}
@@ -206,7 +206,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${thirdTeam.members[0].name}.png`} alt="" />
+                                                <img src={`${thirdTeam.members[0].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#1</p> */}
@@ -228,7 +228,7 @@ export default function EventsPodium({teams}: Prop) {
                                                 <span></span>
                                             </div>
                                             <div className='image-cropper'>
-                                                <img src={`https://github.com/${thirdTeam.members[2].name}.png`} alt="" />
+                                                <img src={`${thirdTeam.members[2].avatar}`} alt="" />
                                             </div>
                                         </div>
                                         {/* <p className="podium__city">#3</p> */}
