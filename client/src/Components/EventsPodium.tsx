@@ -85,8 +85,10 @@ export default function EventsPodium() {
         team_id: 3
     };
     window.addEventListener("scroll", () => {
-        const currentScroll = window.scrollY;
-        setTopDivOpacity(1 - currentScroll / 250);
+        if (window.innerWidth > 850) {
+            const currentScroll = window.scrollY;
+            setTopDivOpacity(1 - currentScroll / 250);
+        }
     });
     return (
 
@@ -98,7 +100,7 @@ export default function EventsPodium() {
                             (secondTeam.members.length >= 2) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "90" }}>
-                                        <div style={{ height: "250px"}} className="podium__rank second">
+                                        <div style={{ height: "250px" }} className="podium__rank second">
                                             <div className="loader2">
                                                 <span></span>
                                                 <span></span>
@@ -142,7 +144,7 @@ export default function EventsPodium() {
                             (secondTeam.members.length >= 3) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "40" }}>
-                                        <div style={{ height: "250px"}} className="podium__rank third">
+                                        <div style={{ height: "250px" }} className="podium__rank third">
                                             <div className="loader3">
                                                 <span></span>
                                                 <span></span>
@@ -170,7 +172,7 @@ export default function EventsPodium() {
                             (firstTeam.members.length >= 2) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "100" }}>
-                                        <div style={{ height: "250px"}} className="podium__rank second">
+                                        <div style={{ height: "250px" }} className="podium__rank second">
                                             <div className="loader2">
                                                 <span></span>
                                                 <span></span>
@@ -214,7 +216,7 @@ export default function EventsPodium() {
                             (firstTeam.members.length >= 3) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "50" }}>
-                                        <div style={{ height: "250px"}} className="podium__rank third">
+                                        <div style={{ height: "250px" }} className="podium__rank third">
                                             <div className="loader3">
                                                 <span></span>
                                                 <span></span>
@@ -242,7 +244,7 @@ export default function EventsPodium() {
                             (thirdTeam.members.length >= 2) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "80" }}>
-                                        <div style={{ height: "250px"}} className="podium__rank second">
+                                        <div style={{ height: "250px" }} className="podium__rank second">
                                             <div className="loader2">
                                                 <span></span>
                                                 <span></span>
@@ -286,7 +288,7 @@ export default function EventsPodium() {
                             (thirdTeam.members.length >= 3) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "30" }}>
-                                        <div style={{ height: "250px"}} className="podium__rank third">
+                                        <div style={{ height: "250px" }} className="podium__rank third">
                                             <div className="loader3">
                                                 <span></span>
                                                 <span></span>
