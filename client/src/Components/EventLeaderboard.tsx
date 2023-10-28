@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import EventsPodium from "./EventsPodium";
+import { Team } from '../Models/EventModel';
 
 interface props {
   currentAPI: string
@@ -8,135 +9,119 @@ interface props {
 
 export default function EventLeaderboard({ currentAPI }: props) {
   const [isListRecieved, setIsListRecieved] = useState(false);
-  const [rankingsData, setRankingsData] = useState(
-    [
-      {
-        members: [
-          {
-            avatar: "string",
-            email: "string",
-            name: "string",
-            reg_no: "string"
-          }
-        ],
-        name: "string",
-        score: 0,
-        size: 0,
-        team_id: 0
-      }
-    ]);
+  const [rankingsData, setRankingsData] = useState<Team[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        //const { data } = await axios.get(currentAPI);
-        const data = [
-          {
-            members: [
-              {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-              },
-              {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-              },
-              {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-              }
-            ],
-            name: "Team 1",
-            score: 1,
-            size: 2,
-            team_id: 3
-          },
-          {
-            members: [
-              {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-              },
-              {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-              },
-              {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-              }
-            ],
-            name: "Team 2",
-            score: 1,
-            size: 2,
-            team_id: 3
-          },
-          {
-            members: [
-              {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-              },
-              {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-              },
-              {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-              }
-            ],
-            name: "Team 3",
-            score: 1,
-            size: 2,
-            team_id: 3
-          },
-          {
-            members: [
-              {
-                avatar: "string1",
-                email: "string1",
-                name: "string1",
-                reg_no: "string1"
-              },
-              {
-                avatar: "string2",
-                email: "string2",
-                name: "string2",
-                reg_no: "string2"
-              },
-              {
-                avatar: "string3",
-                email: "string3",
-                name: "string3",
-                reg_no: "string3"
-              }
-            ],
-            name: "Team 4",
-            score: 1,
-            size: 2,
-            team_id: 3
-          }
-        ];
-        if (data) {
+        const { data } = await axios.get(currentAPI);
+        // const data = [
+        //   {
+        //     members: [
+        //       {
+        //         avatar: "string1",
+        //         email: "string1",
+        //         name: "string1",
+        //         reg_no: "string1"
+        //       },
+        //       {
+        //         avatar: "string2",
+        //         email: "string2",
+        //         name: "string2",
+        //         reg_no: "string2"
+        //       },
+        //       {
+        //         avatar: "string3",
+        //         email: "string3",
+        //         name: "string3",
+        //         reg_no: "string3"
+        //       }
+        //     ],
+        //     name: "Team 1",
+        //     score: 1,
+        //     size: 2,
+        //     team_id: 3
+        //   },
+        //   {
+        //     members: [
+        //       {
+        //         avatar: "string1",
+        //         email: "string1",
+        //         name: "string1",
+        //         reg_no: "string1"
+        //       },
+        //       {
+        //         avatar: "string2",
+        //         email: "string2",
+        //         name: "string2",
+        //         reg_no: "string2"
+        //       },
+        //       {
+        //         avatar: "string3",
+        //         email: "string3",
+        //         name: "string3",
+        //         reg_no: "string3"
+        //       }
+        //     ],
+        //     name: "Team 2",
+        //     score: 1,
+        //     size: 2,
+        //     team_id: 3
+        //   },
+        //   {
+        //     members: [
+        //       {
+        //         avatar: "string1",
+        //         email: "string1",
+        //         name: "string1",
+        //         reg_no: "string1"
+        //       },
+        //       {
+        //         avatar: "string2",
+        //         email: "string2",
+        //         name: "string2",
+        //         reg_no: "string2"
+        //       },
+        //       {
+        //         avatar: "string3",
+        //         email: "string3",
+        //         name: "string3",
+        //         reg_no: "string3"
+        //       }
+        //     ],
+        //     name: "Team 3",
+        //     score: 1,
+        //     size: 2,
+        //     team_id: 3
+        //   },
+        //   {
+        //     members: [
+        //       {
+        //         avatar: "string1",
+        //         email: "string1",
+        //         name: "string1",
+        //         reg_no: "string1"
+        //       },
+        //       {
+        //         avatar: "string2",
+        //         email: "string2",
+        //         name: "string2",
+        //         reg_no: "string2"
+        //       },
+        //       {
+        //         avatar: "string3",
+        //         email: "string3",
+        //         name: "string3",
+        //         reg_no: "string3"
+        //       }
+        //     ],
+        //     name: "Team 4",
+        //     score: 1,
+        //     size: 2,
+        //     team_id: 3
+        //   }
+        // ];
+        if (data != null && data.length >= 3) {
           setRankingsData(data);
           setIsListRecieved(true);
         }

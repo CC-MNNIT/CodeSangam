@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { contrihubRankingsDataAPI } from '../Utils/APIRoutes';
 import Podium from "./Podium";
+import { Ranking } from '../Models/ContrihubModel';
+
 
 export default function ContrihubLeaderboard() {
   const [isListRecieved, setIsListRecieved] = useState(false);
-  const [rankingsData, setRankingsData] = useState([{ bonus_points: 0, reg_no: "", total_points: 0, user_id: 0, user_name: "", year: 0 }]);
+  const [rankingsData, setRankingsData] = useState<Ranking[]>([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const { data } = await axios.get(contrihubRankingsDataAPI);
-        if (data) {
+        if (data != null && data.length >= 3) {
           setRankingsData(data);
           setIsListRecieved(true);
         }
@@ -21,12 +23,13 @@ export default function ContrihubLeaderboard() {
     }
     fetchData();
   }, []);
+  
   return (
     <div>
       {(isListRecieved == false) ?
         (
           <div style={{ position: "relative", color: "wheat", width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <h1 style={{marginTop: "80px", cursor: "default"}} className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2">RESULTS ARE NOT OUT YET</h1>
+            <h1 style={{ marginTop: "80px", cursor: "default" }} className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2">RESULTS ARE NOT OUT YET</h1>
           </div>
         )
         :
