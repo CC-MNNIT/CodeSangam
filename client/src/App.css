@@ -229,7 +229,8 @@ canvas {
     justify-content: center;
     align-items: center;
   }
-  .events-podium-line{
+
+  .events-podium-line {
     display: none;
   }
 }
@@ -676,28 +677,49 @@ h2 {
 /*-----------------------------------TEAM----------------------------------------------------- */
 
 
-
-
-
-.container-team {
-  display: flex;
-  align-items: flex-end;
-  color: white;
-  width: 100%;
+.four-year-div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
 
-  @media screen and (max-width: 300px) {
-    scale: 70%;
+  @media screen and (max-width: 1000px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-.container-events-podium {
-  scale: 70%;
+.three-year-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @media screen and (max-width: 1000px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.container-team {
+  margin: 20px;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  justify-content: center;
+
+  @media screen and (max-width: 550px) {
+    margin: 0px;
+  }
 }
 
 .podium__item-team {
   width: 250px;
   transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 1140px) {
+    width: 200px;
+  }
 }
 
 .podium__item-team:hover {
@@ -723,8 +745,9 @@ h2 {
 .podium-team .team-individual {
   height: 300px;
 
-  @media screen and (max-width: 400px) {
-    scale: 90%;
+  @media screen and (max-width: 450px) {
+    scale: 60%;
+    height: 200px;
   }
 }
 
@@ -837,4 +860,19 @@ h2 {
   bottom: 10px;
   background: #240229;
   border-radius: 50%;
+}
+
+
+
+/* --------------------------------------------------------------------------------------------*/
+/*-----------------------------------TEAM----------------------------------------------------- */
+
+
+.social-links {
+  scale: 80%;
+  fill: rgb(255, 255, 255);
+}
+
+.social-links:hover {
+  fill: rgb(172, 33, 33);
 }

@@ -98,7 +98,7 @@ export default function EventsPodium() {
                             (secondTeam.members.length >= 2) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "90" }}>
-                                        <div className="podium__rank second">
+                                        <div style={{ height: "250px"}} className="podium__rank second">
                                             <div className="loader2">
                                                 <span></span>
                                                 <span></span>
@@ -142,7 +142,7 @@ export default function EventsPodium() {
                             (secondTeam.members.length >= 3) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "40" }}>
-                                        <div className="podium__rank third">
+                                        <div style={{ height: "250px"}} className="podium__rank third">
                                             <div className="loader3">
                                                 <span></span>
                                                 <span></span>
@@ -170,7 +170,7 @@ export default function EventsPodium() {
                             (firstTeam.members.length >= 2) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "100" }}>
-                                        <div className="podium__rank second">
+                                        <div style={{ height: "250px"}} className="podium__rank second">
                                             <div className="loader2">
                                                 <span></span>
                                                 <span></span>
@@ -214,7 +214,7 @@ export default function EventsPodium() {
                             (firstTeam.members.length >= 3) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "50" }}>
-                                        <div className="podium__rank third">
+                                        <div style={{ height: "250px"}} className="podium__rank third">
                                             <div className="loader3">
                                                 <span></span>
                                                 <span></span>
@@ -242,7 +242,7 @@ export default function EventsPodium() {
                             (thirdTeam.members.length >= 2) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "80" }}>
-                                        <div className="podium__rank second">
+                                        <div style={{ height: "250px"}} className="podium__rank second">
                                             <div className="loader2">
                                                 <span></span>
                                                 <span></span>
@@ -286,7 +286,7 @@ export default function EventsPodium() {
                             (thirdTeam.members.length >= 3) ?
                                 (
                                     <div className="podium__item" style={{ zIndex: "30" }}>
-                                        <div className="podium__rank third">
+                                        <div style={{ height: "250px"}} className="podium__rank third">
                                             <div className="loader3">
                                                 <span></span>
                                                 <span></span>

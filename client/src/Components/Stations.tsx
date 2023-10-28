@@ -8,14 +8,10 @@ interface props {
 
 export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
     const { innerWidth: width, innerHeight: height } = window;
-    var factor = 1;
-    // if (width < 640) factor = 0.75;
-    // var factor=${factor},radius=Math.sqrt(screen.width*screen.width+factor*screen.height*factor*screen.height)/2
     useEffect(() => {
-        // const { innerWidth: width, innerHeight: height } = window;
         const script = document.createElement("script");
         script.async = true;
-        script.innerHTML = `console.log(window.innerHeight);radius=2*window.innerHeight,fields=$(".item"),container=$("#container"),width=container.width(),height=container.height(),angle=0,step=2*Math.PI/fields.length;fields.each(function(){var t=Math.round(width/2+radius*Math.cos(angle)-$(this).width()/2),i=Math.round(height/2+radius*Math.sin(angle)-$(this).height()/2);$(this).css({left:t+"px",top:i+"px"}),angle+=step});`;
+        script.innerHTML = `radius=2*window.innerHeight,fields=$(".item"),container=$("#container"),width=container.width(),height=container.height(),angle=0,step=2*Math.PI/fields.length;fields.each(function(){var t=Math.round(width/2+radius*Math.cos(angle)-$(this).width()/2),i=Math.round(height/2+radius*Math.sin(angle)-$(this).height()/2);$(this).css({left:t+"px",top:i+"px"}),angle+=step});`;
         document.body.appendChild(script);
 
         return () => {
