@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cards from "./Cards";
 import Card2 from "./Card2";
 import Stations from "./Stations";
+import Elements from "./Elements";
 import moon from "../Assets/moon.svg";
 import right from "../Assets/right.png";
 import left from "../Assets/left.png";
@@ -152,6 +153,7 @@ const LandingPage = () => {
                     <div style={{ width: wh, height: wh, display: "flex", justifyContent: "center", alignItems: "center", transition: "transform 2s", transform: `rotate(${angle}deg)` }}>
                         <img style={{ maxWidth: "none", width: wh, height: wh }} src={moon} alt="moon" />
                         <Stations leftrotateMoon={leftrotateMoon} rightrotateMoon={rightrotateMoon} />
+                        <Elements />
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
         //         5
         //     </div>
         // </div>
-        <div id="container" style={{ position: "absolute" }}>
+        <div id="container" style={{ zIndex: "1000", position: "absolute" }}>
             <div className="item sm:scale-50 md:scale-75 lg:scale-100" style={{ rotate: "89deg" }}>
                 <Cards
                     leftrotateMoon={leftrotateMoon}
