@@ -60,21 +60,21 @@ const LandingPage = () => {
     return (
         <div>
             {/* small ------------------------------------ screen -------------------------------- part */}
-            <div className="small-screen-landing-page" style={{ overflow: "hidden", height: 2.5 * divHeight }}>
-                <div className="scale-0 md:scale-100 lg:scale-100" style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="small-screen-landing-page" style={{ overflow: "hidden", height: 1.8 * divHeight }}>
+                {/* <div className="scale-0 md:scale-100 lg:scale-100" style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
                 </div>
                 <div className="scale-0 md:scale-100 lg:scale-100" style={{ zIndex: "50000000", position: "fixed", top: "50vh", left: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img className="arrows cursor-pointer" onClick={() => { leftrotateMoon(); }} width="100" height="100" src={left} alt="backward--v1" />
-                </div>
+                </div> */}
                 <div style={{ opacity: topDivOpacity }} className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo">
                     <div className="flex justify-center">
                         <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink">SAN</div><div>GAM</div>
                     </div>
                 </div>
-                <div style={{ width: "100vw", height: divHeight * 3 / 5 }}></div>
+                <div style={{ width: "100vw", height: divHeight * 0.5 }}></div>
                 {/* cards--- */}
-                <div className="scale-95 md:scale-0 lg:scale-0" style={{ zIndex: "500000000000000000000", width: "100vw", height: "100vh" }}>
+                <div className="scale-95 md:scale-0 lg:scale-0" style={{ zIndex: "500000000000000000000", width: "100%", height: "100vh" }}>
                     <div className="bg-transparent scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
@@ -84,8 +84,8 @@ const LandingPage = () => {
                             teamsize="Team Size: (1 - 3)"
                         />
                     </div>
-                    <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
+                    {/* <div style={{ height: "10px" }}></div> */}
+                    <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -94,8 +94,8 @@ const LandingPage = () => {
                             teamsize="Team Size: (1 - 3)"
                         />
                     </div>
-                    <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
+                    {/* <div style={{ height: "10px" }}></div> */}
+                    <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -104,8 +104,8 @@ const LandingPage = () => {
                             teamsize="Team Size: (1 - 3)"
                         />
                     </div>
-                    <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
+                    {/* <div style={{ height: "10px" }}></div> */}
+                    <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -114,8 +114,8 @@ const LandingPage = () => {
                             teamsize="Team Size: (1 - 3)"
                         />
                     </div>
-                    <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
+                    {/* <div style={{ height: "10px" }}></div> */}
+                    <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
