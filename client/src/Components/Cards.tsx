@@ -30,7 +30,16 @@ function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, team
                     {teamsize}
                 </div>
                 <div>
-                    <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                    {
+                        eventn === "ContriHub" ?
+                            <a href="https://sac.mnnit.ac.in/contrihub" target="_blank">
+                                <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>
+                                    Website
+                                </button>
+                            </a>
+                            :
+                            <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                    }
                 </div>
             </div>
 
