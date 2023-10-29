@@ -29,7 +29,7 @@ export default function NavBar({ isHome }: props) {
                     </div>
                     <div className="flex md:order-2">
                         <button style={{ fontSize: "75%" }} onClick={() => navigate(`/${process.env.REACT_APP_BASE_URL}/api/auth`)} type="button" className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500">DASHBOARD</button>
-                        <button onClick={() => { hide == "" ? setHide("none") : setHide(""); }} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center border-2 p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">
+                        <button onClick={() => { hide == "" ? setHide("none") : setHide(""); }} data-collapse-toggle="navbar-sticky" type="button" className="active inline-flex items-center border-2 p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
                             <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
