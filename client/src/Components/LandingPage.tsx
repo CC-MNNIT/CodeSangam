@@ -60,7 +60,7 @@ const LandingPage = () => {
     return (
         <div>
             {/* small ------------------------------------ screen -------------------------------- part */}
-            <div className="small-screen-landing-page" style={{ overflow: "hidden", height: 3 * divHeight }}>
+            <div className="small-screen-landing-page" style={{ overflow: "hidden", height: 2.3 * divHeight }}>
                 <div className="scale-0 md:scale-100 lg:scale-100" style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
                 </div>
@@ -72,10 +72,10 @@ const LandingPage = () => {
                         <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink">SAN</div><div>GAM</div>
                     </div>
                 </div>
-                <div style={{ width: "100vw", height: divHeight * 4 / 5 }}></div>
+                <div style={{ width: "100vw", height: divHeight * 3 / 5 }}></div>
                 {/* cards--- */}
-                <div className="scale-100 md:scale-0 lg:scale-0" style={{ zIndex: "500000000000000000000", width: "100vw", height: "100vh" }}>
-                    <div className="bg-transparent one scale-100 flex justify-center items-center">
+                <div className="scale-95 md:scale-0 lg:scale-0" style={{ zIndex: "500000000000000000000", width: "100vw", height: "100vh" }}>
+                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -85,7 +85,7 @@ const LandingPage = () => {
                         />
                     </div>
                     <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent two scale-100 flex justify-center items-center">
+                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -95,7 +95,7 @@ const LandingPage = () => {
                         />
                     </div>
                     <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent three scale-100 flex justify-center items-center">
+                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -105,7 +105,7 @@ const LandingPage = () => {
                         />
                     </div>
                     <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent four scale-100 flex justify-center items-center">
+                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
@@ -115,12 +115,12 @@ const LandingPage = () => {
                         />
                     </div>
                     <div style={{ height: "10px" }}></div>
-                    <div className="bg-transparent five scale-100 flex justify-center items-center">
+                    <div className="bg-transparent scale-[0.6] flex justify-center items-center">
                         <Card2
                             leftrotateMoon={leftrotateMoon}
                             rightrotateMoon={rightrotateMoon}
                             eventn="ContriHub"
-                            eventdescription="Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software."
+                            eventdescription="ContriHub is an event focused on open-source development, aligning with Hacktoberfest. It encourages participants to contribute to open-source projects, fostering collaboration within the open-source community. Participants can gain experience in coding, issue tracking, and open-source contribution during this event."
                             teamsize="Team Size: 1"
                         />
                     </div>
@@ -136,7 +136,7 @@ const LandingPage = () => {
                 </div>
                 <div style={{ opacity: topDivOpacity }} className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo">
                     <div className="flex justify-center">
-                        <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink">SAN</div><div>GAM</div></div>
+                        <div>C</div><img className="photo rotate spinner" src={moon} alt="moon with rover"></img>DE<div className="blink sangam">SAN</div><div className="sangam">GAM</div></div>
                 </div>
                 <div style={{ width: "100vw", height: "300vh" }}>
                     <div style={{ width: "100vw", height: "100vh" }}>

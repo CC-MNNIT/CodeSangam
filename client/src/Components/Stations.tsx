@@ -61,7 +61,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
                     leftrotateMoon={leftrotateMoon}
                     rightrotateMoon={rightrotateMoon}
                     eventn="ContriHub"
-                    eventdescription="Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software."
+                    eventdescription="ContriHub is an event focused on open-source development, aligning with Hacktoberfest. It encourages participants to contribute to open-source projects, fostering collaboration within the open-source community. Participants can gain experience in coding, issue tracking, and open-source contribution during this event."
                     teamsize="Team Size: 1"
                 />
             </div>
