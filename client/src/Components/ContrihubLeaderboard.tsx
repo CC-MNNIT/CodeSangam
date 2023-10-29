@@ -38,7 +38,7 @@ export default function ContrihubLeaderboard() {
         :
         (
           <div>
-            <Podium firstStudentName={rankingsData.length >= 1 ? rankingsData[0].user_name : ""} secondStudentName={rankingsData.length >= 2 ? rankingsData[1].user_name : ""} thirdStudentName={rankingsData.length >= 3 ? rankingsData[2].user_name : ""} />
+            <Podium first={rankingsData[0]} second={rankingsData[1]} third={rankingsData[2]} />
             <div className='leaderboard-contaier' style={{ paddingLeft: "20px", paddingRight: "20px", position: "relative", backgroundColor: "rgba(0,234,0,0)", display: "flex", justifyContent: "center", width: "100vw", height: "100vh" }}>
               <div style={{ marginTop: "33px" }} className="relative overflow-x-auto shadow-md sm:rounded-lg w-screen">
                 <table className="w-full text-sm text-left text-gray-400">
@@ -48,7 +48,10 @@ export default function ContrihubLeaderboard() {
                         Rank
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
-                        User_name
+                        Username
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-center">
+                        Reg No
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
                         Bonus Points
@@ -103,6 +106,9 @@ export default function ContrihubLeaderboard() {
                           <th scope="row" className="text-center px-6 py-4 font-medium whitespace-nowrap text-white">
                             {rankingData.user_name}
                           </th>
+                          <td className="px-6 py-4 text-center">
+                            {rankingData.reg_no}
+                          </td>
                           <td className="px-6 py-4 text-center">
                             {rankingData.bonus_points}
                           </td>

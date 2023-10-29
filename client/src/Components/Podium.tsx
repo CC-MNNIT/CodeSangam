@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import first from "../Assets/first.jpg";
 import second from "../Assets/second.jpg";
 import third from "../Assets/third.jpg";
+import { Ranking } from '../Models/ContrihubModel';
 
 interface props {
-    firstStudentName: string;
-    secondStudentName: string;
-    thirdStudentName: string
+    first: Ranking;
+    second: Ranking;
+    third: Ranking;
 }
 
 
-export default function Podium({ firstStudentName, secondStudentName, thirdStudentName }: props) {
+export default function Podium({ first, second, third }: props) {
     const [topDivOpacity, setTopDivOpacity] = useState(1);
     window.addEventListener("scroll", () => {
         const currentScroll = window.scrollY;
@@ -29,11 +30,12 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                                 <span></span>
                             </div>
                             <div className='image-cropper'>
-                            <img src={`https://github.com/${secondStudentName}.png`} alt="" />
+                            <img src={`https://github.com/${second.user_name}.png`} alt="" />
                             </div>
                         </div>
                         <p className="podium__city">#2</p>
-                        <p className="podium__city">{secondStudentName}</p>
+                        <p className="podium__city">{second.user_name}</p>
+                        <p className="podium__city">{second.reg_no}</p>
                     </div>
                     <div className="podium__item">
                         <div className="podium__rank first">
@@ -44,11 +46,12 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                                 <span></span>
                             </div>
                             <div className='image-cropper'>
-                            <img src={`https://github.com/${firstStudentName}.png`} alt="" />
+                            <img src={`https://github.com/${first.user_name}.png`} alt="" />
                             </div>
                         </div>
                         <p className="podium__city">#1</p>
-                        <p className="podium__city">{firstStudentName}</p>
+                        <p className="podium__city">{first.user_name}</p>
+                        <p className="podium__city">{first.reg_no}</p>
                     </div>
                     <div className="podium__item">
                         <div className="podium__rank third">
@@ -59,11 +62,12 @@ export default function Podium({ firstStudentName, secondStudentName, thirdStude
                                 <span></span>
                             </div>
                             <div className='image-cropper'>
-                            <img src={`https://github.com/${thirdStudentName}.png`} alt="" />
+                            <img src={`https://github.com/${third.user_name}.png`} alt="" />
                             </div>
                         </div>
                         <p className="podium__city">#3</p>
-                        <p className="podium__city">{thirdStudentName}</p>
+                        <p className="podium__city">{third.user_name}</p>
+                        <p className="podium__city">{third.reg_no}</p>
                     </div>
                 </div>
             </div>
