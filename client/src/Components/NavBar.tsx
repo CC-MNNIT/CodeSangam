@@ -63,15 +63,19 @@ export default function NavBar({ isHome }: props) {
                             <li>
                                 <div onClick={() => { setHide("none"); navigate(`/${process.env.REACT_APP_BASE_URL}`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">HOME</div>
                             </li>
-                            <li>
+                            <li className='nav-desktop'>
                                 <div onClick={() => { setHide("none"); navigate(`/${process.env.REACT_APP_BASE_URL}`); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
                             </li>
                             <li className='nav-desktop'>
                                 <div onClick={() => { setHide("none"); navigate(`/${process.env.REACT_APP_BASE_URL}/leaderboard/contrihub`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LEADERBOARDS</div>
                             </li>
+                            <li className='nav-mobile'>
+                                <div onClick={() => { setHide("none"); navigate(`/${process.env.REACT_APP_BASE_URL}`); window.scrollTo({ left: 0, top: document.body.scrollHeight * 0.25, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
+                            </li>
                             <li>
                                 <div onClick={() => { setHide("none"); navigate(`/${process.env.REACT_APP_BASE_URL}/team`); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">TEAM</div>
                             </li>
+
                             <li className='nav-mobile'>
                                 <div className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"><DropDown setHide={setHide} /></div>
                                 {/* <div onClick={() => { setHide("none"); navigate(`/${process.env.REACT_APP_BASE_URL}/leaderboard/webster`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER RANKINGS</div> */}
