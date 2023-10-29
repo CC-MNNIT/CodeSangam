@@ -17,14 +17,9 @@ interface props {
 }
 
 function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize }: props) {
-    var eventid = "space-card-box-" + eventn;
-    var spaceid1 = "l1-" + eventn;
-    var spaceid2 = "l2-" + eventn;
-    var spaceid3 = "l3-" + eventn;
-    var spaceid4 = "l4-" + eventn;
     return (
         <div className="">
-            <div id="card" className="w-[35rem] h-[30rem]" >
+            <div id="card" className="w-[40rem] h-[37rem]" >
                 <h1 className="textGlow h1tag blinking">{eventn} :</h1>
                 <div className="plain">{eventdescription}
                     <span className="fast-blinking">▮</span>
@@ -34,12 +29,8 @@ function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, team
                 <div className="plain">
                     {teamsize}
                 </div>
-                <br>
-                </br>
-                <br>
-                </br>
                 <div>
-                    <button className='card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500'>Problem Statement</button>
+                    <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
                 </div>
             </div>
 

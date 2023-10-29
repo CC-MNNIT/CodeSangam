@@ -16,22 +16,17 @@ interface props {
 export default function Card2({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize }: props) {
     return (
         <div className="">
-            <div id="card2" className="w-[35rem]" >
+            <div id="card" className="w-[160vw] h-[35rem]" >
                 <h1 className="textGlow h1tag blinking">{eventn} :</h1>
                 <div className="plain">{eventdescription}
                     <span className="fast-blinking">▮</span>
                 </div>
-                <br></br>
-                <br></br>
+                <br/>
                 <div className="plain">
                     {teamsize}
                 </div>
-                <br>
-                </br>
-                <br>
-                </br>
                 <div>
-                    <button className='card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500'>Problem Statement</button>
+                    <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
                 </div>
             </div>
         </div>
