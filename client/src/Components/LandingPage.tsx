@@ -60,7 +60,7 @@ const LandingPage = () => {
     return (
         <div>
             {/* small ------------------------------------ screen -------------------------------- part */}
-            <div className="small-screen-landing-page" style={{ overflow: "hidden", height: 2.3 * divHeight }}>
+            <div className="small-screen-landing-page" style={{ overflow: "hidden", height: 2.5 * divHeight }}>
                 <div className="scale-0 md:scale-100 lg:scale-100" style={{ zIndex: "50000000", position: "fixed", top: "50vh", right: "0", opacity: 1 - topDivOpacity * 2, width: "100px", height: "100px", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img className="arrows cursor-pointer" onClick={() => { rightrotateMoon(); }} width="100" height="100" src={right} alt="forward--v1" />
                 </div>

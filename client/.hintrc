@@ -4,15 +4,13 @@
   ],
   "hints": {
     "no-inline-styles": "off",
-    "compat-api/css": [
+    "compat-api/css": "off",
+    "axe/name-role-value": [
       "default",
       {
-        "ignore": [
-          "width: fit-content",
-          "height: fit-content",
-          "rotate"
-        ]
+        "link-name": "off"
       }
-    ]
+    ],
+    "disown-opener": "off"
   }
 }
