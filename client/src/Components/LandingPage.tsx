@@ -45,7 +45,7 @@ const LandingPage = () => {
         const blurLength = 500;
         const moonSegLength = newMoonRadius - (factor * height) / 2;
         setDivHeight(height + blurLength + moonSegLength);
-        console.log(height + blurLength + moonSegLength);
+        // console.log(height + blurLength + moonSegLength);
     }, []);
 
     //     const newMoonRadius =

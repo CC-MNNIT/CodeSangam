@@ -80,8 +80,8 @@ canvas {
 .card {
 	font-family: "Bai Jamjuree";
 	color: #fee;
-	/* text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ed6, 0 0 0.5em #329ed6,
-		0 0 0.1em #329ed6, 0 0 0 #000; */
+	text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #329ed6, 0 0 0.5em #329ed6,
+		0 0 0.1em #329ed6, 0 0 0 #000;
 }
 
 .blink {
@@ -155,10 +155,10 @@ canvas {
 		/* Adjust font size for smaller screens */
 	}
 
-  .photo {
-    margin-top: 1%;
-    max-width: 18%;
-  }
+	.photo {
+		margin-top: 1%;
+		max-width: 18%;
+	}
 }
 
 /* ------------------------------------------------------------------------------------------------- */
@@ -934,13 +934,13 @@ h2 {
 		rgb(0 110 141 / 33%)
 	); */
 	background-image: url("./Assets/card-bg-transformed.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
 	/* background-color: rgb(55, 0, 50, .8); */
 	opacity: 100;
 	padding: 110px 40px 70px 50px;
-  text-align: left;
+	text-align: left;
 	/* border-radius: 50px 125px; */
 	/* box-shadow: inset 0px -20px 50px 10px #00ffff80, 0px 10px 30px 6px #215d5d70; */
 	/* box-shadow: 6px -6px 10px -6px black; */
@@ -948,17 +948,18 @@ h2 {
 }
 
 .item:nth-of-type(1) button {
-  margin-top: -55px;
+	margin-top: -55px;
 }
+
 .item:nth-of-type(3) button {
-  margin-top: -55px;
+	margin-top: -55px;
 }
 
 @media screen and (max-width: 768px) {
-  #card {
-    margin: 0px;
-    padding: 100px 50px 0 60px;
-  }
+	#card {
+		margin: 0px;
+		padding: 100px 50px 0 60px;
+	}
 }
 
 .blinking {
@@ -1039,7 +1040,7 @@ h2 {
 	color: white;
 }
 
-.navba > li > div {
+.navba>li>div {
 	padding-top: 0px;
 	padding-bottom: 0px;
 	/* line-height: 80px; */

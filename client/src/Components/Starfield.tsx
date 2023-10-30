@@ -91,7 +91,7 @@ function Starfield() {
         const YO = H / 2;
         const NUM_PARTICLES = 400;
 
-        console.log("values", W, H, XO, YO)
+        // console.log("values", W, H, XO, YO)
 
         const canvas = document.getElementById("main_canvas") as HTMLCanvasElement;
         canvas.width = W;
