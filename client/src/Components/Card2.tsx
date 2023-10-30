@@ -21,12 +21,18 @@ export default function Card2({ leftrotateMoon, rightrotateMoon, eventn, eventde
                 <div className="plain">{eventdescription}
                     <span className="fast-blinking">▮</span>
                 </div>
-                <br/>
+                <br />
                 <div className="plain">
                     {teamsize}
                 </div>
-                <div>
-                    <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                <div>{
+                    eventn === "ContriHub" ?
+                        <a href="https://sac.mnnit.ac.in/contrihub" target="_blank">
+                            <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Website</button>
+                        </a> :
+                        <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                }
+
                 </div>
             </div>
         </div>
