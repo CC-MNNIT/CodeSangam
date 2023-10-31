@@ -321,10 +321,16 @@ func validateRegNo(regNo *string) bool {
 		return false
 	}
 
+	rMca1st, err := regexp.Compile("^2023CA[0-9]{2}$")
+	if err != nil {
+		return false
+	}
+
 	return len(r1st.FindString(*regNo)) == len(*regNo) ||
 		len(r2nd.FindString(*regNo)) == len(*regNo) ||
 		len(r3rd.FindString(*regNo)) == len(*regNo) ||
-		len(rMca.FindString(*regNo)) == len(*regNo)
+		len(rMca.FindString(*regNo)) == len(*regNo) ||
+		len(rMca1st.FindString(*regNo)) == len(*regNo)
 }
 
 func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
