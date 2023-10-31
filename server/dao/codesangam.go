@@ -301,6 +301,11 @@ func userAllowed(event Event, user *models.User) bool {
 }
 
 func validateRegNo(regNo *string) bool {
+	r1st, err := regexp.Compile("^2023[0-9]{4}$")
+	if err != nil {
+		return false
+	}
+
 	r3rd, err := regexp.Compile("^2021[0-9]{4}$")
 	if err != nil {
 		return false
@@ -316,7 +321,8 @@ func validateRegNo(regNo *string) bool {
 		return false
 	}
 
-	return len(r2nd.FindString(*regNo)) == len(*regNo) ||
+	return len(r1st.FindString(*regNo)) == len(*regNo) ||
+		len(r2nd.FindString(*regNo)) == len(*regNo) ||
 		len(r3rd.FindString(*regNo)) == len(*regNo) ||
 		len(rMca.FindString(*regNo)) == len(*regNo)
 }
