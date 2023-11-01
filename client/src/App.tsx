@@ -11,25 +11,23 @@ import EventLeaderboard from "./Components/EventLeaderboard";
 import { websterRankingsDataAPI, droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
 
 function App() {
-    const BASE_URL = process.env.REACT_APP_BASE_URL;
-    // console.log(`${process.env.REACT_APP_BASE_URL}leaderboard/contrihub`);
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={BASE_URL} element={
+                <Route path={`/`} element={
                     <div className="">
                         <Starfield />
                         <LandingPage />
                         <NavBar isHome={true} />
                     </div>} />
-                <Route path={`${BASE_URL}/leaderboard/contrihub`} element={
+                <Route path={`/leaderboard/contrihub`} element={
                     <div>
                         <Starfield />
                         <ContrihubLeaderboard />
                         <NavBar isHome={false} />
                         <Events currentSelected="contrihub" />
                     </div>} />
-                <Route path={`${BASE_URL}/leaderboard/softablitz`} element={
+                <Route path={`/leaderboard/softablitz`} element={
                     <div>
                         <Starfield />
                         <EventLeaderboard currentAPI={softablitzRankingsDataAPI} />
@@ -37,7 +35,7 @@ function App() {
                         <Events currentSelected="softablitz" />
                     </div>
                 } />
-                <Route path={`${BASE_URL}/leaderboard/webster`} element={
+                <Route path={`/leaderboard/webster`} element={
                     <div>
                         <Starfield />
                         <EventLeaderboard currentAPI={websterRankingsDataAPI} />
@@ -45,7 +43,7 @@ function App() {
                         <Events currentSelected="webster" />
                     </div>
                 } />
-                <Route path={`${BASE_URL}/leaderboard/logicalrhythm`} element={
+                <Route path={`/leaderboard/logicalrhythm`} element={
                     <div>
                         <Starfield />
                         <EventLeaderboard currentAPI={logicalrhythmRankingsDataAPI} />
@@ -53,7 +51,7 @@ function App() {
                         <Events currentSelected="logicalrhythm" />
                     </div>
                 } />
-                <Route path={`${BASE_URL}/leaderboard/droidrush`} element={
+                <Route path={`/leaderboard/droidrush`} element={
                     <div>
                         <Starfield />
                         <EventLeaderboard currentAPI={droidrushRankingsDataAPI} />
@@ -61,7 +59,7 @@ function App() {
                         <Events currentSelected="droidrush" />
                     </div>
                 } />
-                <Route path={`${BASE_URL}/team`} element={
+                <Route path={`/team`} element={
                     <div className="">
                         <Starfield />
                         <Team />

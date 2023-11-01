@@ -13,7 +13,6 @@ interface props {
 
 
 export default function NavBar({ isHome }: props) {
-    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const [logoOpacity, setLogoOpacity] = useState(0);
     const [hide, setHide] = useState("none");
     // const [show, setShow] = useState(false);
@@ -27,12 +26,12 @@ export default function NavBar({ isHome }: props) {
             {/* <Starfield /> */}
             <nav style={{ zIndex: "40000000" }} className="bg-transparent fixed w-full top-0 left-0">
                 <div className="flex flex-wrap items-center justify-between pt-0 p-4 mt-0 m-3">
-                    <div style={{ cursor: "pointer" }} onClick={() => { navigate(`/${BASE_URL}`); window.scrollTo({ left: 0, top: 0, behavior: "smooth" }); }} className="flex md:order-1">
+                    <div style={{ cursor: "pointer" }} onClick={() => { navigate(`/`); window.scrollTo({ left: 0, top: 0, behavior: "smooth" }); }} className="flex md:order-1">
                         <img src={logo} className="h-[9rem] ml-1 pt-3 mt-2 mr-3" alt="" />
                         {/* <div className='card self-center text-2xl font-semibold whitespace-nowrap dark:text-white flex'>C<img src={moonwith} className="h-7" alt="logo" />DESANGAM</div> */}
                     </div>
                     <div className="flex justify-between md:order-2">
-                        <button style={{ fontSize: "75%" }} onClick={() => navigate(`/${BASE_URL}/api/auth`)} type="button" className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500">DASHBOARD</button>
+                        <button style={{ fontSize: "75%" }} onClick={() => navigate(`/api/auth`)} type="button" className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-blue-500">DASHBOARD</button>
                         <button onClick={() => { hide == "block" ? setHide("none") : setHide("block"); }} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center border-2 ml-4 p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
                             <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -44,16 +43,16 @@ export default function NavBar({ isHome }: props) {
                     <div style={{}} className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
                         <ul style={{ alignItems: "center" }} className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-black md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-transparent md:dark:bg-transparent dark:border-gray-700">
                             <li>
-                                <div onClick={() => { navigate(`/${BASE_URL}`); window.scrollTo({ left: 0, top: 0, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">HOME</div>
+                                <div onClick={() => { navigate(`/`); window.scrollTo({ left: 0, top: 0, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">HOME</div>
                             </li>
                             <li>
-                                <div onClick={() => { navigate(`/${BASE_URL}`); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
+                                <div onClick={() => { navigate(`/`); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
                             </li>
                             <li className='nav-desktop'>
-                                <div onClick={() => { navigate(`/${BASE_URL}/leaderboard/webster`); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LEADERBOARDS</div>
+                                <div onClick={() => { navigate(`/leaderboard/webster`); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LEADERBOARDS</div>
                             </li>
                             <li>
-                                <div onClick={() => navigate(`/${BASE_URL}/team`)} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">TEAM</div>
+                                <div onClick={() => navigate(`/team`)} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">TEAM</div>
                             </li>
 
                         </ul>
@@ -62,36 +61,36 @@ export default function NavBar({ isHome }: props) {
                     <div style={{ display: hide }} className="items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                         <ul style={{ alignItems: "center" }} className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-black md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-transparent md:dark:bg-transparent dark:border-gray-700">
                             <li>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">HOME</div>
+                                <div onClick={() => { setHide("none"); navigate(`/`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">HOME</div>
                             </li>
                             <li className='nav-desktop'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}`); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/`); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
                             </li>
                             <li className='nav-desktop'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/contrihub`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LEADERBOARDS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/leaderboard/contrihub`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LEADERBOARDS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}`); window.scrollTo({ left: 0, top: document.body.scrollHeight * 0.25, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/`); window.scrollTo({ left: 0, top: document.body.scrollHeight * 0.25, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">EVENTS</div>
                             </li>
                             <li>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/team`); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">TEAM</div>
+                                <div onClick={() => { setHide("none"); navigate(`/team`); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">TEAM</div>
                             </li>
 
                             <li className='nav-mobile'>
                                 <div className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"><DropDown setHide={setHide} /></div>
-                                {/* <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/webster`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER RANKINGS</div> */}
+                                {/* <div onClick={() => { setHide("none"); navigate(`/leaderboard/webster`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER RANKINGS</div> */}
                             </li>
                             {/* <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/droidrush`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">DROIDRUSH RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/leaderboard/droidrush`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">DROIDRUSH RANKINGS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/contrihub`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">CONTRIHUB RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/leaderboard/contrihub`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">CONTRIHUB RANKINGS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/softablitz`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">SOFTABLITZ RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/leaderboard/softablitz`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">SOFTABLITZ RANKINGS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/logicalrhythm`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LOGICAL RHYTHM RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(`/leaderboard/logicalrhythm`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LOGICAL RHYTHM RANKINGS</div>
                             </li> */}
                         </ul>
                     </div>
