@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../Utils/Config';
 import { NavLink } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ interface props {
 }
 
 export default function DropDown({ setHide }: props) {
-    const navigate = useNavigate();
     // const [hide, setHide] = useState("none");
     return (
         <div>

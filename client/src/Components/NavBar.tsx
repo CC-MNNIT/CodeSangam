@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
-// import moonwith from "../Assets/moon.svg";
 import logo from "../Assets/codesangamglow.svg"
 import { useNavigate } from "react-router-dom";
-import { log } from 'console';
-import Starfield from './Starfield';
 import DropDown from './Dropdown';
 import BASE_URL from '../Utils/Config';
 import { NavLink } from 'react-router-dom';
 
-interface props {
-    isHome: boolean
-}
+// interface props {
+//     isHome: boolean
+// }
 
 
 
-export default function NavBar({ isHome }: props) {
+export default function NavBar() {
     const [logoOpacity, setLogoOpacity] = useState(0);
     const [hide, setHide] = useState("none");
     // const [show, setShow] = useState(false);

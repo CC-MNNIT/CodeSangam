@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Cards from "./Cards";
 import rocket from "../Assets/rocket.svg";
 import rover from "../Assets/rover.svg";
 import anstronaut from "../Assets/anstronaut.svg";
@@ -18,7 +17,7 @@ export default function Elements() {
     }, []);
 
     return (
-        <div id="container" style={{zIndex: "900", position: "absolute", rotate: "0deg" }}>
+        <div id="container" style={{ zIndex: "900", position: "absolute", rotate: "0deg" }}>
             <div style={{ width: 0.12 * (1 + 0.5 + 0.35) * window.innerHeight, height: 0.12 * (1 + 0.5 + 0.35) * window.innerHeight, transform: `translateY(-${0.35 * 0.1 * (1 + 0.5 + 0.35) * window.innerHeight}px)`, rotate: "89deg" }} className="item-elements">
                 <img className="moon-items" src={rocket} alt="" />
             </div>
