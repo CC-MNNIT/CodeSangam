@@ -12,8 +12,9 @@ interface props {
     eventn: string,
     eventdescription: string,
     teamsize?: string
+    url: string
 }
-export default function Card2({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize }: props) {
+export default function Card2({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize, url }: props) {
     return (
         <div className="">
             <div id="card" className="w-[160vw] h-[35rem]" >
@@ -27,12 +28,13 @@ export default function Card2({ leftrotateMoon, rightrotateMoon, eventn, eventde
                 </div>
                 <div>{
                     eventn === "ContriHub" ?
-                        <a href="https://sac.mnnit.ac.in/contrihub" target="_blank">
+                        <a href={url} target="_blank">
                             <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Website</button>
                         </a> :
-                        <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                        <a href={url} target="_blank">
+                            <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                        </a>
                 }
-
                 </div>
             </div>
         </div>

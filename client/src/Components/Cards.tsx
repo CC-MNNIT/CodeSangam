@@ -14,9 +14,10 @@ interface props {
     eventn: string,
     eventdescription: string,
     teamsize?: string
+    url: string
 }
 
-function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize }: props) {
+function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize, url }: props) {
     return (
         <div className="">
             <div id="card" className="w-[40rem] h-[37rem]" >
@@ -32,13 +33,15 @@ function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, team
                 <div>
                     {
                         eventn === "ContriHub" ?
-                            <a href="https://sac.mnnit.ac.in/contrihub" target="_blank">
+                            <a href={url} target="_blank">
                                 <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>
                                     Website
                                 </button>
                             </a>
                             :
-                            <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                            <a href={url} target="_blank">
+                                <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
+                            </a>
                     }
                 </div>
             </div>
