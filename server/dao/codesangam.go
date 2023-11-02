@@ -316,12 +316,12 @@ func validateRegNo(regNo *string) bool {
 		return false
 	}
 
-	rMca, err := regexp.Compile("^2022CA([0-9]{3}|[0-9]{2})$")
+	rMca, err := regexp.Compile("^2022(CA|ca)([0-9]{3}|[0-9]{2})$")
 	if err != nil {
 		return false
 	}
 
-	rMca1st, err := regexp.Compile("^2023CA([0-9]{3}|[0-9]{2})$")
+	rMca1st, err := regexp.Compile("^2023(CA|ca)([0-9]{3}|[0-9]{2})$")
 	if err != nil {
 		return false
 	}
