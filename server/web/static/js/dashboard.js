@@ -64,7 +64,6 @@ function submitRegistration(event, baseUrl) {
 
     let member1RegNo = document.getElementById(event + '_mem_1_reg').value
     let member2RegNo = document.getElementById(event + '_mem_2_reg').value
-    let member3RegNo = document.getElementById(event + '_mem_3_reg').value
 
     let memberList = []
     if (member1RegNo.length > 0) {
@@ -72,9 +71,6 @@ function submitRegistration(event, baseUrl) {
     }
     if (member2RegNo.length > 0) {
         memberList.push(member2RegNo)
-    }
-    if (member3RegNo.length > 0) {
-        memberList.push(member3RegNo)
     }
 
     let json = {
