@@ -770,17 +770,21 @@
                                                         onchange="onEventTeamOption()"
                                                     >
                                                         {{ range $i, $event := .EventsInfo }}
-                                                        <!---->
+                                                        <!--  -->
                                                         {{ if lt $i 3 }}
-                                                        <!---->
+                                                        <!--  -->
                                                         {{ if index $.Teams $i }}
                                                         <option value="{{ $event.Tag }}">
                                                             {{ $event.Name }} - Team ID: {{ (index $.Teams $i).TeamId }}
+                                                            <!--  -->
+                                                            {{ if $event.AbstractSubmitted }}
+                                                            <span class="font-semibold"> (Submitted)</span>
+                                                            {{ end }}
                                                         </option>
                                                         {{ end }}
-                                                        <!---->
+                                                        <!--  -->
                                                         {{ end }}
-                                                        <!---->
+                                                        <!--  -->
                                                         {{ end }}
                                                     </select>
                                                 </div>

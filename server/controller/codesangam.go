@@ -2,10 +2,7 @@ package controller
 
 import (
 	"errors"
-	"io"
 	"net/http"
-	"os"
-	"strconv"
 	"strings"
 
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
@@ -148,26 +145,9 @@ func UploadAbstractSubmission(c echo.Context) error {
 		return utils.BadRequestError(c, "Invalid file extension", nil)
 	}
 
-	src, err := file.Open()
+	err = utils.SaveAbstract(file, event, team.TeamId)
 	if err != nil {
-		return utils.BadRequestError(c, "Unable to open file", &err)
-	}
-	defer src.Close()
-
-	path := "files/abstracts/" + event.String()
-	err = os.MkdirAll(path, os.ModePerm)
-	if err != nil {
-		return utils.InternalError(c, "Unable to create directory", &err)
-	}
-
-	dst, err := os.Create(path + "/" + strconv.Itoa(team.TeamId) + ".pdf")
-	if err != nil {
-		return utils.InternalError(c, "Unable to create file", &err)
-	}
-	defer dst.Close()
-
-	if _, err := io.Copy(dst, src); err != nil {
-		return utils.InternalError(c, "Unable to copy file", &err)
+		return utils.InternalError(c, "Unable to save abstract", &err)
 	}
 
 	return c.NoContent(http.StatusOK)

@@ -53,6 +53,11 @@ func UserDashboard(c echo.Context) error {
 		user.WebsterTeam != nil,
 		user.SoftablitzTeam != nil,
 		user.LogicalRhythmTeam != nil,
+	}, []bool{
+		utils.AbstractExists(user.DroidRushTeam, "droidrush"),
+		utils.AbstractExists(user.WebsterTeam, "webster"),
+		utils.AbstractExists(user.SoftablitzTeam, "softablitz"),
+		false,
 	})
 
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
