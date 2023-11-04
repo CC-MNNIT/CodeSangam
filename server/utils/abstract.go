@@ -45,7 +45,30 @@ func AbstractExists(team *models.DashboardTeam, event string) bool {
 		return false
 	}
 
-	filePath := abstractPath + event + "/" + strconv.Itoa(team.TeamId) + ".pdf"
+	_, exists := exists(team.TeamId, event)
+	return exists
+}
+
+func exists(teamId int, event string) (string, bool) {
+	filePath := abstractPath + event + "/" + strconv.Itoa(teamId) + ".pdf"
 	_, err := os.Stat(filePath)
-	return err == nil
+	return filePath, err == nil
+}
+
+func GetAbstractFile(strTeamId string) (string, error) {
+	teamId, err := strconv.Atoi(strTeamId)
+	if err != nil {
+		return "", errors.New("invalid team id")
+	}
+
+	if path, exists := exists(teamId, "droidrush"); exists {
+		return path, nil
+	}
+	if path, exists := exists(teamId, "webster"); exists {
+		return path, nil
+	}
+	if path, exists := exists(teamId, "softablitz"); exists {
+		return path, nil
+	}
+	return "", errors.New("abstract for team Id [" + strTeamId + "] does not exist")
 }

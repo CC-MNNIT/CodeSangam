@@ -153,6 +153,41 @@ func UploadAbstractSubmission(c echo.Context) error {
 	return c.NoContent(http.StatusOK)
 }
 
+// GetAbstractFile
+//
+// @Summary Fetch abstract file from server
+// @Schemes
+// @Description Returns the abstract file
+// @Tags CodeSangam
+// @Accept json
+// @Produce application/pdf
+// @Param id query string true "id"
+// @Success 200 {string} string "application/pdf"
+// @Router /v1/cs/abstract [get]
+func GetAbstractFile(c echo.Context) error {
+	strTeamId := c.QueryParam("id")
+
+	userId, err := getSessionUserId(c)
+	if err != nil {
+		return utils.UnauthorizedError(c, "User not logged in", &err)
+	}
+
+	user, err := dao.GetUser(*userId)
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch user", &err)
+	}
+
+	if !dao.ValidSenior(&user.RegNo) {
+		return utils.UnauthorizedError(c, "User not authorized", nil)
+	}
+
+	path, err := utils.GetAbstractFile(strTeamId)
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch abstract file", &err)
+	}
+	return c.File(path)
+}
+
 func getSessionUserId(c echo.Context) (*int, error) {
 	sess, err := utils.GetSession(c)
 	if err != nil {

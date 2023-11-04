@@ -13,4 +13,5 @@ func CodeSangam(baseRouter *echo.Group) {
 	g.POST("/register", controller.RegisterTeam)
 	g.GET("/ranking", controller.GetEventRanking)
 	g.POST("/abstract", controller.UploadAbstractSubmission)
+	g.GET("/abstract", controller.GetAbstractFile)
 }

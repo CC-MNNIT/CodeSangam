@@ -333,6 +333,14 @@ func validateRegNo(regNo *string) bool {
 		len(rMca1st.FindString(*regNo)) == len(*regNo)
 }
 
+func ValidSenior(regNo *string) bool {
+	r, err := regexp.Compile("^2020[0-9]{4}$")
+	if err != nil {
+		return false
+	}
+	return len(r.FindString(*regNo)) == len(*regNo)
+}
+
 func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
 	var registeredTeams []models.EventRegistration
 	err := config.Db.Table(event.String()).Order("score desc").Find(&registeredTeams).Error
