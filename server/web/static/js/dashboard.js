@@ -1,3 +1,13 @@
+let progress = document.getElementById('progress-screen')
+
+function toggleProgress(show) {
+    if (show) {
+        progress.classList.remove('hidden')
+    } else {
+        progress.classList.add('hidden')
+    }
+}
+
 let eventActive = 'teams'
 
 function setEventActive(elementId) {
@@ -48,16 +58,16 @@ function toggleMenu() {
 let requestStarted = false
 
 function submitRegistration(event, baseUrl) {
-
+    toggleProgress(true)
     if (requestStarted) {
         return
     }
-
     requestStarted = true
 
     let teamName = document.getElementById(event + '_team_name').value
 
     if (teamName.length == 0) {
+        requestStarted = false
         alertReload("Please enter team name")
         return
     }
@@ -93,11 +103,13 @@ function submitRegistration(event, baseUrl) {
             alertReload("Registered successfully")
             return
         } else {
+            toggleProgress(false)
             res.json().then((data) => {
                 alert(data['message'] + " - " + data['error'])
             })
         }
     }).catch((err) => {
+        toggleProgress(false)
         alert(err)
     }).finally(() => {
         requestStarted = false
@@ -109,3 +121,122 @@ function alertReload(msg) {
     window.scrollTo(0, 0)
     window.location.reload(true)
 }
+
+function onFileChange() {
+    let dropzone = document.getElementById('dropzone-label')
+    let fileChip = document.getElementById('file-chip')
+    let fileLabel = document.getElementById('file-name')
+
+    let selectedFile = document.getElementById('dropzone-file').files[0]
+    console.log(selectedFile)
+
+    if (selectedFile.size > 1024 * 1024 * 3) {
+        alert("File size should be less than 3MB")
+    } else {
+        dropzone.classList.add('hidden')
+
+        fileChip.classList.remove('hidden')
+        fileChip.classList.add('inline-flex')
+
+        fileLabel.innerHTML = selectedFile.name
+    }
+}
+
+function clearFile() {
+    let dropzone = document.getElementById('dropzone-label')
+    let fileChip = document.getElementById('file-chip')
+    let fileLabel = document.getElementById('file-name')
+    let fileInput = document.getElementById('dropzone-file')
+
+    dropzone.classList.remove('hidden')
+    fileChip.classList.remove('inline-flex')
+    fileChip.classList.add('hidden')
+    fileLabel.innerHTML = ""
+    fileInput.value = ""
+}
+
+function submitAbstractForm(baseUrl) {
+    if (requestStarted) {
+        return
+    }
+    requestStarted = true
+
+    let fileInput = document.getElementById('dropzone-file')
+    let selectedFile = fileInput.files[0]
+
+    if (!selectedFile) {
+        alert("Please select a file")
+        return
+    }
+
+    let eventOption = document.getElementById('abstract-event')
+    let eventIndex = eventOption.selectedIndex
+    if (eventIndex < 0) {
+        requestStarted = false
+        alert("Please select an event team")
+        return
+    }
+
+    let event = eventOption.options[eventIndex].value
+
+    if (event.length == 0) {
+        requestStarted = false
+        alert("Please select an event team")
+        return
+    }
+    toggleProgress(true)
+
+    let formData = new FormData()
+    formData.append('file', selectedFile)
+    formData.append('event', event)
+
+    let url = '/api/v1/cs/abstract'
+    if (baseUrl) {
+        url = baseUrl + url
+    }
+
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    }).then((res) => {
+        if (res.status == 200) {
+            alertReload("Abstract submitted successfully")
+            return
+        } else {
+            toggleProgress(false)
+            res.json().then((data) => {
+                alert(data['message'] + " - " + data['error'])
+            })
+        }
+    }).catch((err) => {
+        toggleProgress(false)
+        alert(err)
+    }).finally(() => {
+        requestStarted = false
+        clearFile()
+    })
+}
+
+function onEventTeamOption() {
+    let eventOption = document.getElementById('abstract-event')
+    let templateButtonText = document.getElementById('template-btn-text')
+    let templateButton = document.getElementById('template-btn')
+
+    let eventIndex = eventOption.selectedIndex
+    if (eventIndex < 0) {
+        return
+    }
+
+    let eventHtml = eventOption.options[eventIndex].innerHTML.split("-")[0]
+    let event = eventOption.options[eventIndex].value
+    templateButtonText.innerHTML = "Open " + eventHtml + "Template"
+
+    if (event === "droidrush") {
+        templateButton.href = "https://shorturl.at/dloF6"
+    } else if (event === "webster") {
+        templateButton.href = "https://shorturl.at/HRZ17"
+    } else if (event === "softablitz") {
+        templateButton.href = "https://shorturl.at/cxyR7"
+    }
+}
+onEventTeamOption()

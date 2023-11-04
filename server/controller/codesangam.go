@@ -2,11 +2,21 @@ package controller
 
 import (
 	"errors"
+	"io"
+	"net/http"
+	"os"
+	"strconv"
+	"strings"
 
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
 	"github.com/labstack/echo/v4"
+)
+
+const (
+	// File size
+	MaxFileSize int64 = 3 << 20 // 3 MB
 )
 
 // SaveUser
@@ -92,6 +102,75 @@ func RegisterTeam(c echo.Context) error {
 	}
 
 	return c.JSON(200, &team)
+}
+
+// UploadAbstractSubmission
+//
+// @Summary Upload abstract submission to server
+// @Schemes
+// @Description Uploads the abstract submission to the server
+// @Tags CodeSangam
+// @Accept json
+// @Param event formData string true "event"
+// @Param file formData file true "file"
+// @Success 200 {string} string
+// @Router /v1/cs/abstract [post]
+func UploadAbstractSubmission(c echo.Context) error {
+	userId, err := getSessionUserId(c)
+	if err != nil {
+		return utils.UnauthorizedError(c, "User not logged in", &err)
+	}
+
+	fEvent := c.FormValue("event")
+	event, err := dao.ToEvent(fEvent)
+	if err != nil {
+		return utils.BadRequestError(c, "Invalid event", &err)
+	}
+
+	team, err := dao.GetTeam(event, *userId)
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch team", &err)
+	}
+	if team == nil {
+		return utils.BadRequestError(c, "Team not registered", nil)
+	}
+
+	file, err := c.FormFile("file")
+	if err != nil {
+		return utils.BadRequestError(c, "Unable to parse file", &err)
+	}
+
+	if file.Size > MaxFileSize {
+		return utils.BadRequestError(c, "File size too large. Should be less than 3 MB", nil)
+	}
+
+	if !strings.HasSuffix(file.Filename, ".pdf") {
+		return utils.BadRequestError(c, "Invalid file extension", nil)
+	}
+
+	src, err := file.Open()
+	if err != nil {
+		return utils.BadRequestError(c, "Unable to open file", &err)
+	}
+	defer src.Close()
+
+	path := "files/abstracts/" + event.String()
+	err = os.MkdirAll(path, os.ModePerm)
+	if err != nil {
+		return utils.InternalError(c, "Unable to create directory", &err)
+	}
+
+	dst, err := os.Create(path + "/" + strconv.Itoa(team.TeamId) + ".pdf")
+	if err != nil {
+		return utils.InternalError(c, "Unable to create file", &err)
+	}
+	defer dst.Close()
+
+	if _, err := io.Copy(dst, src); err != nil {
+		return utils.InternalError(c, "Unable to copy file", &err)
+	}
+
+	return c.NoContent(http.StatusOK)
 }
 
 func getSessionUserId(c echo.Context) (*int, error) {

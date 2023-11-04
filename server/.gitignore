@@ -23,6 +23,7 @@ go.work
 
 bin/
 docs/
+files/
 
 .env
 .env.development.local
