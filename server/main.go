@@ -22,6 +22,7 @@ func main() {
 	baseUrl := config.EnvVars.BaseUrl + "/api"
 	router := echo.New()
 	router.Use(session.Middleware(config.SessionCookieStore))
+	router.Use(middleware.BodyLimit("4M"))
 	router.Use(middleware.CORS())
 	router.Static(config.EnvVars.BaseUrl+"/api/static", "web/static")
 	config.InitTemplateRenderer(router)
