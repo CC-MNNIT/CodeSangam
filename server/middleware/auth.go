@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"net/http"
+	"time"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
@@ -9,7 +10,8 @@ import (
 )
 
 const (
-	AuthHeaderName = "Authorization"
+	AuthHeaderName             = "Authorization"
+	RegistrationDeadlineMillis = 1699295399000 // 2023-11-6 23:59:59.000000000 +0530 IST
 )
 
 // AuthMiddleware
@@ -46,6 +48,22 @@ func AuthLoginMiddleware() echo.MiddlewareFunc {
 				return next(c)
 			}
 			return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/dashboard")
+		}
+	}
+}
+
+// DeadlineMiddleware
+//
+// This middleware will check if the registration deadline has passed.
+func DeadlineMiddleware() echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+
+			if time.Now().UnixMilli() > RegistrationDeadlineMillis {
+				return utils.BadRequestError(c, "Registration deadline has passed", nil)
+			}
+
+			return next(c)
 		}
 	}
 }
