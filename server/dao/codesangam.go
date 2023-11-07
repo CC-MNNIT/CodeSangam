@@ -576,7 +576,7 @@ func getQuota(event Event) string {
 	case droidTable:
 		return "8"
 	case softTable:
-		return "20"
+		return "10"
 	case websterTable:
 		return "16"
 	default:
