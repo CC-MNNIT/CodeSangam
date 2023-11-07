@@ -33,12 +33,28 @@ type DashboardTeam struct {
 	Size    int        `json:"size"`
 	Members []*UserDto `json:"members"`
 	Score   int        `json:"score"`
+	Mentor  *MentorDto `json:"mentor"`
+}
+
+type MentorDto struct {
+	Name   string `json:"name"`
+	RegNo  string `json:"reg_no"`
+	Email  string `json:"email"`
+	Phone  string `json:"phone"`
+	Avatar string `json:"avatar"`
 }
 
 type RegisterTeamDto struct {
 	Event           string   `json:"event"`
 	TeamName        string   `json:"team_name"`
 	MemberRegNoList []string `json:"member_reg_list"`
+}
+
+type MentorTeam struct {
+	EventTag string           `json:"event_tag"`
+	Event    string           `json:"event"`
+	Teams    []*DashboardTeam `json:"teams"`
+	Quota    int              `json:"quota"`
 }
 
 type EventInfo struct {

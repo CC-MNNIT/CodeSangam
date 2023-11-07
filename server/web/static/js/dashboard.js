@@ -40,8 +40,6 @@ function setEventActive(elementId) {
     eventActive = elementId
 }
 
-setEventActive(eventActive)
-
 function toggleMenu() {
     let menu = document.getElementById('mobile-menu')
     if (!menu) return
@@ -239,4 +237,36 @@ function onEventTeamOption() {
         templateButton.href = "https://shorturl.at/cxyR7"
     }
 }
-onEventTeamOption()
+
+function allotTeamsForEvent(event, baseUrl) {
+    toggleProgress(true)
+    if (requestStarted) {
+        return
+    }
+    requestStarted = true
+
+    let url = '/api/v1/cs/allot?event=' + event
+    if (baseUrl) {
+        url = baseUrl + url
+    }
+
+    fetch(url, {
+        method: 'POST',
+    }).then((res) => {
+        if (res.status == 200) {
+            alertReload("Team allotment successful for " + event)
+            return
+        } else {
+            toggleProgress(false)
+            res.json().then((data) => {
+                alert(data['message'] + " - " + data['error'])
+            })
+        }
+    }).catch((err) => {
+        toggleProgress(false)
+        alert(err)
+    }).finally(() => {
+        requestStarted = false
+        clearFile()
+    })
+}

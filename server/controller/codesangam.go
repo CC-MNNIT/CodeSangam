@@ -150,6 +150,11 @@ func UploadAbstractSubmission(c echo.Context) error {
 		return utils.InternalError(c, "Unable to save abstract", &err)
 	}
 
+	err = dao.AddAbstractForTeam(team.TeamId)
+	if err != nil {
+		return utils.InternalError(c, "Unable to add abstract for team", &err)
+	}
+
 	return c.NoContent(http.StatusOK)
 }
 
@@ -186,6 +191,41 @@ func GetAbstractFile(c echo.Context) error {
 		return utils.InternalError(c, "Unable to fetch abstract file", &err)
 	}
 	return c.File(path)
+}
+
+// AllotTeamsToMentor
+//
+// @Summary Allot teams to mentor
+// @Schemes
+// @Description Allots the teams to the mentor
+// @Tags CodeSangam
+// @Accept json
+// @Produce json
+// @Param event query string true "event"
+// @Success 200 {string} string
+// @Router /v1/cs/allot [post]
+func AllotTeamsToMentor(c echo.Context) error {
+	userId, err := getSessionUserId(c)
+	if err != nil {
+		return utils.UnauthorizedError(c, "User not logged in", &err)
+	}
+
+	mentor := dao.CheckMentor(*userId)
+	if mentor == nil {
+		return utils.UnauthorizedError(c, "User not authorized for mentor", nil)
+	}
+
+	event := c.QueryParam("event")
+	if event == "" {
+		return utils.BadRequestError(c, "Invalid event", nil)
+	}
+
+	err = dao.Allot(*userId, event)
+	if err != nil {
+		return utils.InternalError(c, "Unable to allot teams", &err)
+	}
+
+	return c.NoContent(http.StatusOK)
 }
 
 func getSessionUserId(c echo.Context) (*int, error) {

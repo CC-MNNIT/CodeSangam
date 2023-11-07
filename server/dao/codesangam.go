@@ -3,6 +3,8 @@ package dao
 import (
 	"errors"
 	"regexp"
+	"strconv"
+	"strings"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
@@ -13,21 +15,37 @@ type Event string
 
 const (
 	// Table name
-	userTable    Event = "user"
-	teamTable    Event = "team"
+	userTable      Event = "user"
+	teamTable      Event = "team"
+	mentorTable    Event = "mentor"
+	allotmentTable Event = "allotment"
+	abstractTable  Event = "abstract"
+
 	droidTable   Event = "droidrush"
 	softTable    Event = "softablitz"
 	logicalTable Event = "logical"
 	websterTable Event = "webster"
 )
 
+var events = []Event{
+	droidTable,
+	softTable,
+	logicalTable,
+	websterTable,
+}
+
 var toEvent = map[string]Event{
-	"user":       userTable,
-	"team":       teamTable,
 	"droidrush":  droidTable,
 	"softablitz": softTable,
 	"logical":    logicalTable,
 	"webster":    websterTable,
+}
+
+var toEventName = map[Event]string{
+	droidTable:   "DroidRush",
+	softTable:    "Softablitz",
+	logicalTable: "Logical Rhythm",
+	websterTable: "Webster",
 }
 
 func (e Event) String() string {
@@ -36,6 +54,14 @@ func (e Event) String() string {
 
 func ToEvent(s string) (Event, error) {
 	value, ok := toEvent[s]
+	if !ok {
+		return "", errors.New("invalid event")
+	}
+	return value, nil
+}
+
+func ToEventName(event Event) (string, error) {
+	value, ok := toEventName[event]
 	if !ok {
 		return "", errors.New("invalid event")
 	}
@@ -104,29 +130,22 @@ func GetUserInfo(id int) (*models.DashboardUserDto, error) {
 	}
 
 	// Get DashboardTeam
-	droidTeam, err := GetDashboardTeam(droidTable, id)
-	if err != nil {
-		return nil, err
+	for i, event := range events {
+		dashboardTeam, err := GetDashboardTeam(event, id)
+		if err != nil {
+			return nil, err
+		}
+		switch i {
+		case 0:
+			userInfo.DroidRushTeam = dashboardTeam
+		case 1:
+			userInfo.WebsterTeam = dashboardTeam
+		case 2:
+			userInfo.SoftablitzTeam = dashboardTeam
+		case 3:
+			userInfo.LogicalRhythmTeam = dashboardTeam
+		}
 	}
-	userInfo.DroidRushTeam = droidTeam
-
-	websterTeam, err := GetDashboardTeam(websterTable, id)
-	if err != nil {
-		return nil, err
-	}
-	userInfo.WebsterTeam = websterTeam
-
-	softTeam, err := GetDashboardTeam(softTable, id)
-	if err != nil {
-		return nil, err
-	}
-	userInfo.SoftablitzTeam = softTeam
-
-	logicTeam, err := GetDashboardTeam(logicalTable, id)
-	if err != nil {
-		return nil, err
-	}
-	userInfo.LogicalRhythmTeam = logicTeam
 	return &userInfo, nil
 }
 
@@ -159,38 +178,68 @@ func GetDashboardTeam(event Event, userId int) (*models.DashboardTeam, error) {
 		return nil, err
 	}
 
+	mentor, _ := GetMentorForTeam(team.TeamId)
+	var mentorDto *models.MentorDto = nil
+
+	if mentor != nil {
+		user, err := GetUserByRegNo(&mentor.RegNo)
+		if err != nil {
+			return nil, err
+		}
+		mentorDto = &models.MentorDto{
+			Name:   user.Name,
+			RegNo:  user.RegNo,
+			Email:  user.Email,
+			Phone:  mentor.Phone,
+			Avatar: user.Avatar,
+		}
+	}
+
 	dashboardTeam := models.DashboardTeam{
 		TeamId: team.TeamId,
 		Name:   team.Name,
 		Score:  evenTeam.Score,
+		Mentor: mentorDto,
 	}
 
 	var size = 0
-	if team.LeaderId > 0 {
-		member, err := GetUser(team.LeaderId)
+	userIds := []int{team.LeaderId, team.MemberId1, team.MemberId2}
+	for _, userId := range userIds {
+		if userId <= 0 {
+			continue
+		}
+		user, err := GetUser(userId)
 		if err != nil {
 			return nil, err
 		}
 		size++
-		dashboardTeam.Members = append(dashboardTeam.Members, GetUserDto(member))
+		dashboardTeam.Members = append(dashboardTeam.Members, GetUserDto(user))
+	}
+	dashboardTeam.Size = size
+
+	return &dashboardTeam, nil
+}
+
+func GetDashboardTeamForTeam(team *models.Team) (*models.DashboardTeam, error) {
+	dashboardTeam := models.DashboardTeam{
+		TeamId: team.TeamId,
+		Name:   team.Name,
+		Score:  0,
+		Mentor: nil,
 	}
 
-	if team.MemberId1 > 0 {
-		member, err := GetUser(team.MemberId1)
+	var size = 0
+	userIds := []int{team.LeaderId, team.MemberId1, team.MemberId2}
+	for _, userId := range userIds {
+		if userId <= 0 {
+			continue
+		}
+		user, err := GetUser(userId)
 		if err != nil {
 			return nil, err
 		}
 		size++
-		dashboardTeam.Members = append(dashboardTeam.Members, GetUserDto(member))
-	}
-
-	if team.MemberId2 > 0 {
-		member, err := GetUser(team.MemberId2)
-		if err != nil {
-			return nil, err
-		}
-		size++
-		dashboardTeam.Members = append(dashboardTeam.Members, GetUserDto(member))
+		dashboardTeam.Members = append(dashboardTeam.Members, GetUserDto(user))
 	}
 	dashboardTeam.Size = size
 
@@ -284,6 +333,7 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 		Name:    resultTeam.Name,
 		Size:    len(userDtoList),
 		Members: userDtoList,
+		Mentor:  nil,
 	}
 
 	return &dashboardTeam, nil
@@ -378,4 +428,158 @@ func getRegisteredTeam(event Event, teamId int) (*models.EventRegistration, erro
 		return nil, err
 	}
 	return &team, nil
+}
+
+func AddAbstractForTeam(teamId int) error {
+	err := config.Db.Table(abstractTable.String()).Create(&models.Abstract{
+		TeamId: teamId,
+	}).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func CheckMentor(userId int) *models.Mentor {
+	user, err := GetUser(userId)
+	if err != nil {
+		return nil
+	}
+
+	var mentor models.Mentor
+	err = config.Db.Table(mentorTable.String()).Where("registration_no = ?", user.RegNo).First(&mentor).Error
+	if err != nil {
+		return nil
+	}
+
+	return &mentor
+}
+
+func GetMentorForTeam(teamId int) (*models.Mentor, error) {
+	qTeamId := strconv.Itoa(teamId)
+	if len(qTeamId) < 1 {
+		return nil, errors.New("invalid team id")
+	}
+
+	var mentor models.Mentor
+	err := config.Db.Raw(`select * from mentor where registration_no = (select registration_no from user where uid = (select user_id from allotment where team_id = ` + qTeamId + `));`).First(&mentor).Error
+	if err != nil {
+		return nil, err
+	}
+	return &mentor, nil
+}
+
+func GetTeamsForMentor(userId int) (*[]models.MentorTeam, error) {
+	mentor := CheckMentor(userId)
+	if mentor == nil {
+		return nil, errors.New("not a mentor")
+	}
+
+	var mentorTeams []models.MentorTeam
+
+	mentorEvents := strings.Split(mentor.Events, ";")
+
+	for _, mentorEvent := range mentorEvents {
+		event, err := ToEvent(mentorEvent)
+		if err != nil {
+			return nil, err
+		}
+
+		eventName, err := ToEventName(event)
+		if err != nil {
+			return nil, err
+		}
+
+		quota, err := strconv.Atoi(getQuota(event))
+		if err != nil {
+			return nil, err
+		}
+
+		mentorTeam := models.MentorTeam{
+			EventTag: event.String(),
+			Event:    eventName,
+			Quota:    quota,
+		}
+
+		var teams []models.Team
+		err = config.Db.Raw(`select t.* from (select team.* from team inner join (select team_id from allotment where user_id = ` + strconv.Itoa(userId) + `) a on team.id = a.team_id) t inner join ` + event.String() + ` e on t.id = e.team_id;`).Find(&teams).Error
+		if err != nil {
+			return nil, err
+		}
+
+		for _, team := range teams {
+			dashboardTeam, err := GetDashboardTeamForTeam(&team)
+			if err != nil {
+				return nil, err
+			}
+			mentorTeam.Teams = append(mentorTeam.Teams, dashboardTeam)
+		}
+		mentorTeams = append(mentorTeams, mentorTeam)
+	}
+	return &mentorTeams, nil
+}
+
+var allotmentLock = map[Event]bool{
+	droidTable:   false,
+	softTable:    false,
+	logicalTable: false,
+	websterTable: false,
+}
+
+func Allot(userId int, strEvent string) error {
+	event, err := ToEvent(strEvent)
+	if err != nil {
+		return errors.New("invalid event")
+	}
+
+	if allotmentLock[event] {
+		return errors.New("please wait, someone else is in the middle allotment process")
+	}
+	allotmentLock[event] = true
+
+	teamIds, err := GetTeamIdsWithoutMentor(event)
+	if err != nil {
+		allotmentLock[event] = false
+		return err
+	}
+
+	if len(*teamIds) < 1 {
+		allotmentLock[event] = false
+		return errors.New("no team left")
+	}
+
+	for _, teamId := range *teamIds {
+		err := config.Db.Table(allotmentTable.String()).Create(&models.Allotment{
+			TeamId: teamId,
+			UserId: userId,
+		}).Error
+		if err != nil {
+			allotmentLock[event] = false
+			return err
+		}
+	}
+	allotmentLock[event] = false
+	return nil
+}
+
+func GetTeamIdsWithoutMentor(event Event) (*[]int, error) {
+	var teamIds []int
+	err := config.Db.Raw(`select t.id from (select t.id from abstract a inner join team t on a.team_id = t.id) t inner join ` + event.String() + ` e on t.id = e.team_id where id not in (select team_id from allotment) limit ` + getQuota(event) + `;`).Find(&teamIds).Error
+	if err != nil {
+		return nil, err
+	}
+	return &teamIds, nil
+}
+
+func getQuota(event Event) string {
+	switch event {
+	case droidTable:
+		return "8"
+	case softTable:
+		return "20"
+	case websterTable:
+		return "16"
+	default:
+		return "0"
+	}
 }

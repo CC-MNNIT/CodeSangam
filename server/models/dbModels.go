@@ -29,3 +29,19 @@ type EventRegistration struct {
 	TeamId int `gorm:"column:team_id" json:"team_id"`
 	Score  int `gorm:"column:score" json:"score"`
 }
+
+type Abstract struct {
+	TeamId int `gorm:"primary_key;column:team_id" json:"team_id"`
+}
+
+type Mentor struct {
+	RegNo  string `gorm:"primary_key;column:registration_no" json:"reg_no"`
+	Email  string `gorm:"uniqueIndex;column:email" json:"email"`
+	Phone  string `gorm:"column:phone" json:"phone"`
+	Events string `gorm:"uniqueIndex;column:events" json:"events"`
+}
+
+type Allotment struct {
+	TeamId int `gorm:"primary_key;column:team_id" json:"team_id"`
+	UserId int `gorm:"primary_key;column:user_id" json:"user_id"`
+}

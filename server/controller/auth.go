@@ -60,11 +60,23 @@ func UserDashboard(c echo.Context) error {
 		false,
 	})
 
+	mentor := dao.CheckMentor(user.User.UserId)
+	var mentorTeams *[]models.MentorTeam
+	if mentor != nil {
+		mentorTeams, err = dao.GetTeamsForMentor(user.User.UserId)
+		if err != nil {
+			return utils.InternalError(c, "Unable to get teams for mentor", &err)
+		}
+	}
+
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
-		"UserInfo":   user.User,
-		"Teams":      teams,
-		"EventsInfo": eventsInfo,
-		"BaseUrl":    config.EnvVars.BaseUrl,
+		"UserInfo":    user.User,
+		"Teams":       teams,
+		"EventsInfo":  eventsInfo,
+		"BaseUrl":     config.EnvVars.BaseUrl,
+		"IsMentor":    mentor != nil,
+		"Mentor":      mentor,
+		"MentorTeams": mentorTeams,
 	})
 }
 
