@@ -29,9 +29,9 @@ const (
 
 var events = []Event{
 	droidTable,
+	websterTable,
 	softTable,
 	logicalTable,
-	websterTable,
 }
 
 var toEvent = map[string]Event{
