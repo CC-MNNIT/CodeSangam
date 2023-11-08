@@ -2,6 +2,7 @@ package dao
 
 import (
 	"errors"
+	"math/rand"
 	"regexp"
 	"strconv"
 	"strings"
@@ -490,10 +491,7 @@ func GetTeamsForMentor(userId int) (*[]models.MentorTeam, error) {
 			return nil, err
 		}
 
-		quota, err := strconv.Atoi(getQuota(event))
-		if err != nil {
-			return nil, err
-		}
+		quota := getQuota(event)
 
 		mentorTeam := models.MentorTeam{
 			EventTag: event.String(),
@@ -564,22 +562,28 @@ func Allot(userId int, strEvent string) error {
 
 func GetTeamIdsWithoutMentor(event Event) (*[]int, error) {
 	var teamIds []int
-	err := config.Db.Raw(`select t.id from (select t.id from abstract a inner join team t on a.team_id = t.id) t inner join ` + event.String() + ` e on t.id = e.team_id where id not in (select team_id from allotment) limit ` + getQuota(event) + `;`).Find(&teamIds).Error
+	err := config.Db.Raw(`select t.id from (select t.id from abstract a inner join team t on a.team_id = t.id) t inner join ` + event.String() + ` e on t.id = e.team_id where id not in (select team_id from allotment);`).Find(&teamIds).Error
 	if err != nil {
 		return nil, err
 	}
+
+	quota := getQuota(event)
+	rand.Shuffle(len(teamIds), func(i, j int) { teamIds[i], teamIds[j] = teamIds[j], teamIds[i] })
+	slice := min(len(teamIds), quota)
+	teamIds = teamIds[:slice]
+
 	return &teamIds, nil
 }
 
-func getQuota(event Event) string {
+func getQuota(event Event) int {
 	switch event {
 	case droidTable:
-		return "8"
+		return 8
 	case softTable:
-		return "10"
+		return 10
 	case websterTable:
-		return "16"
+		return 16
 	default:
-		return "0"
+		return 0
 	}
 }
