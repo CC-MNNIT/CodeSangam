@@ -20,10 +20,10 @@ func GetAllotmentCSV(userId int, event string) (string, error) {
 
 	strUserId := strconv.Itoa(userId)
 
-	data := "Team ID,Team Name,Leader Name,Leader RegNo,Team Abstract,Score\n"
+	data := "Team ID,Team Name,Leader Name,Leader RegNo,Team Abstract,Abstract Score,MidTerm Score,Total Score\n"
 	for _, team := range mentorTeam.Teams {
 		teamId := strconv.Itoa(team.TeamId)
-		data += teamId + "," + team.Name + "," + team.Members[0].Name + "," + team.Members[0].RegNo + ",\"=HYPERLINK(\"\"https://sac.mnnit.ac.in/codesangam/api/v1/cs/abstract?id=" + teamId + "\"\",\"\"Abstract Link - PDF [" + teamId + "]\"\")\",0\n"
+		data += teamId + "," + team.Name + "," + team.Members[0].Name + "," + team.Members[0].RegNo + ",\"=HYPERLINK(\"\"https://sac.mnnit.ac.in/codesangam/api/v1/cs/abstract?id=" + teamId + "\"\",\"\"Abstract Link - PDF [" + teamId + "]\"\")\",0,0,0\n"
 	}
 
 	path := csvPath + event
