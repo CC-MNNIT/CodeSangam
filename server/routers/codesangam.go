@@ -19,4 +19,5 @@ func CodeSangam(baseRouter *echo.Group) {
 	g.GET("/abstract", controller.GetAbstractFile)
 
 	g.POST("/allot", controller.AllotTeamsToMentor)
+	g.GET("/allot", controller.GetAllotmentCSV)
 }

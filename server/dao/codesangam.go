@@ -481,40 +481,48 @@ func GetTeamsForMentor(userId int) (*[]models.MentorTeam, error) {
 	mentorEvents := strings.Split(mentor.Events, ";")
 
 	for _, mentorEvent := range mentorEvents {
-		event, err := ToEvent(mentorEvent)
+		mentorTeam, err := GetTeamsForMentorEvent(userId, mentorEvent)
 		if err != nil {
 			return nil, err
 		}
-
-		eventName, err := ToEventName(event)
-		if err != nil {
-			return nil, err
-		}
-
-		quota := getQuota(event)
-
-		mentorTeam := models.MentorTeam{
-			EventTag: event.String(),
-			Event:    eventName,
-			Quota:    quota,
-		}
-
-		var teams []models.Team
-		err = config.Db.Raw(`select t.* from (select team.* from team inner join (select team_id from allotment where user_id = ` + strconv.Itoa(userId) + `) a on team.id = a.team_id) t inner join ` + event.String() + ` e on t.id = e.team_id;`).Find(&teams).Error
-		if err != nil {
-			return nil, err
-		}
-
-		for _, team := range teams {
-			dashboardTeam, err := GetDashboardTeamForTeam(&team)
-			if err != nil {
-				return nil, err
-			}
-			mentorTeam.Teams = append(mentorTeam.Teams, dashboardTeam)
-		}
-		mentorTeams = append(mentorTeams, mentorTeam)
+		mentorTeams = append(mentorTeams, *mentorTeam)
 	}
 	return &mentorTeams, nil
+}
+
+func GetTeamsForMentorEvent(userId int, mentorEvent string) (*models.MentorTeam, error) {
+	event, err := ToEvent(mentorEvent)
+	if err != nil {
+		return nil, err
+	}
+
+	eventName, err := ToEventName(event)
+	if err != nil {
+		return nil, err
+	}
+
+	quota := getQuota(event)
+
+	mentorTeam := models.MentorTeam{
+		EventTag: event.String(),
+		Event:    eventName,
+		Quota:    quota,
+	}
+
+	var teams []models.Team
+	err = config.Db.Raw(`select t.* from (select team.* from team inner join (select team_id from allotment where user_id = ` + strconv.Itoa(userId) + `) a on team.id = a.team_id) t inner join ` + event.String() + ` e on t.id = e.team_id;`).Find(&teams).Error
+	if err != nil {
+		return nil, err
+	}
+
+	for _, team := range teams {
+		dashboardTeam, err := GetDashboardTeamForTeam(&team)
+		if err != nil {
+			return nil, err
+		}
+		mentorTeam.Teams = append(mentorTeam.Teams, dashboardTeam)
+	}
+	return &mentorTeam, nil
 }
 
 var allotmentLock = map[Event]bool{

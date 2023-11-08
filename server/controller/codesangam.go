@@ -228,6 +228,40 @@ func AllotTeamsToMentor(c echo.Context) error {
 	return c.NoContent(http.StatusOK)
 }
 
+// GetAllotmentCSV
+//
+// @Summary Fetch allotment csv from server
+// @Schemes
+// @Description Returns the allotment csv
+// @Tags CodeSangam
+// @Accept json
+// @Produce text/csv
+// @Param event query string true "event"
+// @Success 200 {string} string "text/csv"
+// @Router /v1/cs/allot [get]
+func GetAllotmentCSV(c echo.Context) error {
+	userId, err := getSessionUserId(c)
+	if err != nil {
+		return utils.UnauthorizedError(c, "User not logged in", &err)
+	}
+
+	mentor := dao.CheckMentor(*userId)
+	if mentor == nil {
+		return utils.UnauthorizedError(c, "User not authorized for mentor", nil)
+	}
+
+	event := c.QueryParam("event")
+	if event == "" {
+		return utils.BadRequestError(c, "Invalid event", nil)
+	}
+
+	path, err := utils.GetAllotmentCSV(*userId, event)
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch abstract file", &err)
+	}
+	return c.File(path)
+}
+
 func getSessionUserId(c echo.Context) (*int, error) {
 	sess, err := utils.GetSession(c)
 	if err != nil {
