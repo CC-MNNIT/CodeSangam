@@ -389,7 +389,13 @@ func ValidSenior(regNo *string) bool {
 	if err != nil {
 		return false
 	}
-	return len(r.FindString(*regNo)) == len(*regNo)
+	rMca, err := regexp.Compile("^2021(CA|ca)([0-9]{3}|[0-9]{2})$")
+	if err != nil {
+		return false
+	}
+	return len(r.FindString(*regNo)) == len(*regNo) ||
+		len(rMca.FindString(*regNo)) == len(*regNo) ||
+		*regNo == "20198007" // this damn guy
 }
 
 func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
