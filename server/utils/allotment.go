@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	csvPath = "files/csv/"
+	csvPath = "files/allotment/"
 )
 
 func GetAllotmentCSV(userId int, event string) (string, error) {
