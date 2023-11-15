@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
@@ -293,6 +294,10 @@ func GetEventRanking(c echo.Context) error {
 	event, err := dao.ToEvent(qEvent)
 	if err != nil {
 		return utils.BadRequestError(c, "Invalid event", &err)
+	}
+
+	if !config.EnvVars.DeclareResult {
+		return c.JSON(200, nil)
 	}
 
 	rankings, err := dao.GetEventRanking(event)

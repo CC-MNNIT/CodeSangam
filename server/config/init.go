@@ -14,6 +14,7 @@ type Env struct {
 	BaseUrl              string
 	Port                 string
 	RegistrationDeadline int64
+	DeclareResult        bool
 	dbUrl                string
 	contriDbUrl          string
 	clientId             string
@@ -43,6 +44,13 @@ func init() {
 				return 0
 			}
 			return i
+		}(),
+		DeclareResult: func() bool {
+			b, er := strconv.ParseBool(os.Getenv("DECLARE_RESULT"))
+			if er != nil {
+				return false
+			}
+			return b
 		}(),
 		dbUrl:        os.Getenv("DB_URL"),
 		contriDbUrl:  os.Getenv("CONTRI_DB_URL"),
