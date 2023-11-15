@@ -1,3 +1,5 @@
+const Tables = ["droidrush", "webster", "softablitz", "logical"];
+
 interface Member {
     name: string
     regNo: string
@@ -10,4 +12,4 @@ interface Team {
     members: Member[]
 };
 
-export { Member, Team };
+export { Tables, Member, Team };

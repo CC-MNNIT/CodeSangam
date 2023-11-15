@@ -1,9 +1,8 @@
-import { XMLParser, XMLValidator } from "fast-xml-parser"
-import { existsSync, mkdirSync, writeFileSync } from "fs"
-import { execSQL } from "./util"
-import { Member, Team } from "./models";
+import { XMLParser, XMLValidator } from "fast-xml-parser";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { Member, Tables, Team } from "./models";
+import { execSQL } from "./util";
 
-const tables = ["droidrush", "webster", "softablitz", "logical"];
 const parser = new XMLParser();
 
 async function parseAbstractSubmittedTeamIds(): Promise<Map<string, number[]>> {
@@ -11,8 +10,8 @@ async function parseAbstractSubmittedTeamIds(): Promise<Map<string, number[]>> {
         console.log(`|= Loading abstracts =|`);
         const xmlContents: string[] = [];
 
-        for (let i = 0; i < tables.length - 1; i++) {
-            let table = tables[i];
+        for (let i = 0; i < Tables.length - 1; i++) {
+            let table = Tables[i];
             console.log(`${table}`);
             let out = await execSQL(`select t.id from (select t.id from abstract a inner join team t on a.team_id = t.id) t inner join ${table} e on t.id = e.team_id`);
             xmlContents.push(out);
@@ -21,8 +20,8 @@ async function parseAbstractSubmittedTeamIds(): Promise<Map<string, number[]>> {
 
         const abstractIds: Map<string, number[]> = new Map();
         let absCount = 0;
-        for (let i = 0; i < tables.length - 1; i++) {
-            console.log(`${tables[i]} valid:`, XMLValidator.validate(xmlContents[i]));
+        for (let i = 0; i < Tables.length - 1; i++) {
+            console.log(`${Tables[i]} valid:`, XMLValidator.validate(xmlContents[i]));
 
             const { resultset } = parser.parse(xmlContents[i]);
             const { row } = resultset;
@@ -34,7 +33,7 @@ async function parseAbstractSubmittedTeamIds(): Promise<Map<string, number[]>> {
             console.log(teamIds.length);
             absCount += teamIds.length;
 
-            abstractIds.set(tables[i], teamIds);
+            abstractIds.set(Tables[i], teamIds);
             console.log('-')
         }
         console.log(`Total Abstracts: ${absCount}`);
@@ -72,8 +71,8 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
         const xmlContents: string[] = [];
         console.log(`|= Loading teams =|`);
 
-        for (let i = 0; i < tables.length; i++) {
-            let table = tables[i];
+        for (let i = 0; i < Tables.length; i++) {
+            let table = Tables[i];
             console.log(`loading teams ${table}`);
             let out = await execSQL(`select id, team.name, leader_id, m_id1, m_id2 from team inner join ${table} on team.id=${table}.team_id`);
             xmlContents.push(out);
@@ -81,8 +80,8 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
         console.log('-')
 
         const teams: Map<string, Team[]> = new Map();
-        for (let i = 0; i < tables.length; i++) {
-            let table = tables[i];
+        for (let i = 0; i < Tables.length; i++) {
+            let table = Tables[i];
             console.log(`${table} valid:`, XMLValidator.validate(xmlContents[i]));
 
             const { resultset } = parser.parse(xmlContents[i]);
@@ -122,8 +121,8 @@ const participation: Map<string, Team[]> = await parseParticipation(members, abs
 
     let teamCount = 0;
     let memberCount = 0;
-    for (let t = 0; t < tables.length; t++) {
-        let table = tables[t];
+    for (let t = 0; t < Tables.length; t++) {
+        let table = Tables[t];
         let teams = participation.get(table) || [];
 
         let data = "TeamID,Team Name,RegNo,Members,Phone";
