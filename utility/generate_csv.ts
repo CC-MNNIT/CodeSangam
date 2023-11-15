@@ -1,11 +1,11 @@
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import { Member, Tables, Team } from "./models";
+import { Member, Table, Tables, Team } from "./models";
 import { execSQL } from "./util";
 
 const parser = new XMLParser();
 
-async function parseAbstractSubmittedTeamIds(): Promise<Map<string, number[]>> {
+async function parseAbstractSubmittedTeamIds(): Promise<Map<Table, number[]>> {
     return new Promise(async (resolve, reject) => {
         console.log(`|= Loading abstracts =|`);
         const xmlContents: string[] = [];
@@ -18,7 +18,7 @@ async function parseAbstractSubmittedTeamIds(): Promise<Map<string, number[]>> {
         }
         console.log('-')
 
-        const abstractIds: Map<string, number[]> = new Map();
+        const abstractIds: Map<Table, number[]> = new Map();
         let absCount = 0;
         for (let i = 0; i < Tables.length - 1; i++) {
             console.log(`${Tables[i]} valid:`, XMLValidator.validate(xmlContents[i]));
@@ -66,7 +66,7 @@ async function parseMembers(): Promise<Map<number, Member>> {
     });
 }
 
-async function parseParticipation(members: Map<number, Member>, abstractIds: Map<string, number[]>): Promise<Map<string, Team[]>> {
+async function parseParticipation(members: Map<number, Member>, abstractIds: Map<Table, number[]>): Promise<Map<Table, Team[]>> {
     return new Promise(async (resolve, reject) => {
         const xmlContents: string[] = [];
         console.log(`|= Loading teams =|`);
@@ -79,7 +79,7 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
         }
         console.log('-')
 
-        const teams: Map<string, Team[]> = new Map();
+        const teams: Map<Table, Team[]> = new Map();
         for (let i = 0; i < Tables.length; i++) {
             let table = Tables[i];
             console.log(`${table} valid:`, XMLValidator.validate(xmlContents[i]));
@@ -111,9 +111,9 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
     });
 }
 
-const abstractIds: Map<string, number[]> = await parseAbstractSubmittedTeamIds();
+const abstractIds: Map<Table, number[]> = await parseAbstractSubmittedTeamIds();
 const members: Map<number, Member> = await parseMembers();
-const participation: Map<string, Team[]> = await parseParticipation(members, abstractIds);
+const participation: Map<Table, Team[]> = await parseParticipation(members, abstractIds);
 
 // Write CSV files
 (() => {

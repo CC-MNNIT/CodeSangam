@@ -1,4 +1,6 @@
-const Tables = ["droidrush", "webster", "softablitz", "logical"];
+type Table = "droidrush" | "webster" | "softablitz" | "logical";
+
+const Tables: Table[] = ["droidrush", "webster", "softablitz", "logical"];
 
 interface Member {
     name: string
@@ -12,4 +14,4 @@ interface Team {
     members: Member[]
 };
 
-export { Tables, Member, Team };
+export { Table, Tables, Member, Team };
