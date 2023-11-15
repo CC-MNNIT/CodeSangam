@@ -3,6 +3,7 @@ package initialize
 import (
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
@@ -10,13 +11,14 @@ import (
 
 // Env is a struct that contains all the environment variables.
 type Env struct {
-	BaseUrl      string
-	Port         string
-	dbUrl        string
-	contriDbUrl  string
-	clientId     string
-	clientSecret string
-	redirectUrl  string
+	BaseUrl              string
+	Port                 string
+	RegistrationDeadline int64
+	dbUrl                string
+	contriDbUrl          string
+	clientId             string
+	clientSecret         string
+	redirectUrl          string
 }
 
 var EnvVars *Env
@@ -33,8 +35,15 @@ func init() {
 	}
 
 	EnvVars = &Env{
-		BaseUrl:      os.Getenv("BASE_URL"),
-		Port:         os.Getenv("PORT"),
+		BaseUrl: os.Getenv("BASE_URL"),
+		Port:    os.Getenv("PORT"),
+		RegistrationDeadline: func() int64 {
+			i, er := strconv.ParseInt(os.Getenv("REGISTRATION_DEADLINE"), 10, 64)
+			if er != nil {
+				return 0
+			}
+			return i
+		}(),
 		dbUrl:        os.Getenv("DB_URL"),
 		contriDbUrl:  os.Getenv("CONTRI_DB_URL"),
 		clientId:     os.Getenv("CLIENT_ID"),

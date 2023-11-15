@@ -10,8 +10,7 @@ import (
 )
 
 const (
-	AuthHeaderName             = "Authorization"
-	RegistrationDeadlineMillis = 1699295399000 // 2023-11-6 23:59:59.000000000 +0530 IST
+	AuthHeaderName = "Authorization"
 )
 
 // AuthMiddleware
@@ -59,7 +58,7 @@ func DeadlineMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 
-			if time.Now().UnixMilli() > RegistrationDeadlineMillis {
+			if time.Now().UnixMilli() > config.EnvVars.RegistrationDeadline {
 				return utils.BadRequestError(c, "Registration deadline has passed", nil)
 			}
 
