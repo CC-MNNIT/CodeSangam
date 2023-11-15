@@ -1,6 +1,6 @@
 import { exec } from "child_process"
 import { XMLParser, XMLValidator } from "fast-xml-parser"
-import { writeFileSync } from "fs"
+import { existsSync, mkdirSync, writeFileSync } from "fs"
 
 const DB_PASSWORD: string = process.env.DB_PASSWORD || "";
 const DB_IP: string = process.env.DB_IP || "";
@@ -150,11 +150,14 @@ const participation: Map<string, Team[]> = await parseParticipation(members, abs
                 teamCount++;
                 memberCount += team.members.length;
             }
-            data += `${team.id},${team.name},${team.members[0].regNo},${team.members[0].name},,=HYPERLINK(https://sac.mnnit.ac.in/codesangam/api/v1/cs/abstract?id=${team.id}),0\n`;
+            data += `${team.id},${team.name},${team.members[0].regNo},${team.members[0].name},,"=HYPERLINK(""https://sac.mnnit.ac.in/codesangam/api/v1/cs/abstract?id=${team.id}"",""Abstract PDF [${team.id}]"")",0\n`;
             for (let j = 1; j < team.members.length; j++) {
                 const member = team.members[j];
                 data += `,,${member.regNo},${member.name},,,\n`;
             }
+        }
+        if (!existsSync(`csv`)) {
+            mkdirSync(`csv`);
         }
         writeFileSync(`csv/${table}.csv`, data);
     }
