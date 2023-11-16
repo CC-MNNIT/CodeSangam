@@ -601,3 +601,16 @@ func getQuota(event Event) int {
 		return 0
 	}
 }
+
+func SetTeamScore(strEvent string, teamId int, score int) error {
+	event, err := ToEvent(strEvent)
+	if err != nil {
+		return err
+	}
+
+	err = config.Db.Table(event.String()).Where("team_id = ?", teamId).Update("score", score).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

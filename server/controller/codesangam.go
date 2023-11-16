@@ -15,6 +15,7 @@ import (
 const (
 	// File size
 	MaxFileSize int64 = 3 << 20 // 3 MB
+	CSVFileSize int64 = 1 << 19 // 512 KB
 )
 
 // SaveUser
@@ -261,6 +262,63 @@ func GetAllotmentCSV(c echo.Context) error {
 		return utils.InternalError(c, "Unable to fetch abstract file", &err)
 	}
 	return c.File(path)
+}
+
+// UploadMidTermEval
+//
+// @Summary Upload mid term evaluation to server
+// @Schemes
+// @Description Uploads the mid term evaluation to the server
+// @Tags CodeSangam
+// @Accept json
+// @Param event formData string true "event"
+// @Param file formData file true "file"
+// @Success 200 {string} string
+// @Router /v1/cs/midterm [post]
+func UploadMidTermEval(c echo.Context) error {
+	userId, err := getSessionUserId(c)
+	if err != nil {
+		return utils.UnauthorizedError(c, "User not logged in", &err)
+	}
+
+	mentor := dao.CheckMentor(*userId)
+	if mentor == nil {
+		return utils.UnauthorizedError(c, "User not authorized for mentor", nil)
+	}
+
+	event := c.FormValue("event")
+	team, err := dao.GetTeamsForMentorEvent(*userId, event)
+	if err != nil {
+		return utils.InternalError(c, "Unable to fetch team", &err)
+	}
+	if team == nil {
+		return utils.BadRequestError(c, "Team not registered", nil)
+	}
+
+	file, err := c.FormFile("file")
+	if err != nil {
+		return utils.BadRequestError(c, "Unable to parse file", &err)
+	}
+
+	if file.Size > CSVFileSize {
+		return utils.BadRequestError(c, "File size too large. Should be less than 512 KB", nil)
+	}
+
+	if !strings.HasSuffix(file.Filename, ".csv") {
+		return utils.BadRequestError(c, "Invalid file extension", nil)
+	}
+
+	err = utils.SaveMidTermCSV(file, *userId, event)
+	if err != nil {
+		return utils.InternalError(c, "Unable to save csv", &err)
+	}
+
+	err = utils.UploadMidTermScores(*userId, event)
+	if err != nil {
+		return utils.BadRequestError(c, "Unable to upload scores", &err)
+	}
+
+	return c.NoContent(http.StatusOK)
 }
 
 func getSessionUserId(c echo.Context) (*int, error) {

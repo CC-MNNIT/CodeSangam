@@ -20,4 +20,6 @@ func CodeSangam(baseRouter *echo.Group) {
 
 	g.POST("/allot", controller.AllotTeamsToMentor)
 	g.GET("/allot", controller.GetAllotmentCSV)
+
+	g.POST("/midterm", controller.UploadMidTermEval)
 }

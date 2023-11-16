@@ -270,3 +270,68 @@ function allotTeamsForEvent(event, baseUrl) {
         clearFile()
     })
 }
+
+function onCSVFileChange(event) {
+    let fileInput = document.getElementById('csv_file_input-' + event)
+    let selectedFile = fileInput.files[0]
+    console.log(selectedFile)
+
+    if (selectedFile.size > 1024 * 512) {
+        fileInput.value = ""
+        alert("File size should be less than 512KB")
+    }
+}
+
+function uploadMidTerm(event, baseUrl) {
+    if (requestStarted) {
+        return
+    }
+    requestStarted = true
+
+    let fileInput = document.getElementById('csv_file_input-' + event)
+    let selectedFile = fileInput.files[0]
+
+    if (!selectedFile) {
+        requestStarted = false
+        alert("Please select a file")
+        return
+    }
+
+    if (event.length == 0) {
+        requestStarted = false
+        alert("Please select an event team")
+        return
+    }
+
+    toggleProgress(true)
+
+    let formData = new FormData()
+    formData.append('file', selectedFile)
+    formData.append('event', event)
+
+    let url = '/api/v1/cs/midterm'
+    if (baseUrl) {
+        url = baseUrl + url
+    }
+
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    }).then((res) => {
+        if (res.status == 200) {
+            alertReload("Mid evaluation submitted successfully")
+            return
+        } else {
+            toggleProgress(false)
+            res.json().then((data) => {
+                alert(data['message'] + " - " + data['error'])
+            })
+        }
+    }).catch((err) => {
+        toggleProgress(false)
+        alert(err)
+    }).finally(() => {
+        requestStarted = false
+        fileInput.value = ""
+    })
+}
