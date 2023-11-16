@@ -172,6 +172,9 @@ func parseCSV(records [][]string) ([][2]int, error) {
 		if err != nil {
 			return [][2]int{}, err
 		}
+		if score > 40 || score < 0 {
+			return [][2]int{}, errors.New("invalid score for team: " + record[0])
+		}
 		scores = append(scores, [2]int{teamId, score})
 	}
 	return scores, nil
