@@ -74,7 +74,7 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
         for (let i = 0; i < Tables.length; i++) {
             let table = Tables[i];
             console.log(`loading teams ${table}`);
-            let out = await execSQL(`select id, team.name, leader_id, m_id1, m_id2 from team inner join ${table} on team.id=${table}.team_id`);
+            let out = await execSQL(`select id, team.name, score, leader_id, m_id1, m_id2 from team inner join ${table} on team.id=${table}.team_id`);
             xmlContents.push(out);
         }
         console.log('-')
@@ -92,10 +92,11 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
                 teams.set(table, [...teams.get(table) || [], {
                     id: Number(field[0]),
                     name: String(field[1]),
+                    score: Number(field[2]),
                     members: [
-                        members.get(Number(field[2])),
                         members.get(Number(field[3])),
-                        members.get(Number(field[4]))
+                        members.get(Number(field[4])),
+                        members.get(Number(field[5]))
                     ].filter(m => m !== undefined) as Member[]
                 }]);
             }
@@ -103,7 +104,11 @@ async function parseParticipation(members: Map<number, Member>, abstractIds: Map
             if (i <= 2) {
                 console.log(`filtering abstract for ${table}`);
                 teams.set(table, teams.get(table)?.filter(t => abstractIds.get(table)?.includes(t.id) || false) || []);
+                teams.set(table, teams.get(table)?.filter(t => t.score >= 10) || []);
             }
+
+            teams.set(table, teams.get(table)?.filter(t => t.score > 0) || []);
+            teams.set(table, teams.get(table)?.sort((a, b) => b.score - a.score) || []);
             console.log('-')
         }
         console.log(`|==================|\n`);
@@ -125,9 +130,7 @@ const participation: Map<Table, Team[]> = await parseParticipation(members, abst
         let table = Tables[t];
         let teams = participation.get(table) || [];
 
-        let data = "TeamID,Team Name,RegNo,Members,Phone";
-        if (t <= 2) data += ",Abstract";
-        data += ",Score\n";
+        let data = "Year,TeamID,Team Name,MidTerm Score,Final Score\n";
 
         for (let i = 0; i < teams.length; i++) {
             const team = teams[i];
@@ -135,19 +138,9 @@ const participation: Map<Table, Team[]> = await parseParticipation(members, abst
                 teamCount++;
                 memberCount += team.members.length;
             }
-
-            data += `${team.id},${team.name},${team.members[0].regNo},${team.members[0].name},`;
-            if (t <= 2) {
-                data += `,"=HYPERLINK(""https://sac.mnnit.ac.in/codesangam/api/v1/cs/abstract?id=${team.id}"",""Abstract PDF [${team.id}]"")"`;
-            }
-            data += `,0\n`;
-
-            for (let j = 1; j < team.members.length; j++) {
-                const member = team.members[j];
-                data += `,,${member.regNo},${member.name},`;
-                if (t <= 2) data += `,`;
-                data += `,\n`;
-            }
+            
+            data += `${team.members[0].regNo.substring(0, 4)},`;
+            data += `${team.id},${team.name},${team.score},0\n`;
         }
         if (!existsSync(`csv`)) {
             mkdirSync(`csv`);
