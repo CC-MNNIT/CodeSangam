@@ -15,4 +15,9 @@ interface Team {
     members: Member[]
 };
 
-export { Table, Tables, Member, Team };
+interface TeamScore {
+    teamId: number
+    score: number
+};
+
+export { Table, Tables, Member, Team, TeamScore };
