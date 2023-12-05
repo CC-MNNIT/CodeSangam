@@ -406,10 +406,14 @@ func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
 	}
 
 	var teams []*models.DashboardTeam
-	for _, rTeam := range registeredTeams {
+	for idx, rTeam := range registeredTeams {
 		// Skip teams with score 0
 		if rTeam.Score <= 0 {
 			continue
+		}
+		// Max 10 teams
+		if idx == 10 {
+			break
 		}
 
 		var team models.Team
