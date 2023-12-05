@@ -18,112 +18,6 @@ export default function EventLeaderboard({ currentAPI }: props) {
     async function fetchData() {
       try {
         const { data } = await axios.get(currentAPI);
-        // const data = [
-        //   {
-        //     members: [
-        //       {
-        //         avatar: "https://github.com/string11.png",
-        //         email: "string1",
-        //         name: "string1",
-        //         reg_no: "string1"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string12.png",
-        //         email: "string2",
-        //         name: "string2",
-        //         reg_no: "string2"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string13.png",
-        //         email: "string3",
-        //         name: "string3",
-        //         reg_no: "string3"
-        //       }
-        //     ],
-        //     name: "Team 1",
-        //     score: 1,
-        //     size: 2,
-        //     team_id: 3
-        //   },
-        //   {
-        //     members: [
-        //       {
-        //         avatar: "https://github.com/string21.png",
-        //         email: "string1",
-        //         name: "string1",
-        //         reg_no: "string1"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string22.png",
-        //         email: "string2",
-        //         name: "string2",
-        //         reg_no: "string2"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string23.png",
-        //         email: "string3",
-        //         name: "string3",
-        //         reg_no: "string3"
-        //       }
-        //     ],
-        //     name: "Team 2",
-        //     score: 1,
-        //     size: 2,
-        //     team_id: 3
-        //   },
-        //   {
-        //     members: [
-        //       {
-        //         avatar: "https://github.com/string31.png",
-        //         email: "string1",
-        //         name: "string1",
-        //         reg_no: "string1"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string32.png",
-        //         email: "string2",
-        //         name: "string2",
-        //         reg_no: "string2"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string33.png",
-        //         email: "string3",
-        //         name: "string3",
-        //         reg_no: "string3"
-        //       }
-        //     ],
-        //     name: "Team 3",
-        //     score: 1,
-        //     size: 2,
-        //     team_id: 3
-        //   },
-        //   {
-        //     members: [
-        //       {
-        //         avatar: "https://github.com/string41.png",
-        //         email: "string1",
-        //         name: "string1",
-        //         reg_no: "string1"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string42.png",
-        //         email: "string2",
-        //         name: "string2",
-        //         reg_no: "string2"
-        //       },
-        //       {
-        //         avatar: "https://github.com/string43.png",
-        //         email: "string3",
-        //         name: "string3",
-        //         reg_no: "string3"
-        //       }
-        //     ],
-        //     name: "Team 4",
-        //     score: 1,
-        //     size: 2,
-        //     team_id: 3
-        //   }
-        // ];
         if (data != null && data.length >= 3) {
           setRankingsData(data);
           setIsListRecieved(true);
@@ -156,6 +50,9 @@ export default function EventLeaderboard({ currentAPI }: props) {
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
                         Team Name
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-center">
+                        Leader RegNo
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
                         Score
@@ -207,6 +104,9 @@ export default function EventLeaderboard({ currentAPI }: props) {
                           <th scope="row" className="text-center px-6 py-4 font-medium whitespace-nowrap text-white">
                             {rankingData.name}
                           </th>
+                          <td className="px-6 py-4 text-center">
+                            {rankingData.members[0].reg_no}
+                          </td>
                           <td className="px-6 py-4 text-center">
                             {rankingData.score}
                           </td>
