@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"mime/multipart"
 	"os"
 	"strconv"
@@ -178,14 +177,6 @@ func parseCSV(records [][]string) ([][2]int, error) {
 		scores = append(scores, [2]int{teamId, score})
 	}
 	return scores, nil
-}
-
-func init() {
-	records, _ := readCSV("../utility/scores/droidrush.csv")
-	arr := []int{1, 2, 3, 4}
-	str := fmt.Sprintf("%v", arr)
-	log.Println(records)
-	log.Println(str)
 }
 
 func readCSV(filePath string) ([][]string, error) {
