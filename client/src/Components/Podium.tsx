@@ -29,7 +29,7 @@ export default function Podium({ first, second, third }: props) {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <div className='image-cropper'>
+                            <div className='image-cropper-contri'>
                             <img src={`https://github.com/${second.user_name}.png`} alt="" />
                             </div>
                         </div>
@@ -45,7 +45,7 @@ export default function Podium({ first, second, third }: props) {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <div className='image-cropper'>
+                            <div className='image-cropper-contri'>
                             <img src={`https://github.com/${first.user_name}.png`} alt="" />
                             </div>
                         </div>
@@ -61,7 +61,7 @@ export default function Podium({ first, second, third }: props) {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <div className='image-cropper'>
+                            <div className='image-cropper-contri'>
                             <img src={`https://github.com/${third.user_name}.png`} alt="" />
                             </div>
                         </div>
