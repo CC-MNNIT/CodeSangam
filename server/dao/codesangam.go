@@ -174,11 +174,6 @@ func GetDashboardTeam(event Event, userId int) (*models.DashboardTeam, error) {
 		return nil, nil
 	}
 
-	evenTeam, err := getRegisteredTeam(event, team.TeamId)
-	if err != nil {
-		return nil, err
-	}
-
 	mentor, _ := GetMentorForTeam(team.TeamId)
 	var mentorDto *models.MentorDto = nil
 
@@ -199,7 +194,6 @@ func GetDashboardTeam(event Event, userId int) (*models.DashboardTeam, error) {
 	dashboardTeam := models.DashboardTeam{
 		TeamId: team.TeamId,
 		Name:   team.Name,
-		Score:  evenTeam.Score,
 		Mentor: mentorDto,
 	}
 
@@ -225,7 +219,6 @@ func GetDashboardTeamForTeam(team *models.Team) (*models.DashboardTeam, error) {
 	dashboardTeam := models.DashboardTeam{
 		TeamId: team.TeamId,
 		Name:   team.Name,
-		Score:  0,
 		Mentor: nil,
 	}
 
@@ -430,15 +423,6 @@ func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
 	}
 
 	return teams, nil
-}
-
-func getRegisteredTeam(event Event, teamId int) (*models.EventRegistration, error) {
-	var team models.EventRegistration
-	err := config.Db.Table(event.String()).Where("team_id = ?", teamId).First(&team).Error
-	if err != nil {
-		return nil, err
-	}
-	return &team, nil
 }
 
 func AddAbstractForTeam(teamId int) error {
