@@ -18,7 +18,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
     async function fetchData() {
       try {
         const { data } = await axios.get(currentAPI);
-        if (data != null && data.length >= 3) {
+        if (data != null) {
           setRankingsData(data);
           setIsListRecieved(true);
         }
