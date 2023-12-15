@@ -52,10 +52,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
                         Team Name
                       </th>
                       <th scope="col" className="px-6 py-4 text-center">
-                        Leader RegNo
-                      </th>
-                      <th scope="col" className="px-6 py-4 text-center">
-                        Score
+                        Team ID
                       </th>
                     </tr>
                   </thead>
@@ -105,10 +102,7 @@ export default function EventLeaderboard({ currentAPI }: props) {
                             {rankingData.name}
                           </th>
                           <td className="px-6 py-4 text-center">
-                            {rankingData.members[0].reg_no}
-                          </td>
-                          <td className="px-6 py-4 text-center">
-                            {rankingData.score}
+                            {rankingData.team_id}
                           </td>
                         </tr>
                       );

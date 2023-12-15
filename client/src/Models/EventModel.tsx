@@ -1,7 +1,6 @@
 export interface Team {
     members: Member[],
     name: string,
-    score: number,
     size: number,
     team_id: number
 }
