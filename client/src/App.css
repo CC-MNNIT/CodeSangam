@@ -445,7 +445,7 @@ h2 {
 }
 
 .loader2 {
-	position: relative;
+	position: absolute;
 	z-index: 100000;
 	width: 200px;
 	height: 200px;
@@ -500,7 +500,7 @@ h2 {
 }
 
 .loader3 {
-	position: relative;
+	position: absolute;
 	width: 200px;
 	height: 200px;
 	border-radius: 50%;

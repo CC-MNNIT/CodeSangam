@@ -56,7 +56,7 @@ export default function EventsPodium({ teams }: Prop) {
                                 (
                                     <div className="podium__item" style={{ zIndex: "190" }}>
                                         <div className="podium__rank first">
-                                            <div className="loader1">
+                                            <div className="loader2">
                                                 <span></span>
                                                 <span></span>
                                                 <span></span>
@@ -79,7 +79,7 @@ export default function EventsPodium({ teams }: Prop) {
                                 (
                                     <div className="podium__item" style={{ zIndex: "40" }}>
                                         <div style={{ height: "250px" }} className="podium__rank third">
-                                            <div className="loader3">
+                                            <div className="loader2">
                                                 <span></span>
                                                 <span></span>
                                                 <span></span>
@@ -108,7 +108,7 @@ export default function EventsPodium({ teams }: Prop) {
                                 (
                                     <div className="podium__item" style={{ zIndex: "100" }}>
                                         <div style={{ height: "250px" }} className="podium__rank second">
-                                            <div className="loader2">
+                                            <div className="loader1">
                                                 <span></span>
                                                 <span></span>
                                                 <span></span>
@@ -154,7 +154,7 @@ export default function EventsPodium({ teams }: Prop) {
                                 (
                                     <div className="podium__item" style={{ zIndex: "50" }}>
                                         <div style={{ height: "250px" }} className="podium__rank third">
-                                            <div className="loader3">
+                                            <div className="loader1">
                                                 <span></span>
                                                 <span></span>
                                                 <span></span>
@@ -186,7 +186,7 @@ export default function EventsPodium({ teams }: Prop) {
                                             (
                                                 <div className="podium__item" style={{ zIndex: "80" }}>
                                                     <div style={{ height: "250px" }} className="podium__rank second">
-                                                        <div className="loader2">
+                                                        <div className="loader3">
                                                             <span></span>
                                                             <span></span>
                                                             <span></span>
@@ -209,7 +209,7 @@ export default function EventsPodium({ teams }: Prop) {
                                             (
                                                 <div className="podium__item" style={{ zIndex: "180" }}>
                                                     <div className="podium__rank first">
-                                                        <div className="loader1">
+                                                        <div className="loader3">
                                                             <span></span>
                                                             <span></span>
                                                             <span></span>
