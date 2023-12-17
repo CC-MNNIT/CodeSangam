@@ -25,7 +25,7 @@ export default function Team() {
                   <span></span>
                   <span></span>
                 </div>
-                <div className='image-cropper'>
+                <div className='image-cropper-contri'>
                   <img src={`https://github.com/shank03.png`} alt="" />
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function Team() {
                   <span></span>
                   <span></span>
                 </div>
-                <div className='image-cropper'>
+                <div className='image-cropper-contri'>
                   <img src={`https://github.com/sanskaromar.png`} alt="" />
                 </div>
               </div>
@@ -91,7 +91,7 @@ export default function Team() {
                   <span></span>
                   <span></span>
                 </div>
-                <div className='image-cropper'>
+                <div className='image-cropper-contri'>
                   <img src={`https://github.com/priyavkaneria.png`} alt="" />
                 </div>
               </div>
@@ -124,7 +124,7 @@ export default function Team() {
                   <span></span>
                   <span></span>
                 </div>
-                <div className='image-cropper'>
+                <div className='image-cropper-contri'>
                   <img src={`https://github.com/adityaa22.png`} alt="" />
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function Team() {
                   <span></span>
                   <span></span>
                 </div>
-                <div className='image-cropper'>
+                <div className='image-cropper-contri'>
                   <img src={`https://github.com/32bitdev.png`} alt="" />
                 </div>
               </div>
@@ -192,7 +192,7 @@ export default function Team() {
                   <span></span>
                   <span></span>
                 </div>
-                <div className='image-cropper'>
+                <div className='image-cropper-contri'>
                   <img src={`https://github.com/meisabhishekpatel.png`} alt="" />
                 </div>
               </div>
