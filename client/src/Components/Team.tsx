@@ -272,7 +272,7 @@ export default function Team() {
 
         {/* Dropdown for filtering by year */}
         <div style={{ textAlign: 'center', margin: '20px 0' }}>
-          <label className='text-white' htmlFor="year-filter" style={{ marginRight: '10px' }}>Filter by Year: </label>
+          <label className='card podium__city-team' htmlFor="year-filter" style={{ marginRight: '10px' }}>Filter by Year: </label>
           <select
             ref={dropdownRef}
             id="year-filter"
@@ -391,5 +391,5 @@ const teamMembers = [
     image: 'https://github.com/meisabhishekpatel.png',
     year: 'third year',
   },
-  // Add more team members here
+ 
 ];
