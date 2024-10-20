@@ -82,7 +82,7 @@ export default function Team() {
             </div>
             <div ref={refArray[index]} className={`team-members ${activeYear === year ? 'flex' : 'hidden'} flex-wrap justify-around mt-4`}>
               {TeamMember.year[index][year].map((member, index) => (
-                <div key={index} className="container-team podium-team sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2">
+                <div key={index} className="container-team podium-team sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-2">
                   <div className="podium__item-team">
                     <div className="podium__rank team-individual flex flex-col">
                       <div className="flex justify-center items-center p-4">

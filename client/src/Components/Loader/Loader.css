@@ -1,0 +1,184 @@
+body {
+    background-color: #4c4c4c;
+  }
+  
+  #universe {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #galaxy {
+    transform: rotateX(75deg);
+    transform-style: preserve-3d;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .circle {
+    border-radius: 50%;
+    border: 1px solid #eee;
+    width: 1em;
+    height: 1em;
+    margin-top: -.5em;
+    margin-left: -.5em;
+    animation: spinner 1.5s infinite ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotateX(-75deg);
+  }
+  
+  .circle2 {
+    border-radius: 50%;
+    border: 1px solid #eee;
+    width: 1em;
+    height: 1em;
+    margin-top: -.5em;
+    margin-left: -.5em;
+    animation: spinner2 2s infinite ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotateX(-75deg);
+  }
+  
+  .circle3 {
+    border-radius: 50%;
+    border: 1px solid #eee;
+    width: 1em;
+    height: 1em;
+    margin-top: -.5em;
+    margin-left: -.5em;
+    animation: spinner3 2.5s infinite ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotateX(-75deg);
+  }
+  
+  /* Orbit, Position, and Dot Styles for Each Orbit (0 to 2) */
+  #orbit0, #orbit1, #orbit2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    animation-name: orbit;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 8em;
+    height: 8em;
+    margin-top: -4em;
+    margin-left: -4em;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    animation-duration: 3s;
+  }
+  
+  #pos0, #pos1, #pos2 {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    margin-left: -1em;
+    margin-top: -1em;
+    animation-name: invert;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    left: 50%;
+    top: -1px;
+    animation-duration: 3s;
+  }
+  
+  #dot0, #dot1, #dot2 {
+    background-color: #eee;
+    width: .5em;
+    height: .5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.25em;
+    margin-left: -.25em;
+    border-radius: 50%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    font-size: 0.2em;
+  }
+  
+  /* Specific animation delays for each orbit, position, and dot */
+  #orbit0, #pos0, #dot0 {
+    animation-delay: -0s;
+  }
+  #orbit1, #pos1, #dot1 {
+    animation-delay: -1s;
+  }
+  #orbit2, #pos2, #dot2 {
+    animation-delay: -2s;
+  }
+  
+  /* Circle Sizes */
+  .circle {
+    font-size: 6em;
+  }
+  .circle2 {
+    font-size: 5em;
+  }
+  .circle3 {
+    font-size: 4em;
+  }
+  
+  /* Keyframes */
+  @keyframes orbit {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    100% {
+      transform: rotateZ(-360deg);
+    }
+  }
+  
+  @keyframes invert {
+    0% {
+      transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg);
+    }
+    100% {
+      transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);
+    }
+  }
+  
+  @keyframes spinner {
+    0% {
+      transform: rotate3d(1, 0, 1, 0deg);
+    }
+    50% {
+      transform: rotate3d(1, 0, 1, 180deg);
+    }
+    100% {
+      transform: rotate3d(1, 0, 1, 360deg);
+    }
+  }
+  
+  @keyframes spinner2 {
+    0% {
+      transform: rotate3d(0, 1, 1, 0deg);
+    }
+    50% {
+      transform: rotate3d(0, 1, 1, 180deg);
+    }
+    100% {
+      transform: rotate3d(0, 1, 1, 360deg);
+    }
+  }
+  
+  @keyframes spinner3 {
+    0% {
+      transform: rotate3d(1, 1, 0, 0deg);
+    }
+    50% {
+      transform: rotate3d(1, 1, 0, 180deg);
+    }
+    100% {
+      transform: rotate3d(1, 1, 0, 360deg);
+    }
+  }
+  

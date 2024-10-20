@@ -12,6 +12,8 @@ import { websterRankingsDataAPI, droidrushRankingsDataAPI, logicalrhythmRankings
 import BASE_URL from "./Utils/Config";
 
 function App() {
+    console.log("line 15", websterRankingsDataAPI);
+    console.log("BASE_URL LINE 16", BASE_URL);
     return (
         <div>
             <Starfield />
