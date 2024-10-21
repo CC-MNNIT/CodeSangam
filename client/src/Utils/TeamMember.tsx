@@ -22,7 +22,7 @@ export const TeamMember: { year: TeamData[] } = {
           image: 'https://github.com/smt96700.png',
         },
         {
-          name: 'Tanishka Singh',
+          name: 'Tanishka Thakur',
           github: 'https://github.com/tan-inv',
           twitter: 'https://twitter.com',
           linkedin: 'https://www.linkedin.com/in/tanishka-thakur-915893250/',
@@ -77,29 +77,10 @@ export const TeamMember: { year: TeamData[] } = {
         },
       ],
     },
-    {
-      '22-23':[
-        {
-          name: 'Divyansh Upadhyay',
-          github: 'https://github.com/DuP-491',
-          twitter: 'https://twitter.com/',
-          linkedin: 'https://www.linkedin.com/in/divyansh-upadhyay/',
-          image: 'https://github.com/DuP-491.png',
-        },
-        {
-          name: 'Siddhesh Patil',
-          github: 'https://github.com/siddheshpatil777',
-          twitter: 'https://twitter.com/',
-          linkedin: 'https://www.linkedin.com/in/siddheshpatil777/',
-          image: 'https://github.com/DuP-491.png',
-        },
-      ]
-    }
   ],
 };
 
 export const Year = [
   '24-25',
   '23-24',
-  '22-23'
 ]

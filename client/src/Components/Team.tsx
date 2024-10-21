@@ -10,8 +10,7 @@ export default function Team() {
   // Create separate refs for each team year section
   const team24_25Ref = useRef<HTMLDivElement | null>(null);
   const team23_24Ref = useRef<HTMLDivElement | null>(null);
-  const team22_23Ref = useRef<HTMLDivElement | null>(null);
-  const refArray = [team24_25Ref, team23_24Ref, team22_23Ref];
+  const refArray = [team24_25Ref, team23_24Ref];
   const handleScroll = () => {
     const currentScroll = window.scrollY;
     const maxScroll = 220
@@ -27,9 +26,17 @@ export default function Team() {
   }, []);
 
   const handleYearClick = (year: string, index: number, ref: React.RefObject<HTMLDivElement>) => {
-
+    const batch = gsap.utils.toArray('.team-individual')
     if (activeYear === year) {
-      gsap.to(ref.current, { duration: 0.5, opacity: 0, scale: 0.8, onComplete: () => setActiveYear(null) });
+      gsap.to(batch, {
+        duration: 0.5, opacity: 0, stagger: 0.05, scale: 0.8,
+        onStart: ()=>{
+          gsap.delayedCall(0.5, ()=>{
+            setActiveYear(null);
+          })
+        }
+
+      });
       //remove the index from the active list
       if (year !== '24-25') {
         setActiveIndices(() => []);
@@ -45,9 +52,43 @@ export default function Team() {
         }
         return newActiveList;
       })
-      gsap.fromTo(ref.current,
-        { opacity: 0, scale: 0.8 },
-        { duration: 0.5, opacity: 1, scale: 1 });
+      // gsap.fromTo(ref.current,
+      //   { opacity: 0, scale: 0.8 },
+      //   { duration: 0.5, opacity: 1, scale: 1 });
+      // gsap.to(batch, {
+      //   opacity: 1,
+      //   scale: 1,
+      //   stagger: 0.05,
+      //   duration: 0.5,
+      // });
+      // const mm = gsap.matchMedia();
+
+      // mm.add({
+      //   isMobile: "(max-width: 767px)",  // Mobile screen
+      //   isLaptop: "(min-width: 768px)",  // Laptop and larger
+      // }, (context) => {
+      //   const { isMobile, isLaptop } = context.conditions as { isMobile: boolean; isLaptop: boolean };
+
+      //   gsap.to(batch, {
+      //     opacity: 1,
+      //     scale: isMobile ? 0.8 : 1,  // Scale 0.8 for mobile, 1 for laptop
+      //     stagger: 0.05,
+      //     duration: 0.5,
+      //   }); // Clean up after animations
+      // });
+      const matchMedia= gsap.matchMedia();
+      matchMedia.add({
+         isMobile: '(max-width: 767px)',
+         isLaptop: '(min-width: 768px)',
+      }, (context)=>{
+         const {isMobile, isLaptop}= context.conditions as {isMobile: boolean; isLaptop: boolean};
+         gsap.to(batch, {
+          opacity: 1,
+          scale: isMobile ? 0.8: 1,
+          stagger: 0.05,
+          duration: 0.5,
+         })
+      });
     }
   };
 
@@ -82,11 +123,11 @@ export default function Team() {
             </div>
             <div ref={refArray[index]} className={`team-members ${activeYear === year ? 'flex' : 'hidden'} flex-wrap justify-around mt-4`}>
               {TeamMember.year[index][year].map((member, index) => (
-                <div key={index} className="container-team podium-team sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-2">
+                <div key={index} className="container-team podium-team team-individual sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-2">
                   <div className="podium__item-team">
                     <div className="podium__rank team-individual flex flex-col">
                       <div className="flex justify-center items-center p-4">
-                        <div className="image-cropper-contri mt-48 overflow-hidden rounded-full border-4 border-white shadow-lg transition-shadow duration-300 group-hover:shadow-glow transform hover:scale-110 motion-safe:animate-bounce">
+                        <div className="image-cropper-contri mt-48 overflow-hidden rounded-full border-4 border-white shadow-lg transition-shadow duration-300 group-hover:shadow-glow transform hover:scale-110 ">
                           <img
                             src={member.image}
                             alt={member.name}
@@ -94,7 +135,7 @@ export default function Team() {
                           />
                         </div>
                       </div>
-                      <p className="card podium__city-team text-center mt-44 text-lg sm:text-base">{member.name}</p>
+                      <p className="card podium__city-team text-center mt-48 text-lg sm:text-base">{member.name}</p>
                       <div className="flex justify-center space-x-4 text-gray-500">
                         {member.github && (
                           <a href={member.github} target="_blank" rel="noreferrer">
