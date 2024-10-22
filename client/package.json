@@ -17,6 +17,7 @@
     "axios": "^1.5.1",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.4",
+    "generate-env-example": "^1.1.0",
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
     "react": "^18.2.0",
