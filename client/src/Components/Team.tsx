@@ -94,7 +94,7 @@ export default function Team() {
 
   return (
     <div className="flex justify-center min-h-screen relative z-10">
-      <div className={`year-container mt-56 text-center space-y-4 w-screen`}>
+      <div className={`year-container mt-60 text-center space-y-4 w-screen`}>
 
         {Year.map((year, index) => (
           <div className="group relative cursor-pointer" key={index}>
