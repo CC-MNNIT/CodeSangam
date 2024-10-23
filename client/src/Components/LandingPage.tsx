@@ -72,11 +72,6 @@ const LandingPage = () => {
           style={{ opacity: topDivOpacity }}
           className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo"
         >
-          <div className="flex flex-col items-center">
-            <div className="text-center mb-1">
-              <div className="text-xl font-semibold">Cyberquest</div>
-              <div className="text-lg">presents</div>
-            </div>
             <div className="flex justify-center">
               <div>C</div>
               <img
@@ -86,7 +81,6 @@ const LandingPage = () => {
               ></img>
               DE<div className="blink">SAN</div>
               <div>GAM</div>
-            </div>
           </div>
         </div>
         <div style={{ width: "100vw", height: divHeight * 0.5 }}></div>
@@ -214,11 +208,6 @@ const LandingPage = () => {
           style={{ opacity: topDivOpacity }}
           className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo"
         >
-          <div className="flex flex-col items-center">
-            <div className="text-center mb-1">
-              <div className="text-xl font-semibold">Cyberquest</div>
-              <div className="text-lg">presents</div>
-            </div>
             <div className="flex justify-center">
               <div>C</div>
               <img
@@ -228,7 +217,6 @@ const LandingPage = () => {
               ></img>
               DE<div className="blink sangam">SAN</div>
               <div className="sangam">GAM</div>
-            </div>
           </div>
         </div>
         <div style={{ width: "100vw", height: "300vh" }}>
