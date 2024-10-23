@@ -10,6 +10,7 @@ import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 import EventLeaderboard from "./Components/EventLeaderboard";
 import { websterRankingsDataAPI, droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
 import BASE_URL from "./Utils/Config";
+import ErrorPage from "./Components/ErrorPage";
 
 function App() {
     console.log("line 15", websterRankingsDataAPI);
