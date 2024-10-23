@@ -72,6 +72,7 @@ function App() {
                         <Team />
                         {/* <NavBar isHome={true} /> */}
                     </div>} />
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
         </div>
     )
