@@ -1,4 +1,6 @@
 import React from "react";
+import BASE_URL from "../Utils/Config";
+import { NavLink } from "react-router-dom";
 
 const ErrorPage = () => {
   return (
@@ -25,8 +27,8 @@ const ErrorPage = () => {
         >
           The page you are looking for has been lost in space.
         </p>
-        <a
-          href="/"
+        <NavLink
+          to={`/${BASE_URL}`}
           style={{
             color: "#fff",
             fontSize: "1.5rem",
@@ -36,19 +38,19 @@ const ErrorPage = () => {
             borderRadius: "8px",
             transition: "background 0.3s, color 0.3s",
           }}
-          onMouseEnter={(e) => {
+          onMouseEnter={(e: any) => {
             const target = e.target as HTMLAnchorElement;
             target.style.backgroundColor = "#fff";
             target.style.color = "#000";
           }}
-          onMouseLeave={(e) => {
+          onMouseLeave={(e: any) => {
             const target = e.target as HTMLAnchorElement;
             target.style.backgroundColor = "transparent";
             target.style.color = "#fff";
           }}
         >
           Go Back Home
-        </a>
+        </NavLink>
       </div>
     </div>
   );

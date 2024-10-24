@@ -25,6 +25,14 @@ export default function Team() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
   const handleYearClick = (year: string, index: number, ref: React.RefObject<HTMLDivElement>) => {
     const batch = gsap.utils.toArray('.team-individual')
     if (activeYear === year) {
@@ -52,30 +60,6 @@ export default function Team() {
         }
         return newActiveList;
       })
-      // gsap.fromTo(ref.current,
-      //   { opacity: 0, scale: 0.8 },
-      //   { duration: 0.5, opacity: 1, scale: 1 });
-      // gsap.to(batch, {
-      //   opacity: 1,
-      //   scale: 1,
-      //   stagger: 0.05,
-      //   duration: 0.5,
-      // });
-      // const mm = gsap.matchMedia();
-
-      // mm.add({
-      //   isMobile: "(max-width: 767px)",  // Mobile screen
-      //   isLaptop: "(min-width: 768px)",  // Laptop and larger
-      // }, (context) => {
-      //   const { isMobile, isLaptop } = context.conditions as { isMobile: boolean; isLaptop: boolean };
-
-      //   gsap.to(batch, {
-      //     opacity: 1,
-      //     scale: isMobile ? 0.8 : 1,  // Scale 0.8 for mobile, 1 for laptop
-      //     stagger: 0.05,
-      //     duration: 0.5,
-      //   }); // Clean up after animations
-      // });
       const matchMedia= gsap.matchMedia();
       matchMedia.add({
          isMobile: '(max-width: 767px)',
@@ -104,7 +88,7 @@ export default function Team() {
               onClick={() => handleYearClick(year, index, refArray[index])}
             >
               <p className="card podium__city-team text-2xl sm:text-lg lg:text-3xl font-bold">
-                Team {year}
+                Tech-Team {year}
               </p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

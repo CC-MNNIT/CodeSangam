@@ -22,7 +22,7 @@ export default function NavBar() {
       {/* <Starfield /> */}
       <nav
         style={{ zIndex: "40000000" }}
-        className="bg-transparent fixed w-full top-0 left-0"
+        className="bg-transparent fixed w-full top2 left-0"
       >
         <div className="flex flex-wrap items-center justify-between pt-0 p-4 mt-0 m-3">
           <NavLink
@@ -33,7 +33,7 @@ export default function NavBar() {
             }}
             className="flex h-full justify-center items-center md:order-1" // Add 'items-center' to vertically center the logo
           >
-            <img src={logo} className=" h-[8rem] ml-2 pt-0 mt-0 mr-3" alt="" />
+            <img src={logo} className=" h-[6rem] ml-2 pt-0 mt-0 mr-3" alt="" />
           </NavLink>
           <div className="flex justify-between md:order-2">
             <a
@@ -95,12 +95,24 @@ export default function NavBar() {
               <li>
                 <NavLink
                   to={`/${BASE_URL}`}
-                  onClick={() => {
-                    window.scrollTo({
-                      left: 0,
-                      top: document.body.scrollHeight,
-                      behavior: "smooth",
-                    });
+                  // onClick={() => {
+                  //   window.scrollTo({
+                  //     left: 0,
+                  //     top: document.body.scrollHeight,
+                  //     behavior: "smooth",
+                  //   });
+                    
+                  // }}
+                  onClick= {()=>{
+                    const scrollToBottom =()=>{
+                      window.scrollTo({
+                        left: 0,
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth',
+                      });
+                    };
+                    scrollToBottom();
+                    setTimeout(scrollToBottom, 100);
                   }}
                   className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
                 >
