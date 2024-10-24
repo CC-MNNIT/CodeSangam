@@ -95,14 +95,6 @@ export default function NavBar() {
               <li>
                 <NavLink
                   to={`/${BASE_URL}`}
-                  // onClick={() => {
-                  //   window.scrollTo({
-                  //     left: 0,
-                  //     top: document.body.scrollHeight,
-                  //     behavior: "smooth",
-                  //   });
-                    
-                  // }}
                   onClick= {()=>{
                     const scrollToBottom =()=>{
                       window.scrollTo({
@@ -130,6 +122,12 @@ export default function NavBar() {
               <li>
                 <NavLink
                   to={`/${BASE_URL}/team`}
+                  onClick={()=>{
+                    window.scrollTo({
+                      top:0,
+                      behavior: 'smooth',
+                    })
+                  }}
                   className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
                 >
                   TEAM
@@ -192,11 +190,15 @@ export default function NavBar() {
                   to={`/${BASE_URL}`}
                   onClick={() => {
                     setHide("none");
-                    window.scrollTo({
-                      left: 0,
-                      top: document.body.scrollHeight * 0.25,
-                      behavior: "smooth",
-                    });
+                    const scrollBottom= ()=> {
+                      window.scrollTo({
+                        left: 0,
+                        top: document.body.scrollHeight * 0.25,
+                        behavior: "smooth",
+                      });
+                    }
+                    scrollBottom();
+                    setTimeout(scrollBottom, 100);
                   }}
                   className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
                 >
@@ -208,6 +210,10 @@ export default function NavBar() {
                   to={`/${BASE_URL}/team`}
                   onClick={() => {
                     setHide("none");
+                    window.scrollTo({
+                      top:0,
+                      behavior: 'smooth',
+                    })
                   }}
                   className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
                 >

@@ -20,6 +20,13 @@ export default function Team() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    const topScroll= ()=>{
+      window.scrollTo({
+      top:0,
+      behavior: 'smooth',
+    })
+    }
+    topScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
