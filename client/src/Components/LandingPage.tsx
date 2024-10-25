@@ -72,15 +72,15 @@ const LandingPage = () => {
           style={{ opacity: topDivOpacity }}
           className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo"
         >
-            <div className="flex justify-center">
-              <div>C</div>
-              <img
-                className="photo rotate spinner"
-                src={moon}
-                alt="moon with rover"
-              ></img>
-              DE<div className="blink">SAN</div>
-              <div>GAM</div>
+          <div className="flex justify-center">
+            <div>C</div>
+            <img
+              className="photo rotate spinner"
+              src={moon}
+              alt="moon with rover"
+            ></img>
+            DE<div className="blink">SAN</div>
+            <div>GAM</div>
           </div>
         </div>
         <div style={{ width: "100vw", height: divHeight * 0.5 }}></div>
@@ -100,7 +100,7 @@ const LandingPage = () => {
               eventn="Webster"
               eventdescription="Webster is a web development-focused event, emphasizing the enhancement of participants' skills in creating web applications. It provides opportunities for individuals to learn about web technologies, frameworks, and best practices in the field."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/100z16qJ2WB1dH781VJInycku07GqP3t2/view?usp=sharing"
+              url="https://drive.google.com/file/d/1SW0gblc_-fRNJdvB1N8qrPMfPm1Z9kjO/view?usp=sharing"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
@@ -111,7 +111,7 @@ const LandingPage = () => {
               eventn="Droidrush"
               eventdescription="Droidrush is an event centered around Android development, where participants can delve into the world of Android app development. This event offers hands-on experience in building Android applications, exploring the Android ecosystem, and understanding mobile app design principles."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1hp3Wy6C94TCq-g56HWCQvZHZrNYLqdMI/view?usp=sharing"
+              url="https://drive.google.com/file/d/1ssSEmt2i0Nwdq-HEKmwc36z-V18iFDzD/view?usp=sharing"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
@@ -122,18 +122,18 @@ const LandingPage = () => {
               eventn="Logical Rhythm"
               eventdescription="Logical Rythm is a machine learning event that empowers participants with essential knowledge and skills in data analysis, algorithm development, and model training. This event equips attendees with a strong foundation in artificial intelligence and data science, preparing them for exciting opportunities in these fields."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1-8yv9NpIEkMYSxW8xXDlaCklAYPmE8uJ/view?usp=sharing"
+              url="https://drive.google.com/file/d/1CdEoNCYAUkNg4xwF2Q1R1mx2Q_OydWnL/view?usp=drive_link"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
-          <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
+          <div className="bg-transparent mt-[-2https://drive.google.com/file/d/1zVvolHyteoBou99AnR-RdhtmCkV43Wwx/view?usp=sharing25px] scale-[0.6] flex justify-center items-center">
             <Card2
               leftrotateMoon={leftrotateMoon}
               rightrotateMoon={rightrotateMoon}
               eventn="Softablitz"
               eventdescription="Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1zVvolHyteoBou99AnR-RdhtmCkV43Wwx/view?usp=sharing"
+              url="https://drive.google.com/file/d/1JuE-dhBkNyrjnvhsUBQivyZcoQlzIUtk/view?usp=drive_link"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
@@ -208,15 +208,15 @@ const LandingPage = () => {
           style={{ opacity: topDivOpacity }}
           className="my-auto mx-auto scale-50 md:scale-75 lg:scale-100 logo"
         >
-            <div className="flex justify-center">
-              <div>C</div>
-              <img
-                className="photo rotate spinner"
-                src={moon}
-                alt="moon with rover"
-              ></img>
-              DE<div className="blink sangam">SAN</div>
-              <div className="sangam">GAM</div>
+          <div className="flex justify-center">
+            <div>C</div>
+            <img
+              className="photo rotate spinner"
+              src={moon}
+              alt="moon with rover"
+            ></img>
+            DE<div className="blink sangam">SAN</div>
+            <div className="sangam">GAM</div>
           </div>
         </div>
         <div style={{ width: "100vw", height: "300vh" }}>
