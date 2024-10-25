@@ -350,7 +350,7 @@ func validateRegNo(regNo *string) bool {
 		return false
 	}
 
-	r3rd, err := regexp.Compile("^2024[0-9]{4}$")
+	r3rd, err := regexp.Compile("^2022[0-9]{4}$")
 	if err != nil {
 		return false
 	}
