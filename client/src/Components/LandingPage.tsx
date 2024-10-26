@@ -100,7 +100,7 @@ const LandingPage = () => {
               eventn="Webster"
               eventdescription="Webster is a web development-focused event, emphasizing the enhancement of participants' skills in creating web applications. It provides opportunities for individuals to learn about web technologies, frameworks, and best practices in the field."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1SW0gblc_-fRNJdvB1N8qrPMfPm1Z9kjO/view?usp=sharing"
+              url="https://drive.google.com/file/d/1vhbLyD_ywDbN9nMBIouy8iwssGA0Yz8D/view?usp=drive_link"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
