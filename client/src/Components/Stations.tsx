@@ -61,7 +61,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
           eventn="Softablitz"
           eventdescription="Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software."
           teamsize="Team Size: (1 - 3)"
-          url="https://drive.google.com/file/d/1JuE-dhBkNyrjnvhsUBQivyZcoQlzIUtk/view?usp=drive_link"
+          url="https://drive.google.com/file/d/1ZnR2ms7TlzIEh7xsHatF0vdOK4ugpawn/view?usp=drive_link"
         />
       </div>
       <div
