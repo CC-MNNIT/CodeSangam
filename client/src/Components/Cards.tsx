@@ -20,7 +20,7 @@ interface props {
 function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, teamsize, url }: props) {
     return (
         <div className="">
-            <div id="card" className="w-[40rem] h-[37rem]" >
+            <div id="card" className="w-[40rem] h-[36rem]" >
                 <h1 className="textGlow h1tag blinking">{eventn} :</h1>
                 <div className="plain">{eventdescription}
                     <span className="fast-blinking">▮</span>

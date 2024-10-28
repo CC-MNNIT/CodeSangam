@@ -126,7 +126,7 @@ const LandingPage = () => {
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
-          <div className="bg-transparent mt-[-2https://drive.google.com/file/d/1zVvolHyteoBou99AnR-RdhtmCkV43Wwx/view?usp=sharing25px] scale-[0.6] flex justify-center items-center">
+          <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
             <Card2
               leftrotateMoon={leftrotateMoon}
               rightrotateMoon={rightrotateMoon}
