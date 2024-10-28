@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Bai+Jamjuree");
 @import url("https://fonts.googleapis.com/css2?family=Fredoka&family=Montserrat&display=swap");
 
+
+* {
+	-webkit-tap-highlight-color: transparent;
+  }
+  
 html,
 body {
 	margin: 0;
