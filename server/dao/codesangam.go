@@ -579,11 +579,11 @@ func GetTeamIdsWithoutMentor(event Event) (*[]int, error) {
 func getQuota(event Event) int {
 	switch event {
 	case droidTable:
-		return 8
+		return 3
 	case softTable:
-		return 10
+		return 4
 	case websterTable:
-		return 16
+		return 8
 	default:
 		return 0
 	}
