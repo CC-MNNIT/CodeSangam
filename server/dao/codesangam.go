@@ -400,7 +400,7 @@ func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
 	var teams []*models.DashboardTeam
 	for idx, rTeam := range registeredTeams {
 		// Skip teams with score 0
-		if rTeam.Score <= 0 {
+		if rTeam.Score <= 40 {
 			continue
 		}
 		// Max 10 teams
