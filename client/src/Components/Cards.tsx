@@ -33,11 +33,11 @@ function Cards({ leftrotateMoon, rightrotateMoon, eventn, eventdescription, team
                 <div>
                     {
                         eventn === "ContriHub" ?
-                            <a href={url} target="_blank">
+                            // <a href={url} target="_blank">
                                 <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>
-                                    Website
+                                    Website Coming Soon!
                                 </button>
-                            </a>
+                            // </a>
                             :
                             <a href={url} target="_blank">
                                 <button className='card -mt-5 float-right text-blue-500 event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>
