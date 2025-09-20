@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DropDown from "./Dropdown";
 import BASE_URL from "../Utils/Config";
 import { NavLink } from "react-router-dom";
-import logo from "../Assets/cccover2copy.png";
+import logo from "../Assets/cc2025.svg";
 // interface props {
 //     isHome: boolean
 // }
