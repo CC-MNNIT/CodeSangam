@@ -4,6 +4,7 @@ import DropDown from "./Dropdown";
 import BASE_URL from "../Utils/Config";
 import { NavLink } from "react-router-dom";
 import logo from "../Assets/cc2025.svg";
+import devfolio from "../Assets/_Light.png"
 // interface props {
 //     isHome: boolean
 // }
@@ -34,6 +35,16 @@ export default function NavBar() {
             className="flex h-full justify-center items-center md:order-1" // Add 'items-center' to vertically center the logo
           >
             <img src={logo} className="h-[6rem] ml-2 pt-0 mt-0 mr-3 max-[414px]:h-[4rem]" alt="" />
+          </NavLink>
+          <NavLink
+            to={`/${BASE_URL}`}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+            }}
+            className="flex h-full justify-center items-center md:order-1" // Add 'items-center' to vertically center the logo
+          >
+            <img src={devfolio} className="h-[6rem] ml-2 pt-0 mt-0 mr-3 max-[414px]:h-[4rem]" alt="" />
           </NavLink>
           <div className="flex justify-between md:order-2">
             <a
