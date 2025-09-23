@@ -852,20 +852,110 @@
                                                         {{ $event.Rules }}
                                                     </dd>
                                                 </div>
-                                               <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-    <dt class="text-sm font-medium leading-6 text-white">
-        Registration Status
-    </dt>
-    <dd
-        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-    >
-        {{ if $event.Registered }}
-        <span class="text-green-400">✓ Registered</span>
-        {{ else }}
-        <span class="text-yellow-400">⏳ Registrations not open yet</span>
-        {{ end }}
-    </dd>
-</div>
+                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                        Registration
+                                                    </dt>
+                                                    <dd
+                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
+                                                    >
+                                                        {{ if $event.Registered }}
+                                                        <!--  -->
+                                                        Registered
+                                                        <!--  -->
+                                                        {{ else }}
+                                                        <!--  -->
+                                                        <form
+                                                            class="mt-4"
+                                                            method="dialog"
+                                                            action="#"
+                                                            onsubmit="submitRegistration('{{ $event.Tag }}', '{{ $.BaseUrl }}')"
+                                                        >
+                                                            <div class="relative z-0 w-full mb-6 group">
+                                                                <input
+                                                                    type="text"
+                                                                    name="{{ $event.Tag }}_team_name"
+                                                                    id="{{ $event.Tag }}_team_name"
+                                                                    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                    placeholder=" "
+                                                                    required
+                                                                />
+                                                                <label
+                                                                    for="{{ $event.Tag }}_team_name"
+                                                                    class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                >
+                                                                    Team Name
+                                                                </label>
+                                                            </div>
+                                                            <div class="relative z-0 w-full mb-6 group">
+                                                                <input
+                                                                    type="text"
+                                                                    name="{{ $event.Tag }}_lead_reg"
+                                                                    id="{{ $event.Tag }}_lead_reg"
+                                                                    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                    placeholder=" "
+                                                                    value="{{ $.UserInfo.RegNo }}"
+                                                                    disabled
+                                                                    required
+                                                                />
+                                                                <label
+                                                                    for="{{ $event.Tag }}_lead_reg"
+                                                                    class="peer-focus:font-medium absolute text- text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                >
+                                                                    Leader RegNo (You)
+                                                                </label>
+                                                            </div>
+                                                            <div class="relative z-0 w-full mb-6 group">
+                                                                <label
+                                                                    class="mt-1 text-sm leading-6 text-white sm:col-span-3 sm:mt-0"
+                                                                >
+                                                                    Other team members registration numbers (excluding
+                                                                    yours)
+                                                                </label>
+                                                            </div>
+                                                            <div class="grid md:grid-cols-3 md:gap-6">
+                                                                <div class="relative z-0 w-full mb-6 group">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="{{ $event.Tag }}_mem_1_reg"
+                                                                        id="{{ $event.Tag }}_mem_1_reg"
+                                                                        class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                        placeholder=" "
+                                                                    />
+                                                                    <label
+                                                                        for="{{ $event.Tag }}_mem_1_reg"
+                                                                        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                    >
+                                                                        Member 1
+                                                                    </label>
+                                                                </div>
+                                                                <div class="relative z-0 w-full mb-6 group">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="{{ $event.Tag }}_mem_2_reg"
+                                                                        id="{{ $event.Tag }}_mem_2_reg"
+                                                                        class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                        placeholder=" "
+                                                                    />
+                                                                    <label
+                                                                        for="{{ $event.Tag }}_mem_2_reg"
+                                                                        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                    >
+                                                                        Member 2
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <button
+                                                                type="submit"
+                                                                class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                                                            >
+                                                                Register
+                                                            </button>
+                                                        </form>
+                                                        <!--  -->
+                                                        {{ end }}
+                                                    </dd>
+                                                </div>
                                             </dl>
                                         </div>
                                     </div>
