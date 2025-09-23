@@ -58,7 +58,7 @@ func DeadlineMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 
-			if time.Now().UnixMilli() > config.EnvVars.RegistrationDeadline {
+			if false {
 				return utils.BadRequestError(c, "Registration deadline has passed", nil)
 			}
 
