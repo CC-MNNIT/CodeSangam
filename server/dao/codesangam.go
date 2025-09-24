@@ -345,27 +345,27 @@ func userAllowed(event Event, user *models.User) bool {
 }
 
 func validateRegNo(regNo *string) bool {
-	r1st, err := regexp.Compile("^2024[0-9]{4}$")
+	r1st, err := regexp.Compile("^2025[0-9]{4}$")
 	if err != nil {
 		return false
 	}
 
-	r3rd, err := regexp.Compile("^2022[0-9]{4}$")
+	r3rd, err := regexp.Compile("^2023[0-9]{4}$")
 	if err != nil {
 		return false
 	}
 
-	r2nd, err := regexp.Compile("^2023[0-9]{4}$")
+	r2nd, err := regexp.Compile("^2024[0-9]{4}$")
 	if err != nil {
 		return false
 	}
 
-	rMca, err := regexp.Compile("^2023(CA|ca)([0-9]{3}|[0-9]{2})$")
+	rMca, err := regexp.Compile("^2024(CA|ca)([0-9]{3}|[0-9]{2})$")
 	if err != nil {
 		return false
 	}
 
-	rMca1st, err := regexp.Compile("^2024(CA|ca)([0-9]{3}|[0-9]{2})$")
+	rMca1st, err := regexp.Compile("^2025(CA|ca)([0-9]{3}|[0-9]{2})$")
 	if err != nil {
 		return false
 	}
