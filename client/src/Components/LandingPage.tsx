@@ -100,7 +100,7 @@ const LandingPage = () => {
               eventn="Webster"
               eventdescription="Webster is a web development-focused event, emphasizing the enhancement of participants' skills in creating web applications. It provides opportunities for individuals to learn about web technologies, frameworks, and best practices in the field."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1vhbLyD_ywDbN9nMBIouy8iwssGA0Yz8D/view?usp=drive_link"
+              url="https://drive.google.com/file/d/1P3cOWOxf1OcV-lmndjQ0TpqY7J8IF3SZ/view?usp=sharing"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
@@ -111,8 +111,7 @@ const LandingPage = () => {
               eventn="Droidrush"
               eventdescription="Droidrush is an event centered around Android development, where participants can delve into the world of Android app development. This event offers hands-on experience in building Android applications, exploring the Android ecosystem, and understanding mobile app design principles."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1ssSEmt2i0Nwdq-HEKmwc36z-V18iFDzD/view?usp=sharing"
-            />
+              url="https://drive.google.com/file/d/16O2h3LMt7-w9JcROEbyH8I-wG5D_7kQK/view?usp=sharing"></Card2>
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
           <div className="bg-transparent mt-[-225px] scale-[0.6] flex justify-center items-center">
@@ -122,7 +121,7 @@ const LandingPage = () => {
               eventn="Logical Rhythm"
               eventdescription="Logical Rythm is a machine learning event that empowers participants with essential knowledge and skills in data analysis, algorithm development, and model training. This event equips attendees with a strong foundation in artificial intelligence and data science, preparing them for exciting opportunities in these fields."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1CdEoNCYAUkNg4xwF2Q1R1mx2Q_OydWnL/view?usp=drive_link"
+              url="https://drive.google.com/file/d/170b4iwsQ52g6KXd1FfdVvO-eSShPuKig/view?usp=sharing"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
@@ -133,7 +132,7 @@ const LandingPage = () => {
               eventn="Softablitz"
               eventdescription="Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software."
               teamsize="Team Size: (1 - 3)"
-              url="https://drive.google.com/file/d/1ZnR2ms7TlzIEh7xsHatF0vdOK4ugpawn/view?usp=drive_link"
+              url="https://drive.google.com/file/d/1ejg-EFY2Z_vcuYSToop8LE8EqYdPy-ET/view?usp=sharing"
             />
           </div>
           {/* <div style={{ height: "10px" }}></div> */}
@@ -144,7 +143,7 @@ const LandingPage = () => {
               eventn="ContriHub"
               eventdescription="ContriHub is an event focused on open-source development, aligning with Hacktoberfest. It encourages participants to contribute to open-source projects, fostering collaboration within the open-source community. Participants can gain experience in coding, issue tracking, and open-source contribution during this event."
               teamsize="Team Size: 1"
-              url="https://sac.mnnit.ac.in/contrihub/"
+              url="https://computercodingclub.in/contrihub/"
             />
           </div>
         </div>
