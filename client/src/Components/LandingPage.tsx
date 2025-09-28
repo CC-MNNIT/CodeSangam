@@ -247,7 +247,15 @@ const LandingPage = () => {
                 className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
               />
             </div>
+           
           </div>
+
+           <div 
+              className="apply-button" 
+              data-hackathon-slug="codesangam2k25" 
+              data-button-theme="light"
+              style={{ height: "4px", width: "3px" }}
+            ></div>
         </div>
         <div style={{ width: "100vw", height: "300vh" }}>
           <div style={{ width: "100vw", height: "100vh" }}></div>
