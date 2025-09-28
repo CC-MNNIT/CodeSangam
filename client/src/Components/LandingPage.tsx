@@ -9,6 +9,17 @@ import left from "../Assets/left.png";
 import { log } from "console";
 
 const LandingPage = () => {
+  React.useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apply.devfolio.co/v2/sdk.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   const { innerWidth: width, innerHeight: height } = window;
   var factor = 3;
   if (width < 640) factor = 0.5;
@@ -216,6 +227,12 @@ const LandingPage = () => {
             ></img>
             DE<div className="blink sangam">SAN</div>
             <div className="sangam">GAM</div>
+            <div 
+              className="apply-button" 
+              data-hackathon-slug="codesangam2k25" 
+              data-button-theme="light"
+              style={{ height: "444px", width: "312px" }}
+            ></div>
           </div>
         </div>
         <div style={{ width: "100vw", height: "300vh" }}>
