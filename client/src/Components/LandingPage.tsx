@@ -243,7 +243,7 @@ const LandingPage = () => {
             <div className="flex flex-col items-center">
               <img 
                 src={eth}
-                alt="DEVFOLIO LOGO"
+                alt="ETHINDIA LOGO"
                 className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
               />
             </div>
