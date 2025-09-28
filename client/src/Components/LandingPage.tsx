@@ -236,14 +236,14 @@ const LandingPage = () => {
             <div className="flex flex-col items-center">
               <img 
                 src={devfolio}
-                alt="Partner Logo 1"
+                alt="DEVFOLIO LOGO"
                 className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
               />
             </div>
             <div className="flex flex-col items-center">
               <img 
                 src={eth}
-                alt="Partner Logo 2"
+                alt="DEVFOLIO LOGO"
                 className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
               />
             </div>
