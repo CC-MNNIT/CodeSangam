@@ -4,13 +4,14 @@ import { TeamMember, Year } from '../Utils/TeamMember';
 import { gsap } from 'gsap';
 
 export default function Team() {
-  const [activeYear, setActiveYear] = useState<string | null>('24-25');
+  const [activeYear, setActiveYear] = useState<string | null>('25-26');
   const [topDivOpacity, setTopDivOpacity] = useState(1);
   const [activeIndices, setActiveIndices] = useState<number[]>([0]);
   // Create separate refs for each team year section
+  const team25_26Ref = useRef<HTMLDivElement | null>(null);
   const team24_25Ref = useRef<HTMLDivElement | null>(null);
   const team23_24Ref = useRef<HTMLDivElement | null>(null);
-  const refArray = [team24_25Ref, team23_24Ref];
+  const refArray = [team25_26Ref, team24_25Ref, team23_24Ref];
   const handleScroll = () => {
     const currentScroll = window.scrollY;
     const maxScroll = 220
@@ -53,7 +54,7 @@ export default function Team() {
 
       });
       //remove the index from the active list
-      if (year !== '24-25') {
+      if (year !== '25-26') {
         setActiveIndices(() => []);
       }
 

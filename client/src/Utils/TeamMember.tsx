@@ -13,6 +13,40 @@ interface TeamData {
 export const TeamMember: { year: TeamData[] } = {
   year: [
     {
+      
+      '25-26': [
+        {
+          name: 'Lokesh Wagh',
+          github: 'https://github.com/lokesh-wagh',
+          twitter: 'https://twitter.com',
+          linkedin: 'https://www.linkedin.com/in/lokesh-wagh12/',
+          image: 'https://github.com/lokesh-wagh.png',
+        },
+        {
+          name: 'Ayushman Tiwari',
+          github: 'https://github.com/Ayushman444',
+          twitter: 'https://twitter.com',
+          linkedin: 'https://www.linkedin.com/in/ayushman-tiwari-a7807b243/',
+          image: 'https://github.com/Ayushman444.png',
+        },
+        {
+          name: 'Aviral Mishra',
+          github: 'https://github.com/aviral-mishra-1008',
+          twitter: 'https://x.com/AviralM87025169',
+          linkedin: 'https://www.linkedin.com/in/aviral-mishra-india/',
+          image: 'https://github.com/aviral-mishra-1008.png',
+        },
+        {
+          name: 'Uday Nauhbar',
+          github: 'https://github.com/Uday061',
+          twitter: 'https://x.com/Uday_n51',
+          linkedin: 'https://www.linkedin.com/in/uday-nauhbar-0b2b7124b/',
+          image: 'https://github.com/Uday061.png',
+        },
+      ],
+    },
+    {
+      
       '24-25': [
         {
           name: 'Abhishek Patel',
@@ -95,6 +129,7 @@ export const TeamMember: { year: TeamData[] } = {
 };
 
 export const Year = [
+  '25-26',
   '24-25',
   '23-24',
 ]
