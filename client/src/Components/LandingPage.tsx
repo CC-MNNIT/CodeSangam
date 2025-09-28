@@ -7,7 +7,8 @@ import moon from "../Assets/moon.svg";
 import right from "../Assets/right.png";
 import left from "../Assets/left.png";
 import { log } from "console";
-
+import devfolio from "../Assets/_Dark.png"
+import eth from "../Assets/eth.png"
 const LandingPage = () => {
   React.useEffect(() => {
     const script = document.createElement('script');
@@ -227,12 +228,25 @@ const LandingPage = () => {
             ></img>
             DE<div className="blink sangam">SAN</div>
             <div className="sangam">GAM</div>
-            <div 
-              className="apply-button" 
-              data-hackathon-slug="codesangam2k25" 
-              data-button-theme="light"
-              style={{ height: "444px", width: "312px" }}
-            ></div>
+            
+          </div>
+          
+          {/* Partner/Sponsor Logos */}
+          <div className="flex justify-center items-center gap-6 mt-8">
+            <div className="flex flex-col items-center">
+              <img 
+                src={devfolio}
+                alt="Partner Logo 1"
+                className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
+            <div className="flex flex-col items-center">
+              <img 
+                src={eth}
+                alt="Partner Logo 2"
+                className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
           </div>
         </div>
         <div style={{ width: "100vw", height: "300vh" }}>
