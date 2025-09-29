@@ -3,6 +3,7 @@ package utils
 import (
 	"errors"
 	"io"
+	"log"
 	"mime/multipart"
 	"os"
 	"strconv"
@@ -35,9 +36,12 @@ func SaveAbstract(file *multipart.FileHeader, event dao.Event, teamId int) error
 	defer dst.Close()
 
 	if _, err := io.Copy(dst, src); err != nil {
+		log.Printf("Failed to copy abstract file for team %d, event %s: %v", teamId, event.String(), err)
 		return errors.New("unable to copy file")
 	}
-	return nil
+	
+	log.Printf("Abstract successfully saved for team %d, event %s, file: %s", teamId, event.String(), dst.Name())
+	return nil		
 }
 
 func AbstractExists(team *models.DashboardTeam, event string) bool {
