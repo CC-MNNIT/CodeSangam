@@ -29,7 +29,7 @@ export default function Card2({ leftrotateMoon, rightrotateMoon, eventn, eventde
                 <div>{
                     eventn === "ContriHub" ?
                         <a href={url} target="_blank">
-                            <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Website Coming Soon !! </button>
+                            <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Website </button>
                         </a> :
                         <a href={url} target="_blank">
                             <button className='card -mt-10 float-right text-white event-selected border-2 rounded-t-lg inline-block p-2 md:hover:text-black md:hover:bg-white transition-colors'>Problem Statement</button>

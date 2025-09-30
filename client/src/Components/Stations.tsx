@@ -74,7 +74,7 @@ export default function Stations({ leftrotateMoon, rightrotateMoon }: props) {
           eventn="ContriHub"
           eventdescription="ContriHub is an event focused on open-source development, aligning with Hacktoberfest. It encourages participants to contribute to open-source projects, fostering collaboration within the open-source community. Participants can gain experience in coding, issue tracking, and open-source contribution during this event."
           teamsize="Team Size: 1"
-          url="https://sac.mnnit.ac.in/contrihub/"
+          url="https://computercodingclub.in/contrihub/"
         />
       </div>
       <div
