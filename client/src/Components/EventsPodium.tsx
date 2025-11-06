@@ -148,8 +148,9 @@ export default function EventsPodium({ teams }: Prop) {
               <></>
             )}
           </div>
-          <p style={{ color: "white" }}>#2</p>
-          <p style={{ color: "white" }}>{secondTeam ? secondTeam.name : ""}</p>
+          {secondTeam && <> <p style={{ color: "white" }}>#2</p>
+          <p style={{ color: "white" }}>{secondTeam ? secondTeam.name : ""}</p>    
+          </>}
         </div>
         <div
           className="events-podium-container"
