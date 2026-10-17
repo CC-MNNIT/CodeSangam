@@ -9,7 +9,7 @@ import Events from "./Components/Events";
 import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 import EventLeaderboard from "./Components/EventLeaderboard";
 import { websterRankingsDataAPI, droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
-import BASE_URL from "./Utils/Config";
+import { route } from "./Utils/Config";
 import ErrorPage from "./Components/ErrorPage";
 
 function App() {
@@ -23,20 +23,18 @@ function App() {
       document.body.removeChild(script);
     }
 }, []);
-    console.log("line 15", websterRankingsDataAPI);
-    console.log("BASE_URL LINE 16", BASE_URL);
     return (
         <div>
             <Starfield />
             <NavBar />
             <Routes>
-                <Route path={`/${BASE_URL}`} element={
+                <Route path={route()} element={
                     <div className="">
                         {/* <Starfield /> */}
                         <LandingPage />
                         {/* <NavBar isHome={false} /> */}
                     </div>} />
-                <Route path={`${BASE_URL}/leaderboard`}>
+                <Route path={route("leaderboard")}>
                     <Route path={`contrihub`} element={
                         <div>
                             {/* <Starfield /> */}
@@ -77,7 +75,7 @@ function App() {
                         </div>
                     } />
                 </Route>
-                <Route path={`${BASE_URL}/team`} element={
+                <Route path={route("team")} element={
                     <div className="">
                         {/* <Starfield /> */}
                         <Team />

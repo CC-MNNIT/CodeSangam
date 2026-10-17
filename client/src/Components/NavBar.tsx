@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DropDown from "./Dropdown";
-import BASE_URL from "../Utils/Config";
+import { route } from "../Utils/Config";
 import { NavLink } from "react-router-dom";
 import logo from "../Assets/cc2025.svg";
 import devfolio from "../Assets/_Light.png"
@@ -27,7 +27,7 @@ export default function NavBar() {
       >
         <div className="flex flex-wrap items-center justify-between pt-0 p-4 mt-0 m-3">
           <NavLink
-            to={`/${BASE_URL}`}
+            to={route()}
             style={{ cursor: "pointer" }}
             onClick={() => {
               window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
@@ -39,7 +39,7 @@ export default function NavBar() {
           
           <div className="flex justify-between md:order-2">
             <a
-              href={`/${BASE_URL}/api/auth`}
+              href={route("api/auth")}
               style={{ fontSize: "75%" }}
               type="button"
               className="card text-blue-500 event-selected border-2 rounded-t-lg inline-block p-4 md:hover:text-blue-500"
@@ -85,7 +85,7 @@ export default function NavBar() {
             >
               <li>
                 <NavLink
-                  to={`/${BASE_URL}`}
+                  to={route()}
                   onClick={() => {
                     window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
                   }}
@@ -96,7 +96,7 @@ export default function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to={`/${BASE_URL}`}
+                  to={route()}
                   onClick= {()=>{
                     const scrollToBottom =()=>{
                       window.scrollTo({
@@ -115,7 +115,7 @@ export default function NavBar() {
               </li>
               <li className="nav-desktop">
                 <NavLink
-                  to={`/${BASE_URL}/leaderboard/webster`}
+                  to={route("leaderboard/webster")}
                   className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
                 >
                   LEADERBOARDS
@@ -123,7 +123,7 @@ export default function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to={`/${BASE_URL}/team`}
+                  to={route("team")}
                   onClick={()=>{
                     window.scrollTo({
                       top:0,
@@ -149,7 +149,7 @@ export default function NavBar() {
             >
               <li>
                 <NavLink
-                  to={`/${BASE_URL}`}
+                  to={route()}
                   onClick={() => {
                     setHide("none");
                     window.scrollTo({ left: 0, top: 0 });
@@ -161,7 +161,7 @@ export default function NavBar() {
               </li>
               <li className="nav-desktop">
                 <NavLink
-                  to={`/${BASE_URL}`}
+                  to={route()}
                   onClick={() => {
                     setHide("none");
                     window.scrollTo({
@@ -177,7 +177,7 @@ export default function NavBar() {
               </li>
               <li className="nav-desktop">
                 <NavLink
-                  to={`${BASE_URL}/leaderboard/contrihub`}
+                  to={route("leaderboard/contrihub")}
                   onClick={() => {
                     setHide("none");
                     window.scrollTo({ left: 0, top: 0 });
@@ -189,7 +189,7 @@ export default function NavBar() {
               </li>
               <li className="nav-mobile">
                 <NavLink
-                  to={`/${BASE_URL}`}
+                  to={route()}
                   onClick={() => {
                     setHide("none");
                     const scrollBottom= ()=> {
@@ -209,7 +209,7 @@ export default function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to={`/${BASE_URL}/team`}
+                  to={route("team")}
                   onClick={() => {
                     setHide("none");
                     window.scrollTo({
@@ -227,19 +227,19 @@ export default function NavBar() {
                 <div className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">
                   <DropDown setHide={setHide} />
                 </div>
-                {/* <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/webster`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER RANKINGS</div> */}
+                {/* <div onClick={() => { setHide("none"); navigate(route("leaderboard/webster")); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER RANKINGS</div> */}
               </li>
               {/* <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/droidrush`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">DROIDRUSH RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(route("leaderboard/droidrush")); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">DROIDRUSH RANKINGS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/contrihub`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">CONTRIHUB RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(route("leaderboard/contrihub")); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">CONTRIHUB RANKINGS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/softablitz`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">SOFTABLITZ RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(route("leaderboard/softablitz")); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">SOFTABLITZ RANKINGS</div>
                             </li>
                             <li className='nav-mobile'>
-                                <div onClick={() => { setHide("none"); navigate(`/${BASE_URL}/leaderboard/logicalrhythm`); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LOGICAL RHYTHM RANKINGS</div>
+                                <div onClick={() => { setHide("none"); navigate(route("leaderboard/logicalrhythm")); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LOGICAL RHYTHM RANKINGS</div>
                             </li> */}
             </ul>
           </div>

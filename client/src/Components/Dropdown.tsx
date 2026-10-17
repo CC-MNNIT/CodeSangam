@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import BASE_URL from '../Utils/Config';
+import { route } from '../Utils/Config';
 import { NavLink } from 'react-router-dom';
 
 
@@ -20,19 +20,19 @@ export default function DropDown({ setHide }: props) {
                 <ul style={{ alignItems: "center" }} className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 
                 rounded-lg bg-black md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-transparent md:dark:bg-transparent dark:border-gray-700" aria-labelledby="dropdownDefaultButton">
                     <li>
-                        <NavLink to={`/${BASE_URL}/leaderboard/webster`} onClick={() => { setHide("none"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER</NavLink>
+                        <NavLink to={route("leaderboard/webster")} onClick={() => { setHide("none"); window.scrollTo({ left: 0, top: 0 }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">WEBSTER</NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/${BASE_URL}/leaderboard/droidrush`} onClick={() => { setHide("none"); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">DROIDRUSH</NavLink>
+                        <NavLink to={route("leaderboard/droidrush")} onClick={() => { setHide("none"); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">DROIDRUSH</NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/${BASE_URL}/leaderboard/logicalrhythm`} onClick={() => { setHide("none"); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-9 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LOGICAL RHYTHM</NavLink>
+                        <NavLink to={route("leaderboard/logicalrhythm")} onClick={() => { setHide("none"); window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" }); }} className="card block cursor-pointer py-2 pl-9 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">LOGICAL RHYTHM</NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/${BASE_URL}/leaderboard/softablitz`} onClick={() => { setHide("none"); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">SOFTABLITZ</NavLink>
+                        <NavLink to={route("leaderboard/softablitz")} onClick={() => { setHide("none"); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">SOFTABLITZ</NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/${BASE_URL}/leaderboard/contrihub`} onClick={() => { setHide("none"); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">CONTRIHUB</NavLink>
+                        <NavLink to={route("leaderboard/contrihub")} onClick={() => { setHide("none"); }} className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500">CONTRIHUB</NavLink>
                     </li>
                 </ul>
             </div>

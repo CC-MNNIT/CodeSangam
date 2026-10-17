@@ -1,5 +1,5 @@
 import React from "react";
-import BASE_URL from "../Utils/Config";
+import { route } from "../Utils/Config";
 import { NavLink } from "react-router-dom";
 
 const ErrorPage = () => {
@@ -28,7 +28,7 @@ const ErrorPage = () => {
           The page you are looking for has been lost in space.
         </p>
         <NavLink
-          to={`/${BASE_URL}`}
+          to={route()}
           style={{
             color: "#fff",
             fontSize: "1.5rem",
