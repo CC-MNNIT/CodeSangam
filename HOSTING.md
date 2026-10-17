@@ -106,14 +106,17 @@ and no deploy.
 date -d "2026-10-20 00:00:00 IST" +%s   # 1792434600
 ```
 
-The timestamp is the last accepted second, so that value keeps registration open
-until 23:59:59 IST on 19 October. **Leaving it empty means registration never
-closes** — a missing or unparseable value deliberately does not lock teams out.
+The timestamp is the first second at which registration is closed, so that value
+keeps registration open until 23:59:59 IST on 19 October. **Leaving it empty
+means registration never closes** — a missing or unparseable value deliberately
+does not lock teams out (an unparseable one is logged at startup).
 
-`GET /api/v1/cs/deadline` reports the same value as `{"deadline":…,"passed":…}`
-so the dashboard and the landing page can count down without a build-time copy.
-When it passes, the dashboard hides the submission forms; the server still
-refuses the writes regardless, so the countdown is presentation only.
+The landing page reads the deadline from `GET /api/v1/cs/deadline`, so the
+countdown can never disagree with what the server enforces; the dashboard gets
+the same value server-rendered on `<body data-deadline="…">` and renders its
+closed state server-side too, so the page is honest even without JavaScript.
+When the cutoff passes, the submission forms are hidden and the server refuses
+the writes regardless — the countdown is presentation only.
 
 `DECLARE_RESULT` is the separate "show results" switch. While it is false,
 `GET /api/v1/cs/ranking` returns an empty list, and the client hides its
@@ -153,7 +156,7 @@ batch plus 2026CA for 1st years. It is checked for the leader (whose reg no is
 derived from their Google address) and for every teammate entered, so a reg no
 outside the list cannot register a team or join one. Extend those patterns
 before opening registration to a newer batch, or their sign-up is rejected with
-`[reg no] not allowed`.
+"Registration number … isn't eligible for CodeSangam events."
 
 `ValidSenior`, which decides who may read an abstract, still only recognises
 the 2021 batch and 2022 MCA. It matters much less now that team members,

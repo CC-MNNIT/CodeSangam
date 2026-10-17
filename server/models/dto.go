@@ -33,6 +33,11 @@ type DashboardTeam struct {
 	Size    int        `json:"size"`
 	Members []*UserDto `json:"members"`
 	Mentor  *MentorDto `json:"mentor"`
+	// AbstractOnDisk is true when this team's abstract PDF is actually on the
+	// server. It is not the same as "an abstract row exists": the row is
+	// written on upload, while the file can be gone. Filled in by the
+	// controller, because the filesystem lives in utils and utils imports dao.
+	AbstractOnDisk bool `json:"abstract_on_disk"`
 }
 
 type MentorDto struct {

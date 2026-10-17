@@ -125,11 +125,13 @@
                         <button type="button" class="chip ev-{{ .Tag }} focus-ring" data-filter="{{ .Tag }}" aria-pressed="false">{{ .Name }}</button>
                         {{ end }}
                     </div>
+                    {{ if .AnyAbstracts }}
                     <a
                         class="btn-sm-ghost"
                         href="{{ .BaseUrl }}/api/admin/abstracts.zip"
                         title="Download every uploaded abstract as a zip, one folder per event">Download abstracts (.zip)</a
                     >
+                    {{ end }}
                 </div>
 
                 <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-4">
@@ -149,9 +151,10 @@
                                     <span class="text-xs tabular-nums text-bone-300">#{{ .TeamId }}</span>
                                     {{ if .Abstract }}
                                     <!-- Shown when a submission is on record, with the file's timestamp. -->
-                                    <span class="pill-ok"
-                                        >Abstract{{ if .AbstractLabel }} · {{ .AbstractLabel }}{{ end }}</span
-                                    >
+                                    <span class="pill-ok">Abstract</span>
+                                    {{ if .AbstractLabel }}
+                                    <span class="text-xs tabular-nums text-bone-300">&middot; {{ .AbstractLabel }}</span>
+                                    {{ end }}
                                     {{ end }}
                                     {{ if .HasMentor }}<span class="pill-ok">Mentor</span>{{ end }}
                                 </div>
@@ -167,7 +170,7 @@
                                 {{ if .AbstractVersion }}
                                 <a
                                     class="btn-sm-ghost"
-                                    href="{{ $.BaseUrl }}/api/v1/cs/abstract?id={{ .TeamId }}&v={{ .AbstractVersion }}"
+                                    href="{{ $.BaseUrl }}/api/v1/cs/abstract?id={{ .TeamId }}&amp;v={{ .AbstractVersion }}"
                                     target="_blank"
                                     rel="noopener"
                                     title="Open this team's abstract PDF">View PDF</a

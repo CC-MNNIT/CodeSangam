@@ -398,6 +398,14 @@ func validateRegNo(regNo *string) bool {
 }
 
 func ValidSenior(regNo *string) bool {
+	// Same trap as validateRegNo: the comparisons below are len(match) ==
+	// len(input), which is true for an empty string, so without this guard an
+	// account with no registration number would count as a senior and could
+	// read every team's abstract.
+	if regNo == nil || *regNo == "" {
+		return false
+	}
+
 	r, err := regexp.Compile("^2021[0-9]{4}$")
 	if err != nil {
 		return false
@@ -635,6 +643,9 @@ func IsTeamMember(teamId int, userId int) bool {
 // IsMentorForTeam reports whether the user has been allotted this team, so a
 // mentor can read the abstract of the team they are guiding. Allotment only
 // ever hands out teams that already submitted an abstract.
+//
+// The allotment table has no event column, so this is team-scoped rather than
+// event-scoped - the same limitation GetMentorForTeam has.
 func IsMentorForTeam(teamId int, userId int) bool {
 	var count int64
 	config.Db.Table(allotmentTable.String()).

@@ -497,4 +497,13 @@ function uploadMidTerm(event, baseUrl) {
             }
         }, 1000);
     }
+
+    // Background tabs get their timers throttled to roughly once a minute, so a
+    // page left open across the cutoff could sit on a stale countdown. Re-render
+    // as soon as it is looked at again.
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+            render();
+        }
+    });
 })();

@@ -33,17 +33,21 @@ const (
 // @Success 200 {object} models.User
 // @Router /v1/cs/user [post]
 func SaveUser(c echo.Context) error {
-	var dto models.UserDto
-
-	if err := c.Bind(&dto); err != nil {
-		return utils.BadRequestError(c, "Unable to parse userDto", &err)
-	}
-
-	user, err := dao.SaveUser(&dto)
+	// The signed-in account is the only one this endpoint may touch. It used to
+	// take an email and registration number straight from the request body,
+	// which let anyone create a row claiming to be a 2021 batch "senior" and
+	// then sign in with that address to read every team's abstract. Sign-in
+	// creates the row itself (GoogleCallback), so nothing legitimate depends on
+	// this route creating one.
+	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.InternalError(c, "Unable to save user", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
+	user, err := dao.GetUser(*userId)
+	if err != nil {
+		return utils.InternalError(c, "We couldn't load your account right now. Please try again in a minute.", &err)
+	}
 	return c.JSON(200, &user)
 }
 
@@ -193,15 +197,19 @@ func GetAbstractFile(c echo.Context) error {
 	teamId, _ := strconv.Atoi(strTeamId)
 	// A team's own members, the mentor allotted to it, and admins of the panel
 	// may read the PDF. Everyone else is refused.
-	allowed := dao.ValidSenior(&user.RegNo) ||
-		dao.IsTeamMember(teamId, user.UserId) ||
-		dao.IsMentorForTeam(teamId, user.UserId) ||
-		dao.IsAdmin(user.Email)
-	if !allowed {
+	isMember := dao.IsTeamMember(teamId, user.UserId)
+	isMentor := dao.IsMentorForTeam(teamId, user.UserId)
+	isAdmin := dao.IsAdmin(user.Email)
+	if !isMember && !isMentor && !isAdmin && !dao.ValidSenior(&user.RegNo) {
 		return utils.UnauthorizedError(c, "You can only view your own team's abstract.", nil)
 	}
-	if dao.IsAdmin(user.Email) || dao.IsMentorForTeam(teamId, user.UserId) {
+	// Reads outside your own team are logged, each under its own prefix so the
+	// ADMIN trail keeps meaning "the panel did something".
+	switch {
+	case isAdmin:
 		log.Printf("ADMIN: %s opened abstract for team %s", user.Email, strTeamId)
+	case isMentor:
+		log.Printf("MENTOR: %s opened abstract for team %s", user.Email, strTeamId)
 	}
 
 	path, err := utils.GetAbstractFile(strTeamId)

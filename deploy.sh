@@ -44,7 +44,6 @@ echo "Writing client/.env (BASE_PATH='$BASE_PATH')..."
 {
   echo "REACT_APP_BASE_URL=${BASE_PATH#/}"
   echo "PORT=3001"
-  echo "REACT_APP_CONTRIHUB_RANKINGS_DATA_API="
   echo "REACT_APP_WEBSTER_RANKINGS_DATA_API="
   echo "REACT_APP_DROIDRUSH_RANKINGS_DATA_API="
   echo "REACT_APP_LOGICALRHYTHM_RANKINGS_DATA_API="
@@ -71,9 +70,18 @@ nix-shell shell.nix --run "cd server && export PATH=\$PATH:\$(go env GOPATH)/bin
 #     either way, leaving the worktree clean for the next `git pull`.
 echo "Checking the server CSS is in step with the templates..."
 CSS_FILE=server/web/static/css/app.css
-CSS_BACKUP="$CSS_FILE.deploybak"
+# The backup lives outside the repo: inside server/web/static it would be
+# publicly served and could be swept into a later `git add`.
+CSS_BACKUP="$(mktemp)"
 cp "$CSS_FILE" "$CSS_BACKUP"
-nix-shell shell.nix --run "npm --prefix client run build:server-css"
+if ! nix-shell shell.nix --run "npm --prefix client run build:server-css"; then
+  # A half-written CSS file would be served straight away, so put it back even
+  # when the build itself failed.
+  mv "$CSS_BACKUP" "$CSS_FILE"
+  echo
+  echo "ERROR: the server CSS build failed; the committed file has been restored."
+  exit 1
+fi
 if ! cmp -s "$CSS_BACKUP" "$CSS_FILE"; then
   mv "$CSS_BACKUP" "$CSS_FILE"
   echo

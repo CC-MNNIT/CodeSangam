@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/gob"
 	"errors"
+	"net/http"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -64,5 +65,8 @@ func getSessionOptions(maxAge Age) *sessions.Options {
 		MaxAge:   int(maxAge),
 		HttpOnly: true,
 		Secure:   true,
+		// Stated explicitly rather than left to the browser default, so the
+		// cookie is never sent on a cross-site subresource request.
+		SameSite: http.SameSiteLaxMode,
 	}
 }

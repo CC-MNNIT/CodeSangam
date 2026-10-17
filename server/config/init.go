@@ -39,8 +39,14 @@ func init() {
 		BaseUrl: os.Getenv("BASE_URL"),
 		Port:    os.Getenv("PORT"),
 		RegistrationDeadline: func() int64 {
-			i, er := strconv.ParseInt(os.Getenv("REGISTRATION_DEADLINE"), 10, 64)
+			v := os.Getenv("REGISTRATION_DEADLINE")
+			i, er := strconv.ParseInt(v, 10, 64)
 			if er != nil {
+				// 0 means "no deadline", so a typo here would leave
+				// registration open for ever without saying so. Log it.
+				if v != "" {
+					log.Printf("REGISTRATION_DEADLINE=%q is not a unix timestamp; registration will never close", v)
+				}
 				return 0
 			}
 			return i

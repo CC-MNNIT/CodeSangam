@@ -92,6 +92,18 @@ func UserDashboard(c echo.Context) error {
 		if err != nil {
 			return utils.InternalError(c, "Unable to get teams for mentor", &err)
 		}
+		// Only offer the abstract link where the PDF really is, so a mentor
+		// never opens a tab that turns out to be a JSON 404.
+		if mentorTeams != nil {
+			for _, mentorEvent := range *mentorTeams {
+				for _, team := range mentorEvent.Teams {
+					if team == nil {
+						continue
+					}
+					_, team.AbstractOnDisk = utils.AbstractPath(team.TeamId, mentorEvent.EventTag)
+				}
+			}
+		}
 	}
 
 	// The dashboard shows a countdown and hides the submission forms once

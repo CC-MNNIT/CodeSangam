@@ -77,16 +77,28 @@ func AdminPage(c echo.Context) error {
 		rows = append(rows, adminRow{Admin: a, Founding: dao.IsFoundingAdmin(a.Email), Self: a.Email == me})
 	}
 	return c.Render(http.StatusOK, "admin.html", map[string]interface{}{
-		"BaseUrl":    config.EnvVars.BaseUrl,
-		"Email":      me,
-		"Teams":      overview.Teams,
-		"Users":      overview.Users,
-		"Events":     overview.Counts,
-		"Admins":     rows,
-		"TeamCount":  len(overview.Teams),
-		"UserCount":  len(overview.Users),
-		"AdminCount": len(rows),
+		"BaseUrl":      config.EnvVars.BaseUrl,
+		"Email":        me,
+		"Teams":        overview.Teams,
+		"Users":        overview.Users,
+		"Events":       overview.Counts,
+		"Admins":       rows,
+		"AnyAbstracts": anyAbstract(overview.Teams),
+		"TeamCount":    len(overview.Teams),
+		"UserCount":    len(overview.Users),
+		"AdminCount":   len(rows),
 	})
+}
+
+// anyAbstract reports whether any team has a submission on record, so the panel
+// only offers the zip download when it would have something in it.
+func anyAbstract(teams []dao.AdminTeam) bool {
+	for _, team := range teams {
+		if team.Abstract {
+			return true
+		}
+	}
+	return false
 }
 
 func bindTeam(c echo.Context) (*adminTeamDto, dao.Event, error) {
@@ -144,6 +156,14 @@ func AdminRevokeTeam(c echo.Context) error {
 	}
 	if err := dao.RevokeTeam(event, dto.TeamId); err != nil {
 		return utils.BadRequestError(c, err.Error(), nil)
+	}
+	// The database rows are gone; take the PDF with them, otherwise it lingers
+	// on disk forever - invisible to the panel, and still readable by anyone
+	// who kept the old URL.
+	if path, found := utils.AbstractPath(dto.TeamId, event.String()); found {
+		if err := os.Remove(path); err != nil {
+			log.Println("ADMIN: could not delete the abstract for " + path + ": " + err.Error())
+		}
 	}
 	audit(c, "revoke-team", event.String()+"#"+strconv.Itoa(dto.TeamId))
 	return ok(c, "Registration revoked")
@@ -304,6 +324,9 @@ func AdminAbstractsZip(c echo.Context) error {
 	}
 	c.Response().Header().Set(echo.HeaderContentType, "application/zip")
 	c.Response().Header().Set(echo.HeaderContentDisposition, `attachment; filename="`+name+`"`)
+	// This bundle is every submission in one file; never let a proxy or the
+	// browser keep a copy.
+	c.Response().Header().Set("Cache-Control", "no-store")
 	c.Response().WriteHeader(http.StatusOK)
 
 	archive := zip.NewWriter(c.Response())
