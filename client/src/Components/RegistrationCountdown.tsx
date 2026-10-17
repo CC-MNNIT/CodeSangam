@@ -25,12 +25,14 @@ export default function RegistrationCountdown() {
     let cancelled = false;
     let timer: number | undefined;
     let deadline = 0;
+    let settled = false;
 
     // Returns true while there is still time to count down.
     const render = (until: number): boolean => {
       const left = until - Math.floor(Date.now() / 1000);
       if (cancelled) return false;
       if (left <= 0) {
+        settled = true;
         setState({ label: "Registration is closed", closed: true });
         return false;
       }
@@ -48,14 +50,15 @@ export default function RegistrationCountdown() {
     // Background tabs throttle timers to about once a minute, so refresh the
     // value when the visitor comes back rather than showing a stale count.
     const onVisible = () => {
-      if (!document.hidden && deadline) render(deadline);
+      if (!document.hidden && deadline && !settled) render(deadline);
     };
     document.addEventListener("visibilitychange", onVisible);
 
     fetch(route("api/v1/cs/deadline"), { credentials: "same-origin" })
       .then((res) => (res.ok ? res.json() : null))
       .then((data: DeadlineResponse | null) => {
-        if (!data || !data.deadline || cancelled) return;
+        // A missing or non-positive value means "no deadline configured".
+        if (!data || !(data.deadline > 0) || cancelled) return;
         deadline = data.deadline;
         // No timer at all once the cutoff has already gone by.
         if (!render(deadline)) return;
@@ -70,7 +73,7 @@ export default function RegistrationCountdown() {
 
     return () => {
       cancelled = true;
-      if (timer) window.clearInterval(timer);
+      if (timer !== undefined) window.clearInterval(timer);
       document.removeEventListener("visibilitychange", onVisible);
     };
   }, []);

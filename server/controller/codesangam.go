@@ -23,13 +23,16 @@ const (
 
 // SaveUser
 //
-// @Summary Save user to database
+// # SaveUser
+//
+// @Summary Current user profile
 // @Schemes
-// @Description Saves the user to the database
+// @Description Returns the signed-in user's own profile. It no longer accepts a
+// user in the body: identity and registration number are established at sign-in,
+// so POSTing an email and reg no here would let anyone forge an account.
 // @Tags CodeSangam
 // @Accept json
 // @Produce json
-// @Param user body models.UserDto true "User"
 // @Success 200 {object} models.User
 // @Router /v1/cs/user [post]
 func SaveUser(c echo.Context) error {
@@ -197,10 +200,16 @@ func GetAbstractFile(c echo.Context) error {
 	teamId, _ := strconv.Atoi(strTeamId)
 	// A team's own members, the mentor allotted to it, and admins of the panel
 	// may read the PDF. Everyone else is refused.
+	//
+	// Deliberately NOT granted on the strength of a registration number: that
+	// number is derived from the sign-in email's local part and nothing verifies
+	// it, so anyone who registers "attacker.20210001@gmail.com" becomes a 2021
+	// batch student and could read every team's submission. Mentors already
+	// reach their teams through allotment, and admins through the panel.
 	isMember := dao.IsTeamMember(teamId, user.UserId)
 	isMentor := dao.IsMentorForTeam(teamId, user.UserId)
 	isAdmin := dao.IsAdmin(user.Email)
-	if !isMember && !isMentor && !isAdmin && !dao.ValidSenior(&user.RegNo) {
+	if !isMember && !isMentor && !isAdmin {
 		return utils.UnauthorizedError(c, "You can only view your own team's abstract.", nil)
 	}
 	// Reads outside your own team are logged, each under its own prefix so the

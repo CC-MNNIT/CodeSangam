@@ -158,6 +158,11 @@ outside the list cannot register a team or join one. Extend those patterns
 before opening registration to a newer batch, or their sign-up is rejected with
 "Registration number … isn't eligible for CodeSangam events."
 
-`ValidSenior`, which decides who may read an abstract, still only recognises
-the 2021 batch and 2022 MCA. It matters much less now that team members,
-allotted mentors and admins can all read their abstract, but it is stale.
+`ValidSenior` still recognises only the 2021 batch and 2022 MCA, but it grants
+nothing any more and should stay that way. A user's registration number is
+derived from the local part of the address they signed in with — nothing
+verifies it against the institute — so "senior" is self-declared: an account
+called `attacker.20210001@gmail.com` satisfies it. Reading an abstract is
+team-scoped instead: a member of the team, the mentor allotted to it, or a
+panel admin. Mentors reach their teams through allotment, which only ever hands
+out teams that already submitted an abstract.

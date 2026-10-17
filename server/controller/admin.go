@@ -90,11 +90,12 @@ func AdminPage(c echo.Context) error {
 	})
 }
 
-// anyAbstract reports whether any team has a submission on record, so the panel
-// only offers the zip download when it would have something in it.
+// anyAbstract reports whether any team's PDF is actually on the server, so the
+// panel only offers the zip download when the endpoint would have something to
+// send - the zip itself is built from the files, not from the abstract rows.
 func anyAbstract(teams []dao.AdminTeam) bool {
 	for _, team := range teams {
-		if team.Abstract {
+		if team.AbstractVersion != 0 {
 			return true
 		}
 	}

@@ -73,7 +73,9 @@ CSS_FILE=server/web/static/css/app.css
 # The backup lives outside the repo: inside server/web/static it would be
 # publicly served and could be swept into a later `git add`.
 CSS_BACKUP="$(mktemp)"
-cp "$CSS_FILE" "$CSS_BACKUP"
+# -p keeps the mode, so restoring cannot leave the served file unreadable for a
+# service account that does not own it.
+cp -p "$CSS_FILE" "$CSS_BACKUP"
 if ! nix-shell shell.nix --run "npm --prefix client run build:server-css"; then
   # A half-written CSS file would be served straight away, so put it back even
   # when the build itself failed.

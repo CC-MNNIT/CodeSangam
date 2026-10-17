@@ -397,6 +397,15 @@ func validateRegNo(regNo *string) bool {
 		len(rMca2026.FindString(*regNo)) == len(*regNo)
 }
 
+// ValidSenior reports whether a registration number has the shape of a 2021
+// batch student or a 2022 MCA student.
+//
+// It is no longer used to grant anything. A user's registration number is
+// derived from the local part of the address they signed in with and nothing
+// verifies it against the institute, so "senior" is self-declared: registering
+// as attacker.20210001@gmail.com would satisfy this. Authorisation for reading
+// an abstract is team-scoped instead - a team member, the mentor allotted to
+// that team, or a panel admin.
 func ValidSenior(regNo *string) bool {
 	// Same trap as validateRegNo: the comparisons below are len(match) ==
 	// len(input), which is true for an empty string, so without this guard an
