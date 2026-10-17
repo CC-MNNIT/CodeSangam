@@ -62,6 +62,28 @@ nix-shell shell.nix --run "cd client && npm install && npm run build --homepage 
 echo "Building the backend inside Nix..."
 nix-shell shell.nix --run "cd server && export PATH=\$PATH:\$(go env GOPATH)/bin && (which swag >/dev/null 2>&1 || go install github.com/swaggo/swag/cmd/swag@v1.16.2) && make build"
 
+# 4b. The CSS for the Go-rendered pages (login, dashboard, admin) is a committed
+#     build artefact: nothing regenerates it, so a template that starts using a
+#     new utility class would silently ship without its styles. Regenerate and
+#     refuse to deploy if the committed file disagrees - a loud failure here is
+#     far better than an unstyled page in production. Tailwind is pinned by
+#     client/package-lock.json, so this is deterministic. The backup is restored
+#     either way, leaving the worktree clean for the next `git pull`.
+echo "Checking the server CSS is in step with the templates..."
+CSS_FILE=server/web/static/css/app.css
+CSS_BACKUP="$CSS_FILE.deploybak"
+cp "$CSS_FILE" "$CSS_BACKUP"
+nix-shell shell.nix --run "npm --prefix client run build:server-css"
+if ! cmp -s "$CSS_BACKUP" "$CSS_FILE"; then
+  mv "$CSS_BACKUP" "$CSS_FILE"
+  echo
+  echo "ERROR: $CSS_FILE is out of date with the templates."
+  echo "       Run 'npm --prefix client run build:server-css' in the repo, commit the"
+  echo "       result, then deploy again. Nothing has been published."
+  exit 1
+fi
+rm -f "$CSS_BACKUP"
+
 # 5. Sanity check both artefacts before touching anything live.
 if [ ! -f client/build/index.html ]; then
   echo "Client build failed: client/build/index.html missing — leaving the live site untouched."

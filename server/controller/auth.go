@@ -94,16 +94,29 @@ func UserDashboard(c echo.Context) error {
 		}
 	}
 
+	// The dashboard shows a countdown and hides the submission forms once
+	// registration has closed. The server still refuses late writes on its own;
+	// this only keeps the page honest.
+	deadline := config.EnvVars.RegistrationDeadline
+	deadlinePassed := deadline > 0 && time.Now().Unix() >= deadline
+	deadlineLabel := ""
+	if deadline > 0 {
+		deadlineLabel = time.Unix(deadline, 0).In(ist).Format("2 Jan 2006, 3:04 PM")
+	}
+
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
-		"UserInfo":    user.User,
-		"Teams":       teams,
-		"EventsInfo":  eventsInfo,
-		"BaseUrl":     config.EnvVars.BaseUrl,
-		"IsMentor":    mentor != nil,
-		"Mentor":      mentor,
-		"MentorTeams": mentorTeams,
-		"IsAdmin":     dao.IsAdmin(user.User.Email),
-		"Abstracts":   abstracts,
+		"UserInfo":             user.User,
+		"Teams":                teams,
+		"EventsInfo":           eventsInfo,
+		"BaseUrl":              config.EnvVars.BaseUrl,
+		"IsMentor":             mentor != nil,
+		"Mentor":               mentor,
+		"MentorTeams":          mentorTeams,
+		"IsAdmin":              dao.IsAdmin(user.User.Email),
+		"Abstracts":            abstracts,
+		"RegistrationDeadline": deadline,
+		"DeadlinePassed":       deadlinePassed,
+		"DeadlineLabel":        deadlineLabel,
 	})
 }
 

@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"net/http"
+	"time"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
@@ -56,8 +57,11 @@ func AuthLoginMiddleware() echo.MiddlewareFunc {
 func DeadlineMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
-
-			if false {
+			deadline := config.EnvVars.RegistrationDeadline
+			// 0 means no deadline is configured (REGISTRATION_DEADLINE unset or
+			// unparseable). Registration stays open in that case on purpose: a
+			// missing value must never lock every team out of the event.
+			if deadline > 0 && time.Now().Unix() >= deadline {
 				return utils.BadRequestError(c, "Registration and abstract submission are now closed.", nil)
 			}
 

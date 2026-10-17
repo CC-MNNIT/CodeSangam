@@ -6,6 +6,7 @@ import Hero from "./landing/Hero";
 import Rift from "./landing/Rift";
 import Multiverse from "./landing/Multiverse";
 import Finale from "./landing/Finale";
+import RegistrationCountdown from "./RegistrationCountdown";
 
 /**
  * The home page is one scroll story: Prologue → Fracture → Multiverse
@@ -36,6 +37,7 @@ export default function LandingPage() {
 
   return (
     <main>
+      <RegistrationCountdown />
       <Hero />
       <Rift />
       <Multiverse />

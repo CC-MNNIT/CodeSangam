@@ -46,7 +46,7 @@ func SaveAbstract(file *multipart.FileHeader, event dao.Event, teamId int) error
 		log.Printf("Failed to copy abstract file for team %d, event %s: %v", teamId, event.String(), err)
 		return errors.New("unable to copy file")
 	}
-	
+
 	if err := dst.Close(); err != nil {
 		return errors.New("unable to write file")
 	}
@@ -55,7 +55,7 @@ func SaveAbstract(file *multipart.FileHeader, event dao.Event, teamId int) error
 	}
 
 	log.Printf("Abstract successfully saved for team %d, event %s, file: %s", teamId, event.String(), final)
-	return nil		
+	return nil
 }
 
 func AbstractExists(team *models.DashboardTeam, event string) bool {
@@ -63,11 +63,14 @@ func AbstractExists(team *models.DashboardTeam, event string) bool {
 		return false
 	}
 
-	_, exists := exists(team.TeamId, event)
+	_, exists := AbstractPath(team.TeamId, event)
 	return exists
 }
 
-func exists(teamId int, event string) (string, bool) {
+// AbstractPath returns where a team's abstract for an event lives, and whether
+// that file actually exists. Anything that links to a PDF must gate on the
+// boolean: the abstract table records a submission, but the file can be gone.
+func AbstractPath(teamId int, event string) (string, bool) {
 	filePath := abstractPath + event + "/" + strconv.Itoa(teamId) + ".pdf"
 	_, err := os.Stat(filePath)
 	return filePath, err == nil
@@ -79,13 +82,16 @@ func GetAbstractFile(strTeamId string) (string, error) {
 		return "", errors.New("invalid team id")
 	}
 
-	if path, exists := exists(teamId, "droidrush"); exists {
+	if path, exists := AbstractPath(teamId, "droidrush"); exists {
 		return path, nil
 	}
-	if path, exists := exists(teamId, "webster"); exists {
+	if path, exists := AbstractPath(teamId, "webster"); exists {
 		return path, nil
 	}
-	if path, exists := exists(teamId, "softablitz"); exists {
+	if path, exists := AbstractPath(teamId, "softablitz"); exists {
+		return path, nil
+	}
+	if path, exists := AbstractPath(teamId, "logical"); exists {
 		return path, nil
 	}
 	return "", errors.New("abstract for team Id [" + strTeamId + "] does not exist")
@@ -106,7 +112,7 @@ func IsPDF(file *multipart.FileHeader) bool {
 // AbstractUploadedAt returns when a team's abstract file was last written,
 // or the zero time when there is none.
 func AbstractUploadedAt(teamId int, event string) time.Time {
-	path, ok := exists(teamId, event)
+	path, ok := AbstractPath(teamId, event)
 	if !ok {
 		return time.Time{}
 	}

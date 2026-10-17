@@ -130,8 +130,16 @@ type AdminTeam struct {
 	Name      string
 	Members   []AdminMember
 	Abstract  bool
-	HasMentor bool
-	Full      bool
+	// AbstractVersion is the abstract file's last-modified time in unix
+	// seconds, or 0 when no file is on disk. The panel links to a PDF only
+	// when this is set, so a recorded submission whose file went missing can
+	// never produce a dead link. AbstractLabel is the same moment, already
+	// formatted for display. Both are filled in by the controller, because dao
+	// cannot import utils (utils imports dao) and the file path lives there.
+	AbstractVersion int64
+	AbstractLabel   string
+	HasMentor       bool
+	Full            bool
 }
 
 type AdminUser struct {

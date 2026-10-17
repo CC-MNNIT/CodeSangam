@@ -10,6 +10,9 @@ import (
 // /api/admin/... . Every route requires a signed-in admin.
 func AdminRouter(baseRouter *echo.Group) {
 	baseRouter.GET("/admin", controller.AdminPage, middleware.AdminPageMiddleware())
+	// Mounted on the base router, not the /admin group below: a browser
+	// download cannot send the X-CS-Admin header that group requires.
+	baseRouter.GET("/admin/abstracts.zip", controller.AdminAbstractsZip, middleware.AdminDownloadMiddleware())
 
 	g := baseRouter.Group("/admin", middleware.AdminAPIMiddleware())
 	g.POST("/team/rename", controller.AdminRenameTeam)

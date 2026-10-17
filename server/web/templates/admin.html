@@ -125,6 +125,11 @@
                         <button type="button" class="chip ev-{{ .Tag }} focus-ring" data-filter="{{ .Tag }}" aria-pressed="false">{{ .Name }}</button>
                         {{ end }}
                     </div>
+                    <a
+                        class="btn-sm-ghost"
+                        href="{{ .BaseUrl }}/api/admin/abstracts.zip"
+                        title="Download every uploaded abstract as a zip, one folder per event">Download abstracts (.zip)</a
+                    >
                 </div>
 
                 <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-4">
@@ -142,7 +147,12 @@
                                 <div class="flex flex-wrap items-center gap-2">
                                     <span class="rounded-full bg-tint/15 px-2.5 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-tint">{{ .EventName }}</span>
                                     <span class="text-xs tabular-nums text-bone-300">#{{ .TeamId }}</span>
-                                    {{ if .Abstract }}<span class="pill-ok">Abstract</span>{{ end }}
+                                    {{ if .Abstract }}
+                                    <!-- Shown when a submission is on record, with the file's timestamp. -->
+                                    <span class="pill-ok"
+                                        >Abstract{{ if .AbstractLabel }} · {{ .AbstractLabel }}{{ end }}</span
+                                    >
+                                    {{ end }}
                                     {{ if .HasMentor }}<span class="pill-ok">Mentor</span>{{ end }}
                                 </div>
                                 <h3 class="mt-2 truncate font-display text-xl font-semibold tracking-[0.04em] text-bone-50" data-name-view>{{ .Name }}</h3>
@@ -154,6 +164,15 @@
                                 </form>
                             </div>
                             <div class="flex shrink-0 items-center gap-2">
+                                {{ if .AbstractVersion }}
+                                <a
+                                    class="btn-sm-ghost"
+                                    href="{{ $.BaseUrl }}/api/v1/cs/abstract?id={{ .TeamId }}&v={{ .AbstractVersion }}"
+                                    target="_blank"
+                                    rel="noopener"
+                                    title="Open this team's abstract PDF">View PDF</a
+                                >
+                                {{ end }}
                                 <button type="button" class="btn-sm-ghost" data-action="rename">Rename</button>
                                 <button type="button" class="btn-danger" data-action="revoke">Revoke</button>
                             </div>

@@ -89,6 +89,50 @@ do not match.
 3 MB the app and the dashboard advertise; if it is ever missing from a vhost,
 abstracts between 1 MB and 3 MB fail with no useful reason in the UI.
 
+## Registration deadline
+
+`REGISTRATION_DEADLINE` in `server/.env` is a unix timestamp enforced by
+`middleware.DeadlineMiddleware` on exactly two routes:
+
+- `POST /api/v1/cs/register` — team registration
+- `POST /api/v1/cs/abstract` — abstract upload
+
+Everything else stays open: dashboards, mentor allotment, mid-term evaluation,
+the admin panel and the leaderboards. The value is read at startup, so moving
+the cutoff is an edit plus `systemctl restart codesangam-backend` — no rebuild
+and no deploy.
+
+```bash
+date -d "2026-10-20 00:00:00 IST" +%s   # 1792434600
+```
+
+The timestamp is the last accepted second, so that value keeps registration open
+until 23:59:59 IST on 19 October. **Leaving it empty means registration never
+closes** — a missing or unparseable value deliberately does not lock teams out.
+
+`GET /api/v1/cs/deadline` reports the same value as `{"deadline":…,"passed":…}`
+so the dashboard and the landing page can count down without a build-time copy.
+When it passes, the dashboard hides the submission forms; the server still
+refuses the writes regardless, so the countdown is presentation only.
+
+`DECLARE_RESULT` is the separate "show results" switch. While it is false,
+`GET /api/v1/cs/ranking` returns an empty list, and the client hides its
+leaderboards behind `RESULTS_ANNOUNCED` in `client/src/Utils/Config.tsx` —
+**flip both after the event**. Note the event key: the client route is
+`logicalrhythm` but the server accepts `logical`.
+
+## The server CSS is a committed artefact
+
+`server/web/static/css/app.css` is generated from `server/web/src/app.css` by
+`npm --prefix client run build:server-css` (Tailwind, scanning
+`server/web/templates/*.html` and `server/web/static/js/*.js`). Nothing else
+regenerates it, so **using a new utility class in a template requires
+regenerating and committing that file** — otherwise the page ships without the
+style.
+
+`deploy.sh` guards this: it regenerates the CSS, compares it with the committed
+file and aborts the deploy if they differ, before anything is published.
+
 ## Google OAuth
 
 One OAuth client serves every environment. Redirect URIs to register:
@@ -103,6 +147,14 @@ HTTP on the Tailnet staging host — use the production domain to test the flow.
 
 ## Registration numbers
 
-`validateRegNo` in `server/dao/codesangam.go` currently accepts only the
-2023/2024/2025 batches (plus `2024CA`/`2025CA`). Extend those patterns before
-opening registration to a new batch, or their sign-up will be rejected.
+`validateRegNo` in `server/dao/codesangam.go` is a hard-coded allow-list of
+cohorts: the 2023/2024/2025 batches, the 2024CA/2025CA MCA batches, and the 2026
+batch plus 2026CA for 1st years. It is checked for the leader (whose reg no is
+derived from their Google address) and for every teammate entered, so a reg no
+outside the list cannot register a team or join one. Extend those patterns
+before opening registration to a newer batch, or their sign-up is rejected with
+`[reg no] not allowed`.
+
+`ValidSenior`, which decides who may read an abstract, still only recognises
+the 2021 batch and 2022 MCA. It matters much less now that team members,
+allotted mentors and admins can all read their abstract, but it is stale.

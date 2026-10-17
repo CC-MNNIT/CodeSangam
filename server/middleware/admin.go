@@ -57,6 +57,30 @@ func AdminPageMiddleware() echo.MiddlewareFunc {
 	}
 }
 
+// AdminDownloadMiddleware guards admin file downloads.
+//
+// It deliberately skips the X-CS-Admin header that AdminAPIMiddleware demands:
+// a browser download is a plain navigation and cannot add headers, so the
+// signed-in session is the only check available. Nothing here changes state,
+// so there is nothing for a forged request to abuse. Failures are JSON because
+// this endpoint returns files, not pages.
+func AdminDownloadMiddleware() echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			email, ok := sessionEmail(c)
+			if !ok {
+				return utils.UnauthorizedError(c, "Sign in first", nil)
+			}
+			if !dao.IsAdmin(email) {
+				log.Println("ADMIN: denied " + email + " " + c.Request().Method + " " + c.Path())
+				return c.JSON(http.StatusForbidden, map[string]string{"message": "Admins only", "error": ""})
+			}
+			c.Set(AdminEmailKey, email)
+			return next(c)
+		}
+	}
+}
+
 // AdminAPIMiddleware guards the JSON admin endpoints.
 func AdminAPIMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {

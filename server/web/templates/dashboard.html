@@ -19,7 +19,7 @@
         <title>Dashboard - CodeSangam</title>
     </head>
 
-    <body class="universe-library h-full" data-base="{{ .BaseUrl }}">
+    <body class="universe-library h-full" data-base="{{ .BaseUrl }}" data-deadline="{{ .RegistrationDeadline }}" data-deadline-passed="{{ .DeadlinePassed }}">
         <div
             id="progress-screen"
             class="hidden fixed inset-0 z-[100] h-screen w-full overflow-hidden bg-void-950/85"
@@ -59,7 +59,7 @@
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
                                         <a
-                                            href="{{ .BaseUrl }}"
+                                            href="{{ .BaseUrl }}/"
                                             class="focus-ring flex items-center font-display text-xl font-bold tracking-[0.16em] text-bone-50 text-glow sm:text-2xl"
                                         >
                                             C
@@ -211,6 +211,24 @@
                         </div>
                     </div>
                 </header>
+                {{ if .RegistrationDeadline }}
+                <!-- Server-rendered hint; dashboard.js keeps it counting down. -->
+                <div class="pb-6 sm:pb-8">
+                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div
+                            class="flex flex-wrap items-center rounded-2xl border border-white/10 bg-void-800/70 px-4 py-3 sm:px-6"
+                            data-deadline-banner
+                        >
+                            <p class="text-sm text-bone-200">
+                                <span class="font-semibold text-bone-50">Registration &amp; abstracts</span>
+                                <span class="text-bone-300" data-deadline-state>close in</span>
+                                <span class="font-semibold tabular-nums text-bone-50" data-deadline-countdown>&mdash;</span>
+                                <span class="text-bone-300">&middot; deadline {{ .DeadlineLabel }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
             </div>
 
             <main>
@@ -541,6 +559,14 @@
                                                             <!--  -->
                                                             {{ $team.Name }} -
                                                             <span class="font-semibold text-arcane-300">ID: {{ $team.TeamId }}</span>
+                                                            <!-- Allotment only ever hands out teams that already submitted an abstract. -->
+                                                            <a
+                                                                class="btn-sm-ghost"
+                                                                href="{{ $.BaseUrl }}/api/v1/cs/abstract?id={{ $team.TeamId }}"
+                                                                target="_blank"
+                                                                rel="noopener"
+                                                                >View abstract</a
+                                                            >
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
                                                         </p>
@@ -757,6 +783,7 @@
                                                             class="mt-1 max-w-2xl"
                                                             method="dialog"
                                                             action="#"
+                                                            data-closed-hide
                                                             onsubmit="submitRegistration('{{ $event.Tag }}', '{{ $.BaseUrl }}')"
                                                         >
                                                             <div class="relative z-0 mb-8 mt-6 w-full">
@@ -1077,6 +1104,7 @@
                                                 class="mt-6 max-w-3xl"
                                                 method="dialog"
                                                 action="#"
+                                                data-closed-hide
                                                 onsubmit="submitAbstractForm('{{ $.BaseUrl }}')"
                                             >
                                                 <div class="mb-6 grid items-end gap-6 sm:grid-cols-2 sm:gap-8">

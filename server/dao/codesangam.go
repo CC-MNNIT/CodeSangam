@@ -345,6 +345,13 @@ func userAllowed(event Event, user *models.User) bool {
 }
 
 func validateRegNo(regNo *string) bool {
+	// Every pattern below is checked as len(match) == len(input), which is
+	// trivially true for an empty string - so without this guard an account
+	// with no registration number at all would pass validation.
+	if regNo == nil || *regNo == "" {
+		return false
+	}
+
 	r1st, err := regexp.Compile("^2025[0-9]{4}$")
 	if err != nil {
 		return false
@@ -370,11 +377,24 @@ func validateRegNo(regNo *string) bool {
 		return false
 	}
 
+	// 1st years, first year of the 2026 batch.
+	r1st2026, err := regexp.Compile("^2026[0-9]{4}$")
+	if err != nil {
+		return false
+	}
+
+	rMca2026, err := regexp.Compile("^2026(CA|ca)([0-9]{3}|[0-9]{2})$")
+	if err != nil {
+		return false
+	}
+
 	return len(r1st.FindString(*regNo)) == len(*regNo) ||
 		len(r2nd.FindString(*regNo)) == len(*regNo) ||
 		len(r3rd.FindString(*regNo)) == len(*regNo) ||
 		len(rMca.FindString(*regNo)) == len(*regNo) ||
-		len(rMca1st.FindString(*regNo)) == len(*regNo)
+		len(rMca1st.FindString(*regNo)) == len(*regNo) ||
+		len(r1st2026.FindString(*regNo)) == len(*regNo) ||
+		len(rMca2026.FindString(*regNo)) == len(*regNo)
 }
 
 func ValidSenior(regNo *string) bool {
@@ -608,6 +628,17 @@ func IsTeamMember(teamId int, userId int) bool {
 	var count int64
 	config.Db.Table(teamTable.String()).
 		Where("id = ? AND (leader_id = ? OR m_id1 = ? OR m_id2 = ?)", teamId, userId, userId, userId).
+		Count(&count)
+	return count > 0
+}
+
+// IsMentorForTeam reports whether the user has been allotted this team, so a
+// mentor can read the abstract of the team they are guiding. Allotment only
+// ever hands out teams that already submitted an abstract.
+func IsMentorForTeam(teamId int, userId int) bool {
+	var count int64
+	config.Db.Table(allotmentTable.String()).
+		Where("team_id = ? AND user_id = ?", teamId, userId).
 		Count(&count)
 	return count > 0
 }

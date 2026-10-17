@@ -454,3 +454,47 @@ function uploadMidTerm(event, baseUrl) {
             fileInput.value = "";
         });
 }
+
+// ------------------------------------------------------------ registration deadline
+// The deadline is rendered onto <body> by the server. This only keeps the page
+// honest while it ticks down: late writes are refused by the server whether or
+// not this runs, so nothing here is load-bearing.
+(function () {
+    const deadline = parseInt(document.body.dataset.deadline || "0", 10);
+    const countdown = document.querySelector("[data-deadline-countdown]");
+    const state = document.querySelector("[data-deadline-state]");
+    if (!deadline || !countdown || !state) {
+        return;
+    }
+
+    const pad = (n) => String(n).padStart(2, "0");
+
+    function closeSubmissionForms() {
+        document.querySelectorAll("[data-closed-hide]").forEach((form) => form.classList.add("hidden"));
+    }
+
+    function render() {
+        const left = deadline - Math.floor(Date.now() / 1000);
+        if (left <= 0) {
+            state.textContent = "are";
+            countdown.textContent = "closed";
+            closeSubmissionForms();
+            return false;
+        }
+        const days = Math.floor(left / 86400);
+        const hours = Math.floor((left % 86400) / 3600);
+        const mins = Math.floor((left % 3600) / 60);
+        const secs = left % 60;
+        countdown.textContent =
+            (days > 0 ? days + "d " : "") + pad(hours) + "h " + pad(mins) + "m " + pad(secs) + "s";
+        return true;
+    }
+
+    if (render()) {
+        const timer = setInterval(() => {
+            if (!render()) {
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+})();

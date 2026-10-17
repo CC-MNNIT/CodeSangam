@@ -2,9 +2,11 @@ package controller
 
 import (
 	"errors"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
@@ -189,8 +191,17 @@ func GetAbstractFile(c echo.Context) error {
 	}
 
 	teamId, _ := strconv.Atoi(strTeamId)
-	if !dao.ValidSenior(&user.RegNo) && !dao.IsTeamMember(teamId, user.UserId) {
+	// A team's own members, the mentor allotted to it, and admins of the panel
+	// may read the PDF. Everyone else is refused.
+	allowed := dao.ValidSenior(&user.RegNo) ||
+		dao.IsTeamMember(teamId, user.UserId) ||
+		dao.IsMentorForTeam(teamId, user.UserId) ||
+		dao.IsAdmin(user.Email)
+	if !allowed {
 		return utils.UnauthorizedError(c, "You can only view your own team's abstract.", nil)
+	}
+	if dao.IsAdmin(user.Email) || dao.IsMentorForTeam(teamId, user.UserId) {
+		log.Printf("ADMIN: %s opened abstract for team %s", user.Email, strTeamId)
 	}
 
 	path, err := utils.GetAbstractFile(strTeamId)
@@ -362,7 +373,9 @@ func GetEventRanking(c echo.Context) error {
 	}
 
 	if !config.EnvVars.DeclareResult {
-		return c.JSON(200, nil)
+		// An empty list, not null: a caller that maps over this response should
+		// see nothing to draw, not a crash, the day results are declared.
+		return c.JSON(200, []models.DashboardTeam{})
 	}
 
 	rankings, err := dao.GetEventRanking(event)
@@ -371,4 +384,29 @@ func GetEventRanking(c echo.Context) error {
 	}
 
 	return c.JSON(200, &rankings)
+}
+
+// deadlineDto tells the site when registration closes, so the landing page can
+// show a countdown without hardcoding a date into the build.
+type deadlineDto struct {
+	Deadline int64 `json:"deadline"`
+	Passed   bool  `json:"passed"`
+}
+
+// GetRegistrationDeadline
+//
+// @Summary Registration deadline
+// @Schemes
+// @Description The unix timestamp after which registration and abstract submission close, and whether that moment has passed. Public on purpose: the deadline is not a secret.
+// @Tags CodeSangam
+// @Accept json
+// @Produce json
+// @Success 200 {object} deadlineDto
+// @Router /v1/cs/deadline [get]
+func GetRegistrationDeadline(c echo.Context) error {
+	deadline := config.EnvVars.RegistrationDeadline
+	// A deadline of 0 means "not configured", which is reported as not passed so
+	// no part of the site hides itself because of a missing value.
+	passed := deadline > 0 && time.Now().Unix() >= deadline
+	return c.JSON(http.StatusOK, deadlineDto{Deadline: deadline, Passed: passed})
 }
