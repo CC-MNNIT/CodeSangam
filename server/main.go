@@ -29,7 +29,13 @@ func main() {
 	baseUrl := config.EnvVars.BaseUrl + "/api"
 	router := echo.New()
 	router.Use(session.Middleware(config.SessionCookieStore))
-	router.Use(middleware.BodyLimit("4M"))
+	// Hard ceiling on request bodies. nginx already caps uploads with
+	// client_max_body_size (4m) and the app's own limit is 3 MB, so this is
+	// deliberately *above* nginx's: nginx then rejects oversized uploads
+	// cleanly instead of us closing the connection mid-upload, which nginx
+	// would surface to the user as a 502. Note "M" here is decimal (5,000,000
+	// bytes) while nginx's "m" is binary (4,194,304 bytes).
+	router.Use(middleware.BodyLimit("5M"))
 	router.Use(middleware.CORS())
 	router.Static(config.EnvVars.BaseUrl+"/api/static", "web/static")
 	config.InitTemplateRenderer(router)

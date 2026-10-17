@@ -15,7 +15,7 @@ func CodeSangam(baseRouter *echo.Group) {
 
 	g.POST("/register", controller.RegisterTeam, middleware.DeadlineMiddleware())
 
-	g.POST("/abstract", controller.UploadAbstractSubmission, middleware.DeadlineMiddleware())
+	g.POST("/abstract", controller.UploadAbstractSubmission, middleware.DeadlineMiddleware(), middleware.DrainBody())
 	g.GET("/abstract", controller.GetAbstractFile)
 
 	g.POST("/allot", controller.AllotTeamsToMentor)

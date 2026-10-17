@@ -68,6 +68,27 @@ sudo cp deploy/codesangam-deploy.sudoers /etc/sudoers.d/codesangam-deploy && sud
 sudo cp nginx/codesangam.tailnet /etc/nginx/sites-available/ && sudo ln -sf /etc/nginx/sites-available/codesangam.tailnet /etc/nginx/sites-enabled/
 ```
 
+## Upload limits
+
+Skip this and only the smallest abstracts get through. Three layers apply, in
+this order, and they must stay consistent:
+
+| Layer | Setting | Value | On breach |
+| --- | --- | --- | --- |
+| nginx | `client_max_body_size` in the `location /api/` block of every vhost | `4m` (4,194,304 B) | `413`, shown as "That file is too large to upload." |
+| Go router | `middleware.BodyLimit` in `server/main.go` | `5M` (5,000,000 B) | `413` JSON |
+| Go app | `MaxFileSize` in `server/controller/codesangam.go` | 3 MB | `400` "This PDF is larger than 3 MB…" |
+
+nginx is deliberately the *outer* wall: when it rejects first the user gets a
+clean 413, whereas a router-level rejection closes the connection mid-upload
+and nginx turns that into a confusing 502. Note nginx's `m` is binary
+(1024²) while `BodyLimit`'s `M` is decimal (1000²) — that is why the numbers
+do not match.
+
+`nginx` defaults `client_max_body_size` to **1 MB**, which is smaller than the
+3 MB the app and the dashboard advertise; if it is ever missing from a vhost,
+abstracts between 1 MB and 3 MB fail with no useful reason in the UI.
+
 ## Google OAuth
 
 One OAuth client serves every environment. Redirect URIs to register:
