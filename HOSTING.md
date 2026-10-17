@@ -58,6 +58,16 @@ the Go API from `BASE_URL`, and the server-rendered templates use
 | `/etc/sudoers.d/codesangam-deploy` | passwordless sudo for the sync helper, the restart and the nginx reload/test only |
 | `mysql` databases `codesangam`, `contrihub` | event data, ContriHUB stub |
 
+The three root-owned files are kept in `deploy/` in this repo so a fresh
+machine can be set up from scratch:
+
+```bash
+sudo cp deploy/codesangam-deploy-sync /usr/local/bin/ && sudo chmod 755 /usr/local/bin/codesangam-deploy-sync
+sudo cp deploy/codesangam-backend.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now codesangam-backend
+sudo cp deploy/codesangam-deploy.sudoers /etc/sudoers.d/codesangam-deploy && sudo chmod 440 /etc/sudoers.d/codesangam-deploy
+sudo cp nginx/codesangam.tailnet /etc/nginx/sites-available/ && sudo ln -sf /etc/nginx/sites-available/codesangam.tailnet /etc/nginx/sites-enabled/
+```
+
 ## Google OAuth
 
 One OAuth client serves every environment. Redirect URIs to register:

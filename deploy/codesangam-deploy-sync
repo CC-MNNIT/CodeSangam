@@ -1,0 +1,42 @@
+#!/bin/bash
+# Publish the built client into the nginx web root. Root-owned and called
+# passwordless from deploy.sh; it refuses to touch anything unless the build
+# really is there, so a failed deploy can never blank the live site.
+#
+# Usage: codesangam-deploy-sync [BASE_PATH]
+#   empty (default)  -> site is served from the web root
+#   /codesangam      -> site is served from a subdirectory
+set -e
+WEB_ROOT="/var/www/codesangam.tailnet/html"
+SRC="/home/sac/repos/cc_club_mnnit/CodeSangam/client/build"
+BASE_PATH="${1:-}"
+
+if [ ! -f "$SRC/index.html" ]; then
+  echo "client/build/index.html missing - refusing to touch the web root" >&2
+  exit 1
+fi
+
+# Reject anything that is not a plain absolute path.
+case "$BASE_PATH" in
+  "" | /) BASE_PATH="" ;;
+  /*) ;;
+  *) echo "BASE_PATH must be empty or start with / (got )" >&2; exit 1 ;;
+esac
+
+DEST="$WEB_ROOT$BASE_PATH"
+
+mkdir -p "$DEST"
+rm -rf "${DEST:?}"/*
+cp -r "$SRC"/. "$DEST"/
+
+# Clear the other layout so a stale copy cannot keep answering requests at the
+# old path.
+if [ -n "$BASE_PATH" ]; then
+  rm -rf "$WEB_ROOT/static" "$WEB_ROOT/index.html" "$WEB_ROOT/favicon.ico" \
+         "$WEB_ROOT/manifest.json" "$WEB_ROOT/asset-manifest.json" "$WEB_ROOT/robots.txt"
+else
+  find "$WEB_ROOT" -mindepth 1 -maxdepth 1 -type d ! -name static -exec rm -rf {} +
+fi
+
+chown -R www-data:www-data "$WEB_ROOT"
+chmod -R 755 "$WEB_ROOT"

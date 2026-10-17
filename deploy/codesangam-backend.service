@@ -1,0 +1,15 @@
+[Unit]
+Description=CodeSangam backend (Go Echo)
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=sac
+WorkingDirectory=/home/sac/repos/cc_club_mnnit/CodeSangam/server
+ExecStart=/home/sac/repos/cc_club_mnnit/CodeSangam/server/bin/codesangam-backend
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+sac ALL=(root) NOPASSWD: /usr/local/bin/codesangam-deploy-sync
+sac ALL=(root) NOPASSWD: /bin/systemctl restart codesangam-backend
+sac ALL=(root) NOPASSWD: /bin/systemctl reload nginx
+sac ALL=(root) NOPASSWD: /usr/sbin/nginx -t
