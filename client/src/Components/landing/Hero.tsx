@@ -3,14 +3,8 @@ import { gsap } from "../../lib/gsap";
 import { useGsap } from "../../lib/useGsap";
 import { registerScrollTarget } from "../../lib/scrollTargets";
 import SlingRing from "../../ui/art/SlingRing";
+import logo from "../../Assets/cc2026.svg";
 import Mandala from "../../ui/art/Mandala";
-
-// "CODESANGAM" with the O drawn as a portal.
-const LEFT = ["C"];
-const RIGHT = ["D", "E", "S", "A", "N", "G", "A", "M"];
-
-const letter =
-  "inline-block will-change-transform font-display font-semibold text-bone-50 text-glow";
 
 /**
  * Chapter one — the Prologue. The sling ring and the wordmark are the whole
@@ -36,7 +30,7 @@ export default function Hero() {
       .from(q("[data-mandala-in]"), { scale: 0.7, autoAlpha: 0, duration: 3.2 }, 0)
       .from(
         q("[data-letter]"),
-        { y: 70, autoAlpha: 0, filter: "blur(14px)", duration: 1.5, stagger: 0.07 },
+        { y: 46, scale: 0.9, autoAlpha: 0, duration: 1.8 },
         0.35
       )
       .from(q("[data-fade]"), { autoAlpha: 0, y: 24, duration: 1.2, stagger: 0.14 }, 1.3);
@@ -101,31 +95,21 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Wordmark */}
-        <div className="absolute inset-0 grid place-items-center px-4">
-          <div data-word className="will-parallax text-center">
-            <h1
-              aria-label="CodeSangam"
-              className="flex items-baseline justify-center whitespace-nowrap text-[clamp(2.15rem,9.6vw,9.25rem)] leading-none tracking-[0.04em]"
-            >
-              <span aria-hidden="true" className="flex items-baseline">
-                {LEFT.map((c, i) => (
-                  <span key={`l${i}`} data-letter className={letter}>
-                    {c}
-                  </span>
-                ))}
-                <span
-                  data-letter
-                  className="relative mx-[0.03em] inline-block h-[0.7em] w-[0.8em] will-change-transform"
-                >
-                  <SlingRing className="absolute inset-[-4%]" />
-                </span>
-                {RIGHT.map((c, i) => (
-                  <span key={`r${i}`} data-letter className={letter}>
-                    {c}
-                  </span>
-                ))}
-              </span>
+        {/* The CodeSangam 2026 mark, held inside the sling ring */}
+        <div className="absolute inset-0 grid place-content-center place-items-center px-4">
+          <div data-word className="relative will-parallax">
+            <div
+              aria-hidden="true"
+              className="absolute inset-[-18%] rounded-full bg-[radial-gradient(closest-side,rgb(5_3_10/0.85),rgb(5_3_10/0.55)_55%,transparent)]"
+            />
+            <h1 className="relative">
+              <span className="sr-only">CodeSangam 2026</span>
+              <img
+                data-letter
+                src={logo}
+                alt=""
+                className="block h-auto w-[min(80vw,84svh)] will-change-transform [filter:drop-shadow(0_10px_40px_rgb(255_143_31/0.35))]"
+              />
             </h1>
           </div>
         </div>

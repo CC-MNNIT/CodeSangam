@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type ContriHUBUser struct {
 	UserId      uint   `gorm:"column:user_id" json:"user_id"`
 	UserName    string `gorm:"column:username" json:"user_name"`
@@ -44,4 +46,12 @@ type Mentor struct {
 type Allotment struct {
 	TeamId int `gorm:"primary_key;column:team_id" json:"team_id"`
 	UserId int `gorm:"primary_key;column:user_id" json:"user_id"`
+}
+
+// Admin is someone allowed into the admin panel, identified by the Google
+// account email they sign in with.
+type Admin struct {
+	Email     string    `gorm:"primary_key;size:191;column:email" json:"email"`
+	AddedBy   string    `gorm:"size:191;column:added_by" json:"added_by"`
+	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
 }

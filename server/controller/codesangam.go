@@ -3,6 +3,7 @@ package controller
 import (
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
@@ -57,7 +58,7 @@ func SaveUser(c echo.Context) error {
 func GetUserInfo(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	user, err := dao.GetUserInfo(*userId)
@@ -82,22 +83,22 @@ func GetUserInfo(c echo.Context) error {
 func RegisterTeam(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	var dto models.RegisterTeamDto
 	if err := c.Bind(&dto); err != nil {
-		return utils.BadRequestError(c, "Unable to parse teamDto", &err)
+		return utils.BadRequestError(c, "Something was wrong with the form. Please refresh the page and try again.", &err)
 	}
 
 	event, err := dao.ToEvent(dto.Event)
 	if err != nil {
-		return utils.BadRequestError(c, "Invalid event", &err)
+		return utils.BadRequestError(c, "Please choose one of the listed events.", &err)
 	}
 
 	team, err := dao.RegisterTeam(event, dto.TeamName, *userId, dto.MemberRegNoList)
 	if err != nil {
-		return utils.BadRequestError(c, "Unable to register team", &err)
+		return utils.BadRequestError(c, err.Error(), nil)
 	}
 
 	return c.JSON(200, &team)
@@ -117,44 +118,47 @@ func RegisterTeam(c echo.Context) error {
 func UploadAbstractSubmission(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	fEvent := c.FormValue("event")
 	event, err := dao.ToEvent(fEvent)
 	if err != nil {
-		return utils.BadRequestError(c, "Invalid event", &err)
+		return utils.BadRequestError(c, "Please choose one of the listed events.", &err)
 	}
 
 	team, err := dao.GetTeam(event, *userId)
 	if err != nil {
-		return utils.InternalError(c, "Unable to fetch team", &err)
+		return utils.InternalError(c, "We couldn't load your team right now. Please try again in a minute.", &err)
 	}
 	if team == nil {
-		return utils.BadRequestError(c, "Team not registered", nil)
+		return utils.BadRequestError(c, "Register a team for this event first, then upload the abstract.", nil)
 	}
 
 	file, err := c.FormFile("file")
 	if err != nil {
-		return utils.BadRequestError(c, "Unable to parse file", &err)
+		return utils.BadRequestError(c, "Please choose a file to upload.", &err)
 	}
 
 	if file.Size > MaxFileSize {
-		return utils.BadRequestError(c, "File size too large. Should be less than 3 MB", nil)
+		return utils.BadRequestError(c, "This PDF is larger than 3 MB. Please reduce its size and upload again.", nil)
 	}
 
-	if !strings.HasSuffix(file.Filename, ".pdf") {
-		return utils.BadRequestError(c, "Invalid file extension", nil)
+	if !strings.HasSuffix(strings.ToLower(file.Filename), ".pdf") {
+		return utils.BadRequestError(c, "Only PDF files can be uploaded. Please save your abstract as a PDF.", nil)
+	}
+	if !utils.IsPDF(file) {
+		return utils.BadRequestError(c, "This file doesn't look like a real PDF. Please export your abstract as a PDF and try again.", nil)
 	}
 
 	err = utils.SaveAbstract(file, event, team.TeamId)
 	if err != nil {
-		return utils.InternalError(c, "Unable to save abstract", &err)
+		return utils.InternalError(c, "We couldn't save your abstract right now. Please try again in a minute.", &err)
 	}
 
 	err = dao.AddAbstractForTeam(team.TeamId)
 	if err != nil {
-		return utils.InternalError(c, "Unable to add abstract for team", &err)
+		return utils.InternalError(c, "Your file was saved, but we couldn't record it. Please try uploading again.", &err)
 	}
 
 	return c.NoContent(http.StatusOK)
@@ -176,22 +180,25 @@ func GetAbstractFile(c echo.Context) error {
 
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	user, err := dao.GetUser(*userId)
 	if err != nil {
-		return utils.InternalError(c, "Unable to fetch user", &err)
+		return utils.InternalError(c, "We couldn't load your account right now. Please try again in a minute.", &err)
 	}
 
-	if !dao.ValidSenior(&user.RegNo) {
-		return utils.UnauthorizedError(c, "User not authorized", nil)
+	teamId, _ := strconv.Atoi(strTeamId)
+	if !dao.ValidSenior(&user.RegNo) && !dao.IsTeamMember(teamId, user.UserId) {
+		return utils.UnauthorizedError(c, "You can only view your own team's abstract.", nil)
 	}
 
 	path, err := utils.GetAbstractFile(strTeamId)
 	if err != nil {
-		return utils.InternalError(c, "Unable to fetch abstract file", &err)
+		return c.JSON(http.StatusNotFound, map[string]string{"message": "No abstract has been uploaded for this team yet.", "error": ""})
 	}
+	// A replaced abstract must never be served from a stale cache.
+	c.Response().Header().Set("Cache-Control", "no-store")
 	return c.File(path)
 }
 
@@ -209,22 +216,22 @@ func GetAbstractFile(c echo.Context) error {
 func AllotTeamsToMentor(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	mentor := dao.CheckMentor(*userId)
 	if mentor == nil {
-		return utils.UnauthorizedError(c, "User not authorized for mentor", nil)
+		return utils.UnauthorizedError(c, "Only mentors can do this.", nil)
 	}
 
 	event := c.QueryParam("event")
 	if event == "" {
-		return utils.BadRequestError(c, "Invalid event", nil)
+		return utils.BadRequestError(c, "Please choose one of the listed events.", nil)
 	}
 
 	err = dao.Allot(*userId, event)
 	if err != nil {
-		return utils.InternalError(c, "Unable to allot teams", &err)
+		return utils.BadRequestError(c, err.Error(), nil)
 	}
 
 	return c.NoContent(http.StatusOK)
@@ -244,17 +251,17 @@ func AllotTeamsToMentor(c echo.Context) error {
 func GetAllotmentCSV(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	mentor := dao.CheckMentor(*userId)
 	if mentor == nil {
-		return utils.UnauthorizedError(c, "User not authorized for mentor", nil)
+		return utils.UnauthorizedError(c, "Only mentors can do this.", nil)
 	}
 
 	event := c.QueryParam("event")
 	if event == "" {
-		return utils.BadRequestError(c, "Invalid event", nil)
+		return utils.BadRequestError(c, "Please choose one of the listed events.", nil)
 	}
 
 	path, err := utils.GetAllotmentCSV(*userId, event)
@@ -278,44 +285,44 @@ func GetAllotmentCSV(c echo.Context) error {
 func UploadMidTermEval(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
-		return utils.UnauthorizedError(c, "User not logged in", &err)
+		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", &err)
 	}
 
 	mentor := dao.CheckMentor(*userId)
 	if mentor == nil {
-		return utils.UnauthorizedError(c, "User not authorized for mentor", nil)
+		return utils.UnauthorizedError(c, "Only mentors can do this.", nil)
 	}
 
 	event := c.FormValue("event")
 	team, err := dao.GetTeamsForMentorEvent(*userId, event)
 	if err != nil {
-		return utils.InternalError(c, "Unable to fetch team", &err)
+		return utils.InternalError(c, "We couldn't load your team right now. Please try again in a minute.", &err)
 	}
 	if team == nil {
-		return utils.BadRequestError(c, "Team not registered", nil)
+		return utils.BadRequestError(c, "Register a team for this event first, then upload the abstract.", nil)
 	}
 
 	file, err := c.FormFile("file")
 	if err != nil {
-		return utils.BadRequestError(c, "Unable to parse file", &err)
+		return utils.BadRequestError(c, "Please choose a file to upload.", &err)
 	}
 
 	if file.Size > CSVFileSize {
-		return utils.BadRequestError(c, "File size too large. Should be less than 512 KB", nil)
+		return utils.BadRequestError(c, "This CSV is larger than 512 KB. Please check you picked the right file.", nil)
 	}
 
 	if !strings.HasSuffix(file.Filename, ".csv") {
-		return utils.BadRequestError(c, "Invalid file extension", nil)
+		return utils.BadRequestError(c, "Only CSV files can be uploaded here.", nil)
 	}
 
 	err = utils.SaveMidTermCSV(file, *userId, event)
 	if err != nil {
-		return utils.InternalError(c, "Unable to save csv", &err)
+		return utils.BadRequestError(c, "We couldn't save this CSV: "+err.Error(), nil)
 	}
 
 	err = utils.UploadMidTermScores(*userId, event)
 	if err != nil {
-		return utils.BadRequestError(c, "Unable to upload scores", &err)
+		return utils.BadRequestError(c, "We couldn't read the scores in this CSV: "+err.Error(), nil)
 	}
 
 	return c.NoContent(http.StatusOK)
@@ -351,7 +358,7 @@ func GetEventRanking(c echo.Context) error {
 
 	event, err := dao.ToEvent(qEvent)
 	if err != nil {
-		return utils.BadRequestError(c, "Invalid event", &err)
+		return utils.BadRequestError(c, "Please choose one of the listed events.", &err)
 	}
 
 	if !config.EnvVars.DeclareResult {

@@ -53,7 +53,7 @@ func GetAllotmentCSV(userId int, event string) (string, error) {
 func SaveMidTermCSV(file *multipart.FileHeader, userId int, event string) error {
 	_, exists := midTermCSVExists(userId, event)
 	if exists {
-		return errors.New("mid term eval already submitted")
+		return errors.New("you have already submitted the mid-term evaluation for this event")
 	}
 
 	src, err := file.Open()
@@ -93,14 +93,14 @@ func fileExists(filePath string) (string, bool) {
 func UploadMidTermScores(userId int, event string) error {
 	finalPath, exists := midTermCSVExists(userId, event)
 	if exists {
-		return errors.New("mid term eval already submitted")
+		return errors.New("you have already submitted the mid-term evaluation for this event")
 	}
 
 	filePath := midTermPath + event + "/" + strconv.Itoa(userId) + "_t.csv"
 
 	_, tempExists := fileExists(filePath)
 	if !tempExists {
-		return errors.New("mid term eval not submitted")
+		return errors.New("the mid-term evaluation has not been submitted yet")
 	}
 
 	records, err := readCSV(filePath)
@@ -155,10 +155,10 @@ func mapTeams(mentorTeam *models.MentorTeam) map[int]models.DashboardTeam {
 
 func parseCSV(records [][]string) ([][2]int, error) {
 	if len(records) == 0 {
-		return [][2]int{}, errors.New("records empty")
+		return [][2]int{}, errors.New("the file is empty")
 	}
 	if len(records[0]) != 2 {
-		return [][2]int{}, errors.New("invalid records")
+		return [][2]int{}, errors.New("the file is not in the expected format")
 	}
 
 	var scores [][2]int
@@ -193,7 +193,7 @@ func readCSV(filePath string) ([][]string, error) {
 	}
 
 	if len(records) == 0 {
-		return [][]string{}, errors.New("records empty")
+		return [][]string{}, errors.New("the file is empty")
 	}
 
 	return records[1:], nil

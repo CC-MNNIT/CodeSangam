@@ -1,7 +1,10 @@
 package main
 
 import (
+	"log"
+
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
+	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/docs"
 	"github.com/CC-MNNIT/CodeSangam/server/routers"
 	"github.com/labstack/echo-contrib/session"
@@ -19,6 +22,10 @@ import (
 // @tokenUrl /api/auth/callback
 // @scope openid
 func main() {
+	if err := dao.EnsureAdmins(); err != nil {
+		log.Fatalln("Unable to prepare the admin table: " + err.Error())
+	}
+
 	baseUrl := config.EnvVars.BaseUrl + "/api"
 	router := echo.New()
 	router.Use(session.Middleware(config.SessionCookieStore))
@@ -33,6 +40,7 @@ func main() {
 
 	baseRouter := router.Group(baseUrl)
 	routers.AuthRouter(baseRouter)
+	routers.AdminRouter(baseRouter)
 	baseRouter = baseRouter.Group("/v1")
 
 	MergeRouters(baseRouter, routers.Index, routers.ContriHub, routers.CodeSangam)

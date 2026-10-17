@@ -8,6 +8,72 @@ function toggleProgress(show) {
     }
 }
 
+
+// ------------------------------------------------------------ messages
+// Results appear as a toast; destructive steps ask in a themed dialog; every
+// failure is explained in plain language, never as a raw server error.
+
+const NETWORK_MSG = "We couldn't reach the server. Check your internet connection and try again.";
+
+function notify(kind, message) {
+    let box = document.getElementById("dash-toast");
+    if (!box) {
+        window.alert(message);
+        return;
+    }
+    let el = document.createElement("div");
+    el.className =
+        "toast max-w-xl text-center " +
+        (kind === "error"
+            ? "bg-void-800 text-scarlet-300 ring-scarlet-400/50"
+            : "bg-void-800 text-agamotto-300 ring-agamotto-400/40");
+    el.textContent = message;
+    box.replaceChildren(el);
+    clearTimeout(notify.timer);
+    notify.timer = setTimeout(() => el.remove(), kind === "error" ? 7000 : 3000);
+}
+
+function friendlyMessage(status, data) {
+    if (status === 401) {
+        return "Your session has expired. Please sign in again.";
+    }
+    if (status === 413) {
+        return "That file is too large to upload.";
+    }
+    let msg = data && typeof data.message === "string" ? data.message.trim() : "";
+    // Server messages are written for people; anything that still reads like
+    // an internal error gets a plain fallback instead.
+    if (msg && !/^(Unable to|Invalid|User not)|dto|parse/i.test(msg)) {
+        return msg;
+    }
+    return "Something went wrong on our side. Please try again in a minute.";
+}
+
+function showFailure(res) {
+    toggleProgress(false);
+    res.json()
+        .then((data) => notify("error", friendlyMessage(res.status, data)))
+        .catch(() => notify("error", friendlyMessage(res.status, null)));
+    if (res.status === 401) {
+        setTimeout(() => (window.location.href = (document.body.dataset.base || "") + "/api/auth"), 2500);
+    }
+}
+
+function confirmDialog(title, body, okLabel) {
+    let dialog = document.getElementById("dash-confirm");
+    if (!dialog || typeof dialog.showModal !== "function") {
+        return Promise.resolve(window.confirm(title + "\n\n" + body));
+    }
+    dialog.querySelector("[data-title]").textContent = title;
+    dialog.querySelector("[data-body]").textContent = body;
+    dialog.querySelector("[data-ok]").textContent = okLabel || "Confirm";
+    dialog.returnValue = "";
+    dialog.showModal();
+    return new Promise((resolve) => {
+        dialog.addEventListener("close", () => resolve(dialog.returnValue === "ok"), { once: true });
+    });
+}
+
 let eventActive = "teams";
 
 function setEventActive(elementId) {
@@ -63,19 +129,19 @@ function toggleMenu() {
 let requestStarted = false;
 
 function submitRegistration(event, baseUrl) {
-    toggleProgress(true);
     if (requestStarted) {
         return;
     }
     requestStarted = true;
 
-    let teamName = document.getElementById(event + "_team_name").value;
+    let teamName = document.getElementById(event + "_team_name").value.trim();
 
     if (teamName.length == 0) {
         requestStarted = false;
-        alertReload("Please enter team name");
+        notify("error", "Please enter a team name.");
         return;
     }
+    toggleProgress(true);
 
     let member1RegNo = document.getElementById(event + "_mem_1_reg").value;
     let member2RegNo = document.getElementById(event + "_mem_2_reg").value;
@@ -109,15 +175,12 @@ function submitRegistration(event, baseUrl) {
                 alertReload("Registered successfully");
                 return;
             } else {
-                toggleProgress(false);
-                res.json().then((data) => {
-                    alert(data["message"] + " - " + data["error"]);
-                });
+                showFailure(res);
             }
         })
         .catch((err) => {
             toggleProgress(false);
-            alert(err);
+            notify("error", NETWORK_MSG);
         })
         .finally(() => {
             requestStarted = false;
@@ -125,9 +188,9 @@ function submitRegistration(event, baseUrl) {
 }
 
 function alertReload(msg) {
-    alert(msg);
-    window.scrollTo(0, 0);
-    window.location.reload(true);
+    toggleProgress(false);
+    notify("success", msg);
+    setTimeout(() => window.location.reload(), 1400);
 }
 
 function onFileChange() {
@@ -139,7 +202,7 @@ function onFileChange() {
     console.log(selectedFile);
 
     if (selectedFile.size > 1024 * 1024 * 3) {
-        alert("File size should be less than 3MB");
+        notify("error", "This PDF is larger than 3 MB. Please reduce its size and choose it again.");
     } else {
         dropzone.classList.add("hidden");
 
@@ -173,7 +236,8 @@ function submitAbstractForm(baseUrl) {
     let selectedFile = fileInput.files[0];
 
     if (!selectedFile) {
-        alert("Please select a file");
+        requestStarted = false;
+        notify("error", "Please choose your abstract PDF first.");
         return;
     }
 
@@ -181,7 +245,7 @@ function submitAbstractForm(baseUrl) {
     let eventIndex = eventOption.selectedIndex;
     if (eventIndex < 0) {
         requestStarted = false;
-        alert("Please select an event team");
+        notify("error", "Please choose which event this is for.");
         return;
     }
 
@@ -189,9 +253,29 @@ function submitAbstractForm(baseUrl) {
 
     if (event.length == 0) {
         requestStarted = false;
-        alert("Please select an event team");
+        notify("error", "Please choose which event this is for.");
         return;
     }
+
+    let replacing = eventOption.options[eventIndex].dataset.submitted === "true";
+    if (replacing) {
+        confirmDialog(
+            "Replace your abstract?",
+            "Your team's current abstract will be deleted and replaced with " + selectedFile.name + ".",
+            "Replace"
+        ).then((ok) => {
+            if (ok) {
+                sendAbstract(baseUrl, event, selectedFile, true);
+            } else {
+                requestStarted = false;
+            }
+        });
+        return;
+    }
+    sendAbstract(baseUrl, event, selectedFile, false);
+}
+
+function sendAbstract(baseUrl, event, selectedFile, replacing) {
     toggleProgress(true);
 
     let formData = new FormData();
@@ -209,23 +293,33 @@ function submitAbstractForm(baseUrl) {
     })
         .then((res) => {
             if (res.status == 200) {
-                alertReload("Abstract submitted successfully");
+                alertReload(replacing ? "Abstract replaced successfully" : "Abstract submitted successfully");
                 return;
             } else {
-                toggleProgress(false);
-                res.json().then((data) => {
-                    alert(data["message"] + " - " + data["error"]);
-                });
+                showFailure(res);
             }
         })
         .catch((err) => {
             toggleProgress(false);
-            alert(err);
+            notify("error", NETWORK_MSG);
         })
         .finally(() => {
             requestStarted = false;
             clearFile();
         });
+}
+
+// "Upload" / "Replace PDF" in the status list: pick that event and open the
+// file chooser straight away.
+function pickAbstractEvent(tag) {
+    let select = document.getElementById("abstract-event");
+    if (!select) return;
+    select.value = tag;
+    onEventTeamOption();
+    let form = document.getElementById("abstract-form");
+    if (form) form.scrollIntoView({ behavior: "smooth", block: "center" });
+    let input = document.getElementById("dropzone-file");
+    if (input) input.click();
 }
 
 function onEventTeamOption() {
@@ -243,11 +337,23 @@ function onEventTeamOption() {
     templateButtonText.innerHTML = "Open " + eventHtml + "Template";
 
     if (event === "droidrush") {
-        templateButton.href = "https://tinyurl.com/yu2vfwsk";
+        templateButton.href = "https://docs.google.com/document/d/1UDBqp1AKES0qTzU3CLRo_3qDwsTGrOOS/edit?usp=sharing&ouid=113461078357577403298&rtpof=true&sd=true";
     } else if (event === "webster") {
-        templateButton.href = "https://tinyurl.com/mpc3ew8v";
+        templateButton.href = "https://docs.google.com/document/d/1p8ntP8WbgF3mVmOa2UMqkoRkb48D9IoW/edit?usp=sharing&ouid=113461078357577403298&rtpof=true&sd=true";
     } else if (event === "softablitz") {
-        templateButton.href = "https://tinyurl.com/2dnyryyj";
+        templateButton.href = "https://docs.google.com/document/d/1JXEfaRnMH5v2pe7Yl7JXiGRWmEX8TX7R/edit?usp=sharing&ouid=113461078357577403298&rtpof=true&sd=true";
+    }
+
+    // Already submitted: say so and turn Submit into Replace.
+    let submitted = eventOption.options[eventIndex].dataset.submitted === "true";
+    let note = document.getElementById("abstract-replace-note");
+    let submitText = document.getElementById("abstract-submit-text");
+    if (note) {
+        note.classList.toggle("hidden", !submitted);
+        note.classList.toggle("flex", submitted);
+    }
+    if (submitText) {
+        submitText.textContent = submitted ? "Replace abstract" : "Submit";
     }
 }
 
@@ -271,15 +377,12 @@ function allotTeamsForEvent(event, baseUrl) {
                 alertReload("Team allotment successful for " + event);
                 return;
             } else {
-                toggleProgress(false);
-                res.json().then((data) => {
-                    alert(data["message"] + " - " + data["error"]);
-                });
+                showFailure(res);
             }
         })
         .catch((err) => {
             toggleProgress(false);
-            alert(err);
+            notify("error", NETWORK_MSG);
         })
         .finally(() => {
             requestStarted = false;
@@ -294,7 +397,7 @@ function onCSVFileChange(event) {
 
     if (selectedFile.size > 1024 * 512) {
         fileInput.value = "";
-        alert("File size should be less than 512KB");
+        notify("error", "This CSV is larger than 512 KB. Please check you picked the right file.");
     }
 }
 
@@ -309,13 +412,13 @@ function uploadMidTerm(event, baseUrl) {
 
     if (!selectedFile) {
         requestStarted = false;
-        alert("Please select a file");
+        notify("error", "Please choose the CSV file first.");
         return;
     }
 
     if (event.length == 0) {
         requestStarted = false;
-        alert("Please select an event team");
+        notify("error", "Please choose which event this is for.");
         return;
     }
 
@@ -339,15 +442,12 @@ function uploadMidTerm(event, baseUrl) {
                 alertReload("Mid evaluation submitted successfully");
                 return;
             } else {
-                toggleProgress(false);
-                res.json().then((data) => {
-                    alert(data["message"] + " - " + data["error"]);
-                });
+                showFailure(res);
             }
         })
         .catch((err) => {
             toggleProgress(false);
-            alert(err);
+            notify("error", NETWORK_MSG);
         })
         .finally(() => {
             requestStarted = false;

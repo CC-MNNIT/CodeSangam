@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"time"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
@@ -60,6 +61,30 @@ func UserDashboard(c echo.Context) error {
 		false,
 	})
 
+	// One row per event with an abstract round where the student has a team.
+	type abstractRow struct {
+		Tag        string
+		Name       string
+		TeamId     int
+		Uploaded   bool
+		UploadedAt string
+		Version    int64
+	}
+	abstracts := []abstractRow{}
+	for i, t := range teams[:3] {
+		if t == nil {
+			continue
+		}
+		at := utils.AbstractUploadedAt(t.TeamId, eventsInfo[i].Tag)
+		row := abstractRow{Tag: eventsInfo[i].Tag, Name: eventsInfo[i].Name, TeamId: t.TeamId}
+		if !at.IsZero() {
+			row.Uploaded = true
+			row.UploadedAt = at.In(ist).Format("2 Jan 2006, 3:04 PM")
+			row.Version = at.Unix()
+		}
+		abstracts = append(abstracts, row)
+	}
+
 	mentor := dao.CheckMentor(user.User.UserId)
 	var mentorTeams *[]models.MentorTeam
 	if mentor != nil {
@@ -77,6 +102,8 @@ func UserDashboard(c echo.Context) error {
 		"IsMentor":    mentor != nil,
 		"Mentor":      mentor,
 		"MentorTeams": mentorTeams,
+		"IsAdmin":     dao.IsAdmin(user.User.Email),
+		"Abstracts":   abstracts,
 	})
 }
 
@@ -229,6 +256,9 @@ func GoogleCallback(c echo.Context) error {
 	// Response
 	return c.Redirect(http.StatusTemporaryRedirect, config.EnvVars.BaseUrl+"/api/auth/dashboard")
 }
+
+// ist is India Standard Time, used for times shown to students.
+var ist = time.FixedZone("IST", 5*60*60+30*60)
 
 func generateRandomState() (string, error) {
 	b := make([]byte, 32)

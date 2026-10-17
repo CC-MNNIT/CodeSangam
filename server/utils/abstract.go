@@ -7,6 +7,7 @@ import (
 	"mime/multipart"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
@@ -29,10 +30,16 @@ func SaveAbstract(file *multipart.FileHeader, event dao.Event, teamId int) error
 		return errors.New("unable to create directory")
 	}
 
-	dst, err := os.Create(path + "/" + strconv.Itoa(teamId) + ".pdf")
+	// Write to a temporary file first and swap it in only once it is fully
+	// written, so replacing an abstract never leaves a half-written PDF and
+	// the old file is deleted only when the new one is safe.
+	final := path + "/" + strconv.Itoa(teamId) + ".pdf"
+	tmp := final + ".uploading"
+	dst, err := os.Create(tmp)
 	if err != nil {
 		return errors.New("unable to create file")
 	}
+	defer os.Remove(tmp)
 	defer dst.Close()
 
 	if _, err := io.Copy(dst, src); err != nil {
@@ -40,7 +47,14 @@ func SaveAbstract(file *multipart.FileHeader, event dao.Event, teamId int) error
 		return errors.New("unable to copy file")
 	}
 	
-	log.Printf("Abstract successfully saved for team %d, event %s, file: %s", teamId, event.String(), dst.Name())
+	if err := dst.Close(); err != nil {
+		return errors.New("unable to write file")
+	}
+	if err := os.Rename(tmp, final); err != nil {
+		return errors.New("unable to replace the previous abstract")
+	}
+
+	log.Printf("Abstract successfully saved for team %d, event %s, file: %s", teamId, event.String(), final)
 	return nil		
 }
 
@@ -75,4 +89,30 @@ func GetAbstractFile(strTeamId string) (string, error) {
 		return path, nil
 	}
 	return "", errors.New("abstract for team Id [" + strTeamId + "] does not exist")
+}
+
+// IsPDF checks the upload really is a PDF by its first bytes, not its name.
+func IsPDF(file *multipart.FileHeader) bool {
+	src, err := file.Open()
+	if err != nil {
+		return false
+	}
+	defer src.Close()
+	head := make([]byte, 5)
+	n, _ := io.ReadFull(src, head)
+	return n == 5 && string(head) == "%PDF-"
+}
+
+// AbstractUploadedAt returns when a team's abstract file was last written,
+// or the zero time when there is none.
+func AbstractUploadedAt(teamId int, event string) time.Time {
+	path, ok := exists(teamId, event)
+	if !ok {
+		return time.Time{}
+	}
+	info, err := os.Stat(path)
+	if err != nil {
+		return time.Time{}
+	}
+	return info.ModTime()
 }

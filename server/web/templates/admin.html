@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="referrer" content="no-referrer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#05030a" />
+        <meta name="robots" content="noindex" />
+        <link rel="icon" href="{{ .BaseUrl }}/api/static/img/favicon.ico" sizes="48x48" />
+        <link rel="icon" href="{{ .BaseUrl }}/api/static/img/favicon.svg" type="image/svg+xml" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="{{ .BaseUrl }}/api/static/css/app.css" />
+        <title>Admin - CodeSangam</title>
+    </head>
+
+    <body class="universe-sanctum min-h-screen" data-base="{{ .BaseUrl }}">
+        <!-- The Sanctum's control room: a still backdrop, nothing moving behind the data. -->
+        <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-void-950">
+            <div class="absolute inset-0 bg-void-wash"></div>
+            <div class="absolute -left-[14vmax] -top-[20vmax] h-[60vmax] w-[60vmax] rounded-full bg-[radial-gradient(closest-side,rgb(255_143_31/0.12),transparent)]"></div>
+            <div class="absolute -bottom-[24vmax] -right-[16vmax] h-[64vmax] w-[64vmax] rounded-full bg-[radial-gradient(closest-side,rgb(91_39_194/0.26),transparent)]"></div>
+            <div class="absolute inset-0 bg-grain opacity-[0.035]"></div>
+        </div>
+
+        <!-- Toasts -->
+        <div id="toast" role="status" aria-live="polite" class="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4"></div>
+
+        <nav class="sticky top-0 z-30 border-b border-white/10 bg-void-950/80 backdrop-blur-xl">
+            <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+                <a href="{{ .BaseUrl }}/" class="focus-ring flex items-center font-display text-xl font-bold tracking-[0.16em] text-bone-50 sm:text-2xl">
+                    C
+<svg viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false" class="-ml-[0.04em] mr-[0.08em] h-[1.12em] w-[1.12em] flex-shrink-0"><circle cx="50" cy="50" r="35" stroke="#ffb347" stroke-opacity=".3" stroke-width="10"/><path d="M50 15 A35 35 0 0 1 82.89 61.97" stroke="#ffe3b8" stroke-width="10" stroke-linecap="round"/><path d="M50 85 A35 35 0 0 1 17.11 61.97" stroke="#ffb347" stroke-width="10" stroke-linecap="round"/><circle cx="50" cy="50" r="46.5" stroke="#ffb347" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="0.1 7.2"/></svg>
+                    DESANGAM
+                </a>
+                <div class="flex items-center gap-3">
+                    {{ if .Email }}
+                    <span class="hidden max-w-[16rem] truncate text-sm text-bone-300 md:inline">{{ .Email }}</span>
+                    {{ end }}
+                    {{ if not .Denied }}
+                    <a href="{{ .BaseUrl }}/api/auth/dashboard" class="focus-ring hidden rounded-full px-4 py-2 font-display text-[0.7rem] font-semibold uppercase tracking-rune text-bone-200 ring-1 ring-white/15 transition-colors hover:text-bone-50 hover:ring-sling-400/60 sm:inline-block">Dashboard</a>
+                    {{ end }}
+                    <form action="{{ .BaseUrl }}/api/auth/logout">
+                        <button type="submit" class="glyph group">
+                            <span aria-hidden="true" class="glyph-spark"></span>
+                            <span class="glyph-face h-10 w-10 p-0 text-bone-200">
+                                <span class="sr-only">Logout</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3"/><path d="M16 8l4 4-4 4M20 12H9"/></svg>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        {{ if .Denied }}
+        <main class="mx-auto grid min-h-[calc(100vh-4rem)] max-w-xl place-items-center px-6 py-16 text-center">
+            <div class="w-full rounded-3xl bg-void-800/80 p-10 ring-1 ring-white/10 shadow-slab">
+                <div aria-hidden="true" class="mx-auto mb-8 grid h-20 w-20 place-items-center rounded-full ring-1 ring-scarlet-400/50">
+<svg viewBox="0 0 24 24" fill="none" stroke="#f66b7d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-9 w-9"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                </div>
+                <h1 class="font-display text-3xl font-semibold tracking-[0.08em] text-bone-50">Admins only</h1>
+                <p class="mt-4 leading-relaxed text-bone-200">
+                    <span class="font-semibold text-bone-50">{{ .Email }}</span> is not an admin. Ask an existing admin to add you.
+                </p>
+                <div class="mt-9 flex flex-wrap justify-center gap-3">
+                    <a href="{{ .BaseUrl }}/" class="glyph group">
+                        <span aria-hidden="true" class="glyph-spark"></span>
+                        <span class="glyph-face">Home</span>
+                    </a>
+                    <a href="{{ .BaseUrl }}/api/auth/dashboard" class="focus-ring rounded-full px-7 py-3 font-display text-[0.74rem] font-semibold uppercase tracking-rune text-bone-200 ring-1 ring-white/15 transition-colors hover:text-bone-50">Dashboard</a>
+                </div>
+            </div>
+        </main>
+        {{ else }}
+        <main class="mx-auto max-w-7xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
+            <header class="flex flex-wrap items-end justify-between gap-6">
+                <div>
+                    <h1 class="font-display text-4xl font-bold tracking-[0.18em] text-bone-50 sm:text-5xl">ADMIN</h1>
+                    <div aria-hidden="true" class="mt-4 flex items-center gap-3">
+                        <span class="h-px w-24 bg-gradient-to-r from-sling-400 to-sling-400/0"></span>
+                        <span class="h-1.5 w-1.5 rotate-45 bg-sling-400"></span>
+                    </div>
+                </div>
+                <dl class="flex flex-wrap gap-2">
+                    <div class="rounded-2xl bg-void-800/80 px-4 py-2.5 ring-1 ring-white/10">
+                        <dt class="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-bone-300">Teams</dt>
+                        <dd class="font-display text-xl font-semibold tabular-nums text-bone-50">{{ .TeamCount }}</dd>
+                    </div>
+                    <div class="rounded-2xl bg-void-800/80 px-4 py-2.5 ring-1 ring-white/10">
+                        <dt class="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-bone-300">People</dt>
+                        <dd class="font-display text-xl font-semibold tabular-nums text-bone-50">{{ .UserCount }}</dd>
+                    </div>
+                    {{ range .Events }}
+                    <div class="ev-{{ .Tag }} rounded-2xl bg-void-800/80 px-4 py-2.5 ring-1 ring-tint/30">
+                        <dt class="text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-tint">{{ .Name }}</dt>
+                        <dd class="font-display text-xl font-semibold tabular-nums text-bone-50">{{ .Teams }}</dd>
+                    </div>
+                    {{ end }}
+                </dl>
+            </header>
+
+            <!-- Tabs -->
+            <div role="tablist" aria-label="Admin sections" class="mt-10 flex gap-1 overflow-x-auto rounded-full bg-void-900/80 p-1.5 ring-1 ring-white/10 sm:inline-flex">
+                <button role="tab" id="tab-teams" aria-controls="panel-teams" aria-selected="true" data-tab="teams" class="tab focus-ring">Teams</button>
+                <button role="tab" id="tab-people" aria-controls="panel-people" aria-selected="false" data-tab="people" class="tab focus-ring">People</button>
+                <button role="tab" id="tab-admins" aria-controls="panel-admins" aria-selected="false" data-tab="admins" class="tab focus-ring">Admins</button>
+            </div>
+
+            <!-- TEAMS -->
+            <section id="panel-teams" role="tabpanel" aria-labelledby="tab-teams" data-panel="teams" class="mt-8">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <label class="field-search flex-1">
+                        <span class="sr-only">Search teams</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" class="h-4 w-4 shrink-0 text-bone-300"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                        <input id="team-search" type="search" placeholder="Search team, name, reg no or email" autocomplete="off" />
+                    </label>
+                    <div class="flex flex-wrap gap-1.5" role="group" aria-label="Filter by event">
+                        <button type="button" class="chip focus-ring" data-filter="all" aria-pressed="true">All</button>
+                        {{ range .Events }}
+                        <button type="button" class="chip ev-{{ .Tag }} focus-ring" data-filter="{{ .Tag }}" aria-pressed="false">{{ .Name }}</button>
+                        {{ end }}
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-4">
+                    {{ range .Teams }}
+                    <article
+                        class="ev-{{ .EventTag }} team-card rounded-3xl bg-void-800/75 ring-1 ring-white/10 shadow-slab"
+                        data-team
+                        data-event="{{ .EventTag }}"
+                        data-team-id="{{ .TeamId }}"
+                        data-team-name="{{ .Name }}"
+                        data-search="{{ .Name }} {{ .TeamId }}{{ range .Members }} {{ .Name }} {{ .RegNo }} {{ .Email }}{{ end }}"
+                    >
+                        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-white/[0.07] px-5 py-4 sm:px-6">
+                            <div class="min-w-0">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="rounded-full bg-tint/15 px-2.5 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.16em] text-tint">{{ .EventName }}</span>
+                                    <span class="text-xs tabular-nums text-bone-300">#{{ .TeamId }}</span>
+                                    {{ if .Abstract }}<span class="pill-ok">Abstract</span>{{ end }}
+                                    {{ if .HasMentor }}<span class="pill-ok">Mentor</span>{{ end }}
+                                </div>
+                                <h3 class="mt-2 truncate font-display text-xl font-semibold tracking-[0.04em] text-bone-50" data-name-view>{{ .Name }}</h3>
+                                <form class="mt-2 hidden items-center gap-2" data-rename-form>
+                                    <label class="sr-only" for="rename-{{ .EventTag }}-{{ .TeamId }}">Team name</label>
+                                    <input id="rename-{{ .EventTag }}-{{ .TeamId }}" class="field" name="name" value="{{ .Name }}" maxlength="255" required />
+                                    <button type="submit" class="btn-sm">Save</button>
+                                    <button type="button" class="btn-sm-ghost" data-action="rename-cancel">Cancel</button>
+                                </form>
+                            </div>
+                            <div class="flex shrink-0 items-center gap-2">
+                                <button type="button" class="btn-sm-ghost" data-action="rename">Rename</button>
+                                <button type="button" class="btn-danger" data-action="revoke">Revoke</button>
+                            </div>
+                        </div>
+
+                        <ul class="divide-y divide-white/[0.06]">
+                            {{ range .Members }}
+                            <li class="flex items-center gap-4 px-5 py-3 sm:px-6" data-member-id="{{ .UserId }}" data-member-name="{{ .Name }}">
+                                <img src="{{ .Avatar }}" alt="" loading="lazy" class="h-10 w-10 shrink-0 rounded-full bg-void-700 object-cover ring-1 ring-white/10" />
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate font-medium text-bone-50">
+                                        {{ .Name }}
+                                        {{ if .Leader }}<span class="ml-1.5 text-xs font-semibold text-sling-300">Leader</span>{{ end }}
+                                    </p>
+                                    <p class="truncate text-sm text-bone-300"><span class="tabular-nums">{{ .RegNo }}</span> · {{ .Email }}</p>
+                                </div>
+                                <button type="button" class="btn-icon" data-action="remove-member" aria-label="Remove {{ .Name }} from the team" title="Remove from team">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" class="h-4 w-4"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                                </button>
+                            </li>
+                            {{ end }}
+                        </ul>
+
+                        <div class="border-t border-white/[0.07] px-5 py-4 sm:px-6">
+                            {{ if .Full }}
+                            <p class="text-sm text-bone-300">Team is full (3 members).</p>
+                            {{ else }}
+                            <form class="flex flex-wrap items-center gap-2" data-add-form>
+                                <label class="sr-only" for="add-{{ .EventTag }}-{{ .TeamId }}">Registration number to add</label>
+                                <input id="add-{{ .EventTag }}-{{ .TeamId }}" class="field max-w-[14rem]" name="reg_no" placeholder="Reg no to add" autocomplete="off" required />
+                                <button type="submit" class="btn-sm">Add member</button>
+                            </form>
+                            {{ end }}
+                        </div>
+                    </article>
+                    {{ else }}
+                    <p class="empty">No teams have registered yet.</p>
+                    {{ end }}
+                    <p class="empty hidden" data-empty="teams">No teams match this search.</p>
+                </div>
+            </section>
+
+            <!-- PEOPLE -->
+            <section id="panel-people" role="tabpanel" aria-labelledby="tab-people" data-panel="people" class="mt-8 hidden">
+                <label class="field-search">
+                    <span class="sr-only">Search people</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" class="h-4 w-4 shrink-0 text-bone-300"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                    <input id="people-search" type="search" placeholder="Search name, reg no or email" autocomplete="off" />
+                </label>
+
+                <div class="mt-6 overflow-hidden rounded-3xl bg-void-800/75 ring-1 ring-white/10 shadow-slab">
+                    <ul class="divide-y divide-white/[0.06]">
+                        {{ range .Users }}
+                        <li class="px-5 py-4 sm:px-6" data-user data-user-id="{{ .UserId }}" data-user-name="{{ .Name }}" data-search="{{ .Name }} {{ .RegNo }} {{ .Email }}">
+                            <div class="flex flex-wrap items-center gap-4" data-user-view>
+                                <img src="{{ .Avatar }}" alt="" loading="lazy" class="h-10 w-10 shrink-0 rounded-full bg-void-700 object-cover ring-1 ring-white/10" />
+                                <div class="min-w-0 flex-1">
+                                    <p class="truncate font-medium text-bone-50">{{ .Name }}</p>
+                                    <p class="truncate text-sm text-bone-300"><span class="tabular-nums">{{ .RegNo }}</span> · {{ .Email }}</p>
+                                </div>
+                                <div class="flex w-full flex-wrap items-center justify-between gap-3 pl-14 sm:w-auto sm:justify-end sm:pl-0">
+                                <div class="flex flex-wrap gap-1.5">
+                                    {{ range .Events }}<span class="rounded-full bg-white/[0.06] px-2.5 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-bone-200">{{ . }}</span>{{ else }}<span class="text-xs text-bone-400">No team</span>{{ end }}
+                                </div>
+                                <div class="flex shrink-0 gap-2">
+                                    <button type="button" class="btn-sm-ghost" data-action="edit-user">Edit</button>
+                                    <button type="button" class="btn-danger" data-action="delete-user">Delete</button>
+                                </div>
+                                </div>
+                            </div>
+                            <form class="mt-1 hidden flex-wrap items-end gap-3" data-user-form>
+                                <label class="flex min-w-[12rem] flex-1 flex-col gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-bone-300">
+                                    Name
+                                    <input class="field" name="name" value="{{ .Name }}" required />
+                                </label>
+                                <label class="flex w-40 flex-col gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-bone-300">
+                                    Reg no
+                                    <input class="field" name="reg_no" value="{{ .RegNo }}" required />
+                                </label>
+                                <button type="submit" class="btn-sm">Save</button>
+                                <button type="button" class="btn-sm-ghost" data-action="edit-cancel">Cancel</button>
+                            </form>
+                        </li>
+                        {{ else }}
+                        <li class="empty">No one has signed in yet.</li>
+                        {{ end }}
+                        <li class="empty hidden" data-empty="people">No one matches this search.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ADMINS -->
+            <section id="panel-admins" role="tabpanel" aria-labelledby="tab-admins" data-panel="admins" class="mt-8 hidden">
+                <form class="flex flex-col gap-3 rounded-3xl bg-void-800/75 p-5 ring-1 ring-white/10 shadow-slab sm:flex-row sm:items-center sm:p-6" data-admin-form>
+                    <label class="sr-only" for="admin-email">Email of the new admin</label>
+                    <input id="admin-email" class="field flex-1" type="email" name="email" placeholder="name.regno@mnnit.ac.in" autocomplete="off" required />
+                    <button type="submit" class="glyph group">
+                        <span aria-hidden="true" class="glyph-spark"></span>
+                        <span class="glyph-face">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
+                            Add admin
+                        </span>
+                    </button>
+                </form>
+                <p class="mt-3 px-1 text-sm text-bone-300">They sign in with Google using this email and the Admin page opens for them.</p>
+
+                <div class="mt-6 overflow-hidden rounded-3xl bg-void-800/75 ring-1 ring-white/10 shadow-slab">
+                    <ul class="divide-y divide-white/[0.06]">
+                        {{ range .Admins }}
+                        <li class="flex flex-wrap items-center gap-4 px-5 py-4 sm:px-6" data-admin data-admin-email="{{ .Email }}">
+                            <div aria-hidden="true" class="grid h-10 w-10 shrink-0 place-items-center rounded-full ring-1 ring-sling-400/40">
+                                <span class="h-1.5 w-1.5 rotate-45 bg-sling-400"></span>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <p class="truncate font-medium text-bone-50">{{ .Email }}</p>
+                                <p class="text-sm text-bone-300">
+                                    {{ if .Founding }}Founding admin{{ else }}Added by {{ .AddedBy }} · {{ .CreatedAt.Format "02 Jan 2006" }}{{ end }}
+                                </p>
+                            </div>
+                            {{ if .Self }}
+                            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-sling-300">You</span>
+                            {{ else if .Founding }}
+                            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-bone-400">Permanent</span>
+                            {{ else }}
+                            <button type="button" class="btn-danger" data-action="remove-admin">Remove</button>
+                            {{ end }}
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Confirmation for destructive actions -->
+        <dialog id="confirm" class="w-[min(92vw,28rem)] rounded-3xl bg-void-800 p-0 text-bone-100 ring-1 ring-white/10 shadow-slab backdrop:bg-void-950/80">
+            <form method="dialog" class="p-7">
+                <h2 class="font-display text-xl font-semibold tracking-[0.06em] text-bone-50" data-confirm-title>Are you sure?</h2>
+                <p class="mt-3 leading-relaxed text-bone-200" data-confirm-body></p>
+                <div class="mt-7 flex justify-end gap-3">
+                    <button value="cancel" class="btn-sm-ghost">Cancel</button>
+                    <button value="ok" class="btn-danger" data-confirm-ok>Confirm</button>
+                </div>
+            </form>
+        </dialog>
+
+        <script src="{{ .BaseUrl }}/api/static/js/admin.js"></script>
+        {{ end }}
+    </body>
+</html>

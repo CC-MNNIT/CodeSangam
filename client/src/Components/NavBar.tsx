@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { route } from "../Utils/Config";
 import { EVENTS } from "../lib/events";
 import { scrollToTarget } from "../lib/scrollTargets";
-import logo from "../Assets/cc2025.svg";
+import logo from "../Assets/cc2026.svg";
 import GlyphButton from "../ui/GlyphButton";
 import Mandala from "../ui/art/Mandala";
 
@@ -81,7 +81,7 @@ export default function NavBar() {
           aria-label="CodeSangam home"
           className="relative z-[60] justify-self-start rounded-lg focus-ring"
         >
-          <img src={logo} alt="" className="h-12 w-auto md:h-14" />
+          <img src={logo} alt="" className="h-9 w-auto md:h-11" />
         </NavLink>
 
         {/* Desktop */}

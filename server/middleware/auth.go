@@ -58,7 +58,7 @@ func DeadlineMiddleware() echo.MiddlewareFunc {
 		return func(c echo.Context) error {
 
 			if false {
-				return utils.BadRequestError(c, "Registration deadline has passed", nil)
+				return utils.BadRequestError(c, "Registration and abstract submission are now closed.", nil)
 			}
 
 			return next(c)

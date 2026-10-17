@@ -252,7 +252,7 @@ func GetUserDto(user *models.User) *models.UserDto {
 func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string) (*models.DashboardTeam, error) {
 	// Validate team name
 	if teamLen := len(teamName); teamLen < 1 || teamLen > 255 {
-		return nil, errors.New("invalid team name")
+		return nil, errors.New("Please enter a team name (up to 255 characters).")
 	}
 
 	// Check if all users are registered and any user is not in any other team
@@ -261,13 +261,13 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 	// Check for leader
 	leader, err := GetUser(leaderId)
 	if err != nil {
-		return nil, errors.New("invalid leader id")
+		return nil, errors.New("We couldn't find your account. Please sign out, sign in again and retry.")
 	}
 	if !validateRegNo(&leader.RegNo) {
-		return nil, errors.New("[" + leader.RegNo + "] not allowed")
+		return nil, errors.New("Your registration number (" + leader.RegNo + ") isn't eligible for CodeSangam events.")
 	}
 	if !userAllowed(event, leader) {
-		return nil, errors.New("leader [" + leader.RegNo + "] already in other team")
+		return nil, errors.New("You are already in a team for this event.")
 	}
 	users = append(users, leader)
 
@@ -275,19 +275,19 @@ func RegisterTeam(event Event, teamName string, leaderId int, regNoList []string
 	for _, regNo := range regNoList {
 		user, err := GetUserByRegNo(&regNo)
 		if err != nil {
-			return nil, errors.New("invalid user id [" + regNo + "]")
+			return nil, errors.New("No one with registration number " + regNo + " has signed in yet. Ask them to sign in to the CodeSangam site once, then try again.")
 		}
 		if !validateRegNo(&regNo) {
-			return nil, errors.New("[" + regNo + "] not allowed")
+			return nil, errors.New("Registration number " + regNo + " isn't eligible for CodeSangam events.")
 		}
 		if !userAllowed(event, user) {
-			return nil, errors.New("user [" + user.RegNo + "] already in other team")
+			return nil, errors.New(user.Name + " (" + user.RegNo + ") is already in another team for this event.")
 		}
 		users = append(users, user)
 	}
 
 	if len(users) < 1 {
-		return nil, errors.New("invalid team size")
+		return nil, errors.New("A team needs at least one member.")
 	}
 
 	var resultTeam models.Team
@@ -424,10 +424,11 @@ func GetEventRanking(event Event) ([]*models.DashboardTeam, error) {
 	return teams, nil
 }
 
+// AddAbstractForTeam records that a team has an abstract. Re-uploading
+// (replacing) an abstract keeps the existing record.
 func AddAbstractForTeam(teamId int) error {
-	err := config.Db.Table(abstractTable.String()).Create(&models.Abstract{
-		TeamId: teamId,
-	}).Error
+	abstract := models.Abstract{TeamId: teamId}
+	err := config.Db.Table(abstractTable.String()).Where("team_id = ?", teamId).FirstOrCreate(&abstract).Error
 	if err != nil {
 		return err
 	}
@@ -532,7 +533,7 @@ func Allot(userId int, strEvent string) error {
 	}
 
 	if allotmentLock[event] {
-		return errors.New("please wait, someone else is in the middle allotment process")
+		return errors.New("Another mentor is being allotted teams for this event right now. Please try again in a few seconds.")
 	}
 	allotmentLock[event] = true
 
@@ -544,7 +545,7 @@ func Allot(userId int, strEvent string) error {
 
 	if len(*teamIds) < 1 {
 		allotmentLock[event] = false
-		return errors.New("no team left")
+		return errors.New("There are no teams left to allot for this event.")
 	}
 
 	for _, teamId := range *teamIds {
@@ -600,4 +601,13 @@ func SetTeamScore(strEvent string, teamId int, score int) error {
 		return err
 	}
 	return nil
+}
+
+// IsTeamMember reports whether userId is the leader or a member of teamId.
+func IsTeamMember(teamId int, userId int) bool {
+	var count int64
+	config.Db.Table(teamTable.String()).
+		Where("id = ? AND (leader_id = ? OR m_id1 = ? OR m_id2 = ?)", teamId, userId, userId, userId).
+		Count(&count)
+	return count > 0
 }
