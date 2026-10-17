@@ -57,9 +57,10 @@ echo "Writing client/.env (BASE_PATH='$BASE_PATH')..."
 echo "Building the client inside Nix..."
 nix-shell shell.nix --run "cd client && npm install && npm run build --homepage '$BASE_PATH/'"
 
-# 4. Build the Go backend (Makefile "build" target = swag init + go build).
+# 4. Build the Go backend. The Makefile "build" target runs swag init first, so
+#    swag has to be on PATH; install it into the Nix shell's GOPATH if absent.
 echo "Building the backend inside Nix..."
-nix-shell shell.nix --run "cd server && make build"
+nix-shell shell.nix --run "cd server && export PATH=\$PATH:\$(go env GOPATH)/bin && (which swag >/dev/null 2>&1 || go install github.com/swaggo/swag/cmd/swag@v1.16.2) && make build"
 
 # 5. Sanity check both artefacts before touching anything live.
 if [ ! -f client/build/index.html ]; then
