@@ -7,7 +7,7 @@ interface Props {
 }
 
 /**
- * One line-drawn pictogram per event (web, Android, ML, Java, open source),
+ * One line-drawn pictogram per event (web, Android, ML, Java),
  * authored on a 64×64 grid with a single stroke weight so they read as a set.
  * Colour comes from `currentColor`.
  */
@@ -67,15 +67,6 @@ export default function RuneGlyph({ kind, className = "", title }: Props) {
           <path d="M44 32h3.5a5.5 5.5 0 0 1 0 11H43" />
           <path d="M10 57h40" />
           <path d="M23 23q-3.2-4 0-8t0-8M31 23q-3.2-4 0-8t0-8M39 23q-3.2-4 0-8t0-8" />
-        </>
-      )}
-      {kind === "opensource" && (
-        <>
-          <path d="M20 17v30" />
-          <path d="M20 41c0-9 24-6 24-18" />
-          <circle cx="20" cy="12" r="5.5" fill="#05030a" />
-          <circle cx="20" cy="52" r="5.5" fill="#05030a" />
-          <circle cx="44" cy="17.5" r="5.5" fill="#05030a" />
         </>
       )}
     </svg>

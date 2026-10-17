@@ -4,7 +4,6 @@ import LandingPage from "./Components/LandingPage";
 import Team from "./Components/Team";
 import NavBar from "./Components/NavBar";
 import Events from "./Components/Events";
-import ContrihubLeaderboard from "./Components/ContrihubLeaderboard";
 import EventLeaderboard from "./Components/EventLeaderboard";
 import { websterRankingsDataAPI, droidrushRankingsDataAPI, logicalrhythmRankingsDataAPI, softablitzRankingsDataAPI } from './Utils/APIRoutes';
 import { route } from "./Utils/Config";
@@ -53,11 +52,6 @@ function App() {
             <Routes location={location}>
                 <Route path={route()} element={<LandingPage />} />
                 <Route path={route("leaderboard")}>
-                    <Route path={`contrihub`} element={
-                        <div>
-                            <ContrihubLeaderboard />
-                            <Events currentSelected="contrihub" />
-                        </div>} />
                     <Route path={`softablitz`} element={
                         <div>
                             <EventLeaderboard currentAPI={softablitzRankingsDataAPI} />
