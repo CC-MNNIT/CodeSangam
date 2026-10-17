@@ -1,0 +1,1 @@
+`app.css` here is the Tailwind source for the Go-served pages; run `npm --prefix client run build:server-css` (from the repo root) after editing a template, `dashboard.js` or this file, and commit the regenerated `server/web/static/css/app.css` (the deploy does not build CSS).

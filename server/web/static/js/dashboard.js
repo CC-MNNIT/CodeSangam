@@ -11,20 +11,27 @@ function toggleProgress(show) {
 let eventActive = "teams";
 
 function setEventActive(elementId) {
-    // Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800"
+    // Active sidebar link:  "bg-white/5 text-bone-50 is-active"
+    // Default sidebar link: "text-bone-300 hover:bg-white/5 hover:text-bone-50"
+    // (`is-active` also reveals the gold rune dot via `group-[.is-active]:` in the markup.)
     let activeElement = document.getElementById(eventActive);
     if (activeElement) {
-        activeElement.classList.remove("bg-gray-800");
-        activeElement.classList.remove("text-white");
-        activeElement.classList.add("text-gray-400");
-        activeElement.classList.add("hover:bg-gray-800");
-        activeElement.classList.add("hover:text-white");
+        activeElement.classList.remove("bg-white/5");
+        activeElement.classList.remove("text-bone-50");
+        activeElement.classList.remove("is-active");
+        activeElement.classList.add("text-bone-300");
+        activeElement.classList.add("hover:bg-white/5");
+        activeElement.classList.add("hover:text-bone-50");
     }
 
     let element = document.getElementById(elementId);
     if (element) {
-        element.classList.add("bg-gray-800");
-        element.classList.add("text-white");
+        element.classList.remove("text-bone-300");
+        element.classList.remove("hover:bg-white/5");
+        element.classList.remove("hover:text-bone-50");
+        element.classList.add("bg-white/5");
+        element.classList.add("text-bone-50");
+        element.classList.add("is-active");
     }
 
     let activeElementDetails = document.getElementById(eventActive + "-details");

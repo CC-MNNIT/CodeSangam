@@ -1,3 +1,5 @@
+import ayush from '../Assets/ayush.jpeg';
+
 interface TeamMember {
   name: string;
   github: string;
@@ -12,6 +14,17 @@ interface TeamData {
 
 export const TeamMember: { year: TeamData[] } = {
   year: [
+    {
+      '26-27': [
+        {
+          name: 'Ayush Tiwari',
+          github: 'https://github.com/Ayush5071',
+          twitter: '',
+          linkedin: 'https://www.linkedin.com/in/ayushtiwarimnnit/',
+          image: ayush,
+        },
+      ],
+    },
     {
       
       '25-26': [
@@ -129,6 +142,7 @@ export const TeamMember: { year: TeamData[] } = {
 };
 
 export const Year = [
+  '26-27',
   '25-26',
   '24-25',
   '23-24',

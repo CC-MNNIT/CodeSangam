@@ -5,60 +5,64 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="referrer" content="no-referrer" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <link rel="stylesheet" href="/public/global.css"> -->
+        <meta name="theme-color" content="#05030a" />
         <link rel="icon" href="{{ .BaseUrl }}/api/static/img/favicon.ico" />
         <link rel="apple-touch-icon" href="{{ .BaseUrl }}/api/static/img/favicon.ico" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" />
-        <link rel="stylesheet" href="{{ .BaseUrl }}/api/static/css/global.css" />
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="{{ .BaseUrl }}/api/static/css/app.css" />
         <title>Dashboard - CodeSangam</title>
     </head>
 
-    <body class="h-full bg-gray-950">
+    <body class="universe-library h-full">
         <div
             id="progress-screen"
-            class="hidden z-[100] fixed top-0 left-0 right-0 bottom-0 w-full h-screen overflow-hidden items-center justify-center bg-gray-900 bg-opacity-50"
+            class="hidden fixed inset-0 z-[100] h-screen w-full overflow-hidden bg-void-950/85"
         >
-            <div role="status" class="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
-                <svg
-                    aria-hidden="true"
-                    class="w-16 h-16 mr-2 animate-spin text-gray-600 fill-blue-600"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="currentColor"
-                    />
-                    <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="currentFill"
-                    />
-                </svg>
+            <div role="status" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div class="relative h-28 w-28" aria-hidden="true">
+<svg viewBox="0 0 600 600" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-fast"><circle cx="300" cy="300" r="270" stroke="#ffb347" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 22"/><circle cx="300" cy="300" r="244" stroke="#ffb347" stroke-opacity=".5" stroke-width="3"/></svg>
+<svg viewBox="0 0 600 600" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-rev-fast"><path d="M300 100 A200 200 0 0 1 500 300" stroke="#ffe3b8" stroke-opacity="1" stroke-width="20" stroke-linecap="round"/><path d="M487.94 368.4 A200 200 0 0 1 428.56 453.21" stroke="#ffb347" stroke-opacity="0.6" stroke-width="20" stroke-linecap="round"/><path d="M300 500 A200 200 0 0 1 100 300" stroke="#ffe3b8" stroke-opacity="1" stroke-width="20" stroke-linecap="round"/><path d="M112.06 231.6 A200 200 0 0 1 171.44 146.79" stroke="#ffb347" stroke-opacity="0.6" stroke-width="20" stroke-linecap="round"/></svg>
+<svg viewBox="0 0 600 600" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-medium"><polygon points="300,170 412.58,365 187.42,365" stroke="#8b5cf6" stroke-opacity=".8" stroke-width="5"/><polygon points="300,430 187.42,235 412.58,235" stroke="#8b5cf6" stroke-opacity=".8" stroke-width="5"/></svg>
+                </div>
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
 
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-void-950">
+        <div class="absolute inset-0 bg-void-wash"></div>
+        <div class="absolute -left-[12vmax] -top-[18vmax] h-[62vmax] w-[62vmax] rounded-full bg-tint/[0.16] blur-[130px]"></div>
+        <div class="absolute -bottom-[22vmax] -right-[14vmax] h-[66vmax] w-[66vmax] rounded-full bg-arcane-700/[0.28] blur-[140px]"></div>
+        <div class="absolute left-1/2 top-1/2 aspect-square w-[150vmin] -translate-x-1/2 -translate-y-1/2 text-arcane-300 opacity-[0.07]">
+            <div class="relative h-full w-full">
+<svg viewBox="0 0 800 800" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-slow" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="400" cy="400" r="394" stroke-width="1.4"/><circle cx="400" cy="400" r="384" stroke-width="0.8" stroke-dasharray="1 7"/><circle cx="400" cy="400" r="372" stroke-width="1.2"/><circle cx="400" cy="400" r="326" stroke-width="1.2"/><path d="M0 -9 L0 9 M0 1 L-5 -3 M0 1 L5 -3" stroke-width="1.5" transform="translate(400 50) rotate(0) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M0 1 L-5 -3 M0 5 L-5 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(439.19 52.2) rotate(6.43) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M0 1 L5 -3 M0 5 L-5 9" stroke-width="1.5" transform="translate(477.88 58.78) rotate(12.86) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9 M0 5 L-5 9" stroke-width="1.5" transform="translate(515.6 69.64) rotate(19.29) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M0 1 L5 -3 M0 1 L-5 -3" stroke-width="1.5" transform="translate(551.86 84.66) rotate(25.71) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L-5 -3 M0 -5 L5 -9" stroke-width="1.5" transform="translate(586.21 103.65) rotate(32.14) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9 M0 -5 L5 -9" stroke-width="1.5" transform="translate(618.22 126.36) rotate(38.57) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M0 1 L5 -3" stroke-width="1.5" transform="translate(647.49 152.51) rotate(45) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 1 L-5 -3 M0 1 L5 -3 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(673.64 181.78) rotate(51.43) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9 M0 5 L-5 9" stroke-width="1.5" transform="translate(696.35 213.79) rotate(57.86) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 1 L5 -3 M0 1 L-5 -3" stroke-width="1.5" transform="translate(715.34 248.14) rotate(64.29) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(730.36 284.4) rotate(70.71) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M-4 9 L4 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(741.22 322.12) rotate(77.14) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L5 -3" stroke-width="1.5" transform="translate(747.8 360.81) rotate(83.57) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9" stroke-width="1.5" transform="translate(750 400) rotate(90) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9" stroke-width="1.5" transform="translate(747.8 439.19) rotate(96.43) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M0 5 L5 9" stroke-width="1.5" transform="translate(741.22 477.88) rotate(102.86) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9 M0 5 L-5 9 M0 5 L-5 9" stroke-width="1.5" transform="translate(730.36 515.6) rotate(109.29) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M0 1 L5 -3" stroke-width="1.5" transform="translate(715.34 551.86) rotate(115.71) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9 M0 1 L-5 -3" stroke-width="1.5" transform="translate(696.35 586.21) rotate(122.14) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 5 L5 9 M0 1 L-5 -3" stroke-width="1.5" transform="translate(673.64 618.22) rotate(128.57) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9" stroke-width="1.5" transform="translate(647.49 647.49) rotate(135) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(618.22 673.64) rotate(141.43) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9 M-4 9 L4 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(586.21 696.35) rotate(147.86) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M0 -5 L-5 -9 M0 -5 L-5 -9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(551.86 715.34) rotate(154.29) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9" stroke-width="1.5" transform="translate(515.6 730.36) rotate(160.71) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 1 L-5 -3 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(477.88 741.22) rotate(167.14) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M0 5 L5 9 M-5 -1 L5 -1" stroke-width="1.5" transform="translate(439.19 747.8) rotate(173.57) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1" stroke-width="1.5" transform="translate(400 750) rotate(180) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M-4 9 L4 9 M-5 -1 L5 -1 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(360.81 747.8) rotate(186.43) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L5 -3 M0 1 L-5 -3 M-4 9 L4 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(322.12 741.22) rotate(192.86) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 -5 L-5 -9 M0 1 L-5 -3" stroke-width="1.5" transform="translate(284.4 730.36) rotate(199.29) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L-5 -3" stroke-width="1.5" transform="translate(248.14 715.34) rotate(205.71) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 -5 L-5 -9" stroke-width="1.5" transform="translate(213.79 696.35) rotate(212.14) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L5 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(181.78 673.64) rotate(218.57) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(152.51 647.49) rotate(225) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 -5 L-5 -9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(126.36 618.22) rotate(231.43) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M0 -5 L5 -9 M0 5 L5 9" stroke-width="1.5" transform="translate(103.65 586.21) rotate(237.86) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L-5 -3" stroke-width="1.5" transform="translate(84.66 551.86) rotate(244.29) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L5 9 M0 -5 L5 -9 M0 5 L-5 9" stroke-width="1.5" transform="translate(69.64 515.6) rotate(250.71) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L-5 -3 M0 -5 L5 -9 M-4 9 L4 9" stroke-width="1.5" transform="translate(58.78 477.88) rotate(257.14) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M0 -5 L5 -9 M0 1 L-5 -3 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(52.2 439.19) rotate(263.57) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M-4 9 L4 9 M0 5 L-5 9" stroke-width="1.5" transform="translate(50 400) rotate(270) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L-5 -3 M0 -5 L-5 -9 M-5 -1 L5 -1" stroke-width="1.5" transform="translate(52.2 360.81) rotate(276.43) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L-5 -9 M0 1 L5 -3 M0 -5 L-5 -9" stroke-width="1.5" transform="translate(58.78 322.12) rotate(282.86) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(69.64 284.4) rotate(289.29) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L-5 9 M0 1 L-5 -3 M0 5 L5 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(84.66 248.14) rotate(295.71) scale(1.05)"/><path d="M0 -9 L0 9 M-4 9 L4 9 M-5 -1 L5 -1 M0 -5 L5 -9" stroke-width="1.5" transform="translate(103.65 213.79) rotate(302.14) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M0 5 L-5 9" stroke-width="1.5" transform="translate(126.36 181.78) rotate(308.57) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9 M0 -5 L-5 -9 M0 1 L-5 -3 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(152.51 152.51) rotate(315) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L5 9 M0 1 L5 -3 M0 -5 L-5 -9" stroke-width="1.5" transform="translate(181.78 126.36) rotate(321.43) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L5 -3 M0 -5 L5 -9 M0 1 L5 -3 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(213.79 103.65) rotate(327.86) scale(1.05)"/><path d="M0 -9 L0 9 M0 1 L5 -3 M0 -5 L-5 -9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(248.14 84.66) rotate(334.29) scale(1.05)"/><path d="M0 -9 L0 9 M-5 -1 L5 -1 M0 -5 L5 -9 M0 -5 L-5 -9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(284.4 69.64) rotate(340.71) scale(1.05)"/><path d="M0 -9 L0 9 M0 -5 L5 -9 M0 5 L5 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(322.12 58.78) rotate(347.14) scale(1.05)"/><path d="M0 -9 L0 9 M0 5 L5 9 M-1.6 -12 h3.2" stroke-width="1.5" transform="translate(360.81 52.2) rotate(353.57) scale(1.05)"/></svg>
+<svg viewBox="0 0 800 800" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-rev" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="400,100 659.81,550 140.19,550" stroke-width="1.3"/><polygon points="400,700 140.19,250 659.81,250" stroke-width="1.3"/><circle cx="400" cy="400" r="300" stroke-width=".9"/><circle cx="400" cy="400" r="286" stroke-width=".8" stroke-dasharray="3 5"/><line x1="400" y1="100" x2="400" y2="84" stroke-width="1.2"/><line x1="452.09" y1="104.56" x2="453.48" y2="96.68" stroke-width="1.2"/><line x1="502.61" y1="118.09" x2="505.34" y2="110.57" stroke-width="1.2"/><line x1="550" y1="140.19" x2="558" y2="126.34" stroke-width="1.2"/><line x1="592.84" y1="170.19" x2="597.98" y2="164.06" stroke-width="1.2"/><line x1="629.81" y1="207.16" x2="635.94" y2="202.02" stroke-width="1.2"/><line x1="659.81" y1="250" x2="673.66" y2="242" stroke-width="1.2"/><line x1="681.91" y1="297.39" x2="689.43" y2="294.66" stroke-width="1.2"/><line x1="695.44" y1="347.91" x2="703.32" y2="346.52" stroke-width="1.2"/><line x1="700" y1="400" x2="716" y2="400" stroke-width="1.2"/><line x1="695.44" y1="452.09" x2="703.32" y2="453.48" stroke-width="1.2"/><line x1="681.91" y1="502.61" x2="689.43" y2="505.34" stroke-width="1.2"/><line x1="659.81" y1="550" x2="673.66" y2="558" stroke-width="1.2"/><line x1="629.81" y1="592.84" x2="635.94" y2="597.98" stroke-width="1.2"/><line x1="592.84" y1="629.81" x2="597.98" y2="635.94" stroke-width="1.2"/><line x1="550" y1="659.81" x2="558" y2="673.66" stroke-width="1.2"/><line x1="502.61" y1="681.91" x2="505.34" y2="689.43" stroke-width="1.2"/><line x1="452.09" y1="695.44" x2="453.48" y2="703.32" stroke-width="1.2"/><line x1="400" y1="700" x2="400" y2="716" stroke-width="1.2"/><line x1="347.91" y1="695.44" x2="346.52" y2="703.32" stroke-width="1.2"/><line x1="297.39" y1="681.91" x2="294.66" y2="689.43" stroke-width="1.2"/><line x1="250" y1="659.81" x2="242" y2="673.66" stroke-width="1.2"/><line x1="207.16" y1="629.81" x2="202.02" y2="635.94" stroke-width="1.2"/><line x1="170.19" y1="592.84" x2="164.06" y2="597.98" stroke-width="1.2"/><line x1="140.19" y1="550" x2="126.34" y2="558" stroke-width="1.2"/><line x1="118.09" y1="502.61" x2="110.57" y2="505.34" stroke-width="1.2"/><line x1="104.56" y1="452.09" x2="96.68" y2="453.48" stroke-width="1.2"/><line x1="100" y1="400" x2="84" y2="400" stroke-width="1.2"/><line x1="104.56" y1="347.91" x2="96.68" y2="346.52" stroke-width="1.2"/><line x1="118.09" y1="297.39" x2="110.57" y2="294.66" stroke-width="1.2"/><line x1="140.19" y1="250" x2="126.34" y2="242" stroke-width="1.2"/><line x1="170.19" y1="207.16" x2="164.06" y2="202.02" stroke-width="1.2"/><line x1="207.16" y1="170.19" x2="202.02" y2="164.06" stroke-width="1.2"/><line x1="250" y1="140.19" x2="242" y2="126.34" stroke-width="1.2"/><line x1="297.39" y1="118.09" x2="294.66" y2="110.57" stroke-width="1.2"/><line x1="347.91" y1="104.56" x2="346.52" y2="96.68" stroke-width="1.2"/></svg>
+<svg viewBox="0 0 800 800" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-medium" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="400,162 638,400 400,638 162,400" stroke-width="1.2"/><polygon points="568.29,231.71 568.29,568.29 231.71,568.29 231.71,231.71" stroke-width="1.2"/><circle cx="400" cy="400" r="238" stroke-width="1"/><circle cx="400" cy="400" r="196" stroke-width="1.4"/><circle cx="400" cy="250" r="48" stroke-width=".9"/><circle cx="475" cy="270.1" r="48" stroke-width=".9"/><circle cx="529.9" cy="325" r="48" stroke-width=".9"/><circle cx="550" cy="400" r="48" stroke-width=".9"/><circle cx="529.9" cy="475" r="48" stroke-width=".9"/><circle cx="475" cy="529.9" r="48" stroke-width=".9"/><circle cx="400" cy="550" r="48" stroke-width=".9"/><circle cx="325" cy="529.9" r="48" stroke-width=".9"/><circle cx="270.1" cy="475" r="48" stroke-width=".9"/><circle cx="250" cy="400" r="48" stroke-width=".9"/><circle cx="270.1" cy="325" r="48" stroke-width=".9"/><circle cx="325" cy="270.1" r="48" stroke-width=".9"/></svg>
+<svg viewBox="0 0 800 800" fill="none" aria-hidden="true" focusable="false" class="absolute inset-0 h-full w-full motion-safe:animate-spin-rev-fast" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="400" cy="400" r="96" stroke-width="1.4"/><circle cx="400" cy="400" r="84" stroke-width=".8" stroke-dasharray="2 6"/><polygon points="400,330 460.62,365 460.62,435 400,470 339.38,435 339.38,365" stroke-width="1.3"/><polygon points="435,339.38 470,400 435,460.62 365,460.62 330,400 365,339.38" stroke-width="1.3"/><circle cx="400" cy="400" r="22" stroke-width="1.6"/><circle cx="400" cy="400" r="5" fill="currentColor" stroke="none"/></svg>
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_45%,#05030a_100%)]"></div>
+        <div class="absolute inset-0 bg-grain opacity-[0.05] mix-blend-overlay"></div>
+    </div>
+
         <div class="min-h-full">
-            <div class="bg-gray-950 pb-32 h-full">
-                <nav class="bg-gray-950">
-                    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <div class="border-b border-gray-700">
-                            <div class="flex h-16 items-center justify-between px-4 sm:px-0">
+            <div class="h-full">
+                <nav class="relative z-20 border-b border-white/10 bg-void-950/70">
+                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div>
+                            <div class="flex h-16 items-center justify-between">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
                                         <a
                                             href="{{ .BaseUrl }}"
-                                            class="flex items-center text-2xl glow font-semibold text-white"
+                                            class="focus-ring flex items-center font-display text-xl font-bold tracking-[0.16em] text-bone-50 text-glow sm:text-2xl"
                                         >
                                             C
-                                            <img
-                                                class="w-6 h-6 mb-1 mr-1 ml-1"
-                                                src="{{ .BaseUrl }}/api/static/svg/moon.svg"
-                                                alt="logo"
-                                            />
+<svg viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false" class="-ml-[0.04em] mr-[0.08em] h-[1.12em] w-[1.12em] flex-shrink-0 motion-safe:animate-spin-medium"><circle cx="50" cy="50" r="35" stroke="#ffb347" stroke-opacity=".3" stroke-width="10"/><path d="M50 15 A35 35 0 0 1 82.89 61.97" stroke="#ffe3b8" stroke-width="10" stroke-linecap="round"/><path d="M50 85 A35 35 0 0 1 17.11 61.97" stroke="#ffb347" stroke-width="10" stroke-linecap="round"/><circle cx="50" cy="50" r="46.5" stroke="#ffb347" stroke-width="3.4" stroke-linecap="round" stroke-dasharray="0.1 7.2"/><circle cx="50" cy="50" r="22" stroke="#ffb347" stroke-opacity=".7" stroke-width="2.4" stroke-dasharray="2.5 5"/></svg>
                                             DESANGAM
                                         </a>
                                     </div>
@@ -68,36 +72,12 @@
                                         class="ml-4 flex items-center md:ml-6"
                                         action="{{ .BaseUrl }}/api/auth/logout"
                                     >
-                                        <button
-                                            type="submit"
-                                            class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                        >
-                                            <span class="absolute -inset-1.5"></span>
-                                            <span class="sr-only">Logout</span>
-                                            <svg
-                                                class="h-6 w-6 p-1"
-                                                fill="currentColor"
-                                                viewBox="0 0 471.2 471.2"
-                                                xml:space="preserve"
-                                                stroke-width="1.5"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                            >
-                                                <g>
-                                                    <g>
-                                                        <path
-                                                            d="M227.619,444.2h-122.9c-33.4,0-60.5-27.2-60.5-60.5V87.5c0-33.4,27.2-60.5,60.5-60.5h124.9c7.5,0,13.5-6,13.5-13.5
-                        s-6-13.5-13.5-13.5h-124.9c-48.3,0-87.5,39.3-87.5,87.5v296.2c0,48.3,39.3,87.5,87.5,87.5h122.9c7.5,0,13.5-6,13.5-13.5
-                        S235.019,444.2,227.619,444.2z"
-                                                        />
-                                                        <path
-                                                            d="M450.019,226.1l-85.8-85.8c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1l62.8,62.8h-273.9c-7.5,0-13.5,6-13.5,13.5
-                        s6,13.5,13.5,13.5h273.9l-62.8,62.8c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.8-85.8
-                        C455.319,239.9,455.319,231.3,450.019,226.1z"
-                                                        />
-                                                    </g>
-                                                </g>
-                                            </svg>
+                                        <button type="submit" class="glyph group">
+                                            <span aria-hidden="true" class="glyph-spark"></span>
+                                            <span class="glyph-face h-10 w-10 p-0 text-bone-200">
+                                                <span class="sr-only">Logout</span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3"/><path d="M16 8l4 4-4 4M20 12H9"/></svg>
+                                            </span>
                                         </button>
 
                                         <!-- Profile dropdown -->
@@ -105,44 +85,32 @@
                                             <div>
                                                 <button
                                                     type="button"
-                                                    class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                                    class="focus-ring relative flex max-w-xs items-center rounded-full p-0.5 text-sm ring-1 ring-arcane-400/50 transition-shadow duration-300 hover:shadow-ring hover:ring-sling-400"
                                                     id="user-menu-button"
                                                     aria-expanded="false"
                                                     aria-haspopup="true"
                                                 >
-                                                    <span class="absolute -inset-1.5"></span>
                                                     <span class="sr-only">Open user menu</span>
                                                     <img
-                                                        class="h-8 w-8 rounded-full"
+                                                        class="h-9 w-9 rounded-full object-cover"
                                                         src="{{ .UserInfo.Avatar }}"
                                                         alt=""
                                                     />
                                                 </button>
                                             </div>
-                                            <!--
-                      Dropdown menu, show/hide based on menu state.
-
-                      Entering: "transition ease-out duration-100"
-                      From: "transform opacity-0 scale-95"
-                      To: "transform opacity-100 scale-100"
-                      Leaving: "transition ease-in duration-75"
-                      From: "transform opacity-100 scale-100"
-                      To: "transform opacity-0 scale-95"
-                    -->
                                         </div>
                                     </form>
                                 </div>
-                                <div class="-mr-2 flex md:hidden">
+                                <div class="-mr-1 flex md:hidden">
                                     <!-- Mobile menu button -->
                                     <button
                                         type="button"
-                                        class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                        class="focus-ring relative inline-flex items-center justify-center rounded-full border border-white/10 bg-void-900 p-2.5 text-bone-200 transition-colors duration-200 hover:border-sling-400/60 hover:bg-sling-500/10 hover:text-bone-50"
                                         aria-controls="mobile-menu"
                                         aria-expanded="false"
                                         id="mobile-nav-button"
                                         onclick="toggleMenu()"
                                     >
-                                        <span class="absolute -inset-0.5"></span>
                                         <span class="sr-only">Open main menu</span>
                                         <!-- Menu open: "hidden", Menu closed: "block" -->
                                         <svg
@@ -183,195 +151,139 @@
                     </div>
 
                     <!-- Mobile menu, show/hide based on menu state. -->
-                    <div class="border-b border-gray-700 md:hidden hidden" id="mobile-menu">
-                        <div class="border-t border-gray-700 pb-3 pt-4">
-                            <form class="flex items-center px-5" action="{{ .BaseUrl }}/api/auth/logout">
+                    <div class="hidden border-t border-white/10 bg-void-900 md:hidden" id="mobile-menu">
+                        <div class="pb-4 pt-4">
+                            <form class="flex items-center gap-3 px-4 sm:px-6" action="{{ .BaseUrl }}/api/auth/logout">
                                 <div class="flex-shrink-0">
-                                    <img class="h-10 w-10 rounded-full" src="{{ .UserInfo.Avatar }}" alt="" />
+                                    <img
+                                        class="h-11 w-11 rounded-full object-cover ring-1 ring-arcane-400/50 ring-offset-2 ring-offset-void-900"
+                                        src="{{ .UserInfo.Avatar }}"
+                                        alt=""
+                                    />
                                 </div>
-                                <div class="ml-3">
-                                    <div class="text-base font-medium leading-none text-white">
+                                <div class="min-w-0">
+                                    <div class="truncate text-base font-semibold leading-6 text-bone-50">
                                         {{ .UserInfo.Name }}
                                     </div>
-                                    <div class="text-sm font-medium leading-none text-gray-400">
+                                    <div class="truncate text-sm font-medium leading-5 text-bone-300">
                                         {{ .UserInfo.Email }}
                                     </div>
                                 </div>
-                                <button
-                                    type="submit"
-                                    class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                >
-                                    <span class="absolute -inset-1.5"></span>
-                                    <span class="sr-only">Logout</span>
-                                    <svg
-                                        class="h-6 w-6 p-1"
-                                        fill="currentColor"
-                                        viewBox="0 0 471.2 471.2"
-                                        xml:space="preserve"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <g>
-                                            <g>
-                                                <path
-                                                    d="M227.619,444.2h-122.9c-33.4,0-60.5-27.2-60.5-60.5V87.5c0-33.4,27.2-60.5,60.5-60.5h124.9c7.5,0,13.5-6,13.5-13.5
-                        s-6-13.5-13.5-13.5h-124.9c-48.3,0-87.5,39.3-87.5,87.5v296.2c0,48.3,39.3,87.5,87.5,87.5h122.9c7.5,0,13.5-6,13.5-13.5
-                        S235.019,444.2,227.619,444.2z"
-                                                />
-                                                <path
-                                                    d="M450.019,226.1l-85.8-85.8c-5.3-5.3-13.8-5.3-19.1,0c-5.3,5.3-5.3,13.8,0,19.1l62.8,62.8h-273.9c-7.5,0-13.5,6-13.5,13.5
-                        s6,13.5,13.5,13.5h273.9l-62.8,62.8c-5.3,5.3-5.3,13.8,0,19.1c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4l85.8-85.8
-                        C455.319,239.9,455.319,231.3,450.019,226.1z"
-                                                />
-                                            </g>
-                                        </g>
-                                    </svg>
+                                <button type="submit" class="glyph group ml-auto flex-shrink-0">
+                                    <span aria-hidden="true" class="glyph-spark"></span>
+                                    <span class="glyph-face h-10 w-10 p-0 text-bone-200">
+                                        <span class="sr-only">Logout</span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3"/><path d="M16 8l4 4-4 4M20 12H9"/></svg>
+                                    </span>
                                 </button>
                             </form>
                         </div>
                     </div>
                 </nav>
-                <header class="py-10">
+                <header class="pb-6 pt-9 sm:pb-8 sm:pt-12">
                     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <h1 class="text-3xl font-bold tracking-tight text-white">Dashboard</h1>
+                        <h1
+                            class="font-display text-3xl font-bold uppercase tracking-[0.18em] text-bone-50 text-glow sm:text-5xl sm:tracking-[0.22em]"
+                        >Dashboard</h1>
+                        <div class="mt-5 flex items-center gap-3" aria-hidden="true">
+                            <span class="h-px w-24 bg-gradient-to-r from-sling-400 to-transparent sm:w-40"></span>
+                            <span class="h-1.5 w-1.5 rotate-45 bg-sling-400"></span>
+                            <span class="h-px w-10 bg-white/15"></span>
+                        </div>
                     </div>
                 </header>
             </div>
 
-            <main class="-mt-32">
-                <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-                    <div class="rounded-lg bg-gray-900 px-5 py-6 shadow sm:px-6">
-                        <div class="flex flex-col py-0 mx-auto h-auto md:flex-row">
-                            <div class="inset-y-0 z-50 flex sm:flex-row md:flex-col">
+            <main>
+                <div class="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
+                    <div class="rounded-2xl border border-white/10 bg-void-800/80 px-4 py-6 shadow-slab sm:px-8 sm:py-8">
+                        <div class="mx-auto flex h-auto flex-col py-0 md:flex-row">
+                            <div class="md:sticky md:top-6 md:w-56 md:flex-shrink-0 md:self-start md:border-r md:border-white/10 md:pr-6">
                                 <!-- SideBar -->
-                                <div class="h-full overflow-y-auto md:w-48 w-full bg-gray-900">
+                                <div class="h-full w-full">
                                     {{ if .IsMentor }}
                                     <div>
-                                        <ul class="space-y-2 font-medium">
+                                        <ul class="flex flex-wrap gap-2 font-medium md:block md:space-y-1">
                                             <li>
                                                 <a
                                                     href="#"
-                                                    class="flex items-center p-2 transition duration-75 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 group"
+                                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
                                                     onclick="setEventActive('alloted')"
                                                     id="alloted"
                                                 >
-                                                    <svg
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
-                                                        aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 20 18"
-                                                    >
-                                                        <path
-                                                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
-                                                        />
-                                                    </svg>
-                                                    <span class="ml-4">Alloted Teams</span>
+                                                    <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 flex-shrink-0 scale-0 rounded-full bg-sling-400 shadow-[0_2px_8px_0_rgb(255_179_71/0.7)] transition-transform duration-300 ease-arcane group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 14.2c2.3.3 4 2.2 4 4.8"/></svg>
+                                                    <span>Alloted Teams</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a
                                                     href="#"
-                                                    class="flex items-center p-2 transition duration-75 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 group"
+                                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
                                                     onclick="setEventActive('allotment')"
                                                     id="allotment"
                                                 >
-                                                    <svg
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        height="1em"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 512 512"
-                                                    >
-                                                        <path
-                                                            d="M128 64c0-35.3 28.7-64 64-64H352V128c0 17.7 14.3 32 32 32H512V448c0 35.3-28.7 64-64 64H192c-35.3 0-64-28.7-64-64V336H302.1l-39 39c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l39 39H128V64zm0 224v48H24c-13.3 0-24-10.7-24-24s10.7-24 24-24H128zM512 128H384V0L512 128z"
-                                                        />
-                                                    </svg>
-                                                    <span class="ml-4">Get Allotment</span>
+                                                    <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 flex-shrink-0 scale-0 rounded-full bg-sling-400 shadow-[0_2px_8px_0_rgb(255_179_71/0.7)] transition-transform duration-300 ease-arcane group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-6m-2.5 2.5L12 12l2.5 2.5"/></svg>
+                                                    <span>Get Allotment</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a
                                                     href="#"
-                                                    class="flex items-center p-2 transition duration-75 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 group"
+                                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
                                                     onclick="setEventActive('midterm')"
                                                     id="midterm"
                                                 >
-                                                    <svg
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        height="1em"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 512 512"
-                                                    >
-                                                        <path
-                                                            d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
-                                                        />
-                                                    </svg>
-                                                    <span class="ml-4">Submit MidTerm</span>
+                                                    <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 flex-shrink-0 scale-0 rounded-full bg-sling-400 shadow-[0_2px_8px_0_rgb(255_179_71/0.7)] transition-transform duration-300 ease-arcane group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"><path d="M12 16V5m-4 4 4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                                                    <span>Submit MidTerm</span>
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
                                     {{ else }}
                                     <div>
-                                        <ul class="space-y-2 font-medium">
+                                        <ul class="flex flex-wrap gap-2 font-medium md:block md:space-y-1">
                                             <li>
                                                 <a
                                                     href="#"
-                                                    class="flex items-center p-2 transition duration-75 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 group"
+                                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
                                                     onclick="setEventActive('teams')"
                                                     id="teams"
                                                 >
-                                                    <svg
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
-                                                        aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 20 18"
-                                                    >
-                                                        <path
-                                                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"
-                                                        />
-                                                    </svg>
-                                                    <span class="ml-4">Your Teams</span>
+                                                    <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 flex-shrink-0 scale-0 rounded-full bg-sling-400 shadow-[0_2px_8px_0_rgb(255_179_71/0.7)] transition-transform duration-300 ease-arcane group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 14.2c2.3.3 4 2.2 4 4.8"/></svg>
+                                                    <span>Your Teams</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a
                                                     href="#"
-                                                    class="flex items-center p-2 transition duration-75 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 group"
+                                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
                                                     onclick="setEventActive('abstract')"
                                                     id="abstract"
                                                 >
-                                                    <svg
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        height="1em"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 512 512"
-                                                    >
-                                                        <path
-                                                            d="M128 64c0-35.3 28.7-64 64-64H352V128c0 17.7 14.3 32 32 32H512V448c0 35.3-28.7 64-64 64H192c-35.3 0-64-28.7-64-64V336H302.1l-39 39c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l39 39H128V64zm0 224v48H24c-13.3 0-24-10.7-24-24s10.7-24 24-24H128zM512 128H384V0L512 128z"
-                                                        />
-                                                    </svg>
-                                                    <span class="ml-4">Abstract Submission</span>
+                                                    <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 flex-shrink-0 scale-0 rounded-full bg-sling-400 shadow-[0_2px_8px_0_rgb(255_179_71/0.7)] transition-transform duration-300 ease-arcane group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-6m-2.5 2.5L12 12l2.5 2.5"/></svg>
+                                                    <span>Abstract Submission</span>
                                                 </a>
                                             </li>
                                         </ul>
-                                        <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-700">
+                                        <ul class="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4 font-medium md:block md:space-y-1">
                                             {{ range $index, $event := .EventsInfo }}
                                             <li>
                                                 <a
                                                     href="#"
-                                                    class="flex items-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 group"
+                                                    class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
                                                     onclick="setEventActive('{{ $event.Tag }}')"
                                                     id="{{ $event.Tag }}"
                                                 >
-                                                    {{ if eq $index 0 }}
+                                                    <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 flex-shrink-0 scale-0 rounded-full bg-sling-400 shadow-[0_2px_8px_0_rgb(255_179_71/0.7)] transition-transform duration-300 ease-arcane group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+                                                    <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center">
+{{ if eq $index 0 }}
                                                     <svg
-                                                        class="w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
+                                                        class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 48 48"
                                                         aria-hidden="true"
@@ -389,7 +301,7 @@
                                                     </svg>
                                                     {{ else if eq $index 1 }}
                                                     <svg
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
+                                                        class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"
                                                         version="1.1"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -423,7 +335,7 @@
                                                     {{ else if eq $index 2 }}
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
+                                                        class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"
                                                         fill="currentColor"
                                                         viewBox="0 0 50 50"
                                                     >
@@ -434,7 +346,7 @@
                                                     {{ else if eq $index 3 }}
                                                     <svg
                                                         version="1.1"
-                                                        class="flex-shrink-0 w-5 h-5 transition duration-75 text-gray-400 group-hover:text-white"
+                                                        class="h-5 w-5 flex-shrink-0 text-bone-300 transition-colors duration-150 group-hover:text-sling-300 group-[.is-active]:text-sling-300"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
                                                         width="58"
@@ -551,24 +463,16 @@
                                                         </g>
                                                     </svg>
                                                     {{ end }}
-                                                    <span class="flex-1 ml-3 whitespace-nowrap">{{ $event.Name }}</span>
+                                                    </span>
+                                                    <span class="flex-1 whitespace-nowrap">{{ $event.Name }}</span>
 
                                                     {{ if $event.Registered }}
                                                     <span
-                                                        class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium rounded-full bg-blue-900 text-blue-300"
+                                                        role="img"
+                                                        aria-label="Registered"
+                                                        class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-agamotto-500/15 text-agamotto-400 ring-1 ring-agamotto-400/40"
                                                     >
-                                                        <svg
-                                                            width="24"
-                                                            height="24"
-                                                            class="flex-shrink-0 w-5 h-5 transition duration-75 text-blue-300 group-hover:text-white"
-                                                            fill="#ffffff"
-                                                            viewBox="0 0 24 24"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                d="m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z"
-                                                            />
-                                                        </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-3 w-3"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
                                                     </span>
                                                     {{ end }}
                                                 </a>
@@ -580,87 +484,76 @@
                                 </div>
                             </div>
                             <div
-                                class="flex grow flex-col mt-4 md:mt-0 border-t-2 border-gray-700 md:border-t-0 md:ml-4"
+                                class="mt-6 flex min-w-0 grow flex-col border-t border-white/10 pt-6 md:ml-8 md:mt-0 md:border-t-0 md:pt-0"
                             >
                                 {{ if .IsMentor }}
                                 <div>
-                                    <div id="alloted-details" class="hidden mt-4 md:mt-0">
+                                    <div id="alloted-details" class="hidden motion-safe:animate-panel-in">
                                         <!-- Show list of teams with team name, event participated and members -->
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">Alloted Teams</h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                        <div>
+                                            <h3 class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">Alloted Teams</h3>
+                                            <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">
                                                 Here are the team alloted to you.
                                             </p>
                                         </div>
                                         <div class="mt-6 border-t border-white/10">
                                             <dl class="divide-y divide-white/10">
                                                 {{ range $i, $mentorTeam := .MentorTeams }}
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                <div class="py-6 lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">
                                                         {{ $mentorTeam.Event }}
-
                                                         <a
                                                             href="{{ $.BaseUrl }}/api/v1/cs/allot?event={{ $mentorTeam.EventTag }}"
                                                             target="_blank"
-                                                            class="mt-4 mb-4 md:mb-0 text-white flex justify-center items-center flex-row focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                                                            class="glyph group mt-4 mb-4 flex w-full lg:mb-0"
                                                             download="{{ $mentorTeam.Event }}"
                                                         >
-                                                            <svg
-                                                                class="w-4 h-4 mr-4 -ml-1 text-center"
-                                                                fill="currentColor"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 512 512"
-                                                            >
-                                                                <path
-                                                                    d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V304H176c-35.3 0-64 28.7-64 64V512H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM200 352h16c22.1 0 40 17.9 40 40v8c0 8.8-7.2 16-16 16s-16-7.2-16-16v-8c0-4.4-3.6-8-8-8H200c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8v-8c0-8.8 7.2-16 16-16s16 7.2 16 16v8c0 22.1-17.9 40-40 40H200c-22.1 0-40-17.9-40-40V392c0-22.1 17.9-40 40-40zm133.1 0H368c8.8 0 16 7.2 16 16s-7.2 16-16 16H333.1c-7.2 0-13.1 5.9-13.1 13.1c0 5.2 3 9.9 7.8 12l37.4 16.6c16.3 7.2 26.8 23.4 26.8 41.2c0 24.9-20.2 45.1-45.1 45.1H304c-8.8 0-16-7.2-16-16s7.2-16 16-16h42.9c7.2 0 13.1-5.9 13.1-13.1c0-5.2-3-9.9-7.8-12l-37.4-16.6c-16.3-7.2-26.8-23.4-26.8-41.2c0-24.9 20.2-45.1 45.1-45.1zm98.9 0c8.8 0 16 7.2 16 16v31.6c0 23 5.5 45.6 16 66c10.5-20.3 16-42.9 16-66V368c0-8.8 7.2-16 16-16s16 7.2 16 16v31.6c0 34.7-10.3 68.7-29.6 97.6l-5.1 7.7c-3 4.5-8 7.1-13.3 7.1s-10.3-2.7-13.3-7.1l-5.1-7.7c-19.3-28.9-29.6-62.9-29.6-97.6V368c0-8.8 7.2-16 16-16z"
-                                                                />
-                                                            </svg>
-                                                            Get allotment csv
+                                                            <span aria-hidden="true" class="glyph-spark"></span>
+                                                            <span class="glyph-face px-4 py-2.5 text-[0.62rem] tracking-[0.16em]">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M12 4v11m-4-4 4 4 4-4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                                                                Get allotment csv
+                                                            </span>
                                                         </a>
                                                     </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-                                                    >
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ range $teamIndex, $team := $mentorTeam.Teams }}
-                                                        <p class="text-sm leading-6 text-white">
+                                                        <p class="text-sm leading-6 text-bone-50">
                                                             {{ if $team }}
                                                             <!--  -->
                                                             {{ $team.Name }} -
-                                                            <span class="font-semibold">ID: {{ $team.TeamId }}</span>
+                                                            <span class="font-semibold text-arcane-300">ID: {{ $team.TeamId }}</span>
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
                                                         </p>
                                                         <ul
                                                             role="list"
-                                                            class="mt-2 mb-4 grid gap-x-16 gap-y-8 sm:grid-cols-3 sm:gap-y-8 w-full xl:col-span-2"
+                                                            class="mt-3 mb-2 grid w-full grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-x-8 gap-y-5"
                                                         >
                                                             {{ if $team }}
                                                             <!--  -->
                                                             {{ range $memberIndex, $member := $team.Members }}
                                                             <li>
-                                                                <div
-                                                                    class="flex items-center gap-x-8 antialiased font-sans"
-                                                                >
+                                                                <div class="flex items-center gap-x-4 font-sans antialiased">
                                                                     <img
-                                                                        class="h-16 w-16 rounded-full"
+                                                                        class="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-arcane-500/50 ring-offset-2 ring-offset-void-800"
                                                                         src="{{ $member.Avatar }}"
                                                                         alt="{{ $member.Name }}"
                                                                         loading="lazy"
                                                                     />
-                                                                    <div>
+                                                                    <div class="min-w-0">
                                                                         <h3
-                                                                            class="text-base font-semibold leading-7 tracking-tight text-gray-200"
+                                                                            class="text-sm font-semibold leading-6 text-bone-50"
                                                                         >
                                                                             {{ $member.Name }}
                                                                         </h3>
                                                                         <p
-                                                                            class="text-sm font-normal leading-6 text-gray-400"
+                                                                            class="text-xs font-normal leading-5 text-bone-300"
                                                                         >
                                                                             {{ $member.RegNo }}
                                                                             <!--  -->
                                                                             {{ if eq $memberIndex 0 }}
                                                                             <span
-                                                                                class="inline font-semibold leading-6 text-blue-600"
+                                                                                class="inline font-semibold leading-6 text-sling-300"
                                                                             >
                                                                                 (Leader)
                                                                             </span>
@@ -674,10 +567,10 @@
                                                             {{ end }}
                                                         </ul>
                                                         <div
-                                                            class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-700"
+                                                            class="mt-2"
                                                         ></div>
                                                         {{ else }}
-                                                        <p class="text-sm leading-6 text-white">No team alloted yet</p>
+                                                        <p class="text-sm leading-6 text-bone-300">No team alloted yet</p>
                                                         {{ end }}
                                                     </dd>
                                                 </div>
@@ -686,11 +579,11 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="allotment-details" class="hidden mt-4 md:mt-0">
+                                    <div id="allotment-details" class="hidden motion-safe:animate-panel-in">
                                         <!-- Show list of teams with team name, event participated and members -->
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">Get Allotment</h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                        <div>
+                                            <h3 class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">Get Allotment</h3>
+                                            <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">
                                                 As per your preference, click on the 'Allot' button for the events to
                                                 get teams alloted to you.
                                             </p>
@@ -698,13 +591,11 @@
                                         <div class="mt-6 border-t border-white/10">
                                             <dl class="divide-y divide-white/10">
                                                 {{ range $i, $mentorTeam := .MentorTeams }}
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">
                                                         {{ $mentorTeam.Event }}
                                                     </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-                                                    >
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ range $teamIndex, $team := $mentorTeam.Teams }}
                                                         <!--  -->
                                                         {{ if eq $teamIndex 0 }}
@@ -716,23 +607,16 @@
                                                         {{ else }}
                                                         <!--  -->
                                                         Teams to be alloted (quota): {{ $mentorTeam.Quota }}
-
                                                         <button
                                                             type="button"
-                                                            class="mt-4 text-white flex justify-center items-center flex-row focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                                                            class="glyph group mt-4 flex w-full sm:w-fit"
                                                             onclick="allotTeamsForEvent('{{ $mentorTeam.EventTag }}', '{{ $.BaseUrl }}')"
                                                         >
-                                                            <svg
-                                                                class="w-4 h-4 mr-4 -ml-1 text-center"
-                                                                fill="currentColor"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 640 512"
-                                                            >
-                                                                <path
-                                                                    d="M72 88a56 56 0 1 1 112 0A56 56 0 1 1 72 88zM64 245.7C54 256.9 48 271.8 48 288s6 31.1 16 42.3V245.7zm144.4-49.3C178.7 222.7 160 261.2 160 304c0 34.3 12 65.8 32 90.5V416c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V389.2C26.2 371.2 0 332.7 0 288c0-61.9 50.1-112 112-112h32c24 0 46.2 7.5 64.4 20.3zM448 416V394.5c20-24.7 32-56.2 32-90.5c0-42.8-18.7-81.3-48.4-107.7C449.8 183.5 472 176 496 176h32c61.9 0 112 50.1 112 112c0 44.7-26.2 83.2-64 101.2V416c0 17.7-14.3 32-32 32H480c-17.7 0-32-14.3-32-32zm8-328a56 56 0 1 1 112 0A56 56 0 1 1 456 88zM576 245.7v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM320 32a64 64 0 1 1 0 128 64 64 0 1 1 0-128zM240 304c0 16.2 6 31 16 42.3V261.7c-10 11.3-16 26.1-16 42.3zm144-42.3v84.7c10-11.3 16-26.1 16-42.3s-6-31.1-16-42.3zM448 304c0 44.7-26.2 83.2-64 101.2V448c0 17.7-14.3 32-32 32H288c-17.7 0-32-14.3-32-32V405.2c-37.8-18-64-56.5-64-101.2c0-61.9 50.1-112 112-112h32c61.9 0 112 50.1 112 112z"
-                                                                />
-                                                            </svg>
-                                                            Allot teams
+                                                            <span aria-hidden="true" class="glyph-spark"></span>
+                                                            <span class="glyph-face">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17.5 14.2c2.3.3 4 2.2 4 4.8"/></svg>
+                                                                Allot teams
+                                                            </span>
                                                         </button>
                                                         {{ end }}
                                                     </dd>
@@ -742,59 +626,49 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="midterm-details" class="hidden mt-4 md:mt-0">
+                                    <div id="midterm-details" class="hidden motion-safe:animate-panel-in">
                                         <!-- Show list of teams with team name, event participated and members -->
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">
+                                        <div>
+                                            <h3 class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">
                                                 Submit MidTerm Evaluation
                                             </h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                            <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">
                                                 Submit your assessment for midterm here.
                                             </p>
                                         </div>
                                         <div class="mt-6 border-t border-white/10">
                                             <dl class="divide-y divide-white/10">
                                                 {{ range $i, $mentorTeam := .MentorTeams }}
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">
                                                         {{ $mentorTeam.Event }}
                                                     </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-                                                    >
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         <label
-                                                            class="block mb-2 text-sm font-medium text-white"
+                                                            class="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
                                                             for="file_input"
                                                             >Upload file</label
                                                         >
                                                         <input
-                                                            class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400"
+                                                            class="block w-full cursor-pointer border-0 border-b border-white/25 bg-transparent py-2 text-sm text-bone-200 transition-[border-color,box-shadow] duration-300 file:mr-4 file:cursor-pointer file:rounded-full file:border-0 file:bg-sling-500/15 file:px-4 file:py-2 file:text-xs file:font-semibold file:uppercase file:tracking-[0.14em] file:text-sling-300 hover:border-white/40 hover:file:bg-sling-500/25 focus:border-sling-400 focus:shadow-[0_1px_0_0_#ffb347] focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
                                                             id="csv_file_input-{{ $mentorTeam.EventTag }}"
                                                             type="file"
                                                             accept="text/csv"
                                                             onchange="onCSVFileChange('{{ $mentorTeam.EventTag }}')"
                                                         />
-                                                        <p class="mt-1 text-sm text-gray-300" id="file_input_help">
+                                                        <p class="mt-2 text-xs text-bone-300" id="file_input_help">
                                                             CSV (MAX. 512 KB).
                                                         </p>
-
                                                         <button
                                                             type="button"
-                                                            class="mt-4 text-white flex justify-center items-center flex-row focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                                                            class="glyph group mt-4 flex w-full sm:w-fit"
                                                             onclick="uploadMidTerm('{{ $mentorTeam.EventTag }}', '{{ $.BaseUrl }}')"
                                                         >
-                                                            <svg
-                                                                class="w-4 h-4 mr-4 -ml-1 text-center"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                height="1em"
-                                                                fill="currentColor"
-                                                                viewBox="0 0 512 512"
-                                                            >
-                                                                <path
-                                                                    d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
-                                                                />
-                                                            </svg>
-                                                            Upload
+                                                            <span aria-hidden="true" class="glyph-spark"></span>
+                                                            <span class="glyph-face">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M12 16V5m-4 4 4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                                                                Upload
+                                                            </span>
                                                         </button>
                                                     </dd>
                                                 </div>
@@ -807,92 +681,87 @@
                                 {{ else }}
                                 <div>
                                     {{ range $i , $event := .EventsInfo }}
-                                    <div id="{{ $event.Tag }}-details" class="hidden mt-4 md:mt-0">
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">
+                                    <div id="{{ $event.Tag }}-details" class="hidden motion-safe:animate-panel-in">
+                                        <div>
+                                            <h3 class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">
                                                 {{ $event.Name }}
                                             </h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                            <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">
                                                 {{ $event.Tagline }}
                                             </p>
                                         </div>
                                         <div class="mt-6 border-t border-white/10">
                                             <dl class="divide-y divide-white/10">
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">
                                                         Description
                                                     </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ $event.Description }}
                                                     </dd>
                                                 </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">Team size</dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">Team size</dt>
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ $event.TeamSize }}
                                                     </dd>
                                                 </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">Tech stack</dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">Tech stack</dt>
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ $event.Tech }}
                                                     </dd>
                                                 </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">Rules</dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                    >
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">Rules</dt>
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ $event.Rules }}
                                                     </dd>
                                                 </div>
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">
                                                         Registration
                                                     </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-                                                    >
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         {{ if $event.Registered }}
                                                         <!--  -->
-                                                        Registered
+                                                        <span
+                                                            class="inline-flex items-center gap-2 rounded-full bg-agamotto-500/15 py-1 pl-2.5 pr-3.5 text-sm font-semibold text-agamotto-300 ring-1 ring-agamotto-400/40"
+                                                        >
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                                                            Registered
+                                                        </span>
                                                         <!--  -->
                                                         {{ else }}
                                                         <!--  -->
                                                         <form
-                                                            class="mt-4"
+                                                            class="mt-1 max-w-2xl"
                                                             method="dialog"
                                                             action="#"
                                                             onsubmit="submitRegistration('{{ $event.Tag }}', '{{ $.BaseUrl }}')"
                                                         >
-                                                            <div class="relative z-0 w-full mb-6 group">
+                                                            <div class="relative z-0 mb-8 mt-6 w-full">
                                                                 <input
                                                                     type="text"
                                                                     name="{{ $event.Tag }}_team_name"
                                                                     id="{{ $event.Tag }}_team_name"
-                                                                    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                    class="peer block w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-base text-bone-50 transition-[border-color,box-shadow] duration-300 hover:border-white/40 focus:border-sling-400 focus:shadow-[0_1px_0_0_#ffb347] focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:border-dashed disabled:text-bone-300"
                                                                     placeholder=" "
                                                                     required
                                                                 />
                                                                 <label
                                                                     for="{{ $event.Tag }}_team_name"
-                                                                    class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                    class="absolute left-0 top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-base text-bone-300 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-sling-300"
                                                                 >
                                                                     Team Name
                                                                 </label>
                                                             </div>
-                                                            <div class="relative z-0 w-full mb-6 group">
+                                                            <div class="relative z-0 mb-8 w-full">
                                                                 <input
                                                                     type="text"
                                                                     name="{{ $event.Tag }}_lead_reg"
                                                                     id="{{ $event.Tag }}_lead_reg"
-                                                                    class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                    class="peer block w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-base text-bone-50 transition-[border-color,box-shadow] duration-300 hover:border-white/40 focus:border-sling-400 focus:shadow-[0_1px_0_0_#ffb347] focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:border-dashed disabled:text-bone-300"
                                                                     placeholder=" "
                                                                     value="{{ $.UserInfo.RegNo }}"
                                                                     disabled
@@ -900,46 +769,46 @@
                                                                 />
                                                                 <label
                                                                     for="{{ $event.Tag }}_lead_reg"
-                                                                    class="peer-focus:font-medium absolute text- text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                    class="absolute left-0 top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-base text-bone-300 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-sling-300"
                                                                 >
                                                                     Leader RegNo (You)
                                                                 </label>
                                                             </div>
-                                                            <div class="relative z-0 w-full mb-6 group">
+                                                            <div class="relative z-0 mb-6 w-full">
                                                                 <label
-                                                                    class="mt-1 text-sm leading-6 text-white sm:col-span-3 sm:mt-0"
+                                                                    class="text-sm leading-6 text-bone-200"
                                                                 >
                                                                     Other team members registration numbers (excluding
                                                                     yours)
                                                                 </label>
                                                             </div>
-                                                            <div class="grid md:grid-cols-3 md:gap-6">
-                                                                <div class="relative z-0 w-full mb-6 group">
+                                                            <div class="grid sm:grid-cols-2 sm:gap-8">
+                                                                <div class="relative z-0 mb-8 w-full">
                                                                     <input
                                                                         type="text"
                                                                         name="{{ $event.Tag }}_mem_1_reg"
                                                                         id="{{ $event.Tag }}_mem_1_reg"
-                                                                        class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                        class="peer block w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-base text-bone-50 transition-[border-color,box-shadow] duration-300 hover:border-white/40 focus:border-sling-400 focus:shadow-[0_1px_0_0_#ffb347] focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:border-dashed disabled:text-bone-300"
                                                                         placeholder=" "
                                                                     />
                                                                     <label
                                                                         for="{{ $event.Tag }}_mem_1_reg"
-                                                                        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                        class="absolute left-0 top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-base text-bone-300 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-sling-300"
                                                                     >
                                                                         Member 1
                                                                     </label>
                                                                 </div>
-                                                                <div class="relative z-0 w-full mb-6 group">
+                                                                <div class="relative z-0 mb-8 w-full">
                                                                     <input
                                                                         type="text"
                                                                         name="{{ $event.Tag }}_mem_2_reg"
                                                                         id="{{ $event.Tag }}_mem_2_reg"
-                                                                        class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer"
+                                                                        class="peer block w-full border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-base text-bone-50 transition-[border-color,box-shadow] duration-300 hover:border-white/40 focus:border-sling-400 focus:shadow-[0_1px_0_0_#ffb347] focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:border-dashed disabled:text-bone-300"
                                                                         placeholder=" "
                                                                     />
                                                                     <label
                                                                         for="{{ $event.Tag }}_mem_2_reg"
-                                                                        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                                                        class="absolute left-0 top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-base text-bone-300 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-sling-300"
                                                                     >
                                                                         Member 2
                                                                     </label>
@@ -947,9 +816,12 @@
                                                             </div>
                                                             <button
                                                                 type="submit"
-                                                                class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                                                                class="glyph group flex w-full sm:w-fit"
                                                             >
-                                                                Register
+                                                                <span aria-hidden="true" class="glyph-spark"></span>
+                                                                <span class="glyph-face">
+                                                                    Register
+                                                                </span>
                                                             </button>
                                                         </form>
                                                         <!--  -->
@@ -960,22 +832,22 @@
                                         </div>
                                     </div>
                                     {{ end }}
-                                    <div id="teams-details" class="hidden mt-4 md:mt-0">
+                                    <div id="teams-details" class="hidden motion-safe:animate-panel-in">
                                         <!-- Show list of teams with team name, event participated and members -->
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">
+                                        <div>
+                                            <h3 class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">
                                                 Registered Teams
                                             </h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                            <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">
                                                 Your registered team for the events
                                             </p>
                                         </div>
                                         <div class="mt-6 border-t border-white/10">
                                             <dl class="divide-y divide-white/10">
                                                 {{ range $i, $team := .Teams }}
-
-                                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                                    <dt class="text-sm font-medium leading-6 text-white">
+                                                <!--  -->
+                                                <div class="py-6 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-8">
+                                                    <dt class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">
                                                         {{ if eq $i 0 }}
                                                         <!--  -->
                                                         DroidRush
@@ -994,15 +866,13 @@
                                                         <!--  -->
                                                         {{ end }}
                                                     </dt>
-                                                    <dd
-                                                        class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-3 sm:mt-0"
-                                                    >
+                                                    <dd class="mt-2 min-w-0 text-sm leading-6 text-bone-200 lg:mt-0">
                                                         <div>
-                                                            <p class="text-sm leading-6 text-white">
+                                                            <p class="text-sm leading-6 text-bone-50">
                                                                 {{ if $team }}
                                                                 <!--  -->
                                                                 {{ $team.Name }} -
-                                                                <span class="font-semibold"
+                                                                <span class="font-semibold text-arcane-300"
                                                                     >ID: {{ $team.TeamId }}</span
                                                                 >
                                                                 <!--  -->
@@ -1010,35 +880,33 @@
                                                             </p>
                                                             <ul
                                                                 role="list"
-                                                                class="mt-2 grid gap-x-16 gap-y-8 sm:grid-cols-2 sm:gap-y-8 w-full xl:col-span-2"
+                                                                class="mt-3 mb-2 grid w-full grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-x-8 gap-y-5"
                                                             >
                                                                 {{ if $team }}
                                                                 <!--  -->
                                                                 {{ range $memberIndex, $member := $team.Members }}
                                                                 <li>
-                                                                    <div
-                                                                        class="flex items-center gap-x-8 antialiased font-sans"
-                                                                    >
+                                                                    <div class="flex items-center gap-x-4 font-sans antialiased">
                                                                         <img
-                                                                            class="h-16 w-16 rounded-full"
+                                                                            class="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-arcane-500/50 ring-offset-2 ring-offset-void-800"
                                                                             src="{{ $member.Avatar }}"
                                                                             alt="{{ $member.Name }}"
                                                                             loading="lazy"
                                                                         />
-                                                                        <div>
+                                                                        <div class="min-w-0">
                                                                             <h3
-                                                                                class="text-base font-semibold leading-7 tracking-tight text-gray-200"
+                                                                                class="text-sm font-semibold leading-6 text-bone-50"
                                                                             >
                                                                                 {{ $member.Name }}
                                                                             </h3>
                                                                             <p
-                                                                                class="text-sm font-normal leading-6 text-gray-400"
+                                                                                class="text-xs font-normal leading-5 text-bone-300"
                                                                             >
                                                                                 {{ $member.RegNo }}
                                                                                 <!--  -->
                                                                                 {{ if eq $memberIndex 0 }}
                                                                                 <span
-                                                                                    class="inline font-semibold leading-6 text-blue-600"
+                                                                                    class="inline font-semibold leading-6 text-sling-300"
                                                                                 >
                                                                                     (Leader)
                                                                                 </span>
@@ -1056,41 +924,41 @@
                                                         <!--  -->
                                                         {{ if $team.Mentor }}
                                                         <div
-                                                            class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-700"
+                                                            class="mt-6 border-t border-white/10 pt-5"
                                                         >
-                                                            <p class="text-sm leading-6 text-white">Mentor</p>
+                                                            <p class="font-display text-[0.8rem] font-semibold uppercase leading-6 tracking-[0.16em] text-sling-300">Mentor</p>
                                                             <ul
                                                                 role="list"
-                                                                class="mt-2 grid gap-x-16 gap-y-8 sm:grid-cols-2 sm:gap-y-8 w-full xl:col-span-2"
+                                                                class="mt-3 grid w-full gap-x-8 gap-y-5"
                                                             >
                                                                 <li>
                                                                     <div
-                                                                        class="flex items-center gap-x-8 antialiased font-sans"
+                                                                        class="flex items-center gap-x-4 font-sans antialiased"
                                                                     >
                                                                         <img
-                                                                            class="h-16 w-16 rounded-full"
+                                                                            class="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-arcane-500/50 ring-offset-2 ring-offset-void-800"
                                                                             src="{{ $team.Mentor.Avatar }}"
                                                                             alt="{{ $team.Mentor.Name }}"
                                                                             loading="lazy"
                                                                         />
-                                                                        <div>
+                                                                        <div class="min-w-0">
                                                                             <h3
-                                                                                class="text-base font-semibold leading-7 tracking-tight text-gray-200"
+                                                                                class="text-sm font-semibold leading-6 text-bone-50"
                                                                             >
                                                                                 {{ $team.Mentor.Name }}
                                                                             </h3>
-                                                                            <div>
+                                                                            <div class="text-sm leading-6 text-bone-300">
                                                                                 Phone:
                                                                                 <span
-                                                                                    class="inline font-semibold leading-6 text-blue-600"
+                                                                                    class="inline font-semibold leading-6 text-arcane-300"
                                                                                 >
                                                                                     {{ $team.Mentor.Phone }}
                                                                                 </span>
                                                                             </div>
-                                                                            <div>
+                                                                            <div class="break-words text-sm leading-6 text-bone-300">
                                                                                 Email:
                                                                                 <span
-                                                                                    class="inline font-semibold leading-6 text-blue-600"
+                                                                                    class="inline font-semibold leading-6 text-arcane-300"
                                                                                 >
                                                                                     {{ $team.Mentor.Email }}
                                                                                 </span>
@@ -1098,18 +966,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div
-                                                                        class="text-sm flex flex-row justify-start items-center font-normal leading-6 text-gray-400"
+                                                                        class="mt-4 flex flex-row items-center justify-start text-sm font-normal leading-6 text-bone-300"
                                                                     >
-                                                                        <svg
-                                                                            fill="currentColor"
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            height="1em"
-                                                                            viewBox="0 0 512 512"
-                                                                        >
-                                                                            <path
-                                                                                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"
-                                                                            />
-                                                                        </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0 text-sling-300"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/></svg>
                                                                         <p class="ml-2">Please contact your mentor</p>
                                                                     </div>
                                                                 </li>
@@ -1125,118 +984,109 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="abstract-details" class="hidden mt-4 md:mt-0">
+                                    <div id="abstract-details" class="hidden motion-safe:animate-panel-in">
                                         <!-- Show list of teams with team name, event participated and members -->
-                                        <div class="px-4 sm:px-0">
-                                            <h3 class="text-base font-semibold leading-7 text-white">
+                                        <div>
+                                            <h3 class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">
                                                 Abstract Submission
                                             </h3>
-                                            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">
+                                            <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">
                                                 Submit your abstract here for the events
                                             </p>
                                         </div>
                                         <div class="mt-6 border-t border-white/10">
                                             <form
                                                 id="abstract-form"
-                                                class="mt-4"
+                                                class="mt-6 max-w-3xl"
                                                 method="dialog"
                                                 action="#"
                                                 onsubmit="submitAbstractForm('{{ $.BaseUrl }}')"
                                             >
-                                                <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+                                                <div class="mb-6 grid items-end gap-6 sm:grid-cols-2 sm:gap-8">
                                                     <div>
                                                         <label
                                                             for="abstract-event"
-                                                            class="block mb-2 text-sm font-medium text-white"
+                                                            class="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
                                                             >Select event</label
                                                         >
-                                                        <select
-                                                            id="abstract-event"
-                                                            name="event"
-                                                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500"
-                                                            onchange="onEventTeamOption()"
-                                                        >
-                                                            {{ range $i, $event := .EventsInfo }}
-                                                            <!--  -->
-                                                            {{ if lt $i 3 }}
-                                                            <!--  -->
-                                                            {{ if index $.Teams $i }}
-                                                            <option value="{{ $event.Tag }}">
-                                                                {{ $event.Name }} - Team ID: {{ (index $.Teams
-                                                                $i).TeamId }}
+                                                        <div class="relative">
+                                                            <select
+                                                                id="abstract-event"
+                                                                name="event"
+                                                                class="block w-full cursor-pointer appearance-none rounded-none border-0 border-b border-white/25 bg-transparent py-2.5 pl-0 pr-9 text-base text-bone-50 transition-[border-color,box-shadow] duration-300 hover:border-white/40 focus:border-sling-400 focus:shadow-[0_1px_0_0_#ffb347] focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-60"
+                                                                onchange="onEventTeamOption()"
+                                                            >
+                                                                {{ range $i, $event := .EventsInfo }}
                                                                 <!--  -->
-                                                                {{ if $event.AbstractSubmitted }}
-                                                                <span class="font-semibold"> (Submitted)</span>
+                                                                {{ if lt $i 3 }}
+                                                                <!--  -->
+                                                                {{ if index $.Teams $i }}
+                                                                <option value="{{ $event.Tag }}">
+                                                                    {{ $event.Name }} - Team ID: {{ (index $.Teams
+                                                                    $i).TeamId }}
+                                                                    <!--  -->
+                                                                    {{ if $event.AbstractSubmitted }}
+                                                                    <span class="font-semibold"> (Submitted)</span>
+                                                                    {{ end }}
+                                                                </option>
                                                                 {{ end }}
-                                                            </option>
-                                                            {{ end }}
-                                                            <!--  -->
-                                                            {{ end }}
-                                                            <!--  -->
-                                                            {{ end }}
-                                                        </select>
+                                                                <!--  -->
+                                                                {{ end }}
+                                                                <!--  -->
+                                                                {{ end }}
+                                                            </select>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pointer-events-none absolute right-0.5 top-1/2 h-5 w-5 -translate-y-1/2 text-sling-300"><path d="M6 9l6 6 6-6"/></svg>
+                                                        </div>
                                                     </div>
                                                     <div class="w-full">
-                                                        <label class="block mb-2 text-sm font-medium text-white"
+                                                        <label class="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
                                                             >Abstract Template</label
                                                         >
                                                         <a
                                                             id="template-btn"
-                                                            class="inline-flex w-full justify-center items-center border focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center border-blue-500 text-blue-500 hover:text-white hover:bg-blue-600 focus:ring-blue-900"
+                                                            class="glyph group flex w-full sm:w-fit"
                                                             href="#"
                                                             target="_blank"
                                                         >
-                                                            <svg
-                                                                class="w-4 h-4 mr-4 -ml-1"
-                                                                fill="currentColor"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 512 512"
-                                                            >
-                                                                <path
-                                                                    d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"
-                                                                />
-                                                            </svg>
-                                                            <span id="template-btn-text">Open template</span>
+                                                            <span aria-hidden="true" class="glyph-spark"></span>
+                                                            <span class="glyph-face px-6 py-3.5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
+                                                                <span id="template-btn-text">Open template</span>
+                                                            </span>
                                                         </a>
                                                     </div>
                                                     <div class="sm:col-span-2">
-                                                        <label class="block mb-2 text-sm font-medium text-white"
+                                                        <label class="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
                                                             >Upload abstract</label
                                                         >
                                                         <label
                                                             id="dropzone-label"
                                                             for="dropzone-file"
-                                                            class="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-bray-800 bg-gray-700 border-gray-600 hover:border-gray-500 hover:bg-gray-600"
+                                                            class="group relative flex min-h-[12rem] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-arcane-400/40 bg-void-900/60 text-center transition-colors duration-300 hover:border-sling-400/70 hover:bg-sling-500/[0.04] focus-within:border-sling-400 [&:has(:focus-visible)]:outline [&:has(:focus-visible)]:outline-2 [&:has(:focus-visible)]:outline-offset-4 [&:has(:focus-visible)]:outline-sling-400"
                                                         >
                                                             <div
-                                                                class="flex flex-col items-center justify-center pt-5 pb-6"
+                                                                class="flex flex-col items-center justify-center px-4 pb-6 pt-5"
                                                             >
-                                                                <svg
-                                                                    class="w-8 h-8 mb-4 text-gray-400"
+                                                                <span
                                                                     aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    fill="none"
-                                                                    viewBox="0 0 20 16"
+                                                                    class="relative mb-4 grid h-14 w-14 place-items-center rounded-full text-sling-300"
                                                                 >
-                                                                    <path
-                                                                        stroke="currentColor"
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        stroke-width="2"
-                                                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                                                                    />
-                                                                </svg>
-                                                                <p class="mb-2 text-sm text-gray-400">
-                                                                    <span class="font-semibold">Click to upload</span>
+                                                                    <span
+                                                                        class="absolute inset-0 rounded-full border border-dashed border-sling-400/60 motion-safe:group-hover:animate-spin-medium"
+                                                                    ></span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-6 w-6"><path d="M12 16V5m-4 4 4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                                                                </span>
+                                                                <p class="mb-2 text-sm text-bone-200">
+                                                                    <span class="font-semibold text-bone-50">Click to upload</span>
                                                                     or drag and drop
                                                                 </p>
-                                                                <p class="text-xs text-gray-400">PDF (MAX. 3 MB)</p>
+                                                                <p class="text-xs text-bone-300">PDF (MAX. 3 MB)</p>
                                                             </div>
                                                             <input
                                                                 id="dropzone-file"
                                                                 type="file"
                                                                 name="file"
-                                                                class="hidden"
+                                                                class="sr-only"
                                                                 accept="application/pdf"
                                                                 onchange="onFileChange()"
                                                                 required
@@ -1244,83 +1094,59 @@
                                                         </label>
                                                         <div
                                                             id="file-chip"
-                                                            class="hidden w-full sm:w-auto justify-between items-center py-1 px-1 pr-4 mb-7 text-sm rounded-full bg-gray-800 text-white"
+                                                            class="hidden w-full max-w-full items-center justify-between gap-3 rounded-full border border-white/10 bg-void-900 py-1.5 pl-1.5 pr-2 text-sm text-bone-50 sm:w-auto"
                                                         >
                                                             <span
-                                                                class="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5"
+                                                                class="grid h-8 w-8 flex-shrink-0 place-items-center rounded-full bg-arcane-600/30 text-arcane-200"
                                                             >
-                                                                <svg
-                                                                    class="w-5 h-5"
-                                                                    fill="currentColor"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    viewBox="0 0 384 512"
-                                                                >
-                                                                    <path
-                                                                        d="M320 464c8.8 0 16-7.2 16-16V160H256c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320zM0 64C0 28.7 28.7 0 64 0H229.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V64z"
-                                                                    />
-                                                                </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
                                                             </span>
-                                                            <span class="mr-4 text-sm font-medium" id="file-name">
+                                                            <span class="mr-1 min-w-0 truncate text-sm font-medium" id="file-name">
                                                                 None
                                                             </span>
                                                             <button
                                                                 type="button"
-                                                                class="bg-red-600 text-sm p-1 font-medium rounded-full hover:bg-gray-700"
+                                                                aria-label="Remove file"
+                                                                class="focus-ring grid h-8 w-8 flex-shrink-0 place-items-center rounded-full text-scarlet-300 transition-colors duration-200 hover:bg-scarlet-500/20 hover:text-scarlet-300 disabled:cursor-not-allowed disabled:opacity-50"
                                                                 onclick="clearFile()"
                                                             >
-                                                                <svg
-                                                                    class="w-4 h-4"
-                                                                    fill="currentColor"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    viewBox="0 0 384 512"
-                                                                >
-                                                                    <path
-                                                                        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
-                                                                    />
-                                                                </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4"><path d="M6 6l12 12M18 6L6 18"/></svg>
                                                             </button>
                                                         </div>
                                                         <button
                                                             type="submit"
-                                                            class="mt-4 text-white flex justify-center items-center flex-row focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+                                                            class="glyph group mt-5 flex w-full sm:w-fit"
                                                         >
-                                                            <svg
-                                                                class="w-4 h-4 mr-4 -ml-1 text-center"
-                                                                fill="currentColor"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                height="1em"
-                                                                viewBox="0 0 448 512"
-                                                            >
-                                                                <path
-                                                                    d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
-                                                                />
-                                                            </svg>
-                                                            Submit
+                                                            <span aria-hidden="true" class="glyph-spark"></span>
+                                                            <span class="glyph-face">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-6m-2.5 2.5L12 12l2.5 2.5"/></svg>
+                                                                Submit
+                                                            </span>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-4"></div>
                                             </form>
                                             <!-- <dl class="divide-y divide-white/10">
-                                            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt class="text-sm font-medium leading-6 text-white"></dt>
-                                                <dd
-                                                    class="mt-1 text-sm w-full leading-6 text-gray-400 sm:col-span-2 sm:mt-0"
-                                                ></dd>
-                                            </div>
-                                        </dl> -->
+                                                <div class="py-6">
+                                                    <dt class="text-sm font-medium leading-6 text-white"></dt>
+                                                    <dd class="mt-1 text-sm leading-6 text-bone-300"></dd>
+                                                </div>
+                                            </dl> -->
                                         </div>
                                     </div>
                                 </div>
                                 {{ end }}
                             </div>
                         </div>
-                        <form class="mt-4 space-y-4 md:space-y-6" action="{{ .BaseUrl }}/api/auth/logout">
-                            <div>
-                                <button
-                                    class="px-4 py-2 border flex w-full gap-2 items-center justify-center border-slate-700 rounded-lg text-slate-200 hover:border-slate-500 hover:text-slate-300 hover:shadow transition duration-150"
-                                >
-                                    <span>Logout</span>
+                        <form class="mt-8 flex border-t border-white/10 pt-6 sm:justify-end" action="{{ .BaseUrl }}/api/auth/logout">
+                            <div class="w-full sm:w-auto">
+                                <button class="glyph group flex w-full sm:w-fit">
+                                    <span aria-hidden="true" class="glyph-spark"></span>
+                                    <span class="glyph-face">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3"/><path d="M16 8l4 4-4 4M20 12H9"/></svg>
+                                        <span>Logout</span>
+                                    </span>
                                 </button>
                             </div>
                         </form>
