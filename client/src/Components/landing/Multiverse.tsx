@@ -14,7 +14,7 @@ const N = EVENTS.length;
 const tintVar = (tint: string) => ({ ["--tint" as string]: tint } as CSSProperties);
 
 /**
- * Chapter three — the Multiverse. Five universes, one per event. On wide
+ * Chapter three — the Multiverse. One universe per event. On wide
  * screens the stage pins and scroll carries you sideways through them, every
  * layer (aura, portal, text) travelling at its own speed; everywhere else the
  * universes simply stack and drift as you pass.
@@ -180,12 +180,12 @@ export default function Multiverse() {
     <section
       ref={root}
       id="events"
-      className="relative lg:motion-safe:h-[480svh]"
+      className="relative lg:motion-safe:h-[390svh]"
     >
       <div className="lg:motion-safe:sticky lg:motion-safe:top-0 lg:motion-safe:h-[100svh] lg:motion-safe:overflow-hidden">
         <div
           data-track
-          className="flex flex-col lg:motion-safe:h-full lg:motion-safe:w-[500vw] lg:motion-safe:flex-row lg:motion-safe:will-parallax"
+          className="flex flex-col lg:motion-safe:h-full lg:motion-safe:w-[400vw] lg:motion-safe:flex-row lg:motion-safe:will-parallax"
         >
           {EVENTS.map((e) => (
             <article
@@ -253,13 +253,9 @@ export default function Multiverse() {
                   <p className="font-display text-[0.8rem] font-semibold uppercase tracking-rune text-tint">
                     {e.teamSize}
                   </p>
-                  {e.comingSoon ? (
-                    <GlyphButton disabled>Website Coming Soon!</GlyphButton>
-                  ) : (
-                    <GlyphButton href={e.url} target="_blank" rel="noreferrer" tone="tint">
-                      Problem Statement
-                    </GlyphButton>
-                  )}
+                  <GlyphButton href={e.url} target="_blank" rel="noreferrer" tone="tint">
+                    Problem Statement
+                  </GlyphButton>
                 </div>
               </div>
             </article>

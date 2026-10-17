@@ -1,16 +1,14 @@
-// The five CodeSangam events. Copy is exactly as it has always been on the
+// The four CodeSangam events. Copy is exactly as it has always been on the
 // site; the redesign only adds a universe tint and a rune per event.
-export type GlyphKind = "web" | "android" | "ml" | "java" | "opensource";
+export type GlyphKind = "web" | "android" | "ml" | "java";
 
 export interface EventInfo {
-  tag: "webster" | "droidrush" | "logicalrhythm" | "softablitz" | "contrihub";
+  tag: "webster" | "droidrush" | "logicalrhythm" | "softablitz";
   name: string;
   description: string;
   teamSize: string;
-  /** Problem statement PDF, or the event website for ContriHub. */
+  /** Problem statement PDF. */
   url: string;
-  /** "Website Coming Soon!" instead of a Problem Statement link. */
-  comingSoon?: boolean;
   /** Universe colour as an "r g b" triple (used as the --tint variable). */
   tint: string;
   glyph: GlyphKind;
@@ -56,16 +54,5 @@ export const EVENTS: EventInfo[] = [
     url: "https://drive.google.com/file/d/1ejg-EFY2Z_vcuYSToop8LE8EqYdPy-ET/view?usp=sharing",
     tint: "255 179 71",
     glyph: "java",
-  },
-  {
-    tag: "contrihub",
-    name: "ContriHub",
-    description:
-      "ContriHub is an event focused on open-source development, aligning with Hacktoberfest. It encourages participants to contribute to open-source projects, fostering collaboration within the open-source community. Participants can gain experience in coding, issue tracking, and open-source contribution during this event.",
-    teamSize: "Team Size: 1",
-    url: "https://computercodingclub.in/contrihub/",
-    comingSoon: true,
-    tint: "76 199 245",
-    glyph: "opensource",
   },
 ];
