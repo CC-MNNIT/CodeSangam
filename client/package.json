@@ -4,34 +4,28 @@
   "private": true,
   "homepage": "/",
   "dependencies": {
-    "@material-tailwind/react": "^2.1.4",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/jquery": "^3.5.24",
     "@types/node": "^16.18.58",
     "@types/react": "^18.2.28",
     "@types/react-dom": "^18.2.13",
     "axios": "^1.5.1",
-    "flowbite": "^1.8.1",
-    "flowbite-react": "^0.6.4",
     "generate-env-example": "^1.1.0",
     "gsap": "^3.12.5",
-    "jquery": "^3.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
-    "tailwindcss-textshadow": "^2.1.3",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:server-css": "npx tailwindcss -c ../server/tailwind.config.js -i ../server/web/src/app.css -o ../server/web/static/css/app.css --minify",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -55,6 +49,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
+    "http-proxy-middleware": "^2.0.10",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3"
   }

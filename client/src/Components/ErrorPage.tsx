@@ -1,58 +1,36 @@
-import React from "react";
 import { route } from "../Utils/Config";
-import { NavLink } from "react-router-dom";
+import SlingRing from "../ui/art/SlingRing";
+import Fracture from "../ui/art/Fracture";
+import GlyphButton from "../ui/GlyphButton";
 
+/** The Void: a portal that failed to hold. */
 const ErrorPage = () => {
   return (
-    <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-      {/* Error content in front of Starfield */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          textAlign: "center",
-          color: "#fff",
-          paddingTop: "20vh",
-        }}
-      >
-        <h1
-          style={{ fontSize: "4rem", marginBottom: "1rem" }}
-          className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
-        >
-          404
-        </h1>
-        <p
-          style={{ fontSize: "2rem", marginBottom: "4rem" }}
-          className="card block cursor-pointer py-2 pl-3 pr-4 text-gray-900 rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500"
-        >
+    <main className="relative grid min-h-[100svh] place-items-center overflow-hidden px-6 text-center [--tint:148_163_184]">
+      <Fracture
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-40"
+        tint="139 92 246"
+        seed={9}
+      />
+
+      <div className="relative w-[min(86vw,34rem)]">
+        <SlingRing tint="148 163 184" broken className="w-full" />
+        <div className="absolute inset-0 grid place-items-center">
+          <h1 className="font-display text-[clamp(4.5rem,17vw,9rem)] font-semibold leading-none tracking-[0.06em] text-bone-50 text-glow motion-safe:animate-flicker">
+            404
+          </h1>
+        </div>
+      </div>
+
+      <div className="relative z-10 -mt-4 flex flex-col items-center gap-9">
+        <p className="max-w-md font-display text-[clamp(1.05rem,2.6vw,1.45rem)] uppercase leading-relaxed tracking-[0.16em] text-bone-200">
           The page you are looking for has been lost in space.
         </p>
-        <NavLink
-          to={route()}
-          style={{
-            color: "#fff",
-            fontSize: "1.5rem",
-            textDecoration: "none",
-            padding: "0.75rem 2rem",
-            border: "2px solid #fff",
-            borderRadius: "8px",
-            transition: "background 0.3s, color 0.3s",
-          }}
-          onMouseEnter={(e: any) => {
-            const target = e.target as HTMLAnchorElement;
-            target.style.backgroundColor = "#fff";
-            target.style.color = "#000";
-          }}
-          onMouseLeave={(e: any) => {
-            const target = e.target as HTMLAnchorElement;
-            target.style.backgroundColor = "transparent";
-            target.style.color = "#fff";
-          }}
-        >
+        <GlyphButton to={route()} tone="tint" size="lg">
           Go Back Home
-        </NavLink>
+        </GlyphButton>
       </div>
-    </div>
+    </main>
   );
 };
 

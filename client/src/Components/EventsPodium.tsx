@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import first from "../Assets/first.jpg";
-import second from "../Assets/second.jpg";
-import third from "../Assets/third.jpg";
-import { Team } from "../Models/EventModel";
+import { Member, Team } from "../Models/EventModel";
+import AvatarFrame from "../ui/AvatarFrame";
+import RankSigil from "../ui/art/RankSigil";
+import { MEDAL_TINT, Plinth, ScrollHint, tintStyle } from "./Leaderboard/shared";
 
 interface Prop {
   teams: Team[];
 }
+
+type Rank = 1 | 2 | 3;
 
 function getFirstName(name: string): string {
   const words: string[] = name.split(" ");
@@ -18,372 +19,76 @@ function getLastName(name: string): string {
   return words.length > 1 ? words[words.length - 1] : "";
 }
 
-export default function EventsPodium({ teams }: Prop) {
-  const [topDivOpacity, setTopDivOpacity] = useState(1);
-  const firstTeam = teams[0];
-  const secondTeam = teams[1];
-  const thirdTeam = teams[2];
+const ORDER: Record<Rank, string> = {
+  1: "order-1 md:order-2",
+  2: "order-2 md:order-1",
+  3: "order-3 md:order-3",
+};
 
-  window.addEventListener("scroll", () => {
-    if (window.innerWidth > 850) {
-      const currentScroll = window.scrollY;
-      setTopDivOpacity(1 - currentScroll / 250);
-    }
-  });
+/**
+ * Members stand in the order the site has always used: the second member to
+ * the left, the first in the middle (larger), the third to the right.
+ */
+function arrange(members: Member[]) {
+  return [
+    members[1] && { m: members[1], lead: false },
+    members[0] && { m: members[0], lead: true },
+    members[2] && { m: members[2], lead: false },
+  ].filter(Boolean) as { m: Member; lead: boolean }[];
+}
+
+function TeamColumn({ rank, team }: { rank: Rank; team: Team }) {
+  const lineup = arrange(team.members);
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "fit-content",
-        opacity: topDivOpacity,
-        overflow: "hidden",
-      }}
-    >
-      <div
-        className="events-podium"
-        style={{ position: "relative", width: "100vw", height: "fit-content" }}
-      >
-        <div
-          className="events-podium-container"
-          style={{ display: "flex", flexDirection: "column" }}
-        >
+    <div data-col className={`${ORDER[rank]} flex w-full max-w-[26rem] flex-col items-center justify-self-center`}>
+      <div data-col-in className="flex w-full flex-col items-center">
+        <div className="relative flex w-full items-end justify-center gap-2 sm:gap-4" style={tintStyle(MEDAL_TINT[rank])}>
           <div
-            className="container-events-podium container podium"
-            style={{ transform: "translateY(25px)" }}
-          >
-            {secondTeam && secondTeam.members.length >= 2 ? (
-              <div className="podium__item" style={{ zIndex: "90" }}>
-                <div
-                  style={{ height: "250px" }}
-                  className="podium__rank second"
-                >
-                  <div className="loader2">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div className="image-cropper">
-                    <img src={`${secondTeam.members[1].avatar}`} alt="" />
-                  </div>
-                </div>
-                {/* <p className="podium__city">#2</p> */}
-                <p className="podium__city">
-                  {getFirstName(secondTeam.members[1].name)}
-                </p>
-                <p className="podium__city">
-                  {getLastName(secondTeam.members[1].name)}
-                </p>
-                <p className="podium__city">{secondTeam.members[1].reg_no}</p>
-              </div>
-            ) : (
-              <></>
-            )}
-            {secondTeam && secondTeam.members.length >= 1 ? (
-              <div className="podium__item" style={{ zIndex: "190" }}>
-                {secondTeam.members.length == 2 ? (
-                  <div
-                    style={{ height: "250px" }}
-                    className="podium__rank first"
-                  >
-                    <div className="loader2">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="image-cropper">
-                      <img src={`${secondTeam.members[0].avatar}`} alt="" />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="podium__rank first">
-                    <div className="loader2">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="image-cropper">
-                      <img src={`${secondTeam.members[0].avatar}`} alt="" />
-                    </div>
-                  </div>
-                )}
-
-                {/* <p className="podium__city">#1</p> */}
-                <p className="podium__city">
-                  {getFirstName(secondTeam.members[0].name)}
-                </p>
-                <p className="podium__city">
-                  {getLastName(secondTeam.members[0].name)}
-                </p>
-                <p className="podium__city">{secondTeam.members[0].reg_no}</p>
-              </div>
-            ) : (
-              <></>
-            )}
-            {secondTeam && secondTeam.members.length >= 3 ? (
-              <div className="podium__item" style={{ zIndex: "40" }}>
-                <div style={{ height: "250px" }} className="podium__rank third">
-                  <div className="loader2">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div className="image-cropper">
-                    <img src={`${secondTeam.members[2].avatar}`} alt="" />
-                  </div>
-                </div>
-                {/* <p className="podium__city">#3</p> */}
-                <p className="podium__city">
-                  {getFirstName(secondTeam.members[2].name)}
-                </p>
-                <p className="podium__city">
-                  {getLastName(secondTeam.members[2].name)}
-                </p>
-                <p className="podium__city">{secondTeam.members[2].reg_no}</p>
-              </div>
-            ) : (
-              <></>
-            )}
-          </div>
-          <p style={{ color: "white" }}>#2</p>
-          <p style={{ color: "white" }}>{secondTeam ? secondTeam.name : ""}</p>
-        </div>
-        <div
-          className="events-podium-container"
-          style={{ display: "flex", flexDirection: "column" }}
-        >
-          <div className="container-events-podium container podium">
-            {firstTeam && firstTeam.members.length >= 2 ? (
-              <div className="podium__item" style={{ zIndex: "100" }}>
-                <div
-                  style={{ height: "250px" }}
-                  className="podium__rank second"
-                >
-                  <div className="loader1">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div className="image-cropper">
-                    <img src={`${firstTeam.members[1].avatar}`} alt="" />
-                  </div>
-                </div>
-                {/* <p className="podium__city">#2</p> */}
-                <p className="podium__city">
-                  {getFirstName(firstTeam.members[1].name)}
-                </p>
-                <p className="podium__city">
-                  {getLastName(firstTeam.members[1].name)}
-                </p>
-                <p className="podium__city">{firstTeam.members[1].reg_no}</p>
-              </div>
-            ) : (
-              <></>
-            )}
-            {firstTeam && firstTeam.members.length >= 1 ? (
-              <div className="podium__item" style={{ zIndex: "200" }}>
-                {firstTeam.members.length == 2 ? (
-                  <div
-                    style={{ height: "250px" }}
-                    className="podium__rank first"
-                  >
-                    <div className="loader1">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="image-cropper">
-                      <img src={`${firstTeam.members[0].avatar}`} alt="" />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="podium__rank first">
-                    <div className="loader1">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="image-cropper">
-                      <img src={`${firstTeam.members[0].avatar}`} alt="" />
-                    </div>
-                  </div>
-                )}
-
-                {/* <p className="podium__city">#1</p> */}
-                <p className="podium__city">
-                  {getFirstName(firstTeam.members[0].name)}
-                </p>
-                <p className="podium__city">
-                  {getLastName(firstTeam.members[0].name)}
-                </p>
-                <p className="podium__city">{firstTeam.members[0].reg_no}</p>
-              </div>
-            ) : (
-              <></>
-            )}
-            {firstTeam && firstTeam.members.length >= 3 ? (
-              <div className="podium__item" style={{ zIndex: "50" }}>
-                <div style={{ height: "250px" }} className="podium__rank third">
-                  <div className="loader1">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <div className="image-cropper">
-                    <img src={`${firstTeam.members[2].avatar}`} alt="" />
-                  </div>
-                </div>
-                {/* <p className="podium__city">#3</p> */}
-                <p className="podium__city">
-                  {getFirstName(firstTeam.members[2].name)}
-                </p>
-                <p className="podium__city">
-                  {getLastName(firstTeam.members[2].name)}
-                </p>
-                <p className="podium__city">{firstTeam.members[2].reg_no}</p>
-              </div>
-            ) : (
-              <></>
-            )}
-          </div>
-          <p style={{ color: "white" }}>#1</p>
-          <p style={{ color: "white" }}>{firstTeam ? firstTeam.name : ""}</p>
-        </div>
-        {thirdTeam ? (
-          <div
-            className="events-podium-container"
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <div
-              className="container-events-podium container podium"
-              style={{ transform: "translateY(50px)" }}
-            >
-              {thirdTeam && thirdTeam.members.length >= 2 ? (
-                <div className="podium__item" style={{ zIndex: "80" }}>
-                  <div
-                    style={{ height: "250px" }}
-                    className="podium__rank second"
-                  >
-                    <div className="loader3">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="image-cropper">
-                      <img src={`${thirdTeam.members[1].avatar}`} alt="" />
-                    </div>
-                  </div>
-                  {/* <p className="podium__city">#2</p> */}
-                  <p className="podium__city">
-                    {getFirstName(thirdTeam.members[1].name)}
-                  </p>
-                  <p className="podium__city">
-                    {getLastName(thirdTeam.members[1].name)}
-                  </p>
-                  <p className="podium__city">{thirdTeam.members[1].reg_no}</p>
-                </div>
-              ) : (
-                <></>
-              )}
-              {thirdTeam && thirdTeam.members.length >= 1 ? (
-                <div className="podium__item" style={{ zIndex: "180" }}>
-                  {thirdTeam.members.length == 2 ? (
-                    <div
-                      style={{ height: "250px" }}
-                      className="podium__rank third"
-                    >
-                      <div className="loader3">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                      <div className="image-cropper">
-                        <img src={`${thirdTeam.members[0].avatar}`} alt="" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="podium__rank first">
-                      <div className="loader3">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                      <div className="image-cropper">
-                        <img src={`${thirdTeam.members[0].avatar}`} alt="" />
-                      </div>
-                    </div>
-                  )}
-                  {/* <p className="podium__city">#1</p> */}
-                  <p className="podium__city">
-                    {getFirstName(thirdTeam.members[0].name)}
-                  </p>
-                  <p className="podium__city">
-                    {getLastName(thirdTeam.members[0].name)}
-                  </p>
-                  <p className="podium__city">{thirdTeam.members[0].reg_no}</p>
-                </div>
-              ) : (
-                <></>
-              )}
-              {thirdTeam.members.length >= 3 ? (
-                <div className="podium__item" style={{ zIndex: "30" }}>
-                  <div
-                    style={{ height: "250px" }}
-                    className="podium__rank third"
-                  >
-                    <div className="loader3">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
-                    <div className="image-cropper">
-                      <img src={`${thirdTeam.members[2].avatar}`} alt="" />
-                    </div>
-                  </div>
-                  {/* <p className="podium__city">#3</p> */}
-                  <p className="podium__city">
-                    {getFirstName(thirdTeam.members[2].name)}
-                  </p>
-                  <p className="podium__city">
-                    {getLastName(thirdTeam.members[2].name)}
-                  </p>
-                  <p className="podium__city">{thirdTeam.members[2].reg_no}</p>
-                </div>
-              ) : (
-                <></>
-              )}
+            aria-hidden="true"
+            className="absolute inset-x-[-10%] bottom-0 top-[-20%] rounded-full bg-[radial-gradient(closest-side,rgb(var(--tint)/0.2),transparent)] motion-safe:animate-breathe"
+          />
+          {lineup.map(({ m, lead }) => (
+            <div key={m.reg_no + m.name} className="relative z-10 flex min-w-0 flex-1 flex-col items-center">
+              <AvatarFrame
+                src={m.avatar}
+                alt={m.name}
+                tint={MEDAL_TINT[rank]}
+                size={lead ? "h-24 w-24 sm:h-28 sm:w-28" : "h-[4.75rem] w-[4.75rem] sm:h-[5.5rem] sm:w-[5.5rem]"}
+              />
+              <p className="mt-4 max-w-full truncate text-center font-display text-[0.8rem] font-semibold tracking-[0.06em] text-bone-50">
+                {getFirstName(m.name)}
+              </p>
+              <p className="max-w-full truncate text-center text-[0.78rem] text-bone-200">{getLastName(m.name)}</p>
+              <p className="mt-0.5 text-center text-[0.7rem] tabular-nums text-bone-300">{m.reg_no}</p>
             </div>
-            <p style={{ color: "white" }}>#3</p>
-            <p style={{ color: "white" }}>{thirdTeam.name}</p>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div
-        className="events-podium-line line"
-        style={{
-          position: "absolute",
-          bottom: "0px",
-          marginBottom: "50px",
-          textAlign: "center",
-          width: "100vw",
-          textTransform: "uppercase",
-        }}
-      >
-        <h2 className="lineUp">Scroll down to see complete Leaderboard</h2>
+          ))}
+          <RankSigil
+            rank={rank}
+            className="absolute -top-10 left-1/2 h-14 w-14 -translate-x-1/2 drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
+          />
+        </div>
+
+        <Plinth rank={rank} size="lg" className="mt-6 flex-col gap-1.5 px-4">
+          <span className="font-display text-4xl font-semibold text-tint text-glow md:text-5xl">#{rank}</span>
+          <span className="max-w-full truncate font-display text-sm font-semibold uppercase tracking-rune text-bone-50">
+            {team.name}
+          </span>
+        </Plinth>
       </div>
     </div>
+  );
+}
+
+export default function EventsPodium({ teams }: Prop) {
+  const [firstTeam, secondTeam, thirdTeam] = teams;
+  return (
+    <section data-podium className="relative min-h-[100svh] overflow-x-clip px-4 pb-36 pt-48 md:px-8 md:pt-52">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-end gap-20 md:grid-cols-3 md:gap-6">
+        {secondTeam && <TeamColumn rank={2} team={secondTeam} />}
+        {firstTeam && <TeamColumn rank={1} team={firstTeam} />}
+        {thirdTeam && <TeamColumn rank={3} team={thirdTeam} />}
+      </div>
+      <ScrollHint />
+    </section>
   );
 }

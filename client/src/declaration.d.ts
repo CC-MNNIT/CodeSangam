@@ -3,4 +3,4 @@ declare module '*.txt';
 declare module "*.png";
 declare module "*.jpg";
 
-declare module 'react-router-dom';
+declare module 'react-router-dom';declare module '*.jpeg';

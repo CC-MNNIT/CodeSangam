@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Source for server/web/static/css/app.css (compiled, committed).
+ * Mirrors client/src/index.css: this layer only themes what the browser would
+ * otherwise ship unstyled. Everything page-specific is a utility in the markup.
+ */
+@layer base {
+  :root {
+    /* The colour of the universe the visitor is currently in (r g b). */
+    --tint: 255 143 31;
+    color-scheme: dark;
+  }
+
+  html {
+    background: #05030a;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #5b27c2 #0a0612;
+  }
+
+  body {
+    @apply bg-void-950 font-sans text-bone-100 antialiased;
+    margin: 0;
+    overflow-x: clip;
+    /* Own stacking context, so the fixed -z-10 backdrop paints above html but below the page. */
+    isolation: isolate;
+    min-height: 100svh;
+    font-feature-settings: "tnum" 1, "cv11" 1;
+  }
+
+  ::selection {
+    background: rgb(255 143 31 / 0.35);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0612;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#5b27c2, #3d1a85);
+    border-radius: 999px;
+    border: 2px solid #0a0612;
+  }
+
+  :focus-visible {
+    outline: 2px solid #ffb347;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  img {
+    -webkit-user-drag: none;
+  }
+
+  /* Native dropdown lists follow the palette. */
+  option {
+    background-color: #100a1c;
+    color: #faf6ff;
+  }
+
+  /* Reduced motion: every authored animation stops; layout stays intact. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/*
+ * The one button (see client/src/ui/GlyphButton.tsx): a pill whose rim carries
+ * an orbiting spark, like a sling ring being drawn. Markup:
+ *
+ *   <button class="glyph group ...size/width utilities">
+ *     <span aria-hidden="true" class="glyph-spark"></span>
+ *     <span class="glyph-face ...padding/text-size utilities">label</span>
+ *   </button>
+ */
+@layer components {
+  .glyph {
+    @apply relative inline-flex overflow-hidden rounded-full bg-sling-500/25 p-px transition-shadow duration-500 ease-arcane focus-ring hover:shadow-ring disabled:cursor-not-allowed disabled:shadow-none;
+  }
+  .glyph-spark {
+    /* Centred with margins (not translate) so the spin animation owns `transform`. */
+    @apply pointer-events-none absolute left-1/2 top-1/2 -ml-[130%] -mt-[130%] aspect-square w-[260%] bg-sling-edge opacity-70 transition-opacity duration-500 motion-safe:animate-spin-fast group-hover:opacity-100 group-focus-visible:opacity-100 group-disabled:animate-none group-disabled:bg-none group-disabled:bg-white/10 group-disabled:opacity-100;
+  }
+  .glyph-face {
+    @apply relative flex flex-1 items-center justify-center gap-3 rounded-full bg-void-900 px-7 py-3 font-display text-[0.74rem] font-semibold uppercase tracking-rune text-bone-50 transition-colors duration-500 ease-arcane group-hover:bg-sling-500/15 group-focus-visible:bg-sling-500/15 group-disabled:text-bone-400 group-disabled:bg-void-900;
+  }
+}

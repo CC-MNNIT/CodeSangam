@@ -1,22 +1,20 @@
-import React from 'react';
-import './Loader.css'; // Assuming you have some CSS to style this
+import SlingRing from "../../ui/art/SlingRing";
 
+/** A portal slowly opening — shown while a leaderboard is being fetched. */
 export default function Loader() {
   return (
-    <div id="universe">
-      <div id="galaxy">
-        <div className="circle"></div>
-        <div className="circle2"></div>
-        <div className="circle3"></div>
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} id={`orbit${i}`}>
-            <div id={`pos${i}`}>
-              <div id={`dot${i}`}></div>
-            </div>
-          </div>
-        ))}
+    <div
+      role="status"
+      className="grid min-h-[100svh] place-items-center"
+    >
+      <span className="sr-only">Loading</span>
+      <div className="relative w-[min(62vw,22rem)] motion-safe:animate-portal-open">
+        <SlingRing />
+        <div
+          aria-hidden="true"
+          className="absolute inset-[30%] rounded-full bg-[radial-gradient(closest-side,rgb(255_179_71/0.5),rgb(255_143_31/0.12)_70%,transparent)] motion-safe:animate-breathe"
+        />
       </div>
     </div>
   );
-};
-
+}

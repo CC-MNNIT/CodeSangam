@@ -22,3 +22,9 @@ export function route(subPath = ""): string {
   const base = BASE_URL ? `/${BASE_URL}` : "";
   return subPath ? `${base}/${subPath.replace(/^\/+/, "")}` : base || "/";
 }
+
+/**
+ * Leaderboards stay on "To Be Announced" until this is true. Flip it once
+ * this year's results are published; nothing else needs to change.
+ */
+export const RESULTS_ANNOUNCED = false;

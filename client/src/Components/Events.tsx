@@ -1,38 +1,44 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import { route } from '../Utils/Config';
-
+import { CSSProperties } from "react";
+import { NavLink } from "react-router-dom";
+import { route } from "../Utils/Config";
+import { EVENTS } from "../lib/events";
+import RuneGlyph from "../ui/art/RuneGlyph";
 
 interface props {
-    currentSelected: string
+  currentSelected: string;
 }
 
+/**
+ * Event switcher shown on the leaderboard pages: one tab per universe, each
+ * lit in its own colour when selected.
+ */
 export default function Events({ currentSelected }: props) {
-    const navigate = useNavigate();
-    return (
-        <nav style={{ zIndex: "50000000", marginTop: "95px" }} className="nav-desktop bg-transparent fixed w-full z-20 top-0 left-0">
-            <div className="flex flex-wrap items-center justify-between mx-auto p-4 m-3">
-                <div style={{ margin: "auto", width: "100vw" }} className="items-center justify-between md:flex md:w-auto md:order-1" id="navbar-sticky">
-                    <ul style={{ margin: "auto", display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "space-around", width: "100vw" }} className=" text-sm font-medium text-center text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                        <li className="mr-2 cursor-pointer">
-                            <NavLink to={route("leaderboard/webster")} aria-current="page" className={`${currentSelected === "webster" ? "text-blue-500 event-selected border-2" : "event-normal border-2 border-transparent"} rounded-t-lg inline-block p-3 hover:text-blue-500`}>WEBSTER</NavLink>
-                        </li>
-                        <li className="mr-2 cursor-pointer">
-                            <NavLink to={route("leaderboard/droidrush")} className={`${currentSelected === "droidrush" ? "text-blue-500 event-selected border-2" : "event-normal border-2 border-transparent"} rounded-t-lg inline-block p-3 hover:text-blue-500`}>DROIDRUSH</NavLink>
-                        </li>
-                        <li className="mr-2 cursor-pointer">
-                            <NavLink to={route("leaderboard/logicalrhythm")} className={`${currentSelected === "logicalrhythm" ? "text-blue-500 event-selected border-2" : "event-normal border-2 border-transparent"} rounded-t-lg inline-block p-3 hover:text-blue-500`}>LOGICAL RHYTHM</NavLink>
-                        </li>
-                        <li className="mr-2 cursor-pointer">
-                            <NavLink to={route("leaderboard/softablitz")} className={`${currentSelected === "softablitz" ? "text-blue-500 event-selected border-2" : "event-normal border-2 border-transparent"} rounded-t-lg inline-block p-3 hover:text-blue-500`}>SOFTABLITZ</NavLink>
-                        </li>
-                        <li className="mr-2 cursor-pointer">
-                            <NavLink to={route("leaderboard/contrihub")} className={`${currentSelected === "contrihub" ? "text-blue-500 event-selected border-2" : "event-normal border-2 border-transparent"} rounded-t-lg inline-block p-3 hover:text-blue-500`}>CONTRIHUB</NavLink>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    )
+  return (
+    <nav
+      aria-label="Leaderboards"
+      className="fixed inset-x-0 top-[4.5rem] z-40 flex justify-center px-3 md:top-[5.25rem]"
+    >
+      <ul className="scrollbar-none flex max-w-full snap-x gap-1 overflow-x-auto rounded-full bg-void-900/80 p-1.5 ring-1 ring-white/10 backdrop-blur-xl shadow-slab">
+        {EVENTS.map((e) => {
+          const active = currentSelected === e.tag;
+          return (
+            <li key={e.tag} className="snap-center" style={{ ["--tint" as string]: e.tint } as CSSProperties}>
+              <NavLink
+                to={route(`leaderboard/${e.tag}`)}
+                aria-current={active ? "page" : undefined}
+                className={`flex items-center gap-2.5 whitespace-nowrap rounded-full px-4 py-2.5 font-display text-[0.68rem] font-semibold uppercase tracking-rune transition-colors duration-500 ease-arcane focus-ring md:px-5 ${
+                  active
+                    ? "bg-tint/15 text-tint ring-1 ring-tint/70"
+                    : "text-bone-300 hover:bg-white/5 hover:text-bone-50"
+                }`}
+              >
+                <RuneGlyph kind={e.glyph} className="h-4 w-4 shrink-0" />
+                {e.name}
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
 }
