@@ -17,6 +17,13 @@ export const TeamMember: { year: TeamData[] } = {
     {
       '26-27': [
         {
+          name: 'Shanu Kumawat',
+          github: 'https://github.com/Shanu-Kumawat',
+          twitter: '',
+          linkedin: 'https://www.linkedin.com/in/shanukumawat/',
+          image: 'https://github.com/Shanu-Kumawat.png',
+        },
+        {
           name: 'Ayush Tiwari',
           github: 'https://github.com/Ayush5071',
           twitter: '',
