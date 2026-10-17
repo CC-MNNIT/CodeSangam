@@ -1,4 +1,7 @@
 .idea
 .vscode
 
-deploy.sh
+# The deploy script is deployment infrastructure and belongs in the repo.
+# Negated here so the root deploy.sh is tracked while anything deeper still
+# relies on a per-directory ignore of the same name.
+!deploy.sh

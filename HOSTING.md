@@ -1,0 +1,77 @@
+# Running and hosting CodeSangam
+
+React (CRA) client + Go (Echo) backend + MySQL. The live site is at
+**https://codesangam.cc-club.in/**, with a Tailnet-only staging copy on
+**http://sac-server.tail312b97.ts.net:8081/**.
+
+## Local development
+
+The toolchain comes from Nix — `shell.nix` has Node 20, Go and the MySQL
+client, which is all the client and backend builds need.
+
+```bash
+nix-shell            # or: nix-shell --run "cd client && npm start"
+cp client/.env.example client/.env
+cp server/.env.example server/.env   # then fill in the secrets
+cd client && npm install && npm start   # http://localhost:3000
+```
+
+The backend needs MySQL. It opens two schemas at startup and exits if either is
+unreachable (`server/config/connectDb.go`): `DB_URL` for the event data, and
+`CONTRI_DB_URL` for ContriHUB rankings. A local `mysql-server` with two empty
+databases is enough to develop against — the leaderboard just returns `[]`.
+
+## Deploying
+
+```bash
+ssh sac@sac-server.tail312b97.ts.net
+bash ~/repos/cc_club_mnnit/CodeSangam/deploy.sh
+```
+
+`deploy.sh` pulls `main`, rewrites `client/.env` and the three path-dependent
+lines in `server/.env`, builds both halves inside `nix-shell`, checks the
+artefacts exist, then copies the client into the nginx web root via the
+root-owned `/usr/local/bin/codesangam-deploy-sync`, restarts the backend and
+reloads nginx. A failed build aborts before the live site is touched.
+
+To host under a subdirectory instead of the domain root:
+
+```bash
+BASE_PATH=/codesangam bash deploy.sh
+```
+
+That moves the app, the API and the OAuth callback together. Nothing else in
+the codebase hardcodes a path — client routes come from `REACT_APP_BASE_URL`,
+the Go API from `BASE_URL`, and the server-rendered templates use
+`{{ .BaseUrl }}`.
+
+## What lives on the server (not in git)
+
+| Path | Purpose |
+| --- | --- |
+| `~/repos/cc_club_mnnit/CodeSangam` | clone, built in place |
+| `client/.env`, `server/.env` | machine config + secrets, gitignored |
+| `/var/www/codesangam.tailnet/html` | nginx web root the client build is copied into |
+| `/etc/nginx/sites-available/codesangam.cc-club.in` | live vhost; Certbot rewrote it in place to add TLS, so edit the live file and keep this repo copy in sync |
+| `/etc/nginx/sites-available/codesangam.tailnet` | Tailnet staging vhost on :8081 |
+| `/etc/systemd/system/codesangam-backend.service` | runs the Go binary, `After=mysql.service` |
+| `/etc/sudoers.d/codesangam-deploy` | passwordless sudo for the sync helper, the restart and the nginx reload/test only |
+| `mysql` databases `codesangam`, `contrihub` | event data, ContriHUB stub |
+
+## Google OAuth
+
+One OAuth client serves every environment. Redirect URIs to register:
+
+- `https://codesangam.cc-club.in/api/auth/callback` — production
+- `http://localhost:8004/api/auth/callback` — local development
+
+Authorised JavaScript origin: `https://codesangam.cc-club.in`. A redirect URI
+must match `REDIRECT_URL` in `server/.env` exactly. Google's callback only
+accepts `https` (or `localhost`), so sign-in cannot be exercised over plain
+HTTP on the Tailnet staging host — use the production domain to test the flow.
+
+## Registration numbers
+
+`validateRegNo` in `server/dao/codesangam.go` currently accepts only the
+2023/2024/2025 batches (plus `2024CA`/`2025CA`). Extend those patterns before
+opening registration to a new batch, or their sign-up will be rejected.
