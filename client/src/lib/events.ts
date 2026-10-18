@@ -49,9 +49,9 @@ export const EVENTS: EventInfo[] = [
     tag: "softablitz",
     name: "Softablitz",
     description:
-      "Softablitz is a Java Desktop Development event that immerses participants in the world of desktop application creation using the Java programming language. It provides hands-on experience, helping participants refine their Java skills while designing and developing powerful desktop software.",
+      "Softablitz is a software development event open to every tech stack, where participants build an application in whichever language and framework suits their idea best. It offers hands-on experience in designing, developing and shipping a complete, working piece of software with the tools of their choice.",
     teamSize: "Team Size: (1 - 3)",
-    url: "https://drive.google.com/file/d/1hWtLGdcdluA7aFcQmYHOQy8Lhao5V-Ex/view?usp=sharing",
+    url: "https://drive.google.com/file/d/1XTy5r8hh_XRLu-j64Q5jGa_sjuBCgKTS/view?usp=sharing",
     tint: "255 179 71",
     glyph: "java",
   },
