@@ -211,15 +211,17 @@
                         </div>
                     </div>
                 </header>
-                {{ if and .RegistrationDeadline (not .IsMentor) }}
+                {{ if or .RegistrationDeadline .DevelopmentLabel }}
                 <!-- Rendered closed when the cutoff has already passed, so the page is
                      honest without waiting for dashboard.js; the script only keeps the
-                     countdown ticking. -->
+                     countdown ticking. Mentors get the development period but no
+                     countdown: they have no submission forms to close. -->
                 <div class="pb-6 sm:pb-8">
                     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div
-                            class="flex flex-wrap items-center rounded-2xl border border-white/10 bg-void-800/70 px-4 py-3 sm:px-6"
+                            class="rounded-2xl border border-white/10 bg-void-800/70 px-4 py-3 sm:px-6"
                         >
+                            {{ if and .RegistrationDeadline (not .IsMentor) }}
                             <p class="text-sm text-bone-200">
                                 <span class="font-semibold text-bone-50">Registration &amp; abstracts</span>
                                 <span class="text-bone-300" data-deadline-state>{{ if $.DeadlinePassed }}are{{ else }}close in{{ end }}</span>
@@ -228,6 +230,13 @@
                                 >
                                 <span class="text-bone-300">&middot; deadline {{ .DeadlineLabel }}</span>
                             </p>
+                            {{ end }}
+                            {{ if .DevelopmentLabel }}
+                            <p class="text-sm text-bone-300{{ if .RegistrationDeadline }} mt-2{{ end }}">
+                                <span class="font-semibold text-bone-200">Development period</span>
+                                {{ .DevelopmentLabel }}
+                            </p>
+                            {{ end }}
                         </div>
                     </div>
                 </div>

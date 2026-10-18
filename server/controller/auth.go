@@ -129,6 +129,7 @@ func UserDashboard(c echo.Context) error {
 		"RegistrationDeadline": deadline,
 		"DeadlinePassed":       deadlinePassed,
 		"DeadlineLabel":        deadlineLabel,
+		"DevelopmentLabel":     developmentLabel(),
 	})
 }
 

@@ -403,18 +403,38 @@ func GetEventRanking(c echo.Context) error {
 	return c.JSON(200, &rankings)
 }
 
-// deadlineDto tells the site when registration closes, so the landing page can
-// show a countdown without hardcoding a date into the build.
+// deadlineDto tells the site when registration closes and when the development
+// period runs, so both the dashboard and the landing page can show the same
+// dates without hardcoding them into a build.
 type deadlineDto struct {
 	Deadline int64 `json:"deadline"`
 	Passed   bool  `json:"passed"`
+	// DevelopmentStart and DevelopmentEnd are unix seconds, 0 when not
+	// configured. DevelopmentLabel is the same window already formatted in IST,
+	// so the client never has to do timezone maths of its own.
+	DevelopmentStart int64  `json:"development_start"`
+	DevelopmentEnd   int64  `json:"development_end"`
+	DevelopmentLabel string `json:"development_label"`
+}
+
+// developmentLabel formats the development window in IST, or returns "" when it
+// is not fully configured. Only one end of the window is not shown: a start on
+// its own is a worse answer than none.
+func developmentLabel() string {
+	start := config.EnvVars.DevelopmentStart
+	end := config.EnvVars.DevelopmentEnd
+	if start <= 0 || end <= 0 {
+		return ""
+	}
+	const layout = "2 Jan 2006, 3:04 PM"
+	return time.Unix(start, 0).In(ist).Format(layout) + " to " + time.Unix(end, 0).In(ist).Format(layout) + " IST"
 }
 
 // GetRegistrationDeadline
 //
-// @Summary Registration deadline
+// @Summary Registration deadline and development period
 // @Schemes
-// @Description The unix timestamp after which registration and abstract submission close, and whether that moment has passed. Public on purpose: the deadline is not a secret.
+// @Description The unix timestamp after which registration and abstract submission close, whether that moment has passed, and the development period. Public on purpose: these dates are not a secret.
 // @Tags CodeSangam
 // @Accept json
 // @Produce json
@@ -425,5 +445,11 @@ func GetRegistrationDeadline(c echo.Context) error {
 	// A deadline of 0 means "not configured", which is reported as not passed so
 	// no part of the site hides itself because of a missing value.
 	passed := deadline > 0 && time.Now().Unix() >= deadline
-	return c.JSON(http.StatusOK, deadlineDto{Deadline: deadline, Passed: passed})
+	return c.JSON(http.StatusOK, deadlineDto{
+		Deadline:         deadline,
+		Passed:           passed,
+		DevelopmentStart: config.EnvVars.DevelopmentStart,
+		DevelopmentEnd:   config.EnvVars.DevelopmentEnd,
+		DevelopmentLabel: developmentLabel(),
+	})
 }

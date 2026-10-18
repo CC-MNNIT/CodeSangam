@@ -102,12 +102,14 @@ the admin panel and the leaderboards. The value is read at startup, so moving
 the cutoff is an edit plus `systemctl restart codesangam-backend` — no rebuild
 and no deploy.
 
+For the 2026 edition:
+
 ```bash
-date -d "2026-10-20 00:00:00 IST" +%s   # 1792434600
+date -d "2026-10-21 00:00:00 IST" +%s   # 1792521000
 ```
 
 The timestamp is the first second at which registration is closed, so that value
-keeps registration open until 23:59:59 IST on 19 October. **Leaving it empty
+keeps registration open until 23:59:59 IST on 20 October. **Leaving it empty
 means registration never closes** — a missing or unparseable value deliberately
 does not lock teams out (an unparseable one is logged at startup).
 
@@ -117,6 +119,28 @@ the same value server-rendered on `<body data-deadline="…">` and renders its
 closed state server-side too, so the page is honest even without JavaScript.
 When the cutoff passes, the submission forms are hidden and the server refuses
 the writes regardless — the countdown is presentation only.
+
+## Development period
+
+`DEVELOPMENT_START` and `DEVELOPMENT_END` in `server/.env` are the window the
+club announced, shown as a second line under the countdown on the dashboard and
+the landing page. For 2026:
+
+```bash
+date -d "2026-10-21 00:00:00 IST" +%s   # 1792521000  DEVELOPMENT_START
+date -d "2026-10-29 10:00:00 IST" +%s   # 1793248200  DEVELOPMENT_END
+```
+
+**Display only — nothing enforces the end date.** Abstracts already close at the
+registration deadline; allotment and mid-term evaluation stay open afterwards. If
+submissions or judging ever need to stop at a fixed moment, that requires a new
+gate, not this value.
+
+The label is formatted server-side in IST and sent in `development_label`, so the
+client does no timezone maths and there is only ever one copy of these dates.
+Either variable left empty (or unparseable, which is logged) hides the line.
+Mentors see the development period but not the countdown — they have no
+submission forms to close.
 
 `DECLARE_RESULT` is the separate "show results" switch. While it is false,
 `GET /api/v1/cs/ranking` returns an empty list, and the client hides its

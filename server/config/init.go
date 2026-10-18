@@ -14,16 +14,38 @@ type Env struct {
 	BaseUrl              string
 	Port                 string
 	RegistrationDeadline int64
-	DeclareResult        bool
-	dbUrl                string
-	contriDbUrl          string
-	clientId             string
-	clientSecret         string
-	redirectUrl          string
+	// Development period, shown to participants and mentors. 0 means "not
+	// configured" and hides the line entirely; nothing enforces it, it is
+	// there so the dates on screen are the dates the club announced.
+	DevelopmentStart int64
+	DevelopmentEnd   int64
+	DeclareResult    bool
+	dbUrl            string
+	contriDbUrl      string
+	clientId         string
+	clientSecret     string
+	redirectUrl      string
 }
 
 var EnvVars *Env
 var SessionCookieStore *sessions.CookieStore
+
+// parseTimestamp reads a unix timestamp from the environment. An empty or
+// unparseable value is 0, which every caller treats as "not configured" - but
+// an unparseable value is logged, because a typo in a date that nothing
+// enforces is otherwise invisible.
+func parseTimestamp(key string) int64 {
+	v := os.Getenv(key)
+	if v == "" {
+		return 0
+	}
+	i, err := strconv.ParseInt(v, 10, 64)
+	if err != nil {
+		log.Printf("%s=%q is not a unix timestamp; it will be treated as not set", key, v)
+		return 0
+	}
+	return i
+}
 
 // init
 //
@@ -51,6 +73,8 @@ func init() {
 			}
 			return i
 		}(),
+		DevelopmentStart: parseTimestamp("DEVELOPMENT_START"),
+		DevelopmentEnd:   parseTimestamp("DEVELOPMENT_END"),
 		DeclareResult: func() bool {
 			b, er := strconv.ParseBool(os.Getenv("DECLARE_RESULT"))
 			if er != nil {
