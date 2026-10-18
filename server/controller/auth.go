@@ -116,6 +116,24 @@ func UserDashboard(c echo.Context) error {
 		deadlineLabel = time.Unix(deadline, 0).In(ist).Format("2 Jan 2006, 3:04 PM")
 	}
 
+	// The template links and the "register first" note both depend on state the
+	// template cannot work out for itself: an event may have no template (Logical
+	// Rhythm has no abstract round), and a student may have no team at all yet.
+	hasTemplates := false
+	for _, event := range eventsInfo {
+		if event.Template != "" {
+			hasTemplates = true
+		}
+	}
+	hasAnyTeam := false
+	// Only the three events that have an abstract round: a Logical-Rhythm-only
+	// student cannot use the abstract dropdown, so they need the same note.
+	for _, team := range teams[:3] {
+		if team != nil {
+			hasAnyTeam = true
+		}
+	}
+
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
 		"UserInfo":             user.User,
 		"Teams":                teams,
@@ -130,6 +148,8 @@ func UserDashboard(c echo.Context) error {
 		"DeadlinePassed":       deadlinePassed,
 		"DeadlineLabel":        deadlineLabel,
 		"DevelopmentLabel":     developmentLabel(),
+		"HasTemplates":         hasTemplates,
+		"HasAnyTeam":           hasAnyTeam,
 	})
 }
 

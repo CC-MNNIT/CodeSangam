@@ -71,11 +71,26 @@ type EventInfo struct {
 	Rules             string
 	Registered        bool
 	AbstractSubmitted bool
+	// Template is the abstract template for this event, or "" when the event
+	// has no abstract round. It lives here rather than in dashboard.js so the
+	// links are rendered by the server: they then work with JavaScript off, and
+	// a student can reach them without having a team yet.
+	Template string
+}
+
+// abstractTemplates holds the Google Docs template for each event that has an
+// abstract round. Logical Rhythm has none - it has no abstract submission - so it
+// is deliberately absent and renders no link.
+var abstractTemplates = map[string]string{
+	"droidrush":  "https://docs.google.com/document/d/1UDBqp1AKES0qTzU3CLRo_3qDwsTGrOOS/edit?usp=sharing",
+	"webster":    "https://docs.google.com/document/d/1p8ntP8WbgF3mVmOa2UMqkoRkb48D9IoW/edit?usp=sharing",
+	"softablitz": "https://docs.google.com/document/d/1JXEfaRnMH5v2pe7Yl7JXiGRWmEX8TX7R/edit?usp=sharing",
 }
 
 func GetEventsInfo(registered []bool, abstractSubmitted []bool) []EventInfo {
 	return []EventInfo{
 		{
+
 			Tag:               "droidrush",
 			Name:              "Droid Rush",
 			Tagline:           "The Android App Development Contest",
@@ -83,10 +98,12 @@ func GetEventsInfo(registered []bool, abstractSubmitted []bool) []EventInfo {
 			TeamSize:          "1-3",
 			Tech:              "AndroidX, Jetpack Compose, Firebase, Kotlin, MVVM, Retrofit, Room, etc.",
 			Rules:             "Make sure team name is creative and unique. Team name should not contain any offensive words, if found so, the team will be disqualified.",
+			Template:          abstractTemplates["droidrush"],
 			Registered:        registered[0],
 			AbstractSubmitted: abstractSubmitted[0],
 		},
 		{
+			Template:          abstractTemplates["webster"],
 			Tag:               "webster",
 			Name:              "Webster",
 			Tagline:           "The Web Development Contest",
@@ -98,6 +115,7 @@ func GetEventsInfo(registered []bool, abstractSubmitted []bool) []EventInfo {
 			AbstractSubmitted: abstractSubmitted[1],
 		},
 		{
+
 			Tag:               "softablitz",
 			Name:              "Softablitz",
 			Tagline:           "The Software Development Contest",
@@ -105,6 +123,7 @@ func GetEventsInfo(registered []bool, abstractSubmitted []bool) []EventInfo {
 			TeamSize:          "1-3",
 			Tech:              "Any language or framework — C, C++, Java, Kotlin, Python, JavaScript, Go, Rust, etc.",
 			Rules:             "Make sure team name is creative and unique. Team name should not contain any offensive words, if found so, the team will be disqualified.",
+			Template:          abstractTemplates["softablitz"],
 			Registered:        registered[2],
 			AbstractSubmitted: abstractSubmitted[2],
 		},

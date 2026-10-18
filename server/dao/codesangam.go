@@ -28,6 +28,10 @@ const (
 	websterTable Event = "webster"
 )
 
+// LogicalTable is the Logical Rhythm event, exported so the controller can
+// refuse an abstract upload for it: that event has no abstract round.
+const LogicalTable = logicalTable
+
 var events = []Event{
 	droidTable,
 	websterTable,

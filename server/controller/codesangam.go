@@ -136,6 +136,13 @@ func UploadAbstractSubmission(c echo.Context) error {
 		return utils.BadRequestError(c, "Please choose one of the listed events.", &err)
 	}
 
+	// Logical Rhythm has no abstract round this year: no template is offered
+	// for it and nothing would read the file back. Refuse it here rather than
+	// storing a PDF that can never be downloaded.
+	if event == dao.LogicalTable {
+		return utils.BadRequestError(c, "Logical Rhythm does not have an abstract submission this year.", nil)
+	}
+
 	team, err := dao.GetTeam(event, *userId)
 	if err != nil {
 		return utils.InternalError(c, "We couldn't load your team right now. Please try again in a minute.", &err)

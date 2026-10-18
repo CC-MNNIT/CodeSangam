@@ -322,26 +322,17 @@ function pickAbstractEvent(tag) {
     if (input) input.click();
 }
 
+// The abstract templates are rendered by the server as plain links above the
+// form, so no dropdown is needed to reach them.
 function onEventTeamOption() {
     let eventOption = document.getElementById("abstract-event");
-    let templateButtonText = document.getElementById("template-btn-text");
-    let templateButton = document.getElementById("template-btn");
+    if (!eventOption) {
+        return;
+    }
 
     let eventIndex = eventOption.selectedIndex;
     if (eventIndex < 0) {
         return;
-    }
-
-    let eventHtml = eventOption.options[eventIndex].innerHTML.split("-")[0];
-    let event = eventOption.options[eventIndex].value;
-    templateButtonText.innerHTML = "Open " + eventHtml + "Template";
-
-    if (event === "droidrush") {
-        templateButton.href = "https://docs.google.com/document/d/1UDBqp1AKES0qTzU3CLRo_3qDwsTGrOOS/edit?usp=sharing&ouid=113461078357577403298&rtpof=true&sd=true";
-    } else if (event === "webster") {
-        templateButton.href = "https://docs.google.com/document/d/1p8ntP8WbgF3mVmOa2UMqkoRkb48D9IoW/edit?usp=sharing&ouid=113461078357577403298&rtpof=true&sd=true";
-    } else if (event === "softablitz") {
-        templateButton.href = "https://docs.google.com/document/d/1JXEfaRnMH5v2pe7Yl7JXiGRWmEX8TX7R/edit?usp=sharing&ouid=113461078357577403298&rtpof=true&sd=true";
     }
 
     // Already submitted: say so and turn Submit into Replace.

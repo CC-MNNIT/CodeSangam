@@ -76,6 +76,9 @@ func AbstractPath(teamId int, event string) (string, bool) {
 	return filePath, err == nil
 }
 
+// GetAbstractFile finds a team's abstract file. Only the three events with an
+// abstract round are searched; Logical Rhythm has none, so nothing can exist
+// under files/abstracts/logical.
 func GetAbstractFile(strTeamId string) (string, error) {
 	teamId, err := strconv.Atoi(strTeamId)
 	if err != nil {
@@ -89,9 +92,6 @@ func GetAbstractFile(strTeamId string) (string, error) {
 		return path, nil
 	}
 	if path, exists := AbstractPath(teamId, "softablitz"); exists {
-		return path, nil
-	}
-	if path, exists := AbstractPath(teamId, "logical"); exists {
 		return path, nil
 	}
 	return "", errors.New("abstract for team Id [" + strTeamId + "] does not exist")

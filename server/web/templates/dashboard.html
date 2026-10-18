@@ -1053,6 +1053,45 @@
                                                 Submit your abstract here for the events
                                             </p>
                                         </div>
+                                        <!-- Templates are here, outside every team check, because
+                                             needing a team before you could open one was stopping
+                                             people dead. Plain links, one per event. -->
+                                        {{ if .HasTemplates }}
+                                        <section aria-labelledby="abstract-templates" class="mt-6">
+                                            <h4
+                                                id="abstract-templates"
+                                                class="text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
+                                            >
+                                                Abstract templates
+                                            </h4>
+                                            <ul class="mt-3 flex flex-wrap gap-2">
+                                                {{ range .EventsInfo }} {{ if .Template }}
+                                                <li>
+                                                    <a
+                                                        class="btn-sm-ghost"
+                                                        href="{{ .Template }}"
+                                                        target="_blank"
+                                                        rel="noopener"
+                                                        >{{ .Name }} template</a
+                                                    >
+                                                </li>
+                                                {{ end }} {{ end }}
+                                            </ul>
+                                            <p class="mt-2 text-sm leading-6 text-bone-300">
+                                                Open the template, then come back here to upload your PDF.
+                                            </p>
+                                        </section>
+                                        {{ end }}
+                                        {{ if not .HasAnyTeam }}
+                                        <!-- Nothing below is usable without a team, so say that
+                                             plainly instead of showing an empty dropdown. -->
+                                        <p class="mt-6 rounded-2xl border border-white/10 bg-void-900/60 px-5 py-4 text-sm leading-6 text-bone-200">
+                                            <span class="font-semibold text-bone-50">Register your team first</span>
+                                            &mdash; then you can upload your abstract here. Use the
+                                            <button type="button" class="font-semibold text-sling-300" onclick="setEventActive('teams')">Teams</button>
+                                            section to register for an event.
+                                        </p>
+                                        {{ end }}
                                         {{ if .Abstracts }}
                                         <section aria-labelledby="your-abstracts" class="mt-6 border-t border-white/10 pt-6">
                                             <h4 id="your-abstracts" class="text-xs font-semibold uppercase tracking-[0.18em] text-sling-300">Your abstracts</h4>
@@ -1124,7 +1163,7 @@
                                                 data-closed-hide
                                                 onsubmit="submitAbstractForm('{{ $.BaseUrl }}')"
                                             >
-                                                <div class="mb-6 grid items-end gap-6 sm:grid-cols-2 sm:gap-8">
+                                                <div class="mb-6 max-w-xl">
                                                     <div>
                                                         <label
                                                             for="abstract-event"
@@ -1159,23 +1198,6 @@
                                                             </select>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pointer-events-none absolute right-0.5 top-1/2 h-5 w-5 -translate-y-1/2 text-sling-300"><path d="M6 9l6 6 6-6"/></svg>
                                                         </div>
-                                                    </div>
-                                                    <div class="w-full">
-                                                        <label class="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
-                                                            >Abstract Template</label
-                                                        >
-                                                        <a
-                                                            id="template-btn"
-                                                            class="glyph group flex w-full sm:w-fit"
-                                                            href="#"
-                                                            target="_blank"
-                                                        >
-                                                            <span aria-hidden="true" class="glyph-spark"></span>
-                                                            <span class="glyph-face px-6 py-3.5">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4 shrink-0"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>
-                                                                <span id="template-btn-text">Open template</span>
-                                                            </span>
-                                                        </a>
                                                     </div>
                                                     <div class="sm:col-span-2">
                                                         <label class="mb-1 block text-xs font-semibold uppercase tracking-[0.18em] text-sling-300"
