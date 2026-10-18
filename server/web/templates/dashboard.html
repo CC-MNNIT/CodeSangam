@@ -1039,8 +1039,36 @@
                                                     </dd>
                                                 </div>
                                                 <!--  -->
+                                                <!--  -->
                                                 {{ end }}
                                             </dl>
+                                            {{ if not $.HasAnyTeam }}
+                                            <!-- This panel only lists teams you already have, and it is
+                                                 where a new student lands, so when there is nothing at
+                                                 all give them the way forward rather than a list of
+                                                 nothing. Registration itself lives in each event's
+                                                 panel, so these buttons go there. Outside the loop
+                                                 above, so it appears once rather than per event. -->
+                                            <div class="mt-6 border-t border-white/10 pt-6">
+                                                <p class="text-sm leading-6 text-bone-200">
+                                                    <span class="font-semibold text-bone-50">No team yet</span>
+                                                    &mdash; pick an event to register, then you can upload your
+                                                    abstract.
+                                                </p>
+                                                <ul class="mt-3 flex flex-wrap gap-2">
+                                                    {{ range $.EventsInfo }}
+                                                    <li>
+                                                        <button
+                                                            type="button"
+                                                            class="btn-sm-ghost"
+                                                            onclick="setEventActive('{{ .Tag }}')"
+                                                            >Register for {{ .Name }}</button
+                                                        >
+                                                    </li>
+                                                    {{ end }}
+                                                </ul>
+                                            </div>
+                                            {{ end }}
                                         </div>
                                     </div>
                                     <div id="abstract-details" class="hidden motion-safe:animate-panel-in">
@@ -1083,14 +1111,26 @@
                                         </section>
                                         {{ end }}
                                         {{ if not .HasAnyTeam }}
-                                        <!-- Nothing below is usable without a team, so say that
-                                             plainly instead of showing an empty dropdown. -->
+                                        <!-- The registration form lives inside each event's panel,
+                                             not in the Teams panel, so point at the events rather
+                                             than at a panel that only lists what you already have. -->
                                         <p class="mt-6 rounded-2xl border border-white/10 bg-void-900/60 px-5 py-4 text-sm leading-6 text-bone-200">
                                             <span class="font-semibold text-bone-50">Register your team first</span>
-                                            &mdash; then you can upload your abstract here. Use the
-                                            <button type="button" class="font-semibold text-sling-300" onclick="setEventActive('teams')">Teams</button>
-                                            section to register for an event.
+                                            &mdash; then you can upload your abstract here. Choose your event
+                                            to register:
                                         </p>
+                                        <ul class="mt-3 flex flex-wrap gap-2">
+                                            {{ range .EventsInfo }}
+                                            <li>
+                                                <button
+                                                    type="button"
+                                                    class="btn-sm-ghost"
+                                                    onclick="setEventActive('{{ .Tag }}')"
+                                                    >Register for {{ .Name }}</button
+                                                >
+                                            </li>
+                                            {{ end }}
+                                        </ul>
                                         {{ end }}
                                         {{ if .Abstracts }}
                                         <section aria-labelledby="your-abstracts" class="mt-6 border-t border-white/10 pt-6">
