@@ -250,7 +250,7 @@
                             <div class="md:sticky md:top-6 md:w-56 md:flex-shrink-0 md:self-start md:border-r md:border-white/10 md:pr-6">
                                 <!-- SideBar -->
                                 <div class="h-full w-full">
-                                    {{ if or (not .IsMentor) .Projects }}
+                                    {{ if .Projects }}
                                     <ul class="mb-2 flex flex-wrap gap-2 font-medium md:block">
                                         <li>
                                             <a

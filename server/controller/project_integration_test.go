@@ -203,10 +203,10 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	if !strings.Contains(mentorPage.Body.String(), web.GithubURL) || strings.Contains(mentorPage.Body.String(), "https://github.com/acme/droid") {
 		t.Fatal("mentor page did not respect allotment")
 	}
-	logicalOwnerPage := request("GET", "/api/auth/dashboard", 3, "", false)
+	logicalOwnerPage := request("GET", "/api/auth/dashboard", 7, "", false)
 	assertStatus(logicalOwnerPage, 200)
-	if strings.Contains(logicalOwnerPage.Body.String(), `value="logical" data-team-id="301"`) {
-		t.Fatal("Logical Rhythm appeared in the member final-project form")
+	if strings.Contains(logicalOwnerPage.Body.String(), `id="project"`) || strings.Contains(logicalOwnerPage.Body.String(), `id="project-form"`) {
+		t.Fatal("Logical-Rhythm-only member was offered final project submission")
 	}
 	ranking := request("GET", "/api/v1/cs/ranking?event=webster", 0, "", false)
 	assertStatus(ranking, 200)
