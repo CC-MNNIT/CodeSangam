@@ -35,6 +35,13 @@ const (
 // refuse an abstract upload for it: that event has no abstract round.
 const LogicalTable = logicalTable
 
+// ProjectSubmissionEvent reports whether an event accepts final project links.
+// Logical Rhythm is a separate ML/competitive event and has no repository +
+// demo-video submission in this flow.
+func ProjectSubmissionEvent(event Event) bool {
+	return event == droidTable || event == websterTable || event == softTable
+}
+
 var events = []Event{
 	droidTable,
 	websterTable,

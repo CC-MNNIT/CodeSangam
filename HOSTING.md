@@ -216,8 +216,10 @@ different session signing key.
 
 ## Final project submissions
 
-The dashboard's **Final submission** panel collects a GitHub repository URL and
-a Google Drive **video file** URL. Both are required; team members may update
+The dashboard's **Final submission** panel applies only to **DroidRush, Webster
+and Softablitz**. Logical Rhythm is excluded at the dashboard, member/admin write
+handlers and CSV export. The panel collects a GitHub repository URL and a Google
+Drive **video file** URL. Both are required; team members may update
 them at any time after registration and abstracts close. The request identifies
 the event; the server derives the team's ID from the signed-in user's membership.
 It never trusts a browser-supplied team ID for a member submission.

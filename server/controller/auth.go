@@ -98,7 +98,9 @@ func UserDashboard(c echo.Context) error {
 	}
 	projects := []projectRow{}
 	projectSubmitted := 0
-	for i, team := range teams {
+	// Final project links apply only to DroidRush, Webster and Softablitz.
+	// Logical Rhythm must not appear even when the signed-in person has a team.
+	for i, team := range teams[:3] {
 		if team == nil {
 			continue
 		}
@@ -134,6 +136,11 @@ func UserDashboard(c echo.Context) error {
 						continue
 					}
 					_, team.AbstractOnDisk = utils.AbstractPath(team.TeamId, mentorEvent.EventTag)
+					if event, eventErr := dao.ToEvent(mentorEvent.EventTag); eventErr == nil && !dao.ProjectSubmissionEvent(event) {
+						team.GithubURL = ""
+						team.VideoURL = ""
+						team.LinksUpdatedAt = time.Time{}
+					}
 				}
 			}
 		}

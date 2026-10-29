@@ -277,6 +277,9 @@ func getEventTeam(tx *gorm.DB, event Event, teamId int) (*models.Team, error) {
 // Validation happens in the controller; this only checks the team really is
 // registered for the event before writing.
 func SetProjectLinksForTeam(event Event, teamId int, githubURL string, videoURL string) (*models.Project, error) {
+	if !ProjectSubmissionEvent(event) {
+		return nil, errors.New("final project links are not collected for this event")
+	}
 	if _, err := getEventTeam(config.Db, event, teamId); err != nil {
 		return nil, err
 	}

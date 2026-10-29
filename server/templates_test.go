@@ -22,7 +22,7 @@ func TestServerTemplates(t *testing.T) {
 	}{
 		{"dashboard.html", map[string]interface{}{
 			"BaseUrl": "/codesangam", "UserInfo": &models.User{Name: "Demo Leader"},
-			"Teams":      []*models.DashboardTeam{nil, team, nil, nil},
+			"Teams":      []*models.DashboardTeam{nil, team, nil, &models.DashboardTeam{TeamId: 301, Name: "Logical only"}},
 			"EventsInfo": models.GetEventsInfo([]bool{false, true, false, false}, []bool{false, false, false, false}),
 			"HasAnyTeam": true, "DeadlinePassed": true,
 			"Projects": []struct {
@@ -49,6 +49,9 @@ func TestServerTemplates(t *testing.T) {
 				}
 				if !strings.Contains(output.String(), `action="/codesangam/api/v1/cs/project"`) {
 					t.Fatal("subdirectory hosting prefix was lost")
+				}
+				if strings.Contains(output.String(), `value="logical" data-team-id="301"`) {
+					t.Fatal("Logical Rhythm appeared in the final project form")
 				}
 			}
 		})

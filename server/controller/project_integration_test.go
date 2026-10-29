@@ -146,6 +146,8 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	assertStatus(request("POST", "/api/v1/cs/project", 6, payload, true), 400)
 	assertStatus(request("POST", "/api/v1/cs/project", 1, `{"event":"webster","github_url":"github.com/acme/web"}`, true), 400)
 	assertStatus(request("POST", "/api/v1/cs/project", 1, strings.Repeat("x", 4100), true), 413)
+	logical := `{"event":"logical","github_url":"github.com/acme/logical","video_url":"` + video + `"}`
+	assertStatus(request("POST", "/api/v1/cs/project", 3, logical, true), 400)
 	var count int64
 	db.Table("project").Count(&count)
 	if count != 0 {
@@ -181,6 +183,7 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	assertStatus(request("POST", "/api/admin/team/project", 2, droid, true), 403)
 	assertStatus(request("POST", "/api/admin/team/project", 5, droid, false), 400)
 	assertStatus(request("POST", "/api/admin/team/project", 5, droid, true), 200)
+	assertStatus(request("POST", "/api/admin/team/project", 5, `{"event":"logical","team_id":301,"github_url":"github.com/acme/logical","video_url":"`+video+`"}`, true), 400)
 	assertStatus(request("POST", "/api/admin/team/project", 5, strings.Replace(droid, `"team_id":201`, `"team_id":101`, 1), true), 400)
 	db.Table("project").Count(&count)
 	if count != 2 {
@@ -200,6 +203,11 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	if !strings.Contains(mentorPage.Body.String(), web.GithubURL) || strings.Contains(mentorPage.Body.String(), "https://github.com/acme/droid") {
 		t.Fatal("mentor page did not respect allotment")
 	}
+	logicalOwnerPage := request("GET", "/api/auth/dashboard", 3, "", false)
+	assertStatus(logicalOwnerPage, 200)
+	if strings.Contains(logicalOwnerPage.Body.String(), `value="logical" data-team-id="301"`) {
+		t.Fatal("Logical Rhythm appeared in the member final-project form")
+	}
 	ranking := request("GET", "/api/v1/cs/ranking?event=webster", 0, "", false)
 	assertStatus(ranking, 200)
 	if strings.Contains(ranking.Body.String(), "https://github.com/acme/") || strings.Contains(ranking.Body.String(), "drive.google.com") {
@@ -217,6 +225,12 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	if !strings.HasPrefix(rows[1][1], "'=") || rows[1][4] != "" || rows[2][4] != web.GithubURL {
 		t.Fatalf("CSV did not preserve blanks, escape formulas, and join by id: %v", rows)
 	}
+	allExport := request("GET", "/api/v1/cs/project/links.csv", 5, "", false)
+	assertStatus(allExport, 200)
+	if strings.Contains(allExport.Body.String(), "logical") || strings.Contains(allExport.Body.String(), "Demo Logical Team") {
+		t.Fatal("all-events final-link CSV included Logical Rhythm")
+	}
+	assertStatus(request("GET", "/api/v1/cs/project/links.csv?event=logical", 5, "", false), 400)
 	assertStatus(request("GET", "/api/v1/cs/project/links.csv?event=unknown", 5, "", false), 400)
 	// Revoking a registration must not leave its final links orphaned. This
 	// only operates on synthetic fixture rows inside the rollback transaction.

@@ -41,7 +41,7 @@ func SubmitProjectLinks(c echo.Context) error {
 		return utils.BadRequestError(c, "We couldn't read those links. Reload the form and try again.", nil)
 	}
 	event, err := dao.ToEvent(strings.TrimSpace(dto.Event))
-	if err != nil {
+	if err != nil || !dao.ProjectSubmissionEvent(event) {
 		return utils.BadRequestError(c, "Please choose one of your registered teams.", nil)
 	}
 	team, err := dao.GetTeam(event, *userId)
@@ -94,8 +94,8 @@ func AdminSetProjectLinks(c echo.Context) error {
 		return utils.BadRequestError(c, "Choose a registered team and provide both links.", nil)
 	}
 	event, err := dao.ToEvent(strings.TrimSpace(dto.Event))
-	if err != nil {
-		return utils.BadRequestError(c, "Choose a valid event.", nil)
+	if err != nil || !dao.ProjectSubmissionEvent(event) {
+		return utils.BadRequestError(c, "Final project links are accepted only for DroidRush, Webster and Softablitz.", nil)
 	}
 	github, video, err := utils.NormaliseProjectLinks(dto.GithubURL, dto.VideoURL)
 	if err != nil {
@@ -123,7 +123,8 @@ func AdminSetProjectLinks(c echo.Context) error {
 func ProjectLinksCSV(c echo.Context) error {
 	only := strings.TrimSpace(c.QueryParam("event"))
 	if only != "" {
-		if _, err := dao.ToEvent(only); err != nil {
+		event, err := dao.ToEvent(only)
+		if err != nil || !dao.ProjectSubmissionEvent(event) {
 			return utils.BadRequestError(c, "Choose a valid event.", nil)
 		}
 	}
@@ -149,6 +150,10 @@ func ProjectLinksCSV(c echo.Context) error {
 		return err
 	}
 	for _, team := range overview.Teams {
+		event, eventErr := dao.ToEvent(team.EventTag)
+		if eventErr != nil || !dao.ProjectSubmissionEvent(event) {
+			continue
+		}
 		if only != "" && team.EventTag != only {
 			continue
 		}
