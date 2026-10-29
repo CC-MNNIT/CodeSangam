@@ -5,3 +5,6 @@
 # Negated here so the root deploy.sh is tracked while anything deeper still
 # relies on a per-directory ignore of the same name.
 !deploy.sh
+
+# Local visual QA evidence, not public assets.
+.impeccable/review/

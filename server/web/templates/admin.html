@@ -132,6 +132,7 @@
                         title="Download every uploaded abstract as a zip, one folder per event">Download abstracts (.zip)</a
                     >
                     {{ end }}
+                    <a class="btn-sm-ghost" href="{{ .BaseUrl }}/api/v1/cs/project/links.csv">Download final links (.csv)</a>
                 </div>
 
                 <div class="mt-6 grid grid-cols-[minmax(0,1fr)] gap-4">
@@ -198,6 +199,36 @@
                             </li>
                             {{ end }}
                         </ul>
+
+                        <div class="border-t border-white/[0.07] px-5 py-4 sm:px-6">
+                            <div class="flex flex-wrap items-center gap-2">
+                                {{ if and .GithubURL .VideoURL }}
+                                <span class="pill-ok">Final links saved</span>
+                                <span class="text-xs text-bone-300">{{ .ProjectUpdated }}</span>
+                                <a class="btn-sm-ghost" href="{{ .GithubURL }}" target="_blank" rel="noopener noreferrer" aria-label="Open repository for {{ .Name }}">GitHub repo</a>
+                                <a class="btn-sm-ghost" href="{{ .VideoURL }}" target="_blank" rel="noopener noreferrer" aria-label="Watch demo for {{ .Name }}">Demo video</a>
+                                {{ else }}
+                                <p class="text-sm text-bone-300">Final project links not submitted.</p>
+                                {{ end }}
+                            </div>
+                            <details class="mt-3">
+                                <summary class="focus-ring cursor-pointer text-sm font-semibold text-sling-200">{{ if .GithubURL }}Edit final links{{ else }}Add final links for this team{{ end }}</summary>
+                                <form data-project-form action="{{ $.BaseUrl }}/api/admin/team/project" method="post" class="mt-4 space-y-4">
+                                    <p class="text-sm leading-6 text-bone-300">Both links are required. This updates the team's shared submission and is recorded in the admin audit log.</p>
+                                    <div class="grid gap-4 lg:grid-cols-2">
+                                        <div>
+                                            <label for="github-{{ .EventTag }}-{{ .TeamId }}" class="mb-2 block text-sm font-semibold text-bone-100">GitHub repository</label>
+                                            <input id="github-{{ .EventTag }}-{{ .TeamId }}" name="github_url" value="{{ .GithubURL }}" type="text" inputmode="url" autocapitalize="none" spellcheck="false" maxlength="500" required class="field" placeholder="https://github.com/owner/project" />
+                                        </div>
+                                        <div>
+                                            <label for="video-{{ .EventTag }}-{{ .TeamId }}" class="mb-2 block text-sm font-semibold text-bone-100">Google Drive video file</label>
+                                            <input id="video-{{ .EventTag }}-{{ .TeamId }}" name="video_url" value="{{ .VideoURL }}" type="text" inputmode="url" autocapitalize="none" spellcheck="false" maxlength="500" required class="field" placeholder="https://drive.google.com/file/d/…/view" />
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-sm">Save both links</button>
+                                </form>
+                            </details>
+                        </div>
 
                         <div class="border-t border-white/[0.07] px-5 py-4 sm:px-6">
                             {{ if .Full }}

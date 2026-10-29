@@ -348,6 +348,189 @@ function onEventTeamOption() {
     }
 }
 
+// ------------------------------------------------------------ final project links
+// Drafts live per event while the page is open, so changing the team selection
+// does not discard links someone has just pasted.
+const projectDrafts = new Map();
+let activeProjectTag = "";
+
+function clearProjectFieldError(name) {
+    const form = document.getElementById("project-form");
+    if (!form) return;
+    const field = form.elements.namedItem(name);
+    if (field) field.removeAttribute("aria-invalid");
+    const errorId = name === "github_url" ? "project-github-error" : "project-video-error";
+    const error = document.getElementById(errorId);
+    if (error) {
+        error.textContent = "";
+        error.classList.add("hidden");
+    }
+}
+
+function projectFeedback(message, isError) {
+    const feedback = document.getElementById("project-feedback");
+    if (!feedback) return;
+    feedback.textContent = message;
+    feedback.classList.remove("hidden", "text-scarlet-300", "text-agamotto-300");
+    feedback.classList.add(isError ? "text-scarlet-300" : "text-agamotto-300");
+}
+
+function projectTime(timestamp) {
+    return new Intl.DateTimeFormat("en-IN", {
+        day: "numeric", month: "short", year: "numeric",
+        hour: "numeric", minute: "2-digit", timeZone: "Asia/Kolkata",
+    }).format(new Date(timestamp)) + " IST";
+}
+
+function updateProjectSaveNote() {
+    const select = document.getElementById("project-event");
+    if (!select || !select.selectedOptions.length) return;
+    const option = select.selectedOptions[0];
+    const github = document.getElementById("project-github").value.trim();
+    const video = document.getElementById("project-video").value.trim();
+    const changed = github !== option.dataset.githubUrl || video !== option.dataset.videoUrl;
+    const note = document.getElementById("project-saved-note");
+    note.textContent = changed
+        ? "You have unsaved changes. Save both links together."
+        : option.dataset.updatedAt
+            ? "Saved " + projectTime(option.dataset.updatedAt) + ". You can edit these links."
+            : "Both links are saved together. You can edit them later.";
+    note.classList.toggle("text-sling-200", changed);
+    note.classList.toggle("text-bone-300", !changed);
+}
+
+function onProjectTeamOption() {
+    const select = document.getElementById("project-event");
+    if (!select || !select.selectedOptions.length) return;
+    const github = document.getElementById("project-github");
+    const video = document.getElementById("project-video");
+    if (activeProjectTag) {
+        projectDrafts.set(activeProjectTag, { github: github.value, video: video.value });
+    }
+    const option = select.selectedOptions[0];
+    activeProjectTag = option.value;
+    const draft = projectDrafts.get(activeProjectTag);
+    github.value = draft ? draft.github : option.dataset.githubUrl || "";
+    video.value = draft ? draft.video : option.dataset.videoUrl || "";
+    document.getElementById("project-submit-text").textContent = option.dataset.updatedAt ? "Save changes" : "Save links";
+    document.getElementById("project-feedback").classList.add("hidden");
+    document.getElementById("project-sign-in").classList.add("hidden");
+    clearProjectFieldError("github_url");
+    clearProjectFieldError("video_url");
+    updateProjectSaveNote();
+}
+
+function pickProjectTeam(tag) {
+    const select = document.getElementById("project-event");
+    if (tag && select) {
+        select.value = tag;
+        onProjectTeamOption();
+    }
+    setEventActive("project");
+    window.history.replaceState(null, "", window.location.pathname + window.location.search + "#project");
+    if (tag) {
+        const form = document.getElementById("project-form");
+        if (form) form.scrollIntoView({ block: "start", behavior: "auto" });
+        const github = document.getElementById("project-github");
+        if (github) github.focus({ preventScroll: true });
+    }
+}
+
+async function submitProjectForm(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (requestStarted || !form.reportValidity()) return;
+    const select = document.getElementById("project-event");
+    const option = select.selectedOptions[0];
+    if (!option) return;
+    const github = document.getElementById("project-github");
+    const video = document.getElementById("project-video");
+    const fields = document.getElementById("project-fields");
+    const label = document.getElementById("project-submit-text");
+    clearProjectFieldError("github_url");
+    clearProjectFieldError("video_url");
+    document.getElementById("project-sign-in").classList.add("hidden");
+    requestStarted = true;
+    fields.disabled = true;
+    form.setAttribute("aria-busy", "true");
+    label.textContent = "Saving…";
+    try {
+        const res = await fetch(form.action, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: { "Content-Type": "application/json", "X-CS-Project": "1" },
+            body: JSON.stringify({ event: option.value, github_url: github.value.trim(), video_url: video.value.trim() }),
+        });
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+        if (!res.ok) {
+            const message = res.status === 401
+                ? "Your session has expired. Sign in again in a new tab, then retry. Your links are still here."
+                : res.status === 413
+                    ? "These links are too long. Paste only the repository and Drive file addresses."
+                    : friendlyMessage(res.status, data);
+            projectFeedback(message, true);
+            if (res.status === 401) document.getElementById("project-sign-in").classList.remove("hidden");
+            if (data.field === "github_url" || data.field === "video_url") {
+                const field = data.field === "github_url" ? github : video;
+                const error = document.getElementById(data.field === "github_url" ? "project-github-error" : "project-video-error");
+                field.setAttribute("aria-invalid", "true");
+                error.textContent = message;
+                error.classList.remove("hidden");
+                projectFeedback("No changes were saved. Check the highlighted link.", true);
+                // Restore the controls before focusing the field that needs work.
+                fields.disabled = false;
+                field.focus();
+            }
+            return;
+        }
+        const saved = data.project;
+        if (!saved || saved.team_id !== Number(option.dataset.teamId) || !saved.github_url || !saved.video_url || !saved.updated_at) {
+            throw new Error("The server did not confirm this team's saved links.");
+        }
+        option.dataset.githubUrl = saved.github_url;
+        option.dataset.videoUrl = saved.video_url;
+        option.dataset.updatedAt = saved.updated_at;
+        github.value = saved.github_url;
+        video.value = saved.video_url;
+        projectDrafts.set(option.value, { github: saved.github_url, video: saved.video_url });
+        const row = Array.from(document.querySelectorAll("[data-project-row]")).find((el) => el.dataset.projectRow === option.value);
+        if (row) {
+            const status = row.querySelector("[data-project-status]");
+            status.textContent = "Submitted · " + projectTime(saved.updated_at);
+            status.classList.replace("text-sling-200", "text-agamotto-300");
+            row.querySelector("[data-project-repo]").href = saved.github_url;
+            row.querySelector("[data-project-video]").href = saved.video_url;
+            row.querySelector("[data-project-links]").classList.remove("hidden");
+            row.querySelector("[data-project-edit]").textContent = "Edit links";
+        }
+        const submitted = Array.from(select.options).filter((o) => o.dataset.githubUrl && o.dataset.videoUrl).length;
+        document.getElementById("project-count").textContent = submitted + " of " + select.options.length + " submitted";
+        projectFeedback("Both links are saved for " + option.dataset.teamName + ". Check that evaluators can open the repository and video.", false);
+    } catch (_) {
+        projectFeedback(NETWORK_MSG + " Your links are still in the form.", true);
+    } finally {
+        requestStarted = false;
+        fields.disabled = false;
+        form.setAttribute("aria-busy", "false");
+        label.textContent = option.dataset.updatedAt ? "Save changes" : "Save links";
+        updateProjectSaveNote();
+    }
+}
+
+(function () {
+    const form = document.getElementById("project-form");
+    if (!form) return;
+    form.addEventListener("submit", submitProjectForm);
+    form.addEventListener("input", (event) => {
+        if (event.target.name === "github_url" || event.target.name === "video_url") {
+            clearProjectFieldError(event.target.name);
+            document.getElementById("project-feedback").classList.add("hidden");
+            updateProjectSaveNote();
+        }
+    });
+})();
+
 function allotTeamsForEvent(event, baseUrl) {
     toggleProgress(true);
     if (requestStarted) {

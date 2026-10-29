@@ -136,6 +136,12 @@
   .field {
     @apply w-full min-w-0 rounded-xl border-0 bg-void-950/70 px-3.5 py-2.5 text-[0.95rem] text-bone-50 ring-1 ring-white/15 placeholder:text-bone-400 transition-shadow duration-200 focus:outline-none focus:ring-2 focus:ring-sling-400;
   }
+  .field[aria-invalid="true"] {
+    @apply ring-2 ring-scarlet-400;
+  }
+  .field:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
   .field-search {
     @apply flex items-center gap-3 rounded-2xl bg-void-900/80 px-4 ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-sling-400;
   }

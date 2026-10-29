@@ -38,7 +38,7 @@
     }
 
     // ------------------------------------------------------------ API
-    async function call(path, body, button) {
+    async function call(path, body, button, form) {
         if (button) button.disabled = true;
         try {
             const res = await fetch(BASE + "/api/admin/" + path, {
@@ -57,6 +57,12 @@
                     return false;
                 }
                 toast(data.message || "Something went wrong (" + res.status + ")", "error");
+                if (form && (data.field === "github_url" || data.field === "video_url")) {
+                    const field = form.elements.namedItem(data.field);
+                    field.setAttribute("aria-invalid", "true");
+                    field.setCustomValidity(data.message);
+                    field.reportValidity();
+                }
                 return false;
             }
             toast(data.message || "Done");
@@ -225,7 +231,11 @@
         const val = (name) => form.elements.namedItem(name).value;
         const submit = form.querySelector("[type=submit]");
 
-        if (form.matches("[data-rename-form]")) {
+        if (form.matches("[data-project-form]")) {
+            e.preventDefault();
+            const t = teamOf(form);
+            call("team/project", { event: t.event, team_id: t.team_id, github_url: val("github_url"), video_url: val("video_url") }, submit, form);
+        } else if (form.matches("[data-rename-form]")) {
             e.preventDefault();
             const t = teamOf(form);
             call("team/rename", { event: t.event, team_id: t.team_id, name: val("name") }, submit);
@@ -240,6 +250,13 @@
         } else if (form.matches("[data-admin-form]")) {
             e.preventDefault();
             call("admins/add", { email: val("email") }, submit);
+        }
+    });
+    document.addEventListener("input", (e) => {
+        const field = e.target;
+        if (field.closest("[data-project-form]") && typeof field.setCustomValidity === "function") {
+            field.setCustomValidity("");
+            field.removeAttribute("aria-invalid");
         }
     });
 })();

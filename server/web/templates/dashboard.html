@@ -250,6 +250,22 @@
                             <div class="md:sticky md:top-6 md:w-56 md:flex-shrink-0 md:self-start md:border-r md:border-white/10 md:pr-6">
                                 <!-- SideBar -->
                                 <div class="h-full w-full">
+                                    {{ if or (not .IsMentor) .Projects }}
+                                    <ul class="mb-2 flex flex-wrap gap-2 font-medium md:block">
+                                        <li>
+                                            <a
+                                                href="#project"
+                                                id="project"
+                                                onclick="pickProjectTeam(); return false"
+                                                class="group relative flex items-center gap-3 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-bone-300 transition-colors duration-150 hover:bg-white/5 hover:text-bone-50 focus-ring md:w-full md:rounded-xl md:border-transparent md:px-3 md:py-2.5"
+                                            >
+                                                <span aria-hidden="true" class="absolute -right-0.5 -top-0.5 h-2 w-2 shrink-0 scale-0 rounded-full bg-sling-400 transition-transform duration-300 group-[.is-active]:scale-100 md:static md:h-1.5 md:w-1.5"></span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 shrink-0 text-bone-300 group-hover:text-sling-300 group-[.is-active]:text-sling-300"><path d="M10 13a5 5 0 0 0 7 .5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7-.5l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg>
+                                                <span>Final submission</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    {{ end }}
                                     {{ if .IsMentor }}
                                     <div>
                                         <ul class="flex flex-wrap gap-2 font-medium md:block md:space-y-1">
@@ -579,6 +595,12 @@
                                                                 rel="noopener"
                                                                 >View abstract</a
                                                             >
+                                                            {{ end }}
+                                                            {{ if and $team.GithubURL $team.VideoURL }}
+                                                            <a class="btn-sm-ghost" href="{{ $team.GithubURL }}" target="_blank" rel="noopener noreferrer" aria-label="Open repository for {{ $team.Name }}">GitHub repo</a>
+                                                            <a class="btn-sm-ghost" href="{{ $team.VideoURL }}" target="_blank" rel="noopener noreferrer" aria-label="Watch demo for {{ $team.Name }}">Demo video</a>
+                                                            {{ else }}
+                                                            <span class="ml-2 text-xs text-bone-300">No final links yet</span>
                                                             {{ end }}
                                                             <!--  -->
                                                             {{ else }} No team registered yet {{ end }}
@@ -1328,6 +1350,75 @@
                                     </div>
                                 </div>
                                 {{ end }}
+                                <section id="project-details" class="hidden" aria-labelledby="project-heading">
+                                    <h2 id="project-heading" class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">Final project submission</h2>
+                                    <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-200">Submit your completed project's GitHub repository and a short demo video on Google Drive. Both links are required.</p>
+                                    <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">Coding has ended. Link submissions stay open, and any team member can update your team's links.</p>
+                                    {{ if .Projects }}
+                                    <form id="project-form" action="{{ .BaseUrl }}/api/v1/cs/project" method="post" class="mt-6 max-w-3xl">
+                                        <fieldset id="project-fields" class="min-w-0 space-y-5">
+                                            <legend class="sr-only">Final project links</legend>
+                                            <div>
+                                                <label for="project-event" class="mb-2 block text-sm font-semibold text-bone-100">Team and event</label>
+                                                <select id="project-event" name="event" class="field" onchange="onProjectTeamOption()" required>
+                                                    {{ range .Projects }}
+                                                    <option value="{{ .Tag }}" data-team-id="{{ .TeamId }}" data-team-name="{{ .TeamName }}" data-github-url="{{ .GithubURL }}" data-video-url="{{ .VideoURL }}" data-updated-at="{{ .UpdatedISO }}">{{ .Name }} · {{ .TeamName }} · ID {{ .TeamId }}</option>
+                                                    {{ end }}
+                                                </select>
+                                                <p class="mt-2 text-sm text-bone-300">These links are shared by everyone in the selected team.</p>
+                                            </div>
+                                            <div>
+                                                <label for="project-github" class="mb-2 block text-sm font-semibold text-bone-100">GitHub repository <span class="font-normal text-bone-300">(required)</span></label>
+                                                <input id="project-github" name="github_url" type="text" inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false" maxlength="500" required class="field" placeholder="https://github.com/your-team/project" aria-describedby="project-github-help project-github-error" />
+                                                <p id="project-github-help" class="mt-2 text-sm leading-6 text-bone-300">Link to the repository, not a profile. Make sure evaluators have access.</p>
+                                                <p id="project-github-error" class="mt-2 hidden text-sm leading-6 text-scarlet-300"></p>
+                                            </div>
+                                            <div>
+                                                <label for="project-video" class="mb-2 block text-sm font-semibold text-bone-100">Google Drive demo video <span class="font-normal text-bone-300">(required)</span></label>
+                                                <input id="project-video" name="video_url" type="text" inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false" maxlength="500" required class="field" placeholder="https://drive.google.com/file/d/…/view" aria-describedby="project-video-help project-video-error" />
+                                                <p id="project-video-help" class="mt-2 text-sm leading-6 text-bone-300">Open the video in Drive → Share → General access → Anyone with the link → Viewer. Paste the file link, not a folder or YouTube link.</p>
+                                                <p id="project-video-error" class="mt-2 hidden text-sm leading-6 text-scarlet-300"></p>
+                                            </div>
+                                            <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
+                                                <button id="project-submit" type="submit" class="glyph group">
+                                                    <span aria-hidden="true" class="glyph-spark"></span>
+                                                    <span class="glyph-face"><span id="project-submit-text">Save links</span></span>
+                                                </button>
+                                                <span id="project-saved-note" class="text-sm leading-6 text-bone-300">Both links are saved together. You can edit them later.</span>
+                                            </div>
+                                        </fieldset>
+                                        <p id="project-feedback" role="status" aria-live="polite" class="mt-4 hidden text-sm leading-6"></p>
+                                        <a id="project-sign-in" href="{{ .BaseUrl }}/api/auth" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost mt-3 hidden">Sign in again in a new tab</a>
+                                    </form>
+                                    <section class="mt-8 max-w-3xl" aria-labelledby="project-submissions-heading">
+                                        <div class="flex flex-wrap items-baseline justify-between gap-2">
+                                            <h3 id="project-submissions-heading" class="text-base font-semibold text-bone-50">Your submissions</h3>
+                                            <span id="project-count" class="text-sm tabular-nums text-bone-300">{{ .ProjectSubmitted }} of {{ len .Projects }} submitted</span>
+                                        </div>
+                                        <ul class="mt-3 divide-y divide-white/10 border-t border-white/10">
+                                            {{ range .Projects }}
+                                            <li class="flex flex-wrap items-start justify-between gap-3 py-4" data-project-row="{{ .Tag }}">
+                                                <div class="min-w-0 flex-1">
+                                                    <p class="break-words text-sm font-semibold text-bone-100">{{ .TeamName }} <span class="font-normal text-bone-300">· {{ .Name }} · ID {{ .TeamId }}</span></p>
+                                                    <p data-project-status class="mt-1 text-sm {{ if .Submitted }}text-agamotto-300{{ else }}text-sling-200{{ end }}">{{ if .Submitted }}Submitted · {{ .UpdatedAt }}{{ else }}Not submitted{{ end }}</p>
+                                                    <div data-project-links class="mt-2 flex flex-wrap gap-2{{ if not .Submitted }} hidden{{ end }}">
+                                                        <a data-project-repo href="{{ .GithubURL }}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" aria-label="Open repository for {{ .TeamName }}">Open repository</a>
+                                                        <a data-project-video href="{{ .VideoURL }}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" aria-label="Watch demo for {{ .TeamName }}">Watch demo</a>
+                                                    </div>
+                                                </div>
+                                                <button type="button" data-project-edit class="btn-sm-ghost" onclick="pickProjectTeam('{{ .Tag }}')">{{ if .Submitted }}Edit links{{ else }}Add links{{ end }}</button>
+                                            </li>
+                                            {{ end }}
+                                        </ul>
+                                    </section>
+                                    {{ else }}
+                                    <div class="mt-6 border-t border-white/10 pt-5">
+                                        <p class="text-sm font-semibold text-bone-100">No registered team found</p>
+                                        <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">Sign in with a team member's registered Google account. If your team is missing, contact the organizers; this form does not create a new registration.</p>
+                                    </div>
+                                    {{ end }}
+                                    <noscript><p class="mt-4 text-sm leading-6 text-sling-200">Enable JavaScript to save and update project links.</p></noscript>
+                                </section>
                             </div>
                         </div>
                         <form class="mt-8 flex border-t border-white/10 pt-6 sm:justify-end" action="{{ .BaseUrl }}/api/auth/logout">
@@ -1367,6 +1458,10 @@
             setEventActive('teams')
             onEventTeamOption()
             {{ end }}
+            onProjectTeamOption()
+            if (window.location.hash === '#project' && document.getElementById('project')) {
+                setEventActive('project')
+            }
         </script>
     </body>
 </html>
