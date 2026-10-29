@@ -17,6 +17,18 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type projectRow struct {
+	Tag        string
+	Name       string
+	TeamId     int
+	TeamName   string
+	GithubURL  string
+	VideoURL   string
+	UpdatedAt  string
+	UpdatedISO string
+	Submitted  bool
+}
+
 // UserDashboard
 //
 // @Summary Get user profile
@@ -84,6 +96,27 @@ func UserDashboard(c echo.Context) error {
 		}
 		abstracts = append(abstracts, row)
 	}
+	projects := []projectRow{}
+	projectSubmitted := 0
+	for i, team := range teams {
+		if team == nil {
+			continue
+		}
+		row := projectRow{
+			Tag: eventsInfo[i].Tag, Name: eventsInfo[i].Name,
+			TeamId: team.TeamId, TeamName: team.Name,
+			GithubURL: team.GithubURL, VideoURL: team.VideoURL,
+			Submitted: team.GithubURL != "" && team.VideoURL != "",
+		}
+		if !team.LinksUpdatedAt.IsZero() {
+			row.UpdatedAt = team.LinksUpdatedAt.In(ist).Format("2 Jan 2006, 3:04 PM") + " IST"
+			row.UpdatedISO = team.LinksUpdatedAt.Format(time.RFC3339)
+		}
+		if row.Submitted {
+			projectSubmitted++
+		}
+		projects = append(projects, row)
+	}
 
 	mentor := dao.CheckMentor(user.User.UserId)
 	var mentorTeams *[]models.MentorTeam
@@ -144,6 +177,8 @@ func UserDashboard(c echo.Context) error {
 		"MentorTeams":          mentorTeams,
 		"IsAdmin":              dao.IsAdmin(user.User.Email),
 		"Abstracts":            abstracts,
+		"Projects":             projects,
+		"ProjectSubmitted":     projectSubmitted,
 		"RegistrationDeadline": deadline,
 		"DeadlinePassed":       deadlinePassed,
 		"DeadlineLabel":        deadlineLabel,

@@ -36,6 +36,15 @@ type Abstract struct {
 	TeamId int `gorm:"primary_key;column:team_id" json:"team_id"`
 }
 
+// Project is a team's final submission: the repository they built and a short
+// demo video. One row per team; resubmitting replaces the links in place.
+type Project struct {
+	TeamId    int       `gorm:"primaryKey;autoIncrement:false;column:team_id" json:"team_id"`
+	GithubURL string    `gorm:"column:github_url;size:500;not null" json:"github_url"`
+	VideoURL  string    `gorm:"column:video_url;size:500;not null" json:"video_url"`
+	UpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`
+}
+
 type Mentor struct {
 	RegNo  string `gorm:"primary_key;column:registration_no" json:"reg_no"`
 	Email  string `gorm:"uniqueIndex;column:email" json:"email"`

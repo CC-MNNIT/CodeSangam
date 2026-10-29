@@ -16,6 +16,7 @@ func AdminRouter(baseRouter *echo.Group) {
 
 	g := baseRouter.Group("/admin", middleware.AdminAPIMiddleware())
 	g.POST("/team/rename", controller.AdminRenameTeam)
+	g.POST("/team/project", controller.AdminSetProjectLinks)
 	g.POST("/team/member/add", controller.AdminAddMember)
 	g.POST("/team/member/remove", controller.AdminRemoveMember)
 	g.POST("/team/revoke", controller.AdminRevokeTeam)

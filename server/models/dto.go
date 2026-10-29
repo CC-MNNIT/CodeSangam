@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type UserDto struct {
 	RegNo  string `json:"reg_no"`
 	Name   string `json:"name"`
@@ -38,6 +40,11 @@ type DashboardTeam struct {
 	// written on upload, while the file can be gone. Filled in by the
 	// controller, because the filesystem lives in utils and utils imports dao.
 	AbstractOnDisk bool `json:"abstract_on_disk"`
+	// Final submission links. Both are empty until the team submits, and are
+	// replaced together, so a half-filled row never reaches a template.
+	GithubURL      string    `json:"github_url"`
+	VideoURL       string    `json:"video_url"`
+	LinksUpdatedAt time.Time `json:"links_updated_at"`
 }
 
 type MentorDto struct {
@@ -52,6 +59,19 @@ type RegisterTeamDto struct {
 	Event           string   `json:"event"`
 	TeamName        string   `json:"team_name"`
 	MemberRegNoList []string `json:"member_reg_list"`
+}
+
+// The team id is deliberately absent: the server resolves the user's own
+// registered team from their session and the selected event.
+type ProjectLinksDto struct {
+	Event     string `json:"event"`
+	GithubURL string `json:"github_url"`
+	VideoURL  string `json:"video_url"`
+}
+
+type ProjectLinksResponse struct {
+	Message string   `json:"message"`
+	Project *Project `json:"project"`
 }
 
 type MentorTeam struct {

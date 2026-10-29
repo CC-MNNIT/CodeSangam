@@ -67,6 +67,11 @@ func AdminPage(c echo.Context) error {
 		return utils.InternalError(c, "Unable to load admin data", &err)
 	}
 	attachAbstractVersions(overview.Teams)
+	for i := range overview.Teams {
+		if at := overview.Teams[i].ProjectUpdatedAt; !at.IsZero() {
+			overview.Teams[i].ProjectUpdated = at.In(ist).Format("2 Jan 2006, 3:04 PM") + " IST"
+		}
+	}
 	admins, err := dao.ListAdmins()
 	if err != nil {
 		return utils.InternalError(c, "Unable to load admins", &err)

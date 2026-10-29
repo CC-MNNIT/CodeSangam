@@ -136,10 +136,15 @@ type AdminTeam struct {
 	// never produce a dead link. AbstractLabel is the same moment, already
 	// formatted for display. Both are filled in by the controller, because dao
 	// cannot import utils (utils imports dao) and the file path lives there.
-	AbstractVersion int64
-	AbstractLabel   string
-	HasMentor       bool
-	Full            bool
+	AbstractVersion  int64
+	AbstractLabel    string
+	HasMentor        bool
+	Full             bool
+	GithubURL        string
+	VideoURL         string
+	ProjectUpdatedAt time.Time
+	// Formatted in IST by the controller, like AbstractLabel.
+	ProjectUpdated string
 }
 
 type AdminUser struct {
@@ -190,6 +195,10 @@ func GetAdminOverview() (*AdminOverview, error) {
 			mentored[id] = true
 		}
 	}
+	projects, err := AllProjectLinks()
+	if err != nil {
+		return nil, err
+	}
 
 	overview := &AdminOverview{}
 	userEvents := map[int][]string{}
@@ -227,6 +236,11 @@ func GetAdminOverview() (*AdminOverview, error) {
 				userEvents[u.UserId] = append(userEvents[u.UserId], name)
 			}
 			row.Full = t.MemberId1 > 0 && t.MemberId2 > 0
+			if project, ok := projects[t.TeamId]; ok {
+				row.GithubURL = project.GithubURL
+				row.VideoURL = project.VideoURL
+				row.ProjectUpdatedAt = project.UpdatedAt
+			}
 			overview.Teams = append(overview.Teams, row)
 		}
 	}
@@ -256,6 +270,17 @@ func getEventTeam(tx *gorm.DB, event Event, teamId int) (*models.Team, error) {
 		return nil, errors.New("team not found")
 	}
 	return &team, nil
+}
+
+// SetProjectLinksForTeam lets an admin store a team's final submission when
+// the links arrive out of band (WhatsApp, email) instead of through the form.
+// Validation happens in the controller; this only checks the team really is
+// registered for the event before writing.
+func SetProjectLinksForTeam(event Event, teamId int, githubURL string, videoURL string) (*models.Project, error) {
+	if _, err := getEventTeam(config.Db, event, teamId); err != nil {
+		return nil, err
+	}
+	return SaveProjectLinks(teamId, githubURL, videoURL)
 }
 
 func RenameTeam(event Event, teamId int, name string) error {
@@ -340,7 +365,7 @@ func RemoveTeamMember(event Event, teamId int, userId int) error {
 }
 
 // RevokeTeam deletes a team's registration for an event together with its
-// abstract record and mentor allotment.
+// abstract record, final project links and mentor allotment.
 func RevokeTeam(event Event, teamId int) error {
 	return config.Db.Transaction(func(tx *gorm.DB) error {
 		if _, err := getEventTeam(tx, event, teamId); err != nil {
@@ -353,6 +378,7 @@ func RevokeTeam(event Event, teamId int) error {
 			{event, "team_id"},
 			{allotmentTable, "team_id"},
 			{abstractTable, "team_id"},
+			{projectTable, "team_id"},
 			{teamTable, "id"},
 		}
 		for _, s := range steps {

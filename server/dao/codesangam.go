@@ -6,10 +6,12 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 )
 
 type Event string
@@ -21,6 +23,7 @@ const (
 	mentorTable    Event = "mentor"
 	allotmentTable Event = "allotment"
 	abstractTable  Event = "abstract"
+	projectTable   Event = "project"
 
 	droidTable   Event = "droidrush"
 	softTable    Event = "softablitz"
@@ -139,6 +142,11 @@ func GetUserInfo(id int) (*models.DashboardUserDto, error) {
 		dashboardTeam, err := GetDashboardTeam(event, id)
 		if err != nil {
 			return nil, err
+		}
+		if dashboardTeam != nil {
+			if err := attachProjectLinks(dashboardTeam); err != nil {
+				return nil, err
+			}
 		}
 		switch i {
 		case 0:
@@ -476,6 +484,77 @@ func AddAbstractForTeam(teamId int) error {
 	return nil
 }
 
+// ---------------------------------------------------------------- projects
+
+// EnsureProjects creates the project table if it is missing. Safe to run on
+// every start, like EnsureAdmins.
+func EnsureProjects() error {
+	return config.Db.Table(projectTable.String()).AutoMigrate(&models.Project{})
+}
+
+// SaveProjectLinks stores a team's final submission, replacing whatever was
+// there before. One row per team, keyed on team_id.
+func SaveProjectLinks(teamId int, githubURL string, videoURL string) (*models.Project, error) {
+	project := models.Project{
+		TeamId:    teamId,
+		GithubURL: githubURL,
+		VideoURL:  videoURL,
+		UpdatedAt: time.Now(),
+	}
+	err := config.Db.Table(projectTable.String()).Clauses(clause.OnConflict{
+		Columns:   []clause.Column{{Name: "team_id"}},
+		DoUpdates: clause.AssignmentColumns([]string{"github_url", "video_url", "updated_at"}),
+	}).Create(&project).Error
+	if err != nil {
+		return nil, err
+	}
+	return &project, nil
+}
+
+// GetProjectLinks returns a team's submission, or nil when they have not sent
+// one yet. "Not found" is not an error: most teams have not submitted.
+func GetProjectLinks(teamId int) (*models.Project, error) {
+	var project models.Project
+	result := config.Db.Table(projectTable.String()).Where("team_id = ?", teamId).Limit(1).Find(&project)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return nil, nil
+	}
+	return &project, nil
+}
+
+// AllProjectLinks returns every submission keyed by team id, for the admin
+// overview and the CSV export. Read failures must not look like missing links.
+func AllProjectLinks() (map[int]models.Project, error) {
+	var rows []models.Project
+	if err := config.Db.Table(projectTable.String()).Find(&rows).Error; err != nil {
+		return nil, err
+	}
+	byTeam := make(map[int]models.Project, len(rows))
+	for _, row := range rows {
+		byTeam[row.TeamId] = row
+	}
+	return byTeam, nil
+}
+
+// Only call this from team-scoped reads (the user's own teams or their mentor
+// allotment). Rankings reuse DashboardTeam and must never include project links.
+func attachProjectLinks(team *models.DashboardTeam) error {
+	project, err := GetProjectLinks(team.TeamId)
+	if err != nil {
+		return err
+	}
+	if project == nil {
+		return nil
+	}
+	team.GithubURL = project.GithubURL
+	team.VideoURL = project.VideoURL
+	team.LinksUpdatedAt = project.UpdatedAt
+	return nil
+}
+
 func CheckMentor(userId int) *models.Mentor {
 	user, err := GetUser(userId)
 	if err != nil {
@@ -553,6 +632,9 @@ func GetTeamsForMentorEvent(userId int, mentorEvent string) (*models.MentorTeam,
 	for _, team := range teams {
 		dashboardTeam, err := GetDashboardTeamForTeam(&team)
 		if err != nil {
+			return nil, err
+		}
+		if err := attachProjectLinks(dashboardTeam); err != nil {
 			return nil, err
 		}
 		mentorTeam.Teams = append(mentorTeam.Teams, dashboardTeam)

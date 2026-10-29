@@ -11,8 +11,10 @@ import (
 
 // Env is a struct that contains all the environment variables.
 type Env struct {
-	BaseUrl              string
-	Port                 string
+	BaseUrl string
+	Port    string
+	// Empty in production; staging can bind only to a Tailnet or loopback IP.
+	ListenHost           string
 	RegistrationDeadline int64
 	// Development period, shown to participants and mentors. 0 means "not
 	// configured" and hides the line entirely; nothing enforces it, it is
@@ -47,10 +49,10 @@ func parseTimestamp(key string) int64 {
 	return i
 }
 
-// init
-//
-// This function initializes the environment variables, database and OAuth client.
-func init() {
+// Init initializes the running server, not every package that imports config.
+// Keeping startup explicit lets validators and template tests run without
+// loading production secrets or opening a database connection.
+func Init() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Error loading .env file")
@@ -58,8 +60,9 @@ func init() {
 	}
 
 	EnvVars = &Env{
-		BaseUrl: os.Getenv("BASE_URL"),
-		Port:    os.Getenv("PORT"),
+		BaseUrl:    os.Getenv("BASE_URL"),
+		Port:       os.Getenv("PORT"),
+		ListenHost: os.Getenv("LISTEN_HOST"),
 		RegistrationDeadline: func() int64 {
 			v := os.Getenv("REGISTRATION_DEADLINE")
 			i, er := strconv.ParseInt(v, 10, 64)

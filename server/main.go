@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net"
 
 	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
@@ -22,8 +23,12 @@ import (
 // @tokenUrl /api/auth/callback
 // @scope openid
 func main() {
+	config.Init()
 	if err := dao.EnsureAdmins(); err != nil {
 		log.Fatalln("Unable to prepare the admin table: " + err.Error())
+	}
+	if err := dao.EnsureProjects(); err != nil {
+		log.Fatalln("Unable to prepare the project table: " + err.Error())
 	}
 
 	baseUrl := config.EnvVars.BaseUrl + "/api"
@@ -51,7 +56,7 @@ func main() {
 
 	MergeRouters(baseRouter, routers.Index, routers.ContriHub, routers.CodeSangam)
 
-	router.Logger.Fatal(router.Start(":" + config.EnvVars.Port))
+	router.Logger.Fatal(router.Start(net.JoinHostPort(config.EnvVars.ListenHost, config.EnvVars.Port)))
 }
 
 func MergeRouters(baseRouter *echo.Group, routers ...func(*echo.Group)) {
