@@ -1406,7 +1406,7 @@
                                                         <a data-project-video href="{{ .VideoURL }}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" aria-label="Watch demo for {{ .TeamName }}">Watch demo</a>
                                                     </div>
                                                 </div>
-                                                <button type="button" data-project-edit class="btn-sm-ghost" onclick="pickProjectTeam('{{ .Tag }}')">{{ if .Submitted }}Edit links{{ else }}Add links{{ end }}</button>
+                                                <button type="button" data-project-edit class="btn-sm-ghost disabled:cursor-not-allowed disabled:opacity-60" onclick="pickProjectTeam('{{ .Tag }}')">{{ if .Submitted }}Edit links{{ else }}Add links{{ end }}</button>
                                             </li>
                                             {{ end }}
                                         </ul>

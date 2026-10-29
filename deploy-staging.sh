@@ -58,7 +58,7 @@ echo "Building an isolated staging release..."
         if ! command -v swag >/dev/null 2>&1; then
             go install github.com/swaggo/swag/cmd/swag@v1.16.2
         fi
-        swag init && go test ./... && go vet ./... && go build -o "$BUILD_OUTPUT" .
+        swag init && node --test web/tests/*.test.cjs && go test ./... && go vet ./... && go build -o "$BUILD_OUTPUT" .
     '
 )
 MYSQLD="$(cd "$ROOT" && nix-shell shell.nix --run 'command -v mysqld')"

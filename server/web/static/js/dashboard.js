@@ -400,6 +400,7 @@ function updateProjectSaveNote() {
 }
 
 function onProjectTeamOption() {
+    if (requestStarted) return;
     const select = document.getElementById("project-event");
     if (!select || !select.selectedOptions.length) return;
     const github = document.getElementById("project-github");
@@ -421,6 +422,9 @@ function onProjectTeamOption() {
 }
 
 function pickProjectTeam(tag) {
+    // Row actions live outside the form's fieldset. They must obey the same
+    // lock as the native select, including keyboard/programmatic activation.
+    if (requestStarted) return;
     const select = document.getElementById("project-event");
     if (tag && select) {
         select.value = tag;
@@ -447,11 +451,18 @@ async function submitProjectForm(event) {
     const video = document.getElementById("project-video");
     const fields = document.getElementById("project-fields");
     const label = document.getElementById("project-submit-text");
+    const rowButtons = Array.from(document.querySelectorAll("[data-project-edit]"));
+    const navigation = document.getElementById("project");
     clearProjectFieldError("github_url");
     clearProjectFieldError("video_url");
     document.getElementById("project-sign-in").classList.add("hidden");
     requestStarted = true;
     fields.disabled = true;
+    rowButtons.forEach((button) => { button.disabled = true; });
+    if (navigation) {
+        navigation.setAttribute("aria-disabled", "true");
+        navigation.classList.add("opacity-60");
+    }
     form.setAttribute("aria-busy", "true");
     label.textContent = "Saving…";
     try {
@@ -491,8 +502,12 @@ async function submitProjectForm(event) {
         option.dataset.githubUrl = saved.github_url;
         option.dataset.videoUrl = saved.video_url;
         option.dataset.updatedAt = saved.updated_at;
-        github.value = saved.github_url;
-        video.value = saved.video_url;
+        // A response belongs to the captured team, never another form that
+        // might have been selected by an external script while it was pending.
+        if (select.value === option.value) {
+            github.value = saved.github_url;
+            video.value = saved.video_url;
+        }
         projectDrafts.set(option.value, { github: saved.github_url, video: saved.video_url });
         const row = Array.from(document.querySelectorAll("[data-project-row]")).find((el) => el.dataset.projectRow === option.value);
         if (row) {
@@ -512,8 +527,14 @@ async function submitProjectForm(event) {
     } finally {
         requestStarted = false;
         fields.disabled = false;
+        rowButtons.forEach((button) => { button.disabled = false; });
+        if (navigation) {
+            navigation.removeAttribute("aria-disabled");
+            navigation.classList.remove("opacity-60");
+        }
         form.setAttribute("aria-busy", "false");
-        label.textContent = option.dataset.updatedAt ? "Save changes" : "Save links";
+        const currentOption = select.selectedOptions[0];
+        label.textContent = currentOption && currentOption.dataset.updatedAt ? "Save changes" : "Save links";
         updateProjectSaveNote();
     }
 }

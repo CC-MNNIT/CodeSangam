@@ -249,6 +249,7 @@ before testing, as the main package imports the generated Swagger package.
 
 ```bash
 nix-shell shell.nix --run 'cd server && go test ./... && go vet ./...'
+nix-shell shell.nix --run 'node --test server/web/tests/*.test.cjs'
 ```
 
 Database-backed integration tests require an explicitly disposable database whose
