@@ -1,8 +1,10 @@
 # Running and hosting CodeSangam
 
 React (CRA) client + Go (Echo) backend + MySQL. The live site is at
-**https://codesangam.cc-club.in/**, with a Tailnet-only staging copy on
-**http://sac-server.tail312b97.ts.net:8081/**.
+**https://codesangam.cc-club.in/**. The older Tailnet preview at
+**http://sac-server.tail312b97.ts.net:8081/** shares the live backend and database;
+it is **not** an isolated staging environment. Use `deploy-staging.sh` below for
+changes that need testing before going live.
 
 ## Local development
 
@@ -47,13 +49,51 @@ the Go API from `BASE_URL`, and the server-rendered templates use
 
 ## What lives on the server (not in git)
 
+### Isolated final-submission staging
+
+Run the preview from a **separate clone**, not the live clone:
+
+```bash
+mkdir -p ~/staging
+git clone --branch feat/final-project-links https://github.com/CC-MNNIT/CodeSangam.git ~/staging/CodeSangam-final-source
+bash ~/staging/CodeSangam-final-source/deploy-staging.sh
+```
+
+`deploy-staging.sh` builds the Go server and runs two user services:
+`codesangam-project-staging` and `codesangam-project-staging-db`. It stores releases
+and a private, socket-only MySQL instance under
+`~/staging/codesangam-project-links`, using `codesangam_test_preview` and
+`codesangam_test_contri`. It seeds **synthetic teams only** and generates a new
+session signing key. No production files, databases, nginx config, or services
+are changed. Later staging deployments preserve submissions in this private DB.
+
+The preview serves the server-rendered dashboard/admin pages and API on the
+server's Tailnet IP, port **18084**. Google OAuth does not accept a plain HTTP
+Tailnet callback, so use the already-registered localhost callback through SSH:
+
+```bash
+ssh -N -L 8004:100.64.163.38:18084 sac@sac-server.tail312b97.ts.net
+# Open http://localhost:8004/api/auth in your browser.
+```
+
+The preview copies only the OAuth client ID/secret from the live `.env`;
+its redirect URL, database connections, and session key are independent.
+Shanu's account is a member of a synthetic team for previewing the form.
+To stop staging without deleting its data:
+
+```bash
+systemctl --user stop codesangam-project-staging codesangam-project-staging-db
+```
+
+### Production paths
+
 | Path | Purpose |
 | --- | --- |
 | `~/repos/cc_club_mnnit/CodeSangam` | clone, built in place |
 | `client/.env`, `server/.env` | machine config + secrets, gitignored |
 | `/var/www/codesangam.tailnet/html` | nginx web root the client build is copied into |
 | `/etc/nginx/sites-available/codesangam.cc-club.in` | live vhost; Certbot rewrote it in place to add TLS, so edit the live file and keep this repo copy in sync |
-| `/etc/nginx/sites-available/codesangam.tailnet` | Tailnet staging vhost on :8081 |
+| `/etc/nginx/sites-available/codesangam.tailnet` | Legacy Tailnet preview on :8081, sharing the production backend |
 | `/etc/systemd/system/codesangam-backend.service` | runs the Go binary, `After=mysql.service` |
 | `/etc/sudoers.d/codesangam-deploy` | passwordless sudo for the sync helper, the restart and the nginx reload/test only |
 | `mysql` databases `codesangam`, `contrihub` | event data, ContriHUB stub |
@@ -170,7 +210,55 @@ One OAuth client serves every environment. Redirect URIs to register:
 Authorised JavaScript origin: `https://codesangam.cc-club.in`. A redirect URI
 must match `REDIRECT_URL` in `server/.env` exactly. Google's callback only
 accepts `https` (or `localhost`), so sign-in cannot be exercised over plain
-HTTP on the Tailnet staging host — use the production domain to test the flow.
+HTTP on the Tailnet host. The isolated preview uses the localhost callback through
+SSH as described above; do not redirect its callback to production, which uses a
+different session signing key.
+
+## Final project submissions
+
+The dashboard's **Final submission** panel collects a GitHub repository URL and
+a Google Drive **video file** URL. Both are required; team members may update
+them at any time after registration and abstracts close. The request identifies
+the event; the server derives the team's ID from the signed-in user's membership.
+It never trusts a browser-supplied team ID for a member submission.
+
+`project` is created by `EnsureProjects` at startup. It stores one row per team:
+`team_id` (primary key), `github_url`, `video_url`, `updated_at`. Both links are
+upserted together. Registration records, marks and abstract files are unchanged.
+Collecting links does not change end-eval eligibility: the corrected mid-eval
+attendance workbooks remain the source for that list.
+
+- `POST /api/v1/cs/project`: team members only; JSON and `X-CS-Project: 1` required.
+- `POST /api/admin/team/project`: admins may record both links on behalf of a team,
+  using the existing `X-CS-Admin: 1` guard and admin audit log.
+- `GET /api/v1/cs/project/links.csv[?event=webster]`: admin-only CSV. Includes
+  registered teams without links, preserving empty cells for missing submissions.
+  Columns are `team_id,team_name,event,leader,github_url,video_url,updated_at`;
+  timestamps are UTC, and user-chosen names are escaped against spreadsheet formulas.
+
+Members see their own teams, mentors see allotted teams, and admins see all.
+Public ranking responses do not include saved project URLs. Link formats are
+validated and normalized; the server does **not** fetch the repository/video,
+check Drive sharing permissions, measure video duration, or freeze GitHub commits.
+Teams must make sure evaluators can open their submitted links.
+
+Unit, URL-validation and template tests do not load `.env` or connect to a DB:
+
+On a fresh clone, generate `server/docs` with `swag init` (or run `make build`)
+before testing, as the main package imports the generated Swagger package.
+
+```bash
+nix-shell shell.nix --run 'cd server && go test ./... && go vet ./...'
+```
+
+Database-backed integration tests require an explicitly disposable database whose
+name starts with `codesangam_test_`. They seed synthetic fixtures inside a rolled-back
+transaction and refuse any production database name:
+
+```bash
+export CODESANGAM_TEST_DB_URL='root@unix(/path/to/private/mysql.sock)/codesangam_test_projects?parseTime=True&loc=Local'
+nix-shell shell.nix --run 'cd server && go test ./... -count=1'
+```
 
 ## Registration numbers
 
