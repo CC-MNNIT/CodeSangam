@@ -93,8 +93,16 @@ func projectIntegrationDB(t *testing.T) *gorm.DB {
 	return tx
 }
 
-func TestProjectSubmissionIntegration(t *testing.T) {
-	db := projectIntegrationDB(t)
+// projectTester is the shared router and signed-in request helper for the
+// final-link integration tests, so the closed-form case and the open-form case
+// exercise exactly the same routes and middleware.
+type projectTester struct {
+	t *testing.T
+	e *echo.Echo
+}
+
+func newProjectTester(t *testing.T) *projectTester {
+	t.Helper()
 	e := echo.New()
 	e.Use(session.Middleware(config.SessionCookieStore))
 	tpl, err := template.ParseGlob("../web/templates/*.html")
@@ -107,38 +115,47 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	e.GET("/api/v1/cs/project/links.csv", ProjectLinksCSV, csMiddleware.AdminDownloadMiddleware())
 	e.GET("/api/auth/dashboard", UserDashboard)
 	e.GET("/api/v1/cs/ranking", GetEventRanking)
-	request := func(method, path string, userID int, body string, csrf bool) *httptest.ResponseRecorder {
-		t.Helper()
-		req := httptest.NewRequest(method, path, strings.NewReader(body))
-		if method == http.MethodPost {
-			req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-			if csrf {
-				req.Header.Set(csMiddleware.ProjectHeader, "1")
-				req.Header.Set(csMiddleware.AdminHeader, "1")
-			}
-		}
-		if userID != 0 {
-			sess := sessions.NewSession(config.SessionCookieStore, "session")
-			sess.Values[utils.UserSessionKey] = userID
-			sess.Options = &sessions.Options{Path: "/", MaxAge: 3600, HttpOnly: true}
-			cookieRec := httptest.NewRecorder()
-			if err := sess.Save(req, cookieRec); err != nil {
-				t.Fatal(err)
-			}
-			for _, cookie := range cookieRec.Result().Cookies() {
-				req.AddCookie(cookie)
-			}
-		}
-		rec := httptest.NewRecorder()
-		e.ServeHTTP(rec, req)
-		return rec
-	}
-	assertStatus := func(rec *httptest.ResponseRecorder, want int) {
-		t.Helper()
-		if rec.Code != want {
-			t.Fatalf("got %d, want %d: %s", rec.Code, want, rec.Body.String())
+	return &projectTester{t: t, e: e}
+}
+
+func (p *projectTester) request(method, path string, userID int, body string, csrf bool) *httptest.ResponseRecorder {
+	p.t.Helper()
+	req := httptest.NewRequest(method, path, strings.NewReader(body))
+	if method == http.MethodPost {
+		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		if csrf {
+			req.Header.Set(csMiddleware.ProjectHeader, "1")
+			req.Header.Set(csMiddleware.AdminHeader, "1")
 		}
 	}
+	if userID != 0 {
+		sess := sessions.NewSession(config.SessionCookieStore, "session")
+		sess.Values[utils.UserSessionKey] = userID
+		sess.Options = &sessions.Options{Path: "/", MaxAge: 3600, HttpOnly: true}
+		cookieRec := httptest.NewRecorder()
+		if err := sess.Save(req, cookieRec); err != nil {
+			p.t.Fatal(err)
+		}
+		for _, cookie := range cookieRec.Result().Cookies() {
+			req.AddCookie(cookie)
+		}
+	}
+	rec := httptest.NewRecorder()
+	p.e.ServeHTTP(rec, req)
+	return rec
+}
+
+func (p *projectTester) assertStatus(rec *httptest.ResponseRecorder, want int) {
+	p.t.Helper()
+	if rec.Code != want {
+		p.t.Fatalf("got %d, want %d: %s", rec.Code, want, rec.Body.String())
+	}
+}
+
+func TestProjectSubmissionIntegration(t *testing.T) {
+	db := projectIntegrationDB(t)
+	tester := newProjectTester(t)
+	request, assertStatus := tester.request, tester.assertStatus
 	video := "https://drive.google.com/file/d/1DEMO_VideoId_1234567890/view"
 	payload := `{"event":"webster","github_url":"github.com/acme/web","video_url":"` + video + `"}`
 	assertStatus(request("POST", "/api/v1/cs/project", 0, payload, true), 401)
@@ -245,5 +262,66 @@ func TestProjectSubmissionIntegration(t *testing.T) {
 	droidAfter, err := dao.GetProjectLinks(201)
 	if err != nil || droidAfter == nil {
 		t.Fatal("revoking one team changed another team's links")
+	}
+}
+
+// Once PROJECT_SUBMISSION_CLOSED is set a member can no longer write links,
+// while organizers keep their editing tools and the export. The switch is
+// configuration, so flipping it back must reopen the form without a deploy.
+func TestProjectSubmissionClosedIntegration(t *testing.T) {
+	db := projectIntegrationDB(t)
+	tester := newProjectTester(t)
+	request, assertStatus := tester.request, tester.assertStatus
+	config.EnvVars.ProjectSubmissionClosed = true
+
+	video := "https://drive.google.com/file/d/1DEMO_VideoId_1234567890/view"
+	payload := `{"event":"webster","github_url":"github.com/acme/web","video_url":"` + video + `"}`
+	// An anonymous request still reads as a missing session, so the closed
+	// state is not advertised to signed-out visitors.
+	assertStatus(request("POST", "/api/v1/cs/project", 0, payload, true), 401)
+	assertStatus(request("POST", "/api/v1/cs/project", 1, payload, true), 403)
+	closed := request("POST", "/api/v1/cs/project", 2, payload, true)
+	assertStatus(closed, 403)
+	if !strings.Contains(closed.Body.String(), "Final submissions are closed") {
+		t.Fatalf("closed write did not explain itself: %s", closed.Body.String())
+	}
+	// Even a payload that would fail validation is refused as closed, before
+	// the body is read.
+	assertStatus(request("POST", "/api/v1/cs/project", 1, `{"event":"webster"}`, true), 403)
+	var count int64
+	db.Table("project").Count(&count)
+	if count != 0 {
+		t.Fatalf("a closed form still stored %d submission(s)", count)
+	}
+
+	// Organizers keep editing on a team's behalf and keep the export.
+	admin := `{"event":"webster","team_id":101,"github_url":"github.com/acme/web","video_url":"` + video + `"}`
+	assertStatus(request("POST", "/api/admin/team/project", 5, admin, true), 200)
+	assertStatus(request("GET", "/api/v1/cs/project/links.csv", 5, "", false), 200)
+
+	// The dashboard keeps the tab, hides the form and leaves the link readable.
+	page := request("GET", "/api/auth/dashboard", 1, "", false)
+	assertStatus(page, 200)
+	body := page.Body.String()
+	if !strings.Contains(body, "Submissions are closed") {
+		t.Fatal("closed dashboard does not explain why the form is gone")
+	}
+	if !strings.Contains(body, "https://github.com/acme/web") || !strings.Contains(body, "Open repository") {
+		t.Fatal("closed dashboard hid a saved link the team cannot restore")
+	}
+	if !strings.Contains(body, `id="project-form"`) || !strings.Contains(body, `class="mt-6 max-w-3xl hidden"`) {
+		t.Fatal("closed dashboard must render the form hidden, not remove it")
+	}
+	if strings.Contains(body, `data-project-edit`) {
+		t.Fatal("closed dashboard still offers Add/Edit links")
+	}
+
+	// Reopening is a config change: the same member can update immediately.
+	config.EnvVars.ProjectSubmissionClosed = false
+	update := `{"event":"webster","github_url":"github.com/acme/web-v2","video_url":"` + video + `"}`
+	assertStatus(request("POST", "/api/v1/cs/project", 1, update, true), 200)
+	saved, err := dao.GetProjectLinks(101)
+	if err != nil || saved == nil || saved.GithubURL != "https://github.com/acme/web-v2" {
+		t.Fatalf("reopening did not let the member edit: %v %v", saved, err)
 	}
 }

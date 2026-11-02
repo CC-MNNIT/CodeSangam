@@ -220,7 +220,8 @@ The dashboard's **Final submission** panel applies only to **DroidRush, Webster
 and Softablitz**. Logical Rhythm is excluded at the dashboard, member/admin write
 handlers and CSV export. The panel collects a GitHub repository URL and a Google
 Drive **video file** URL. Both are required; team members may update
-them at any time after registration and abstracts close. The request identifies
+them at any time after registration and abstracts close — until
+`PROJECT_SUBMISSION_CLOSED` is set (see below). The request identifies
 the event; the server derives the team's ID from the signed-in user's membership.
 It never trusts a browser-supplied team ID for a member submission.
 
@@ -243,6 +244,24 @@ Public ranking responses do not include saved project URLs. Link formats are
 validated and normalized; the server does **not** fetch the repository/video,
 check Drive sharing permissions, measure video duration, or freeze GitHub commits.
 Teams must make sure evaluators can open their submitted links.
+
+### Closing student submission
+
+Set `PROJECT_SUBMISSION_CLOSED=true` in `server/.env` and run
+`sudo systemctl restart codesangam-backend` (or `deploy.sh`). No rebuild and no
+code change are needed, and flipping it back reopens the form the same way.
+
+While it is set:
+
+- `POST /api/v1/cs/project` answers `403` with *"Final submissions are closed"* —
+  checked after the session check, so anonymous callers still get `401`.
+- The dashboard keeps the **Final submission** tab: saved links stay visible and
+  clickable, the form is rendered hidden, and the Add/Edit buttons are not
+  rendered. Unsubmitted teams only see the closed notice.
+- `POST /api/admin/team/project` and the CSV export are **unaffected**: organizers
+  can still correct a link a team sent directly, and the audit log still records it.
+
+Anything other than a real boolean is logged at startup and treated as open.
 
 Unit, URL-validation and template tests do not load `.env` or connect to a DB:
 

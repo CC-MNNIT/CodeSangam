@@ -12,6 +12,7 @@ import (
 	"time"
 	"unicode"
 
+	config "github.com/CC-MNNIT/CodeSangam/server/config"
 	"github.com/CC-MNNIT/CodeSangam/server/dao"
 	"github.com/CC-MNNIT/CodeSangam/server/models"
 	"github.com/CC-MNNIT/CodeSangam/server/utils"
@@ -19,7 +20,8 @@ import (
 )
 
 // SubmitProjectLinks stores the signed-in member's own team's final links.
-// Registration and abstract deadlines deliberately do not apply here.
+// Registration and abstract deadlines deliberately do not apply here; the
+// separate PROJECT_SUBMISSION_CLOSED switch is what closes this form.
 //
 // @Summary Submit or update final project links
 // @Tags CodeSangam
@@ -30,11 +32,18 @@ import (
 // @Success 200 {object} models.ProjectLinksResponse
 // @Failure 400 {string} string "Check the event and both links"
 // @Failure 401 {string} string "Sign in first"
+// @Failure 403 {string} string "Final submission is closed"
 // @Router /v1/cs/project [post]
 func SubmitProjectLinks(c echo.Context) error {
 	userId, err := getSessionUserId(c)
 	if err != nil {
 		return utils.UnauthorizedError(c, "Your session has expired. Please sign in again.", nil)
+	}
+	// Checked after the session so an anonymous request still reads as a
+	// missing session, and before the body so a closed form never parses a
+	// submission that cannot be stored.
+	if config.EnvVars.ProjectSubmissionClosed {
+		return utils.ForbiddenError(c, "Final submissions are closed. Contact the organizers if a link needs changing.", nil)
 	}
 	var dto models.ProjectLinksDto
 	if err := c.Bind(&dto); err != nil {

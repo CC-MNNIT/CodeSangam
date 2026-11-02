@@ -1352,10 +1352,14 @@
                                 {{ end }}
                                 <section id="project-details" class="hidden" aria-labelledby="project-heading">
                                     <h2 id="project-heading" class="font-display text-xl font-semibold tracking-[0.08em] text-bone-50 sm:text-2xl">Final project submission</h2>
+                                    {{ if .ProjectSubmissionClosed }}
+                                    <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-200">Submissions are closed. Contact the organizers if a link needs changing.</p>
+                                    {{ else }}
                                     <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-200">Submit your completed project's GitHub repository and a short demo video on Google Drive. Both links are required.</p>
                                     <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">Coding has ended. Link submissions stay open, and any team member can update your team's links.</p>
+                                    {{ end }}
                                     {{ if .Projects }}
-                                    <form id="project-form" action="{{ .BaseUrl }}/api/v1/cs/project" method="post" class="mt-6 max-w-3xl">
+                                    <form id="project-form" action="{{ .BaseUrl }}/api/v1/cs/project" method="post" class="mt-6 max-w-3xl{{ if .ProjectSubmissionClosed }} hidden{{ end }}">
                                         <fieldset id="project-fields" class="min-w-0 space-y-5">
                                             <legend class="sr-only">Final project links</legend>
                                             <div>
@@ -1406,7 +1410,9 @@
                                                         <a data-project-video href="{{ .VideoURL }}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" aria-label="Watch demo for {{ .TeamName }}">Watch demo</a>
                                                     </div>
                                                 </div>
+                                                {{ if not $.ProjectSubmissionClosed }}
                                                 <button type="button" data-project-edit class="btn-sm-ghost disabled:cursor-not-allowed disabled:opacity-60" onclick="pickProjectTeam('{{ .Tag }}')">{{ if .Submitted }}Edit links{{ else }}Add links{{ end }}</button>
+                                                {{ end }}
                                             </li>
                                             {{ end }}
                                         </ul>
@@ -1417,7 +1423,9 @@
                                         <p class="mt-2 max-w-2xl text-sm leading-6 text-bone-300">Sign in with a team member's registered Google account. If your team is missing, contact the organizers; this form does not create a new registration.</p>
                                     </div>
                                     {{ end }}
+                                    {{ if not .ProjectSubmissionClosed }}
                                     <noscript><p class="mt-4 text-sm leading-6 text-sling-200">Enable JavaScript to save and update project links.</p></noscript>
+                                    {{ end }}
                                 </section>
                             </div>
                         </div>

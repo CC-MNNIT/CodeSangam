@@ -12,6 +12,7 @@ function fixture() {
         return {
             add: (...names) => names.forEach(name => values.add(name)),
             remove: (...names) => names.forEach(name => values.delete(name)),
+            contains: name => values.has(name),
             toggle(name, force) { const next = force ?? !values.has(name); next ? values.add(name) : values.delete(name); },
             replace(oldName, newName) { if (!values.delete(oldName)) return false; values.add(newName); return true; },
         };
@@ -51,6 +52,7 @@ function fixture() {
         return { dataset: { projectRow: option.value }, querySelector: selector => children[selector] };
     });
     const buttons = rows.map(row => row.querySelector('[data-project-edit]'));
+    const fetchCalls = [];
     let release, reject;
     const pending = new Promise((resolve, rejectPromise) => { release = resolve; reject = rejectPromise; });
     context = vm.createContext({
@@ -60,14 +62,14 @@ function fixture() {
             body: { dataset: {} }, getElementById: id => ids[id], querySelector: () => null,
             querySelectorAll: selector => selector === '[data-project-edit]' ? buttons : rows,
         },
-        fetch: () => pending,
+        fetch: (...args) => { fetchCalls.push(args); return pending; },
     });
     const source = path.resolve(__dirname, '../static/js/dashboard.js');
     vm.runInContext(fs.readFileSync(source, 'utf8'), context, { filename: source });
     context.onProjectTeamOption();
     ids['project-github'].value = 'github.com/acme/web-new';
     const success = () => release({ ok: true, status: 200, json: async () => ({ project: { team_id: 101, github_url: 'https://github.com/acme/web-new', video_url: video, updated_at: '2026-10-30T12:00:00Z' } }) });
-    return { context, ids, select, rows, buttons, success, reject, submit: () => context.submitProjectForm({ preventDefault() {}, currentTarget: form }) };
+    return { context, ids, select, rows, buttons, fetchCalls, success, reject, submit: () => context.submitProjectForm({ preventDefault() {}, currentTarget: form }) };
 }
 
 test('a row action cannot switch registrations during a delayed save', async () => {
@@ -114,4 +116,16 @@ test('failed saves release every control and retain the pasted draft', async () 
     assert.equal(ui.ids.project.attributes.has('aria-disabled'), false);
     assert.equal(ui.ids['project-github'].value, 'github.com/acme/web-new');
     assert.match(ui.ids['project-feedback'].textContent, /Your links are still in the form/);
+});
+
+test('a closed submission form explains itself and never posts', async () => {
+    const ui = fixture();
+    // The dashboard renders #project-form hidden once PROJECT_SUBMISSION_CLOSED
+    // is set. Even if something re-enables it, no request may leave the page.
+    ui.ids['project-form'].classList.add('hidden');
+    await ui.submit();
+    assert.equal(ui.fetchCalls.length, 0);
+    assert.match(ui.ids['project-feedback'].textContent, /submissions are closed/i);
+    assert.equal(ui.ids['project-fields'].disabled, false);
+    assert.ok(ui.buttons.every(button => !button.disabled));
 });

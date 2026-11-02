@@ -20,8 +20,9 @@ func CodeSangam(baseRouter *echo.Group) {
 	g.POST("/abstract", controller.UploadAbstractSubmission, middleware.DeadlineMiddleware(), middleware.DrainBody())
 	g.GET("/abstract", controller.GetAbstractFile)
 
-	// This form stays open after registration/abstracts close. The team is
-	// derived from the session, not a team id supplied by the browser.
+	// This form stays open after registration/abstracts close, until
+	// PROJECT_SUBMISSION_CLOSED is set. The team is derived from the session,
+	// not a team id supplied by the browser.
 	g.POST("/project", controller.SubmitProjectLinks, middleware.ProjectRequestMiddleware(), echoMiddleware.BodyLimit("4K"))
 	g.GET("/project/links.csv", controller.ProjectLinksCSV, middleware.AdminDownloadMiddleware())
 

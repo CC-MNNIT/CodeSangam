@@ -175,23 +175,26 @@ func UserDashboard(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "dashboard.html", map[string]interface{}{
-		"UserInfo":             user.User,
-		"Teams":                teams,
-		"EventsInfo":           eventsInfo,
-		"BaseUrl":              config.EnvVars.BaseUrl,
-		"IsMentor":             mentor != nil,
-		"Mentor":               mentor,
-		"MentorTeams":          mentorTeams,
-		"IsAdmin":              dao.IsAdmin(user.User.Email),
-		"Abstracts":            abstracts,
-		"Projects":             projects,
-		"ProjectSubmitted":     projectSubmitted,
-		"RegistrationDeadline": deadline,
-		"DeadlinePassed":       deadlinePassed,
-		"DeadlineLabel":        deadlineLabel,
-		"DevelopmentLabel":     developmentLabel(),
-		"HasTemplates":         hasTemplates,
-		"HasAnyTeam":           hasAnyTeam,
+		"UserInfo":         user.User,
+		"Teams":            teams,
+		"EventsInfo":       eventsInfo,
+		"BaseUrl":          config.EnvVars.BaseUrl,
+		"IsMentor":         mentor != nil,
+		"Mentor":           mentor,
+		"MentorTeams":      mentorTeams,
+		"IsAdmin":          dao.IsAdmin(user.User.Email),
+		"Abstracts":        abstracts,
+		"Projects":         projects,
+		"ProjectSubmitted": projectSubmitted,
+		// The form is rendered hidden when this is set: the saved links stay
+		// readable, but there is nothing left to type into.
+		"ProjectSubmissionClosed": config.EnvVars.ProjectSubmissionClosed,
+		"RegistrationDeadline":    deadline,
+		"DeadlinePassed":          deadlinePassed,
+		"DeadlineLabel":           deadlineLabel,
+		"DevelopmentLabel":        developmentLabel(),
+		"HasTemplates":            hasTemplates,
+		"HasAnyTeam":              hasAnyTeam,
 	})
 }
 

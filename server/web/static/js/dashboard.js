@@ -443,6 +443,13 @@ function pickProjectTeam(tag) {
 async function submitProjectForm(event) {
     event.preventDefault();
     const form = event.currentTarget;
+    // The form is rendered hidden once organizers close submission. The server
+    // refuses the write as well; this keeps the request off the network and
+    // tells anyone who reaches the handler why nothing happened.
+    if (form.classList.contains("hidden")) {
+        projectFeedback("Final submissions are closed. Contact the organizers if a link needs changing.", true);
+        return;
+    }
     if (requestStarted || !form.reportValidity()) return;
     const select = document.getElementById("project-event");
     const option = select.selectedOptions[0];
@@ -517,7 +524,9 @@ async function submitProjectForm(event) {
             row.querySelector("[data-project-repo]").href = saved.github_url;
             row.querySelector("[data-project-video]").href = saved.video_url;
             row.querySelector("[data-project-links]").classList.remove("hidden");
-            row.querySelector("[data-project-edit]").textContent = "Edit links";
+            // The edit button is not rendered at all while submission is closed.
+            const editButton = row.querySelector("[data-project-edit]");
+            if (editButton) editButton.textContent = "Edit links";
         }
         const submitted = Array.from(select.options).filter((o) => o.dataset.githubUrl && o.dataset.videoUrl).length;
         document.getElementById("project-count").textContent = submitted + " of " + select.options.length + " submitted";

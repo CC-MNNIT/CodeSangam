@@ -22,11 +22,15 @@ type Env struct {
 	DevelopmentStart int64
 	DevelopmentEnd   int64
 	DeclareResult    bool
-	dbUrl            string
-	contriDbUrl      string
-	clientId         string
-	clientSecret     string
-	redirectUrl      string
+	// ProjectSubmissionClosed stops students writing final project links.
+	// Admins can still edit on a team's behalf, and already-saved links stay
+	// visible on the dashboard. False (the default) keeps the form open.
+	ProjectSubmissionClosed bool
+	dbUrl                   string
+	contriDbUrl             string
+	clientId                string
+	clientSecret            string
+	redirectUrl             string
 }
 
 var EnvVars *Env
@@ -85,6 +89,20 @@ func Init() {
 			}
 			return b
 		}(),
+		ProjectSubmissionClosed: func() bool {
+			v := os.Getenv("PROJECT_SUBMISSION_CLOSED")
+			b, er := strconv.ParseBool(v)
+			if er != nil {
+				// Anything other than a real true/false is treated as open,
+				// but say so: silently closing (or opening) on a typo is worse
+				// than a log line nobody reads.
+				if v != "" {
+					log.Printf("PROJECT_SUBMISSION_CLOSED=%q is not a boolean; final link submission stays open", v)
+				}
+				return false
+			}
+			return b
+		}(),
 		dbUrl:        os.Getenv("DB_URL"),
 		contriDbUrl:  os.Getenv("CONTRI_DB_URL"),
 		clientId:     os.Getenv("CLIENT_ID"),
@@ -92,6 +110,9 @@ func Init() {
 		redirectUrl:  os.Getenv("REDIRECT_URL"),
 	}
 	log.Println("Loaded .env")
+	if EnvVars.ProjectSubmissionClosed {
+		log.Println("PROJECT_SUBMISSION_CLOSED: students cannot submit or edit final project links")
+	}
 
 	connectDB()
 	setupOAuthClient()
